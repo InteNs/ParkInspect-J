@@ -54,6 +54,22 @@ namespace ParkInspect.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
+
+        public TestViewModel1 Test1
+        {
+            get
+            {
+                return Main.tvm1;
+            }
+        }
+
+        public TestViewModel2 Test2
+        {
+            get
+            {
+                return Main.tvm2;
+            }
+        }
         
         public static void Cleanup()
         {
