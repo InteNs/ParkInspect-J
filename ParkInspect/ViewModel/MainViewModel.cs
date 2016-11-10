@@ -1,3 +1,4 @@
+using Domain.Repositories;
 using GalaSoft.MvvmLight;
 
 namespace ParkInspect.ViewModel
@@ -19,7 +20,7 @@ namespace ParkInspect.ViewModel
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
-        public MainViewModel()
+        public MainViewModel(IBaseRepository baseRepository)
         {
             ////if (IsInDesignMode)
             ////{
