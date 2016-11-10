@@ -44,6 +44,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TestViewModel1>();
             SimpleIoc.Default.Register<TestViewModel2>();
+            SimpleIoc.Default.Register<EmployeesViewModel>();
         }
         //router
         public Router Router => ServiceLocator.Current.GetInstance<Router>();
@@ -51,7 +52,11 @@ namespace ParkInspect.ViewModel
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();
         public TestViewModel2 Test2 => ServiceLocator.Current.GetInstance<TestViewModel2>();
-    
+   	public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>(); 
+
+
+        public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(Employees.SelectedEmployee);
+        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(Employees)
 
         public static void Cleanup()
         {
