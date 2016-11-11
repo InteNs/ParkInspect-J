@@ -22,14 +22,14 @@ er wordt **een** branch en pull-request per milestone gemaakt
 
 er wordt **per taak** een commit gemaakt door de persoon die die taak heeft uitgevoerd
 
-de commit message bevat de tekst `closes #n` waar n het nummer van de issue is en een korte descriptie wat de inhoud is
+de commit message bevat de tekst `closes #n / omschrijving` waar n het nummer van de issue is (niet `#` vergeten)
 
 zodra de pull-request gemerged wordt, worden de issues automatisch geclosed
 
 ### bug fixes in de branch
 
-natuurlijk pas de commit maken als je echt denkt klaar te zijn met die issue
+natuurlijk pas de commit maken als je echt denkt klaar te zijn met die issue.
 
-er mogen natuurlijk bugfix commits bij de pull request toegevoegd worden, geef dat wel duidelijk aan
+er mogen bugfix commits bij de pull request toegevoegd worden, de commit message wordt dan `bug-fix/dit was het probleem`
 
 
