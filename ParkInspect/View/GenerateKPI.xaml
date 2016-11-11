@@ -37,7 +37,7 @@
                 <TextBlock Text="Per:" Grid.Row="4" Grid.Column="1" />
                 <ComboBox Grid.Row="5" Grid.Column="1" />
             </Grid>
-            <Button Content="Genereer"  Width="150" HorizontalAlignment="Left"/>
+            <Button Content="Genereer diagram"  Width="150" HorizontalAlignment="Left"/>
         </StackPanel>
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" HorizontalAlignment="Left" Height="370"  VerticalAlignment="Top" Width="5" />
         <GroupBox Header="Diagram" Height="200" Grid.Column="1" Margin="5,10,5,160"/>

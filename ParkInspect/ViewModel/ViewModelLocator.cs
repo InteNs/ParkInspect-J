@@ -52,6 +52,14 @@ namespace ParkInspect.ViewModel
                 return ServiceLocator.Current.GetInstance<MainViewModel>();
             }
         }
+
+        public KPIGenererenVM KPIGenereren
+        {
+            get
+            {
+                return new KPIGenererenVM();
+            }
+        }
         
         public static void Cleanup()
         {
