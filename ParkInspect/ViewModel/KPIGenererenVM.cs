@@ -13,6 +13,10 @@ namespace ParkInspect.ViewModel
         public ICommand GenerateDiagramCommand { get; set; }
         public ICommand NavigateBackCommand { get; set; }
 
+        public string Diagram { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+
         public KPIGenererenVM()
         {
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
