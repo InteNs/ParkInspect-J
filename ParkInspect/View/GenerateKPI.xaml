@@ -24,16 +24,22 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
-                <DatePicker />
-                <DatePicker Grid.Column="1"/>
-                <ComboBox Grid.Row="1"/>
-                <ComboBox Grid.Row="2"/>
-                <ComboBox Grid.Row="2" Grid.Column="1"/>
+                <TextBlock Text="Startdatum"/>
+                <DatePicker Grid.Row="1" />
+                <TextBlock Text="Einddatum" Grid.Column="1"/>
+                <DatePicker Grid.Row="1" Grid.Column="1"/>
+                <TextBlock Text="Soort diagram:" Grid.Row="2"/>
+                <ComboBox Grid.Row="3" />
+                <TextBlock Text="Aantal:" Grid.Row="4" />
+                <ComboBox Grid.Row="5" />
+                <TextBlock Text="Per:" Grid.Row="4" Grid.Column="1" />
+                <ComboBox Grid.Row="5" Grid.Column="1" />
             </Grid>
-            <DockPanel Height="100" LastChildFill="False"/>
+            <Button Content="Genereer"  Width="150" HorizontalAlignment="Left"/>
         </StackPanel>
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" HorizontalAlignment="Left" Height="370"  VerticalAlignment="Top" Width="5" />
-        <GroupBox Header="Diagram" Height="200" Grid.Column="1" Margin="0,10,0,159"/>
+        <GroupBox Header="Diagram" Height="200" Grid.Column="1" Margin="5,10,5,160"/>
     </Grid>
 </Window>
