@@ -86,7 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Repositories\DummyTestItemRepository.cs" />
+    <Compile Include="Repositories\ITestItemRepository.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\TestItemViewModel.cs" />
     <Compile Include="ViewModel\TestViewModel1.cs" />
     <Compile Include="ViewModel\TestViewModel2.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />

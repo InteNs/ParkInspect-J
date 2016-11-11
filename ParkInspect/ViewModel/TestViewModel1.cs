@@ -1,7 +1,9 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using ParkInspect.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,19 +13,16 @@ namespace ParkInspect.ViewModel
 {
     public class TestViewModel1 : ViewModelBase
     {
-
-        public ICommand ToggleScreenCommand { get; set; }
-        private MainViewModel mvm;
-        public TestViewModel1(MainViewModel mvm)
+        public MainViewModel mvm { get; set; }
+        private ITestItemRepository itir;
+        public TestViewModel1(MainViewModel mvm, ITestItemRepository itir)
         {
             this.mvm = mvm;
-            ToggleScreenCommand = new RelayCommand(ToggleScreen);
+            this.itir = itir;
+            ItemCollection = new ObservableCollection<TestItemViewModel>(itir.GetAll());
         }
 
-        public void ToggleScreen()
-        {
-            mvm.ToggleScreen();
-        }
+        public ObservableCollection<TestItemViewModel> ItemCollection { get; set; }
 
     }
 }

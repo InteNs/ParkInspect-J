@@ -7,6 +7,13 @@
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Test1, Source={StaticResource Locator}}">
     <Grid>
-        <Button Content="Button1" Command="{Binding ToggleScreenCommand}" HorizontalAlignment="Left" Height="69" Margin="0,84,0,0" VerticalAlignment="Top" Width="105"/>
+        <Button Content="Button1" Command="{Binding mvm.ToggleScreenCommand }" CommandParameter="{Binding mvm.tvm2}" HorizontalAlignment="Left" Height="69" Margin="0,84,0,0" VerticalAlignment="Top" Width="105"/>
+        <ListView x:Name="listViewItems" ItemsSource="{Binding ItemCollection}" Margin="118,32,65,47" BorderBrush="#FF979494">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}" Width="105"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

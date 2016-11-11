@@ -12,17 +12,11 @@ namespace ParkInspect.ViewModel
     public class TestViewModel2 : ViewModelBase
     {
 
-        public ICommand ToggleScreenCommand { get; set; }
-        private MainViewModel mvm;
+        public MainViewModel mvm { get; set; }
         public TestViewModel2(MainViewModel mvm)
         {
             this.mvm = mvm;
-            ToggleScreenCommand = new RelayCommand(ToggleScreen);
         }
 
-        public void ToggleScreen()
-        {
-            mvm.ToggleScreen();
-        }
     }
 }
