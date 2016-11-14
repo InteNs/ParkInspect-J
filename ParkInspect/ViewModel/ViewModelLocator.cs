@@ -56,7 +56,7 @@ namespace ParkInspect.ViewModel
 
 
         public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(Employees.SelectedEmployee);
-        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(Employees)
+        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(Employees);
 
         public static void Cleanup()
         {
