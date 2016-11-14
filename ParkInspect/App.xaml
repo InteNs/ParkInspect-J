@@ -1,12 +1,14 @@
-<Application x:Class="ParkInspect.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:ParkInspect" StartupUri="View/MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:ParkInspect.ViewModel">
+<Application x:Class="ParkInspect.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:ParkInspect" StartupUri="View/MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm="clr-namespace:ParkInspect.ViewModel"
+             xmlns:view="clr-namespace:ParkInspect.View">
   <Application.Resources>
     <ResourceDictionary>
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True"  />
-            <DataTemplate xmlns:Views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:TestViewModel1}">
-           <Views:UserControl1 />
+            <vm:Router x:Key="Router" d:IsDataSource="True"  />
+            <DataTemplate xmlns:views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:TestViewModel1}">
+           <views:UserControl1 />
       </DataTemplate>
-       <DataTemplate xmlns:Views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:TestViewModel2}">
-           <Views:UserControl2 />
+       <DataTemplate xmlns:views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:TestViewModel2}">
+           <views:UserControl2 />
        </DataTemplate>
      </ResourceDictionary>
   </Application.Resources>

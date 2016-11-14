@@ -8,6 +8,6 @@
              DataContext="{Binding Test2, Source={StaticResource Locator}}">
 
     <Grid>
-        <Button Content="Button2" Command="{Binding mvm.ToggleScreenCommand }" CommandParameter="{Binding mvm.tvm1}" HorizontalAlignment="Left" Height="69" Margin="195,99,0,0" VerticalAlignment="Top" Width="105"/>
+        <Button Content="To Test1" Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test1, Source={StaticResource Locator}}" HorizontalAlignment="Left" Height="69" Margin="195,99,0,0" VerticalAlignment="Top" Width="105"/>
     </Grid>
 </UserControl>

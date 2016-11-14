@@ -9,13 +9,10 @@ using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
 {
-    public class TestViewModel2 : ViewModelBase
+    public class TestViewModel2 : MainViewModel
     {
-
-        public MainViewModel mvm { get; set; }
-        public TestViewModel2(MainViewModel mvm)
+        public TestViewModel2()
         {
-            this.mvm = mvm;
         }
 
     }

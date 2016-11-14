@@ -11,9 +11,9 @@ namespace ParkInspect.ViewModel
     {
         public string Naam { get; set; }
 
-        public TestItemViewModel(string Naam)
+        public TestItemViewModel(string naam)
         {
-            this.Naam = Naam;
+            Naam = naam;
         }
     }
 }

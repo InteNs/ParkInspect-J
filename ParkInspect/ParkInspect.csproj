@@ -93,6 +93,7 @@
     <Compile Include="ViewModel\TestViewModel1.cs" />
     <Compile Include="ViewModel\TestViewModel2.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\Router.cs" />
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
@@ -149,9 +150,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Domain\Domain.csproj">
-      <Project>{fa6479a5-5995-441e-a1e5-7b0c5553ffef}</Project>
-      <Name>Domain</Name>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{DBD837F9-810F-4078-BE35-5E4B53D10879}</Project>
+      <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

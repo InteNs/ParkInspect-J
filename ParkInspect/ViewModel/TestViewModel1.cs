@@ -11,14 +11,12 @@ using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
 {
-    public class TestViewModel1 : ViewModelBase
+    public class TestViewModel1 : MainViewModel
     {
-        public MainViewModel mvm { get; set; }
-        private ITestItemRepository itir;
-        public TestViewModel1(MainViewModel mvm, ITestItemRepository itir)
+        private ITestItemRepository _itir;
+        public TestViewModel1(ITestItemRepository itir)
         {
-            this.mvm = mvm;
-            this.itir = itir;
+            _itir = itir;
             ItemCollection = new ObservableCollection<TestItemViewModel>(itir.GetAll());
         }
 

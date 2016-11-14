@@ -4,27 +4,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Data;
 
 namespace ParkInspect.Repositories
 {
     public class DummyTestItemRepository : ITestItemRepository
     {
-        private List<TestItemViewModel> testItems;
+        private ParkInspectEntities _context;
 	
-        public DummyTestItemRepository()
-        {              
-            testItems = new  List<TestItemViewModel>();
-            testItems.Add(new TestItemViewModel("Pietje"));
-            testItems.Add(new TestItemViewModel("Jaap"));
-            testItems.Add(new TestItemViewModel("Geert"));
-            testItems.Add(new TestItemViewModel("Freek"));
-            testItems.Add(new TestItemViewModel("Cobert"));
-            testItems.Add(new TestItemViewModel("Chickennugget"));
+        public DummyTestItemRepository(ParkInspectEntities context)
+        {
+            _context = context;
         }
 	
         public IEnumerable<TestItemViewModel> GetAll()
         {
-            return testItems;
+            return new List<TestItemViewModel>
+            {
+                new TestItemViewModel("test1")
+            };
+            //return _context.employees.all.tolist; as viewmodels
         }
 
         public TestItemViewModel Get()
