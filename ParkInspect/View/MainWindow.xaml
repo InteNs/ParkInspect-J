@@ -6,12 +6,22 @@
         xmlns:local="clr-namespace:ParkInspect"
         xmlns:view="clr-namespace:ParkInspect.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow"
         WindowStartupLocation="CenterScreen"
+        Height="500"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    <StackPanel>
-        <Button Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test1, Source={StaticResource Locator}}">Test1 Items</Button>
-        <Button Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test2, Source={StaticResource Locator}}">Test2 Items</Button>
-        <ContentControl Content="{Binding CurrentView, Source={StaticResource Router}}" />
-    </StackPanel>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test1, Source={StaticResource Locator}}">Test1 Items</Button>
+        <Button Grid.Row="1" Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test2, Source={StaticResource Locator}}">Test2 Items</Button>
+        <Button Grid.Row="2" Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Employees, Source={StaticResource Locator}}">Werknemers Beheren</Button>
+        <ContentControl Grid.Row="3" Content="{Binding CurrentView, Source={StaticResource Router}}" />
+    </Grid>
 </Window>

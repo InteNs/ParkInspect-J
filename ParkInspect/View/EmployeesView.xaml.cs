@@ -10,14 +10,15 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ParkInspect
+namespace ParkInspect.View
 {
     /// <summary>
-    /// Interaction logic for EmployeesView.xaml
+    /// Interaction logic for EmployeesWindow.xaml
     /// </summary>
-    public partial class EmployeesView : Window
+    public partial class EmployeesView : UserControl
     {
         public EmployeesView()
         {

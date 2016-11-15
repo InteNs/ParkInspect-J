@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using ParkInspect.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,9 +46,12 @@ namespace ParkInspect.ViewModel
 
         public ICommand AddEmployeeCommand { get; set; }
 
-        public AddEmployeeViewModel(EmployeesViewModel employeesVM)
+        private ITestItemRepository _itir;
+
+        public AddEmployeeViewModel(ITestItemRepository itir)
         {
-            _employeesVM = employeesVM;
+            _itir = itir;
+
             Employee = new EmployeeViewModel();
 
             FunctionList = new List<string>();

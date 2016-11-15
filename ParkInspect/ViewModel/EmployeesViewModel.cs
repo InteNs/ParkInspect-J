@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using ParkInspect.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -64,22 +65,13 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public EmployeesViewModel()
+        private IEmployeeRepository _repo;
+
+        public EmployeesViewModel(IEmployeeRepository repo)
         {
-            //Test data
-            EmployeeViewModel e1 = new EmployeeViewModel(1,"Pim Westervoort","Brabant","Inspecteur");
-            EmployeeViewModel e2 = new EmployeeViewModel(2, "Edward van Lieshout", "Brabant", "Inspecteur");
-            EmployeeViewModel e3 = new EmployeeViewModel(3, "Mark Havekes", "Utrecht", "Inspecteur");
-            EmployeeViewModel e4 = new EmployeeViewModel(4, "Pim Pam Pet", "Limburg", "Inspecteur");
-            EmployeeViewModel e5 = new EmployeeViewModel(5, "Mathijs van Bree", "Limburg", "Directeur");
+            _repo = repo;
 
-            EmployeesCompleteList = new ObservableCollection<EmployeeViewModel>();
-
-            EmployeesCompleteList.Add(e1);
-            EmployeesCompleteList.Add(e2);
-            EmployeesCompleteList.Add(e3);
-            EmployeesCompleteList.Add(e4);
-            EmployeesCompleteList.Add(e5);
+            EmployeesCompleteList = new ObservableCollection<EmployeeViewModel>(_repo.GetAll());
 
             EmployeesShowableList = new ObservableCollection<EmployeeViewModel>();
 

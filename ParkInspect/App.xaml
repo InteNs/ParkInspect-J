@@ -10,8 +10,17 @@
        <DataTemplate xmlns:views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:TestViewModel2}">
            <views:UserControl2 />
        </DataTemplate>
-       
-        <!-- Button Style -->
+            <DataTemplate xmlns:views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:EmployeesViewModel}">
+                <views:EmployeesView />
+            </DataTemplate>
+            <DataTemplate xmlns:views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:AddEmployeeViewModel}">
+                <views:AddEmployeeView />
+            </DataTemplate>
+            <DataTemplate xmlns:views="clr-namespace:ParkInspect.View" DataType="{x:Type vm:EditEmployeeViewModel}">
+                <views:EditEmployeeView />
+            </DataTemplate>
+
+            <!-- Button Style -->
          <Style x:Key="{x:Type Button}"  TargetType="{x:Type Button}">
 
             <Setter Property="HorizontalContentAlignment" Value="Center"/>

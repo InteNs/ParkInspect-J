@@ -10,6 +10,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ParkInspect.View
@@ -17,7 +18,7 @@ namespace ParkInspect.View
     /// <summary>
     /// Interaction logic for EditEmployeeView.xaml
     /// </summary>
-    public partial class EditEmployeeView : Window
+    public partial class EditEmployeeView : UserControl
     {
         public EditEmployeeView()
         {
