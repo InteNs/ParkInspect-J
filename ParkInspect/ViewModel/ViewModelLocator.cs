@@ -1,16 +1,3 @@
-/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:ParkInspect"
-                           x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-
-  You can also use Blend to do all this with the tool's support.
-  See http://www.galasoft.ch/mvvm
-*/
 
 using Data;
 using GalaSoft.MvvmLight;
@@ -34,7 +21,7 @@ namespace ParkInspect.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             //router
-            SimpleIoc.Default.Register<Router>();
+            SimpleIoc.Default.Register<RouterViewModel>();
             //database context
             SimpleIoc.Default.Register<ParkInspectEntities>();
             //repositories
@@ -46,7 +33,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<TestViewModel2>();
         }
         //router
-        public Router Router => ServiceLocator.Current.GetInstance<Router>();
+        public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
         //viewmodels
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();

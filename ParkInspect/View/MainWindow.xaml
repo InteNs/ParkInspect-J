@@ -10,8 +10,8 @@
         WindowStartupLocation="CenterScreen"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <StackPanel>
-        <Button Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test1, Source={StaticResource Locator}}">Test1 Items</Button>
-        <Button Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test2, Source={StaticResource Locator}}">Test2 Items</Button>
-        <ContentControl Content="{Binding CurrentView, Source={StaticResource Router}}" />
+        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-1">Test1 Items</Button>
+        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-2">Test2 Items</Button>
+        <ContentControl Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />
     </StackPanel>
 </Window>
