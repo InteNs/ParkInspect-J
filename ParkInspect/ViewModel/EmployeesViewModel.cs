@@ -9,6 +9,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
@@ -36,7 +37,7 @@ namespace ParkInspect.ViewModel
 
         public ICommand SearchEmployeesCommand { get; set; }
 
-        public ICommand SetEmployeeSuspendedCommand { get; set; }
+        public ICommand SetEmployeeDismissCommand { get; set; }
 
         public ICommand ShowEditEmployeeCommand { get; set; }
 
@@ -85,7 +86,8 @@ namespace ParkInspect.ViewModel
 
             SearchEmployeesCommand = new SearchEmployeesCommand(this);
             ShowEditEmployeeCommand = new RelayCommand(ShowEditView, EmployeeIsNotNull);
-        }
+            SetEmployeeDismissCommand = new RelayCommand(DismissEmployee, EmployeeIsNotNull);
+    }
 
         private bool EmployeeIsNotNull()
         {
@@ -95,6 +97,16 @@ namespace ParkInspect.ViewModel
         private void ShowEditView()
         {
             
+        }
+
+        private void DismissEmployee()
+        {
+            var result = MessageBox.Show("Weet u zeker dat u " + SelectedEmployee.Person.Name + " op non-actief wilt zetten?", "Werknemer op non-actief zetten", MessageBoxButtons.YesNo);
+            if (result == System.Windows.Forms.DialogResult.Yes)
+            {
+                SelectedEmployee.Dismissal_Date = DateTime.Now;
+                _repo.UpdateDismiss(SelectedEmployee);
+            }
         }
     }
 }

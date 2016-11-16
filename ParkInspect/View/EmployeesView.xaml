@@ -68,7 +68,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="3">
-                <Button Content="Non-Actief" Command="{Binding SetEmployeeSuspendedCommand}" />
+                <Button Content="Non-Actief" Command="{Binding SetEmployeeDismissCommand}" />
             </Grid>
 
             <Grid Grid.Row="1"

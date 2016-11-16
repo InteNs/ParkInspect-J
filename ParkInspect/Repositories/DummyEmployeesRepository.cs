@@ -11,13 +11,18 @@ namespace ParkInspect.Repositories
     public class DummyEmployeesRepository : IEmployeeRepository
     {
 
+        private EmployeesViewModel _evm;
+
         public DummyEmployeesRepository()
         {
+            
         }
 
         public bool Create(EmployeeViewModel employee)
         {
-            throw new NotImplementedException();
+            _evm.EmployeesCompleteList.Add(employee);
+            _evm.EmployeesShowableList.Add(employee);
+            return true;
         }
 
         public IEnumerable<EmployeeViewModel> GetAll()
@@ -34,7 +39,14 @@ namespace ParkInspect.Repositories
 
         public bool Update(EmployeeViewModel employee)
         {
-            throw new NotImplementedException();
+            return true;
+        }
+
+        public bool UpdateDismiss(EmployeeViewModel employee)
+        {
+            _evm.EmployeesCompleteList.Remove(employee);
+            _evm.EmployeesShowableList.Remove(employee);
+            return true;
         }
     }
 }

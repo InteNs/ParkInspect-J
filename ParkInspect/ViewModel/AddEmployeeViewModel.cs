@@ -89,8 +89,6 @@ namespace ParkInspect.ViewModel
             if (this.ValidateInput())
             {
                 _ier.Create(Employee);
-                _evm.EmployeesCompleteList.Add(Employee);
-                _evm.EmployeesShowableList.Add(Employee);
             }
             else
             {
