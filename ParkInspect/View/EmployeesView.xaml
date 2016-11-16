@@ -63,7 +63,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="1">
-                <Button Content="Toevoegen" Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding AddEmployee, Source={StaticResource Locator}}" />
+                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-add" />
             </Grid>
 
             <Grid Grid.Row="1"

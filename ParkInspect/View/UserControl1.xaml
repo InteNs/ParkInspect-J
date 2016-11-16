@@ -7,7 +7,7 @@
              d:DesignHeight="300" d:DesignWidth="300"
              DataContext="{Binding Test1, Source={StaticResource Locator}}">
     <Grid>
-        <Button Content="To Test2" Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding Test2, Source={StaticResource Locator}}" HorizontalAlignment="Left" Height="69" Margin="0,84,0,0" VerticalAlignment="Top" Width="105"/>
+        <Button Content="To Test2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-2" HorizontalAlignment="Left" Height="69" Margin="0,84,0,0" VerticalAlignment="Top" Width="105"/>
         <ListView ItemsSource="{Binding ItemCollection}" Margin="118,32,65,47" BorderBrush="#FF979494">
             <ListView.View>
                 <GridView>

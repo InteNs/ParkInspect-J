@@ -65,10 +65,12 @@ namespace ParkInspect.ViewModel
         }
 
         private IEmployeeRepository _repo;
+        private RouterViewModel _router;
 
-        public EmployeesViewModel(IEmployeeRepository repo)
+        public EmployeesViewModel(IEmployeeRepository repo, RouterViewModel router)
         {
             _repo = repo;
+            _router = router;
 
             EmployeesCompleteList = new ObservableCollection<EmployeeViewModel>(_repo.GetAll());
 
@@ -96,7 +98,7 @@ namespace ParkInspect.ViewModel
 
         private void ShowEditView()
         {
-            
+            _router.SetViewCommand.Execute("employees-edit");
         }
 
         private void DismissEmployee()

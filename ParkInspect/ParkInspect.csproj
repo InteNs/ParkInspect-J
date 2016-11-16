@@ -99,7 +99,7 @@
     <Compile Include="ViewModel\TestItemViewModel.cs" />
     <Compile Include="ViewModel\TestViewModel1.cs" />
     <Compile Include="ViewModel\TestViewModel2.cs" />
-    <Compile Include="ViewModel\Router.cs" />
+    <Compile Include="ViewModel\RouterViewModel.cs" />
     <Compile Include="View\AddEmployeeView.xaml.cs">
       <DependentUpon>AddEmployeeView.xaml</DependentUpon>
     </Compile>
