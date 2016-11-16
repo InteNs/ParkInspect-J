@@ -86,8 +86,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DummyModel\Employee.cs" />
+    <Compile Include="DummyModel\Function.cs" />
+    <Compile Include="DummyModel\Person.cs" />
+    <Compile Include="DummyModel\Region.cs" />
+    <Compile Include="Repositories\DummyEmployeesRepository.cs" />
     <Compile Include="Repositories\DummyTestItemRepository.cs" />
-    <Compile Include="Repositories\EmployeesRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ITestItemRepository.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
@@ -127,7 +131,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="SearchEmployeesCommand.cs" />
+    <Compile Include="Command\SearchEmployeesCommand.cs" />
     <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
     <Compile Include="ViewModel\EditEmployeeViewModel.cs" />
     <Compile Include="ViewModel\EmployeesViewModel.cs" />
@@ -183,6 +187,7 @@
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

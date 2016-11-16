@@ -45,7 +45,7 @@ namespace ParkInspect
             switch (_employeesVM.Category)
             {
                 case "Naam":
-                    newList = _employeesVM.EmployeesCompleteList.Where(e => culture.CompareInfo.IndexOf(e.Name, _employeesVM.Input, CompareOptions.IgnoreCase) >= 0);
+                    newList = _employeesVM.EmployeesCompleteList.Where(e => culture.CompareInfo.IndexOf(e.Person.Name, _employeesVM.Input, CompareOptions.IgnoreCase) >= 0);
                     break;
                 case "ID":
                     int number = 0;
@@ -56,10 +56,10 @@ namespace ParkInspect
                     }
                     break;
                 case "Regio":
-                    newList = _employeesVM.EmployeesCompleteList.Where(e => culture.CompareInfo.IndexOf(e.Region, _employeesVM.Input, CompareOptions.IgnoreCase) >= 0);
+                    newList = _employeesVM.EmployeesCompleteList.Where(e => culture.CompareInfo.IndexOf(e.Region.Name, _employeesVM.Input, CompareOptions.IgnoreCase) >= 0);
                     break;
                 case "Functie":
-                    newList = _employeesVM.EmployeesCompleteList.Where(e => culture.CompareInfo.IndexOf(e.Function, _employeesVM.Input, CompareOptions.IgnoreCase) >= 0);
+                    newList = _employeesVM.EmployeesCompleteList.Where(e => culture.CompareInfo.IndexOf(e.Function.Name, _employeesVM.Input, CompareOptions.IgnoreCase) >= 0);
                     break;
             }
             if (newList != null)

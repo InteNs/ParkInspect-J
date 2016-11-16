@@ -1,20 +1,18 @@
-﻿using System;
+﻿using Data;
+using ParkInspect.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ParkInspect.ViewModel;
-using Data;
 
 namespace ParkInspect.Repositories
 {
-    public class EmployeesRepository : IEmployeeRepository
+    public class DummyEmployeesRepository : IEmployeeRepository
     {
-        private ParkInspectEntities _context;
 
-        public EmployeesRepository(ParkInspectEntities context)
+        public DummyEmployeesRepository()
         {
-            _context = context;
         }
 
         public bool Create(EmployeeViewModel employee)

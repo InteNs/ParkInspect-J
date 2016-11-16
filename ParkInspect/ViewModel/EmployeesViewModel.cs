@@ -36,11 +36,9 @@ namespace ParkInspect.ViewModel
 
         public ICommand SearchEmployeesCommand { get; set; }
 
-        public ICommand ShowAddEmployeeCommand { get; set; }
+        public ICommand SetEmployeeSuspendedCommand { get; set; }
 
         public ICommand ShowEditEmployeeCommand { get; set; }
-
-        public ICommand SetEmployeeSuspendedCommand { get; set; }
 
         private string _input;
 
@@ -86,11 +84,17 @@ namespace ParkInspect.ViewModel
             Category = SearchCategoryList.First();
 
             SearchEmployeesCommand = new SearchEmployeesCommand(this);
+            ShowEditEmployeeCommand = new RelayCommand(ShowEditView, EmployeeIsNotNull);
         }
 
         private bool EmployeeIsNotNull()
         {
             return SelectedEmployee != null;
+        }
+
+        private void ShowEditView()
+        {
+            
         }
     }
 }

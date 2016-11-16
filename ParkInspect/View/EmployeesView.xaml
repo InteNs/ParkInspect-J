@@ -73,7 +73,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="5">
-                <Button Content="Bekijken" Command="{Binding ToggleScreenCommand, Source={StaticResource Router} }" CommandParameter="{Binding EditEmployee, Source={StaticResource Locator}}"/>
+                <Button Content="Bekijken" Command="{Binding ShowEditEmployeeCommand}" />
             </Grid>
 
             <Grid Grid.Row="3"
@@ -84,9 +84,9 @@
       Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" ItemsSource="{Binding EmployeesShowableList}" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
-                        <DataGridTextColumn Header="Naam" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Regio" Binding="{Binding Region}" Width="*" />
-                        <DataGridTextColumn Header="Functie" Binding="{Binding Function}" Width="*" />
+                        <DataGridTextColumn Header="Naam" Binding="{Binding Person.Name}" Width="*" />
+                        <DataGridTextColumn Header="Regio" Binding="{Binding Region.Name}" Width="*" />
+                        <DataGridTextColumn Header="Functie" Binding="{Binding Function.Name}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

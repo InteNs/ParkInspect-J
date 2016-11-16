@@ -40,17 +40,18 @@ namespace ParkInspect.ViewModel
 
         public List<string> FunctionList { get; set; }
 
-        private EmployeesViewModel _employeesVM;
-
-        public EmployeeViewModel Employee;
+        public EmployeeViewModel Employee { get; set; }
 
         public ICommand AddEmployeeCommand { get; set; }
 
-        private ITestItemRepository _itir;
+        private IEmployeeRepository _ier;
 
-        public AddEmployeeViewModel(ITestItemRepository itir)
+        private EmployeesViewModel _evm;
+
+        public AddEmployeeViewModel(IEmployeeRepository ier,EmployeesViewModel evm)
         {
-            _itir = itir;
+            _ier = ier;
+            _evm = evm;
 
             Employee = new EmployeeViewModel();
 
@@ -83,9 +84,13 @@ namespace ParkInspect.ViewModel
 
         private void AddEmployee()
         {
+            Employee.Region.Name = SelectedRegion;
+            Employee.Function.Name = SelectedFunction;
             if (this.ValidateInput())
             {
-                //TODO: Add employee to database and add tot current load
+                _ier.Create(Employee);
+                _evm.EmployeesCompleteList.Add(Employee);
+                _evm.EmployeesShowableList.Add(Employee);
             }
             else
             {

@@ -81,8 +81,6 @@
                 <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="0.2*"/>
                 <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="0.2*"/>
-                <RowDefinition Height="0.1*"/>
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
@@ -91,9 +89,9 @@
                         Grid.Column="1"
                         >
                 <Viewbox>
-                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Naam: " />
+                    <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=SelectedEmployee.Person.Name}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -102,7 +100,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=SelectedEmployee.Person.Zip_Code}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -111,7 +109,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=SelectedEmployee.Person.Street_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -120,29 +118,20 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=SelectedEmployee.Person.Phone_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="9"
                         Grid.Column="1"
                         >
                 <Viewbox>
-                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Woonplaats: " ></Label>
-                </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
-            </DockPanel>
-
-            <DockPanel Grid.Row="11"
-                        Grid.Column="1"
-                        >
-                <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=SelectedEmployee}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel
-                Grid.Row="13"
+                Grid.Row="11"
                 Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "/>
@@ -151,7 +140,7 @@
             </DockPanel>
 
             <DockPanel
-                Grid.Row="15"
+                Grid.Row="13"
                 Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Functie: "/>
@@ -160,7 +149,7 @@
             </DockPanel>
 
             <Grid
-                Grid.Row="17"
+                Grid.Row="15"
                 Grid.Column="1">
                 <Button Command="{Binding EditEmployeeCommand}" Content="Werknemer Bewerken" Width="275" FontSize="20" Background="#FF999999" />
             </Grid>

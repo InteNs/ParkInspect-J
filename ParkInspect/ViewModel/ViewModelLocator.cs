@@ -39,7 +39,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ParkInspectEntities>();
             //repositories
             SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
-            SimpleIoc.Default.Register<IEmployeeRepository, EmployeesRepository>();
+            SimpleIoc.Default.Register<IEmployeeRepository, DummyEmployeesRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<MainViewModel>();
@@ -57,7 +57,7 @@ namespace ParkInspect.ViewModel
 
 
         public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(null);
-        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(null);
+        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Employees);
 
         public static void Cleanup()
         {

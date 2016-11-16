@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using ParkInspect.Repositories;
 using System;
 using System.Collections.Generic;
@@ -44,11 +45,11 @@ namespace ParkInspect.ViewModel
 
         public ICommand EditEmployeeCommand { get; set; }
 
-        private ITestItemRepository _itir;
+        private IEmployeeRepository _ier;
 
-        public EditEmployeeViewModel(ITestItemRepository itir)
+        public EditEmployeeViewModel(IEmployeeRepository ier)
         {
-            _itir = itir;
+            _ier = ier;
 
             FunctionList = new List<string>();
             FunctionList.Add("Inspecteur");
@@ -59,6 +60,19 @@ namespace ParkInspect.ViewModel
             RegionList.Add("Limburg");
             RegionList.Add("Utrecht");
             RegionList.Add("Brabant");
+
+            EditEmployeeCommand = new RelayCommand(EditEmployee, CanEdit);
+        }
+
+        private bool CanEdit()
+        {
+            //TODO check content
+            return true;
+        }
+
+        private void EditEmployee()
+        {
+            _ier.Update(SelectedEmployee);
         }
     }
 }
