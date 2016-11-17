@@ -46,10 +46,16 @@ namespace ParkInspect.ViewModel
         public ICommand EditEmployeeCommand { get; set; }
 
         private IEmployeeRepository _ier;
+        private RouterViewModel _router;
+        private EmployeesViewModel _evm;
 
-        public EditEmployeeViewModel(IEmployeeRepository ier)
+        public EditEmployeeViewModel(IEmployeeRepository ier,RouterViewModel router,EmployeesViewModel evm)
         {
             _ier = ier;
+            _router = router;
+            _evm = evm;
+
+            SelectedEmployee = _evm.SelectedEmployee;
 
             FunctionList = new List<string>();
             FunctionList.Add("Inspecteur");
@@ -72,7 +78,10 @@ namespace ParkInspect.ViewModel
 
         private void EditEmployee()
         {
-            _ier.Update(SelectedEmployee);
+            if (_ier.Update(SelectedEmployee))
+            {
+                _router.SetViewCommand.Execute("employees-list");
+            }
         }
     }
 }

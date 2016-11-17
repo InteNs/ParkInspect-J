@@ -1,4 +1,5 @@
 ﻿using Data;
+using Microsoft.Practices.ServiceLocation;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,8 @@ namespace ParkInspect.Repositories
 
         private EmployeesViewModel _evm;
 
-        public DummyEmployeesRepository()
-        {
-            
-        }
-
         public bool Create(EmployeeViewModel employee)
         {
-            _evm.EmployeesCompleteList.Add(employee);
-            _evm.EmployeesShowableList.Add(employee);
             return true;
         }
 
@@ -44,8 +38,6 @@ namespace ParkInspect.Repositories
 
         public bool UpdateDismiss(EmployeeViewModel employee)
         {
-            _evm.EmployeesCompleteList.Remove(employee);
-            _evm.EmployeesShowableList.Remove(employee);
             return true;
         }
     }

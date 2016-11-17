@@ -45,12 +45,14 @@ namespace ParkInspect.ViewModel
         public ICommand AddEmployeeCommand { get; set; }
 
         private IEmployeeRepository _ier;
+        private RouterViewModel _router;
 
         private EmployeesViewModel _evm;
 
-        public AddEmployeeViewModel(IEmployeeRepository ier,EmployeesViewModel evm)
+        public AddEmployeeViewModel(IEmployeeRepository ier,RouterViewModel router,EmployeesViewModel evm)
         {
             _ier = ier;
+            _router = router;
             _evm = evm;
 
             Employee = new EmployeeViewModel();
@@ -64,8 +66,6 @@ namespace ParkInspect.ViewModel
             RegionList.Add("Limburg");
             RegionList.Add("Utrecht");
             RegionList.Add("Brabant");
-
-
 
             AddEmployeeCommand = new RelayCommand(AddEmployee, CanAddEmployee);
         }
@@ -88,7 +88,12 @@ namespace ParkInspect.ViewModel
             Employee.Function.Name = SelectedFunction;
             if (this.ValidateInput())
             {
-                _ier.Create(Employee);
+                if (_ier.Create(Employee))
+                {
+                    _evm.EmployeesCompleteList.Add(Employee);
+                    _evm.EmployeesShowableList.Add(Employee);
+                    _router.SetViewCommand.Execute("employees-list");
+                }
             }
             else
             {

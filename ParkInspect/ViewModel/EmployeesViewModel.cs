@@ -107,7 +107,11 @@ namespace ParkInspect.ViewModel
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
                 SelectedEmployee.Dismissal_Date = DateTime.Now;
-                _repo.UpdateDismiss(SelectedEmployee);
+                if (_repo.UpdateDismiss(SelectedEmployee))
+                {
+                    EmployeesCompleteList.Remove(SelectedEmployee);
+                    EmployeesShowableList.Remove(SelectedEmployee);
+                }
             }
         }
     }
