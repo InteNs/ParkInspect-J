@@ -12,7 +12,7 @@ namespace ParkInspect.DummyModel
         public string Name { get; set; }
         public string Zip_Code { get; set; }
         public int Street_Number { get; set; }
-        public int Phone_Number { get; set; }
+        public string Phone_Number { get; set; }
         public string Email { get; set; }
     }
 }

@@ -68,13 +68,11 @@
 
             <Grid Grid.Row="1"
           Grid.Column="3">
-                <Button Content="Non-Actief" Command="{Binding SetEmployeeDismissCommand}" />
+                <Button Content="Nieuwe opdracht" Command="{Binding SetEmployeeDismissCommand}" />
             </Grid>
 
             <Grid Grid.Row="1"
-          Grid.Column="5">
-                <Button Content="Bekijken" Command="{Binding ShowEditEmployeeCommand}" />
-            </Grid>
+          Grid.Column="5"/>
 
             <Grid Grid.Row="3"
               Grid.Column="1"
@@ -85,8 +83,10 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
                         <DataGridTextColumn Header="Naam" Binding="{Binding Person.Name}" Width="*" />
-                        <DataGridTextColumn Header="Regio" Binding="{Binding Region.Name}" Width="*" />
-                        <DataGridTextColumn Header="Functie" Binding="{Binding Function.Name}" Width="*" />
+                        <DataGridTextColumn Header="Postcode" Binding="{Binding Person.Zip_Code}" Width="*" />
+                        <DataGridTextColumn Header="Straat-nr" Binding="{Binding Person.Street_Number}" Width="*" />
+                        <DataGridTextColumn Header="Telefoon" Binding="{Binding Person.Phone_Number}" Width="*" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding Person.Email}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
