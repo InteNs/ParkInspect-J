@@ -12,9 +12,12 @@
   See http://www.galasoft.ch/mvvm
 */
 
+using Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
+using ParkInspect.Repositories;
+using ParkInspect.View;
 
 namespace ParkInspect.ViewModel
 {
@@ -30,28 +33,26 @@ namespace ParkInspect.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+            //router
+            SimpleIoc.Default.Register<Router>();
+            //database context
+            SimpleIoc.Default.Register<ParkInspectEntities>();
+            //repositories
+            SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
 
-            ////if (ViewModelBase.IsInDesignModeStatic)
-            ////{
-            ////    // Create design time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DesignDataService>();
-            ////}
-            ////else
-            ////{
-            ////    // Create run time view services and models
-            ////    SimpleIoc.Default.Register<IDataService, DataService>();
-            ////}
-
+            //viewmodels
             SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<TestViewModel1>();
+            SimpleIoc.Default.Register<TestViewModel2>();
         }
+        //router
+        public Router Router => ServiceLocator.Current.GetInstance<Router>();
+        //viewmodels
+        public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();
+        public TestViewModel2 Test2 => ServiceLocator.Current.GetInstance<TestViewModel2>();
+    
 
-        public MainViewModel Main
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<MainViewModel>();
-            }
-        }
 
         public KPIGenererenVM KPIGenereren
         {
@@ -60,7 +61,7 @@ namespace ParkInspect.ViewModel
                 return new KPIGenererenVM();
             }
         }
-        
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
