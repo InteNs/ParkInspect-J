@@ -45,9 +45,7 @@ namespace ParkInspect.ViewModel
                 Customer = new CustomerViewModel();
 
                 FunctionList = new List<string>();
-                FunctionList.Add("Inspecteur");
-                FunctionList.Add("Directeur");
-                FunctionList.Add("Manager");
+                FunctionList.Add("Klant");
 
                 AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
             }
@@ -74,7 +72,7 @@ namespace ParkInspect.ViewModel
                     {
                         _cvm.CustomerCompleteList.Add(Customer);
                         _cvm.CustomerShowableList.Add(Customer);
-                        _router.SetViewCommand.Execute("customer-list");
+                        _router.SetViewCommand.Execute("Customers-list");
                     }
                 }
                 else

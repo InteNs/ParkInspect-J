@@ -92,6 +92,7 @@
     <Compile Include="DummyModel\Function.cs" />
     <Compile Include="DummyModel\Person.cs" />
     <Compile Include="DummyModel\Region.cs" />
+    <Compile Include="Repositories\DummyCustomerRepository.cs" />
     <Compile Include="Repositories\DummyEmployeesRepository.cs" />
     <Compile Include="Repositories\DummyTestItemRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
