@@ -31,16 +31,6 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public Region Region
-        {
-            get { return _customer.Region; }
-            set
-            {
-                _customer.Region = value;
-                RaisePropertyChanged();
-            }
-        }
-
         public Function Function
         {
             get { return _customer.Function; }
@@ -65,8 +55,6 @@ namespace ParkInspect.ViewModel
             person.Phone_Number = telephone;
             person.Street_Number = streetnr;
             person.Zip_Code = zipcode;
-            _customer.Region = new Region();
-            Region.Name = region;
             _customer.Function = new Function();
             Function.Name = function;
         }
