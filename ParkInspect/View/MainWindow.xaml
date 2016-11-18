@@ -12,6 +12,7 @@
     <StackPanel>
         <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-1">Test1 Items</Button>
         <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-2">Test2 Items</Button>
+        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="ManagementRapportenView">Management View</Button>
         <ContentControl Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />
     </StackPanel>
 </Window>

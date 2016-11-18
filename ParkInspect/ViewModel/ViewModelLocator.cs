@@ -20,17 +20,22 @@ namespace ParkInspect.ViewModel
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            //router
+            
+            // Router
             SimpleIoc.Default.Register<RouterViewModel>();
-            //database context
-            SimpleIoc.Default.Register<ParkInspectEntities>();
-            //repositories
-            SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
 
-            //viewmodels
+            // Database Context
+            SimpleIoc.Default.Register<ParkInspectEntities>();
+            
+            // Repositories
+            SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
+            SimpleIoc.Default.Register<ManagementRapportenRepository, ManagementRapportenRepository>();
+
+            // ViewModels
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TestViewModel1>();
             SimpleIoc.Default.Register<TestViewModel2>();
+            SimpleIoc.Default.Register<ManagementRapportenViewModel>();
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
@@ -38,7 +43,7 @@ namespace ParkInspect.ViewModel
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();
         public TestViewModel2 Test2 => ServiceLocator.Current.GetInstance<TestViewModel2>();
-    
+        public ManagementRapportenViewModel ManagementRapporten => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
 
         public static void Cleanup()
         {
