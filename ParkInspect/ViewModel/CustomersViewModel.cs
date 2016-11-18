@@ -25,7 +25,6 @@ namespace ParkInspect.ViewModel
         private ICustomerRepository _repo;
         private RouterViewModel _router;
         private string _category;
-        private int _intput;
         private string _input;
 
         public CustomerViewModel SelectedCustomer
@@ -48,15 +47,6 @@ namespace ParkInspect.ViewModel
             set
             {
                 _input = value;
-                RaisePropertyChanged();
-            }
-        }
-        public int Intput
-        {
-            get { return _intput; }
-            set
-            {
-                _intput = value;
                 RaisePropertyChanged();
             }
         }
@@ -86,7 +76,6 @@ namespace ParkInspect.ViewModel
             SearchCategoryList.Add("Naam");
             SearchCategoryList.Add("ID");
             SearchCategoryList.Add("Postcode");
-            SearchCategoryList.Add("Straat-nr");
             SearchCategoryList.Add("Telefoon");
             SearchCategoryList.Add("Email");
 

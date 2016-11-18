@@ -57,9 +57,6 @@ namespace ParkInspect.Command
                 case "Postcode":
                     newList = _customersViewModel.CustomerCompleteList.Where(e => culture.CompareInfo.IndexOf(e.person.Zip_Code, _customersViewModel.Input, CompareOptions.IgnoreCase) >= 0);
                     break;
-                case "Straat-nr":
-                    newList = _customersViewModel.CustomerCompleteList.Where(e => e.person.Street_Number == _customersViewModel.Intput);
-                    break;
                 case "Telefoon":
                     newList = _customersViewModel.CustomerCompleteList.Where(e => culture.CompareInfo.IndexOf(e.person.Phone_Number, _customersViewModel.Input, CompareOptions.IgnoreCase) >= 0);
                     break;
