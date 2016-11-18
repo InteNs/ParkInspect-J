@@ -19,8 +19,8 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Button Grid.Row="0" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-1">test 1</Button>
-        <Button Grid.Row="1" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-2">test 2</Button>
-        <Button Grid.Row="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="Customers-list">Werknemers Beheren</Button>
+        <Button Grid.Row="1" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="Customers-list">Klanten Beheren</Button>
+        <Button Grid.Row="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-list">Werknemers Beheren</Button>
         <ContentControl Grid.Row="3" Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />
     </Grid>
 </Window>
