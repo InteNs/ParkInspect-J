@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using ParkInspect.Command;
+//using ParkInspect.Command;
 using ParkInspect.Repositories;
 using System;
 using System.Collections.Generic;
@@ -92,7 +92,7 @@ namespace ParkInspect.ViewModel
 
             Category = SearchCategoryList.First();
 
-            SearchCustomersCommand = new SearchCustomersCommand(this);
+            //SearchCustomersCommand = new SearchCustomersCommand(this);
             ShowEditCustomersCommand = new RelayCommand(ShowEditView, CustomerIsNotNull);
         }
 
