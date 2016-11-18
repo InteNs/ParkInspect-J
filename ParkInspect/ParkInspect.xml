@@ -86,31 +86,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DummyModel\Employee.cs" />
-    <Compile Include="DummyModel\Function.cs" />
-    <Compile Include="DummyModel\Person.cs" />
-    <Compile Include="DummyModel\Region.cs" />
-    <Compile Include="Repositories\DummyEmployeesRepository.cs" />
-    <Compile Include="Repositories\Commission.cs" />
-    <Compile Include="Repositories\DummyCommissionRepository.cs" />
     <Compile Include="Repositories\DummyTestItemRepository.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
-    <Compile Include="Repositories\ICommissionRepository.cs" />
     <Compile Include="Repositories\ITestItemRepository.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="ViewModel\AddCommissionViewModel.cs" />
-    <Compile Include="ViewModel\CommissionViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
     <Compile Include="ViewModel\TestViewModel1.cs" />
     <Compile Include="ViewModel\TestViewModel2.cs" />
-    <Compile Include="ViewModel\RouterViewModel.cs" />
-    <Compile Include="View\AddCommission.xaml.cs">
-      <DependentUpon>AddCommission.xaml</DependentUpon>
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="ViewModel\Router.cs" />
+    <Compile Include="View\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CommissionOverview.xaml.cs">
-      <DependentUpon>CommissionOverview.xaml</DependentUpon>
+    <Compile Include="View\UserControl2.xaml.cs">
+      <DependentUpon>UserControl2.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\MainWindow.xaml">
+
+    <Compile Include="SearchEmployeesCommand.cs" />
+    <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\EditEmployeeViewModel.cs" />
     <Compile Include="View\AddEmployeeView.xaml.cs">
       <DependentUpon>AddEmployeeView.xaml</DependentUpon>
     </Compile>
@@ -120,14 +114,12 @@
     <Compile Include="View\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControl1.xaml.cs">
-      <DependentUpon>UserControl1.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\UserControl2.xaml.cs">
-      <DependentUpon>UserControl2.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\EmployeesViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="View\AddEmployeeView.xaml">
       <SubType>Designer</SubType>
+
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditEmployeeView.xaml">
@@ -138,23 +130,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddCommission.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CommissionOverview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="Command\SearchEmployeesCommand.cs" />
-    <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
-    <Compile Include="ViewModel\EditEmployeeViewModel.cs" />
-    <Compile Include="ViewModel\EmployeesViewModel.cs" />
-    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -170,7 +145,7 @@
     <Page Include="View\UserControl2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Page>  
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -206,7 +181,6 @@
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
