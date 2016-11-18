@@ -10,8 +10,6 @@ namespace ParkInspect.DummyModel
     {
         public int Id { get; set; }
         public Person person{ get; set;}
-
-        public Region Region { get; set; }
         public Function Function { get; set; }
     }
 }
