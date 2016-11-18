@@ -14,6 +14,15 @@ namespace ParkInspect.ViewModel
     {
         private string _selectedRegion;
 
+        private string _selectedFunction;
+
+        private IEmployeeRepository _ier;
+
+        private RouterViewModel _router;
+
+        private EmployeesViewModel _evm;
+
+
         public string SelectedRegion
         {
             get { return _selectedRegion; }
@@ -23,8 +32,6 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged();
             }
         }
-
-        private string _selectedFunction;
 
         public string SelectedFunction
         {
@@ -43,11 +50,6 @@ namespace ParkInspect.ViewModel
         public EmployeeViewModel Employee { get; set; }
 
         public ICommand AddEmployeeCommand { get; set; }
-
-        private IEmployeeRepository _ier;
-        private RouterViewModel _router;
-
-        private EmployeesViewModel _evm;
 
         public AddEmployeeViewModel(IEmployeeRepository ier,RouterViewModel router,EmployeesViewModel evm)
         {

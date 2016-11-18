@@ -13,6 +13,8 @@ namespace ParkInspect.ViewModel
     public class EmployeeViewModel : ViewModelBase
     {
 
+        private Employee _employee;
+
         public int Id
         {
             get { return _employee.Id; }
@@ -72,8 +74,6 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged("Person");
             }
         }
-
-        private Employee _employee;
 
         public EmployeeViewModel( Employee employee)
         {

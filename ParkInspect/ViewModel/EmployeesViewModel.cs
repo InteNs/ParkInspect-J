@@ -16,14 +16,15 @@ namespace ParkInspect.ViewModel
 {
     public class EmployeesViewModel : ViewModelBase
     {
-
-        public ObservableCollection<EmployeeViewModel> EmployeesCompleteList { get; set; }
-
-        public ObservableCollection<EmployeeViewModel> EmployeesShowableList { get; set; }
-
-        public List<string> SearchCategoryList { get; set; }
-
         private EmployeeViewModel _selectedEmployee;
+
+        private string _input;
+
+        private IEmployeeRepository _repo;
+
+        private RouterViewModel _router;
+
+        private string _category;
 
         public EmployeeViewModel SelectedEmployee
         {
@@ -35,15 +36,8 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public ICommand SearchEmployeesCommand { get; set; }
-
-        public ICommand SetEmployeeDismissCommand { get; set; }
-
-        public ICommand ShowEditEmployeeCommand { get; set; }
-
-        private string _input;
-
-        public string Input {
+        public string Input
+        {
             get { return _input; }
             set
             {
@@ -51,8 +45,6 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged();
             }
         }
-
-        private string _category;
 
         public string Category
         {
@@ -64,8 +56,17 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private IEmployeeRepository _repo;
-        private RouterViewModel _router;
+        public ObservableCollection<EmployeeViewModel> EmployeesCompleteList { get; set; }
+
+        public ObservableCollection<EmployeeViewModel> EmployeesShowableList { get; set; }
+
+        public List<string> SearchCategoryList { get; set; }
+
+        public ICommand SearchEmployeesCommand { get; set; }
+
+        public ICommand SetEmployeeDismissCommand { get; set; }
+
+        public ICommand ShowEditEmployeeCommand { get; set; }
 
         public EmployeesViewModel(IEmployeeRepository repo, RouterViewModel router)
         {
