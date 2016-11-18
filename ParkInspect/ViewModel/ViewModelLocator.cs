@@ -26,11 +26,13 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ParkInspectEntities>();
             //repositories
             SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
+            SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TestViewModel1>();
             SimpleIoc.Default.Register<TestViewModel2>();
+            SimpleIoc.Default.Register<AuthenticationViewModel>();
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
@@ -38,6 +40,8 @@ namespace ParkInspect.ViewModel
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();
         public TestViewModel2 Test2 => ServiceLocator.Current.GetInstance<TestViewModel2>();
+
+        public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
     
 
         public static void Cleanup()
