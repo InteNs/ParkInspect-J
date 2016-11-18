@@ -12,6 +12,7 @@ namespace ParkInspect.Repositories
         IEnumerable<EmployeeViewModel> GetAll();
         bool Create(EmployeeViewModel employee);
         bool Update(EmployeeViewModel employee);
-        bool UpdateDismiss(EmployeeViewModel employee);
+        IEnumerable<string> GetRegions();
+        IEnumerable<string> GetFunctions();
     }
 }

@@ -17,11 +17,11 @@ namespace ParkInspect.ViewModel
 
         private string _selectedFunction;
 
-        private IEmployeeRepository _ier;
+        private IEmployeeRepository _repository;
 
         private RouterViewModel _router;
 
-        private EmployeesViewModel _evm;
+        private EmployeesViewModel _employeesVM;
 
         public string SelectedRegion
         {
@@ -53,21 +53,15 @@ namespace ParkInspect.ViewModel
 
         public EditEmployeeViewModel(IEmployeeRepository ier,RouterViewModel router,EmployeesViewModel evm)
         {
-            _ier = ier;
+            _repository = ier;
             _router = router;
-            _evm = evm;
+            _employeesVM = evm;
 
-            SelectedEmployee = _evm.SelectedEmployee;
+            SelectedEmployee = _employeesVM.SelectedEmployee;
 
-            FunctionList = new List<string>();
-            FunctionList.Add("Inspecteur");
-            FunctionList.Add("Directeur");
-            FunctionList.Add("Manager");
+            FunctionList = _repository.GetFunctions().ToList();
 
-            RegionList = new List<string>();
-            RegionList.Add("Limburg");
-            RegionList.Add("Utrecht");
-            RegionList.Add("Brabant");
+            RegionList = _repository.GetRegions().ToList();
 
             EditEmployeeCommand = new RelayCommand(EditEmployee, CanEdit);
         }
@@ -80,7 +74,7 @@ namespace ParkInspect.ViewModel
 
         private void EditEmployee()
         {
-            if (_ier.Update(SelectedEmployee))
+            if (_repository.Update(SelectedEmployee))
             {
                 _router.SetViewCommand.Execute("employees-list");
             }

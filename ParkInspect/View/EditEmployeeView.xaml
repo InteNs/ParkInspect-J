@@ -136,7 +136,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "/>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding SelectedRegion}" ItemsSource="{Binding RegionList}" />
+                <ComboBox SelectedValue="{Binding SelectedRegion}" SelectedItem="{Binding Path=SelectedEmployee.Region.Name}" ItemsSource="{Binding RegionList}" />
             </DockPanel>
 
             <DockPanel
@@ -145,7 +145,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Functie: "/>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding SelectedFunction}" ItemsSource="{Binding FunctionList}" />
+                <ComboBox SelectedValue="{Binding SelectedFunction}" SelectedItem="{Binding Path=SelectedEmployee.Function.Name}" ItemsSource="{Binding FunctionList}" />
             </DockPanel>
 
             <Grid

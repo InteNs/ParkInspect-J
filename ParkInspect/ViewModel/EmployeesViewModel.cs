@@ -20,7 +20,7 @@ namespace ParkInspect.ViewModel
 
         private string _input;
 
-        private IEmployeeRepository _repo;
+        private IEmployeeRepository _repository;
 
         private RouterViewModel _router;
 
@@ -70,10 +70,10 @@ namespace ParkInspect.ViewModel
 
         public EmployeesViewModel(IEmployeeRepository repo, RouterViewModel router)
         {
-            _repo = repo;
+            _repository = repo;
             _router = router;
 
-            EmployeesCompleteList = new ObservableCollection<EmployeeViewModel>(_repo.GetAll());
+            EmployeesCompleteList = new ObservableCollection<EmployeeViewModel>(_repository.GetAll());
 
             EmployeesShowableList = new ObservableCollection<EmployeeViewModel>();
 
@@ -108,7 +108,7 @@ namespace ParkInspect.ViewModel
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
                 SelectedEmployee.Dismissal_Date = DateTime.Now;
-                if (_repo.UpdateDismiss(SelectedEmployee))
+                if (_repository.Update(SelectedEmployee))
                 {
                     EmployeesCompleteList.Remove(SelectedEmployee);
                     EmployeesShowableList.Remove(SelectedEmployee);

@@ -16,11 +16,11 @@ namespace ParkInspect.ViewModel
 
         private string _selectedFunction;
 
-        private IEmployeeRepository _ier;
+        private IEmployeeRepository _repository;
 
         private RouterViewModel _router;
 
-        private EmployeesViewModel _evm;
+        private EmployeesViewModel _employeesVM;
 
 
         public string SelectedRegion
@@ -53,21 +53,15 @@ namespace ParkInspect.ViewModel
 
         public AddEmployeeViewModel(IEmployeeRepository ier,RouterViewModel router,EmployeesViewModel evm)
         {
-            _ier = ier;
+            _repository = ier;
             _router = router;
-            _evm = evm;
+            _employeesVM = evm;
 
             Employee = new EmployeeViewModel();
 
-            FunctionList = new List<string>();
-            FunctionList.Add("Inspecteur");
-            FunctionList.Add("Directeur");
-            FunctionList.Add("Manager");
+            FunctionList = _repository.GetFunctions().ToList();
 
-            RegionList = new List<string>();
-            RegionList.Add("Limburg");
-            RegionList.Add("Utrecht");
-            RegionList.Add("Brabant");
+            RegionList = _repository.GetRegions().ToList();
 
             AddEmployeeCommand = new RelayCommand(AddEmployee, CanAddEmployee);
         }
@@ -90,10 +84,10 @@ namespace ParkInspect.ViewModel
             Employee.Function.Name = SelectedFunction;
             if (this.ValidateInput())
             {
-                if (_ier.Create(Employee))
+                if (_repository.Create(Employee))
                 {
-                    _evm.EmployeesCompleteList.Add(Employee);
-                    _evm.EmployeesShowableList.Add(Employee);
+                    _employeesVM.EmployeesCompleteList.Add(Employee);
+                    _employeesVM.EmployeesShowableList.Add(Employee);
                     _router.SetViewCommand.Execute("employees-list");
                 }
             }

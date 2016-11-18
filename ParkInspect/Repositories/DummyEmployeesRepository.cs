@@ -36,9 +36,24 @@ namespace ParkInspect.Repositories
             return true;
         }
 
-        public bool UpdateDismiss(EmployeeViewModel employee)
+        public IEnumerable<string> GetRegions()
         {
-            return true;
+            return new List<string>
+            {
+                "Limburg",
+                "Utrecht",
+                "Brabant"
+            };
+        }
+
+        public IEnumerable<string> GetFunctions()
+        {
+            return new List<string>
+            {
+                "Directeur",
+                "Inspecteur",
+                "Manager"
+            };
         }
     }
 }
