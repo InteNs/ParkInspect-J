@@ -38,6 +38,9 @@ probeer te zorgen dat commits onafhankelijk zijn van elkaar
 
 
 ### Code regels
+
+#### Conventies
+Wij gebruiken de standaard C# conventies, daarbij is het verplicht om ReSharper te installeren die in de gaten houd dat de conventies worden aangehouden.
 #### Structuur
 ##### Views
 de views moeten zo veel mogelijk voldoen aan de wireframes
@@ -51,3 +54,12 @@ de structuur van de viewmodels is als volgt:
 5. private methods
 
 #### Patterns
+
+##### Repositories
+De viewmodels hebben geen directe link met het entitity framework, alle EF code staat in de repository waar de viewmodel zijn data vandaan haalt.
+
+##### ViewModelLocator
+hier worden alle viewmodels aangemaakt, en benodigde services (repos en router) geinjecteerd in de constructor van die viewmodel
+
+##### Router
+Hier worden alle user controls gedefinieerd, zodat er makkelijk van view kan worden geswitched.
