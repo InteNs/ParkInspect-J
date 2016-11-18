@@ -27,7 +27,7 @@ namespace ParkInspect.ViewModel
                 { "test-1", typeof(UserControl1) },
                 { "test-2", typeof(UserControl2) },
                 { "Customers-list", typeof(CustomersView) },
-                //{ "Customers-add", typeof(AddCustomersView) },
+                { "Customers-add", typeof(AddCustomerView) },
                 //{ "Customers-edit", typeof(EditCustomersView) }
             };
 

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="750"
-             DataContext="{Binding ,Source={StaticResource Locator}}">
+             DataContext="{Binding CustomersViewModel,Source={StaticResource Locator}}">
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -63,12 +63,12 @@
 
             <Grid Grid.Row="1"
           Grid.Column="1">
-                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-add" />
+                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="Customers-add" />
             </Grid>
 
             <Grid Grid.Row="1"
           Grid.Column="3">
-                <Button Content="Nieuwe opdracht" Command="{Binding SetEmployeeDismissCommand}" />
+                <Button Content="Nieuwe opdracht" Command="{Binding }" />
             </Grid>
 
             <Grid Grid.Row="1"
@@ -79,14 +79,14 @@
                 Grid.ColumnSpan="6"
               >
                 <DataGrid GridLinesVisibility="None"
-      Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" ItemsSource="{Binding EmployeesShowableList}" >
+      Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" ItemsSource="{Binding CustomerShowableList}" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
-                        <DataGridTextColumn Header="Naam" Binding="{Binding Person.Name}" Width="*" />
-                        <DataGridTextColumn Header="Postcode" Binding="{Binding Person.Zip_Code}" Width="*" />
-                        <DataGridTextColumn Header="Straat-nr" Binding="{Binding Person.Street_Number}" Width="*" />
-                        <DataGridTextColumn Header="Telefoon" Binding="{Binding Person.Phone_Number}" Width="*" />
-                        <DataGridTextColumn Header="Email" Binding="{Binding Person.Email}" Width="*" />
+                        <DataGridTextColumn Header="Naam" Binding="{Binding person.Name}" Width="*" />
+                        <DataGridTextColumn Header="Postcode" Binding="{Binding person.Zip_Code}" Width="*" />
+                        <DataGridTextColumn Header="Straat-nr" Binding="{Binding person.Street_Number}" Width="*" />
+                        <DataGridTextColumn Header="Telefoon" Binding="{Binding person.Phone_Number}" Width="*" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding person.Email}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -103,7 +103,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox FontSize="16" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="AUTO" TextAlignment="Center" />
-                <Button Grid.Column="2" Grid.Row="0" Command="{Binding SearchEmployeesCommand}" CommandParameter="{Binding SearchEmployeesCommand}"  Content="Go!" />
+                <Button Grid.Column="2" Grid.Row="0" Command="{Binding SearchCustomersCommand}" CommandParameter="{Binding SearchCustomersCommand}"  Content="Go!" />
                 <ComboBox Grid.Column="0" Grid.Row="0" ItemsSource="{Binding SearchCategoryList}" SelectedValue="{Binding Category}" HorizontalAlignment="Right" />
 
             </Grid>
