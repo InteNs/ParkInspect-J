@@ -1,35 +1,65 @@
 # ParkInspect
 
-# Gitflow
+## Regels
 
-[uitleg](https://datasift.github.io/gitflow/IntroducingGitFlow.html)
+### Git regels
 
-### issues
+De master branch bevat een volledig werkend project.
 
-iedere product use case krijgt een milestone met een deadline
+De development branch is de plaats waar alle feature branches samen worden gevoegd om een werkend product te krijgen.
 
-er worden issues (naar wens) aangemaakt voor alle (eenpersoons) taken die nodig zijn voor die milestone
+#### Milestones
 
-iemand wordt aan de issue geassigned, er wordt een geplanned aantal uren aan gehangen (dmv labels)
+Een milestone is een verzameling van taken die als een geheel gezien worden. Een milestone bevat meerdere taken, en een deadline
+er kunnen meerdere mensen aan een dezelfde milestone werken.
 
-en de issue wordt aan die milestone gelinked.
+#### Issues
 
-### pull requests en commits
+Issues zijn alle taken die nodig zijn om een milestone te voltooien, de omvang van een issue is klein, en wordt door een persoon uitgevoerd, als een issue is opgelost wordt dat door middel van een pull request geclosed, dus niet handmatig.
 
-de branch-naam is (zonder hoofdletters) `feature/de-naam-van-de-milestone`
+#### Branches
 
-er wordt **een** branch en pull-request per milestone gemaakt
+een branch dient als een plek waar de code komt te staan om een bepaalde issue op te lossen de naamgeving voor zo'n branch is
+```
+feature/dit-is-een-feature
+```
+denk hierbij aan kleine letters en streepjes!
 
-er wordt **per taak** een commit gemaakt door de persoon die die taak heeft uitgevoerd
+#### Pull requests
 
-de commit message bevat de tekst `closes #n / omschrijving` waar n het nummer van de issue is (niet `#` vergeten)
+een pull request is een aanvraag om jouw code in te leveren. een pull request hangt dus aan een issue.
+als je een pull request aanmaakt, link dan naar de bijbehorende issue dmv `closes #4` of `resolves #4` of `fixes #4` waar #4 de referentie is naar de issue.
 
-zodra de pull-request gemerged wordt, worden de issues automatisch geclosed
+#### Commits
 
-### bug fixes in de branch
+commits zijn een verzameling van changes, geef de commit message een duidelijke beschrijving van wat de changes zijn, in het engels
 
-natuurlijk pas de commit maken als je echt denkt klaar te zijn met die issue.
-
-er mogen bugfix commits bij de pull request toegevoegd worden, de commit message wordt dan `bug-fix/dit was het probleem`
+probeer te zorgen dat commits onafhankelijk zijn van elkaar
 
 
+### Code regels
+
+#### Conventies
+Wij gebruiken de standaard C# conventies, daarbij is het verplicht om ReSharper te installeren die in de gaten houd dat de conventies worden aangehouden.
+#### Structuur
+##### Views
+de views moeten zo veel mogelijk voldoen aan de wireframes
+##### ViewModels
+de structuur van de viewmodels is als volgt:
+
+1. private fields
+2. properties
+3. constructors
+4. public methods
+5. private methods
+
+#### Patterns
+
+##### Repositories
+De viewmodels hebben geen directe link met het entitity framework, alle EF code staat in de repository waar de viewmodel zijn data vandaan haalt.
+
+##### ViewModelLocator
+hier worden alle viewmodels aangemaakt, en benodigde services (repos en router) geinjecteerd in de constructor van die viewmodel
+
+##### Router
+Hier worden alle user controls gedefinieerd, zodat er makkelijk van view kan worden geswitched.
