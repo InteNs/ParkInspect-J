@@ -26,8 +26,10 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ParkInspectEntities>();
             //repositories
             SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
+            SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
 
             //viewmodels
+            SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TestViewModel1>();
             SimpleIoc.Default.Register<TestViewModel2>();
