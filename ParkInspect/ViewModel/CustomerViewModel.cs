@@ -44,6 +44,8 @@ namespace ParkInspect.ViewModel
         public CustomerViewModel()
         {
             _customer = new Customer();
+            _customer.person = new Person();
+            _customer.Function = new Function();
         }
         public CustomerViewModel(int id, string name, string zipcode, string telephone, int streetnr, string email, string region, string function)
         {

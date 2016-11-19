@@ -58,11 +58,6 @@ namespace ParkInspect.ViewModel
         private bool CanAddCustomer()
         {
             //TODO: check if all fields are filled in
-            /*bool validate = false;
-
-            if (this._selectedFunction == null || this.Customer.person.Name == null || this.Customer.person.Zip_Code == null ||
-                this.Customer.person.Street_Number < 0 || this.Customer.person.Phone_Number == null || this.Customer.person.Email == null)
-            { return validate; }*/
             return true;
         }
 
@@ -71,9 +66,20 @@ namespace ParkInspect.ViewModel
             //TODO: Check if all fields have the right content
             bool validate = false;
 
+            //check if all fields are filled in
             if (this._selectedFunction == null || this.Customer.person.Name == null || this.Customer.person.Zip_Code == null ||
                 this.Customer.person.Street_Number < 0 || this.Customer.person.Phone_Number == null || this.Customer.person.Email == null)
-            { return validate; }
+            {
+                return validate;
+            }
+
+            //Name can not contain a number
+            if (this.Customer.person.Name.Any(c => char.IsDigit(c)))
+            { 
+                return validate;
+            }
+
+
             return true;
         }
 
@@ -81,7 +87,7 @@ namespace ParkInspect.ViewModel
         {
             //Customer.Region.Name = SelectedRegion;
             //Customer.Function.Name = SelectedFunction;
-           if (this.ValidateInput())
+            if (this.ValidateInput())
             {
                 if (_ier.Create(Customer))
                 {
