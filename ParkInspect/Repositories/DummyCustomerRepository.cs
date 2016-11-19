@@ -9,7 +9,6 @@ namespace ParkInspect.Repositories
 {
     class DummyCustomerRepository : ICustomerRepository
     {
-        private CustomerViewModel _evm;
 
         public bool Create(CustomerViewModel customer)
         {
@@ -20,11 +19,11 @@ namespace ParkInspect.Repositories
         {
             return new List<CustomerViewModel>
             {
-                new CustomerViewModel(1, "Pim Westervoort", "Brabant", "Inspecteur"),
-                new CustomerViewModel(2, "Edward van Lieshout", "Brabant", "Inspecteur"),
-                new CustomerViewModel(3, "Mark Havekes", "Utrecht", "Inspecteur"),
-                new CustomerViewModel(4, "Pim Pam Pet", "Limburg", "Inspecteur"),
-                new CustomerViewModel(5, "Mathijs van Bree", "Limburg", "Directeur")
+                new CustomerViewModel(1, "Pim Westervoort", "1234AB", "5497" , 61, "e@mail.com", "Klant"),
+                new CustomerViewModel(2, "Edward van Lieshout", "1234AB", "5497", 61, "e@mail.com", "Klant"),
+                new CustomerViewModel(3, "Mark Havekes", "1234AB", "5497" , 61, "e@mail.com", "Klant"),
+                new CustomerViewModel(4, "Pim Pam Pet","1234AB", "5497" , 61, "e@mail.com", "Klant"),
+                new CustomerViewModel(5, "Mathijs van Bree", "1234AB", "5497" , 61, "e@mail.com", "Klant")
             };
         }
 

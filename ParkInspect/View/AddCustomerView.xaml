@@ -90,7 +90,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Person.Name}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.person.Name}"  Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -99,7 +99,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Person.Zip_Code}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.person.Zip_Code}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -108,7 +108,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Person.Street_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.person.Street_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -117,7 +117,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Person.Phone_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.person.Phone_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -126,7 +126,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Person.Email}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.person.Email}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel
@@ -142,7 +142,7 @@
             <Grid
                 Grid.Row="15"
                 Grid.Column="1">
-                <Button Command="{Binding AddCustomerCommand}" Content="Klant Toevoegen" Width="275" FontSize="20" Background="#FF999999" />
+                <Button Command="{Binding AddCustomerCommand}" Content="Klant Toevoegen" Width="275" FontSize="20" Background="#FF999999"/>
             </Grid>
 
         </Grid>
