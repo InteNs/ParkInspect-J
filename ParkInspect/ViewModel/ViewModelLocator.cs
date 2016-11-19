@@ -30,6 +30,7 @@ namespace ParkInspect.ViewModel
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
+            SimpleIoc.Default.Register<CommissionOverviewViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<TestViewModel1>();
             SimpleIoc.Default.Register<TestViewModel2>();
@@ -40,6 +41,8 @@ namespace ParkInspect.ViewModel
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();
         public TestViewModel2 Test2 => ServiceLocator.Current.GetInstance<TestViewModel2>();
+        public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
+        public AddCommissionViewModel AddCommission => new AddCommissionViewModel(ServiceLocator.Current.GetInstance<ICommissionRepository>(), Router, Commissions);
     
 
         public static void Cleanup()

@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repositories
 {
     public interface ICommissionRepository
     {
-        Commission Get();
-        List<Commission> GetAll();
-        Commission Create(Commission commission);
-        Commission Update(Commission commission);
-        void Delete(Commission commission);
+        IEnumerable<CommissionViewModel> GetAll();
+        
+        bool Create(CommissionViewModel commission);
+        bool Update(CommissionViewModel commission);
+        void Delete(CommissionViewModel commission);
+
     }
 }
