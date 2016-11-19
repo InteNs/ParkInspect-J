@@ -1,105 +1,64 @@
-﻿using Data;
-using GalaSoft.MvvmLight;
-using ParkInspect.DummyModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace ParkInspect.ViewModel
 {
 
-    public class EmployeeViewModel : ViewModelBase
+    public class EmployeeViewModel : PersonViewModel
     {
-
-        private Employee _employee;
+        private int _id;
+        private DateTime _employmentDate;
+        private DateTime _dismissalDate;
+        private string _region;
+        private string _function;
 
         public int Id
         {
-            get { return _employee.Id; }
+            get { return _id; }
             set
             {
-                _employee.Id = value;
-                base.RaisePropertyChanged("Id");
+                _id = value;
+                RaisePropertyChanged();
             }
         }
 
-        public System.DateTime Employment_Date
+        public DateTime EmploymentDate
         {
-            get { return _employee.Employment_Date; }
+            get { return _employmentDate; }
             set
             {
-                _employee.Employment_Date = value;
-                base.RaisePropertyChanged("Employment_Date");
+                _employmentDate = value;
+                RaisePropertyChanged();
             }
         }
 
-        public System.DateTime Dismissal_Date
+        public DateTime DismissalDate
         {
-            get { return _employee.Dismissal_Date; }
+            get { return _dismissalDate; }
             set
             {
-                _employee.Dismissal_Date = value;
-                base.RaisePropertyChanged("Dismissal_Date");
+                _dismissalDate = value;
+                RaisePropertyChanged();
             }
         }
 
-        public virtual Region Region
+        public string Region
         {
-            get { return _employee.Region; }
+            get { return _region; }
             set
             {
-                _employee.Region = value;
-                base.RaisePropertyChanged("Region");
+                _region = value;
+                RaisePropertyChanged();
             }
         }
 
-        public virtual Function Function
+        public string Function
         {
-            get { return _employee.Function; }
+            get { return _function; }
             set
             {
-                _employee.Function = value;
-                base.RaisePropertyChanged("Function");
+                _function = value;
+                RaisePropertyChanged();
             }
-        }
-
-        public virtual Person Person
-        {
-            get { return _employee.Person; }
-            set
-            {
-                _employee.Person = value;
-                base.RaisePropertyChanged("Person");
-            }
-        }
-
-        public EmployeeViewModel( Employee employee)
-        {
-            _employee = employee;
-        }
-
-        public EmployeeViewModel()
-        {
-            _employee = new Employee();
-            _employee.Person = new Person();
-            _employee.Region = new Region();
-            _employee.Function = new Function();
-        }
-
-
-        //For testing
-        public EmployeeViewModel(int id, string name, string region, string function)
-        {
-            _employee = new Employee();
-            _employee.Id = id;
-            _employee.Person = new Person();
-            Person.Name = name;
-            _employee.Region = new Region();
-            Region.Name = region;
-            _employee.Function = new Function();
-            Function.Name = function;
         }
     }
 }
