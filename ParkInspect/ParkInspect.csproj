@@ -86,6 +86,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DiagramFactory.cs" />
+    <Compile Include="DiagramModels\Cirkeldiagram.cs" />
+    <Compile Include="DiagramModels\Grafiek.cs" />
+    <Compile Include="DiagramModels\Kaart.cs" />
+    <Compile Include="DiagramModels\Staafdiagram.cs" />
+    <Compile Include="DiagramModels\IDiagram.cs" />
     <Compile Include="ViewModel\KPIGenererenVM.cs" />
     <Compile Include="Repositories\DummyTestItemRepository.cs" />
     <Compile Include="Repositories\ITestItemRepository.cs" />
