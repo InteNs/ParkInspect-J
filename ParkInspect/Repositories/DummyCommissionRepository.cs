@@ -18,6 +18,31 @@ namespace ParkInspect.Repositories
             commissions.Add(new Commission { Id = 3, Frequency = 2, CustomerId = 3 });
         }
 
+        public Commission Get()
+        {
+            throw new NotImplementedException();
+        }
+
+        List<Commission> ICommissionRepository.GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Commission Create(Commission commission)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Commission Update(Commission commission)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(Commission commission)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable GetAll()
         {
             return commissions;

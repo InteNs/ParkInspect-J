@@ -1,12 +1,18 @@
 ﻿<UserControl x:Class="ParkInspect.View.EmployeesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ParkInspect.View"
+             xmlns:converter="clr-namespace:ParkInspect.Converter"
+             xmlns:viewModel="clr-namespace:ParkInspect.ViewModel"
+             xmlns:service="clr-namespace:ParkInspect.Service"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="750"
              DataContext="{Binding Employees,Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <converter:FilterEmployeeConverter x:Key="Converter" />
+    </UserControl.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -17,26 +23,25 @@
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.01*"/>
-            <RowDefinition Height="0.15*"/>
-            <RowDefinition Height="0.01*"/>
+            <RowDefinition Height="0.01*" />
+            <RowDefinition Height="0.15*" />
+            <RowDefinition Height="0.01*" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="0.01*"/>
+            <RowDefinition Height="0.01*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1"
-          Grid.Column="1">
+              Grid.Column="1">
             <Button Content="Terug" FontSize="23" />
         </Grid>
 
         <Grid Grid.Row="3"
               Grid.Column="1"
-                Grid.ColumnSpan="2"
-              >
+              Grid.ColumnSpan="2">
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                    <GradientStop Color="#FF2B2B2B" Offset="-1"/>
-                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
+                    <GradientStop Color="#FF2B2B2B" Offset="-1" />
+                    <GradientStop Color="#FFB9B9B9" Offset="1" />
                 </LinearGradientBrush>
             </Grid.Background>
 
@@ -52,62 +57,65 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.01*"/>
-                <RowDefinition Height="0.15*"/>
-                <RowDefinition Height="0.01*"/>
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.15*" />
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.01*" />
                 <RowDefinition Height="1*" />
-                <RowDefinition Height="0.01*"/>
-                <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="0.01*"/>
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.01*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="1"
-          Grid.Column="1">
-                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-add" />
+                  Grid.Column="1">
+                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }"
+                        CommandParameter="employees-add" />
             </Grid>
 
             <Grid Grid.Row="1"
-          Grid.Column="3">
+                  Grid.Column="3">
                 <Button Content="Non-Actief" Command="{Binding SetEmployeeDismissCommand}" />
             </Grid>
 
             <Grid Grid.Row="1"
-          Grid.Column="5">
+                  Grid.Column="5">
                 <Button Content="Bekijken" Command="{Binding ShowEditEmployeeCommand}" />
             </Grid>
 
             <Grid Grid.Row="3"
-              Grid.Column="1"
-                Grid.ColumnSpan="6"
-              >
+                  Grid.Column="1"
+                  Grid.ColumnSpan="6">
+                <AdornerDecorator>
+                    <TextBox  Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
+                        <service:WatermarkService.Watermark>
+                            <TextBlock>Zoeken...</TextBlock>
+                        </service:WatermarkService.Watermark>
+                    </TextBox>
+                </AdornerDecorator>
+            </Grid>
+            <Grid Grid.Row="5"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="6">
                 <DataGrid GridLinesVisibility="None"
-      Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" ItemsSource="{Binding EmployeesShowableList}" >
+                          Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False"
+                          IsReadOnly="True" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}">
+                    <DataGrid.ItemsSource>
+                        <MultiBinding Converter="{StaticResource Converter}">
+                            <Binding Path="Employees"></Binding>
+                            <Binding Path="(viewModel:EmployeesViewModel.Input)"></Binding>
+                        </MultiBinding>
+                    </DataGrid.ItemsSource>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
-                        <DataGridTextColumn Header="Naam" Binding="{Binding Person.Name}" Width="*" />
-                        <DataGridTextColumn Header="Regio" Binding="{Binding Region.Name}" Width="*" />
-                        <DataGridTextColumn Header="Functie" Binding="{Binding Function.Name}" Width="*" />
+                        <DataGridTextColumn Header="Naam" Binding="{Binding Name}" Width="*" />
+                        <DataGridTextColumn Header="Regio" Binding="{Binding Name}" Width="*" />
+                        <DataGridTextColumn Header="Functie" Binding="{Binding Name}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-
-            <Grid Grid.Row="5"
-              Grid.Column="1"
-                Grid.ColumnSpan="5">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="0.25*" />
-                    
-                </Grid.ColumnDefinitions>
-
-                <TextBox FontSize="16" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="AUTO" TextAlignment="Center" />
-                <Button Grid.Column="2" Grid.Row="0" Command="{Binding SearchEmployeesCommand}" CommandParameter="{Binding SearchEmployeesCommand}"  Content="Go!" />
-                <ComboBox Grid.Column="0" Grid.Row="0" ItemsSource="{Binding SearchCategoryList}" SelectedValue="{Binding Category}" HorizontalAlignment="Right" />
-            
-            </Grid>
-
         </Grid>
     </Grid>
 </UserControl>
+

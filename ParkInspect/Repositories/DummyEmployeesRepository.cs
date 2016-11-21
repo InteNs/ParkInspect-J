@@ -1,19 +1,10 @@
-﻿using Data;
-using Microsoft.Practices.ServiceLocation;
-using ParkInspect.ViewModel;
-using System;
+﻿using ParkInspect.ViewModel;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParkInspect.Repositories
 {
     public class DummyEmployeesRepository : IEmployeeRepository
     {
-
-        private EmployeesViewModel _evm;
-
         public bool Create(EmployeeViewModel employee)
         {
             return true;
@@ -23,11 +14,11 @@ namespace ParkInspect.Repositories
         {
             return new List<EmployeeViewModel>
             {
-                new EmployeeViewModel(1, "Pim Westervoort", "Brabant", "Inspecteur"),
-                new EmployeeViewModel(2, "Edward van Lieshout", "Brabant", "Inspecteur"),
-                new EmployeeViewModel(3, "Mark Havekes", "Utrecht", "Inspecteur"),
-                new EmployeeViewModel(4, "Pim Pam Pet", "Limburg", "Inspecteur"),
-                new EmployeeViewModel(5, "Mathijs van Bree", "Limburg", "Directeur")
+                new EmployeeViewModel { Id = 1, Name = "Pim Westervoort", Region = "Brabant", Function = "Inspecteur", Email = "pim.west@hotmail.com"},
+                new EmployeeViewModel { Id = 2, Name = "Edward van Lieshout", Region = "Brabant", Function = "Inspecteur", Email = "eddie.hout@gmail.com"},
+                new EmployeeViewModel { Id = 3, Name = "Mark Havekes", Region = "Utrecht", Function = "Inspecteur", Email = "mark.havekes@gmail.com"},
+                new EmployeeViewModel { Id = 4, Name = "Pim Pam Pet", Region = "Limburg", Function = "Inspecteur", Email = "pimpampet@hetnet.net"},
+                new EmployeeViewModel { Id = 5, Name = "Mathijs van Bree", Region = "Limburg", Function = "Directeur", Email = "mattie@msn.com"}
             };
         }
 
