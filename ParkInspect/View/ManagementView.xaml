@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             DataContext="{Binding Management-view, Source={StaticResource Locator}}">
+             DataContext="{Binding Management, Source={StaticResource Locator}}">
     <Grid>
             
     </Grid>
