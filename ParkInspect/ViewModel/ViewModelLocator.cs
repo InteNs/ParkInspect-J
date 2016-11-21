@@ -24,16 +24,19 @@ namespace ParkInspect.ViewModel
             //repositories
             SimpleIoc.Default.Register<IEmployeeRepository, DummyEmployeesRepository>();
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
+            SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
+            SimpleIoc.Default.Register<ManagementRapportenViewModel>();
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
         //viewmodels
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
+        public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
    	    public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>(); 
 
 
