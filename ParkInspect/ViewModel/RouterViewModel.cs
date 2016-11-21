@@ -23,7 +23,7 @@ namespace ParkInspect.ViewModel
             {
                 { "test-1", typeof(UserControl1) },
                 { "test-2", typeof(UserControl2) },
-                { "ManagementRapportenView", typeof(ManagementRapportenView) }
+                { "management-view", typeof(ManagementRapportenView) }
             };
 
         }

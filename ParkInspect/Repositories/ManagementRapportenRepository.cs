@@ -1,18 +1,19 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repositories
 {
-    public class ManagementRapportenRepository
+    public class ManagementRapportenRepository : IManagementRapportenRepository
     {
         public ManagementRapportenViewModel Get()
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<ManagementRapportenViewModel> GetAll()
+        public List<ManagementRapportenViewModel> GetAll()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public ManagementRapportenViewModel Create(ManagementRapportenViewModel testItem)

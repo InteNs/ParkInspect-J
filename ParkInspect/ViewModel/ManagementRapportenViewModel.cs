@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.Repositories;
+﻿using ParkInspect.Repositories;
 
 namespace ParkInspect.ViewModel
 {
     public class ManagementRapportenViewModel : MainViewModel
     {
-        private ManagementRapportenRepository _repository { get; set; }
+        private IManagementRapportenRepository Repository { get; set; }
 
-        public ManagementRapportenViewModel(ManagementRapportenRepository repository)
+        public ManagementRapportenViewModel(IManagementRapportenRepository repo)
         {
-            _repository = repository;
+            Repository = repo;
         }
 
 
