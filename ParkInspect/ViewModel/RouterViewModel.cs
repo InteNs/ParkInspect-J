@@ -25,7 +25,8 @@ namespace ParkInspect.ViewModel
                 { "employees-add", typeof(AddEmployeeView) },
                 { "employees-edit", typeof(EditEmployeeView) },
                 { "test-1", typeof(UserControl1) },
-                { "test-2", typeof(UserControl2) }
+                { "test-2", typeof(UserControl2) },
+                { "Management-view", typeof(ManagementView) }
             };
 
         }
