@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -86,46 +86,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="DiagramFactory.cs" />
-    <Compile Include="DiagramModels\Cirkeldiagram.cs" />
-    <Compile Include="DiagramModels\Grafiek.cs" />
-    <Compile Include="DiagramModels\Kaart.cs" />
-    <Compile Include="DiagramModels\Staafdiagram.cs" />
-    <Compile Include="DiagramModels\IDiagram.cs" />
-    <Compile Include="ViewModel\KPIGenererenVM.cs" />
+    <Compile Include="Repositories\DummyTestItemRepository.cs" />
+    <Compile Include="Repositories\ITestItemRepository.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
-    <Page Include="View\GenerateKPI.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="ViewModel\TestViewModel1.cs" />
+    <Compile Include="ViewModel\TestViewModel2.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\Router.cs" />
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Converter\FilterEmployeeConverter.cs" />
-    <Compile Include="Lib\WatermarkAdorner.cs" />
-    <Compile Include="Repositories\DummyEmployeesRepository.cs" />
-    <Compile Include="Repositories\Commission.cs" />
-    <Compile Include="Repositories\DummyCommissionRepository.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
-    <Compile Include="Repositories\ICommissionRepository.cs" />
-    <Compile Include="Repositories\IManagementRapportenRepository.cs" />
-    <Compile Include="Repositories\ManagementRapportenRepository.cs" />
-    <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
-    <Compile Include="Service\WaterMarkService.cs" />
-    <Compile Include="ViewModel\PersonViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelLocator.cs" />
-    <Compile Include="ViewModel\AddCommissionViewModel.cs" />
-    <Compile Include="ViewModel\CommissionViewModel.cs" />
-    <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\TestItemViewModel.cs" />
-    <Compile Include="ViewModel\RouterViewModel.cs" />
-    <Compile Include="View\AddCommission.xaml.cs">
-      <DependentUpon>AddCommission.xaml</DependentUpon>
+    <Compile Include="View\UserControl2.xaml.cs">
+      <DependentUpon>UserControl2.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\CommissionOverview.xaml.cs">
-      <DependentUpon>CommissionOverview.xaml</DependentUpon>
-    </Compile>
+    <Page Include="View\MainWindow.xaml">
+
+    <Compile Include="SearchEmployeesCommand.cs" />
+    <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
+    <Compile Include="ViewModel\EditEmployeeViewModel.cs" />
     <Compile Include="View\AddEmployeeView.xaml.cs">
       <DependentUpon>AddEmployeeView.xaml</DependentUpon>
     </Compile>
@@ -135,11 +114,12 @@
     <Compile Include="View\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ManagementView.xaml.cs">
-      <DependentUpon>ManagementView.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="ViewModel\EmployeesViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="View\AddEmployeeView.xaml">
       <SubType>Designer</SubType>
+
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditEmployeeView.xaml">
@@ -150,37 +130,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddCommission.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\CommissionOverview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
-    <Compile Include="ViewModel\EditEmployeeViewModel.cs" />
-    <Compile Include="ViewModel\EmployeesViewModel.cs" />
-    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="View\GenerateKPI.xaml.cs">
-      <DependentUpon>GenerateKPI.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="View\ManagementView.xaml">
+    <Page Include="View\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\UserControl2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>  
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -216,7 +181,6 @@
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

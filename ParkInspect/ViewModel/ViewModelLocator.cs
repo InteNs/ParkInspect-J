@@ -1,16 +1,3 @@
-/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:ParkInspect"
-                           x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-
-  You can also use Blend to do all this with the tool's support.
-  See http://www.galasoft.ch/mvvm
-*/
 
 using Data;
 using GalaSoft.MvvmLight;
@@ -21,10 +8,7 @@ using ParkInspect.View;
 
 namespace ParkInspect.ViewModel
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// </summary>
+
     public class ViewModelLocator
     {
         /// <summary>
@@ -34,24 +18,30 @@ namespace ParkInspect.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             //router
-            SimpleIoc.Default.Register<Router>();
+            SimpleIoc.Default.Register<RouterViewModel>();
             //database context
             SimpleIoc.Default.Register<ParkInspectEntities>();
             //repositories
-            SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
+            SimpleIoc.Default.Register<IEmployeeRepository, DummyEmployeesRepository>();
+            SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
+            SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
 
             //viewmodels
+            SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<TestViewModel1>();
-            SimpleIoc.Default.Register<TestViewModel2>();
+            SimpleIoc.Default.Register<EmployeesViewModel>();
+            SimpleIoc.Default.Register<ManagementRapportenViewModel>();
         }
         //router
-        public Router Router => ServiceLocator.Current.GetInstance<Router>();
+        public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
         //viewmodels
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();
-        public TestViewModel2 Test2 => ServiceLocator.Current.GetInstance<TestViewModel2>();
-    
+        public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
+   	    public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>(); 
+
+
+        public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
+        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
 
 
         public KPIGenererenVM KPIGenereren
