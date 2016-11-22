@@ -1,11 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
@@ -16,11 +13,11 @@ namespace ParkInspect.ViewModel
 
         private string _selectedFunction;
 
-        private IEmployeeRepository _repository;
+        private readonly IEmployeeRepository _repository;
 
-        private RouterViewModel _router;
+        private readonly RouterViewModel _router;
 
-        private EmployeesViewModel _employeesVM;
+        private readonly EmployeesViewModel _employeesVm;
 
 
         public string SelectedRegion
@@ -55,7 +52,7 @@ namespace ParkInspect.ViewModel
         {
             _repository = ier;
             _router = router;
-            _employeesVM = evm;
+            _employeesVm = evm;
 
             Employee = new EmployeeViewModel();
 
@@ -80,14 +77,13 @@ namespace ParkInspect.ViewModel
 
         private void AddEmployee()
         {
-            Employee.Region.Name = SelectedRegion;
-            Employee.Function.Name = SelectedFunction;
+            Employee.Region = SelectedRegion;
+            Employee.Function = SelectedFunction;
             if (this.ValidateInput())
             {
                 if (_repository.Create(Employee))
                 {
-                    _employeesVM.EmployeesCompleteList.Add(Employee);
-                    _employeesVM.EmployeesShowableList.Add(Employee);
+                    _employeesVm.Employees.Add(Employee);
                     _router.SetViewCommand.Execute("employees-list");
                 }
             }

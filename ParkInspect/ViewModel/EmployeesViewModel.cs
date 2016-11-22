@@ -2,7 +2,6 @@
 using GalaSoft.MvvmLight.CommandWpf;
 using ParkInspect.Repositories;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -24,11 +23,9 @@ namespace ParkInspect.ViewModel
 
         private string _input;
 
-        private IEmployeeRepository _repository;
+        private readonly IEmployeeRepository _repository;
 
-        private RouterViewModel _router;
-
-        private string _category;
+        private readonly RouterViewModel _router;
 
         public EmployeeViewModel SelectedEmployee
         {
@@ -36,7 +33,7 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedEmployee = value;
-                base.RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
@@ -46,27 +43,11 @@ namespace ParkInspect.ViewModel
             set
             {
                 _input = value;
-                base.RaisePropertyChanged();
+                RaisePropertyChanged();
             }
         }
 
-        public string Category
-        {
-            get { return _category; }
-            set
-            {
-                _category = value;
-                base.RaisePropertyChanged();
-            }
-        }
-
-        public ObservableCollection<EmployeeViewModel> EmployeesCompleteList { get; set; }
-
-        public ObservableCollection<EmployeeViewModel> EmployeesShowableList { get; set; }
-
-        public List<string> SearchCategoryList { get; set; }
-
-        public ICommand SearchEmployeesCommand { get; set; }
+        public ObservableCollection<EmployeeViewModel> Employees { get; set; }
 
         public ICommand SetEmployeeDismissCommand { get; set; }
 
@@ -77,21 +58,8 @@ namespace ParkInspect.ViewModel
             _repository = repo;
             _router = router;
 
-            EmployeesCompleteList = new ObservableCollection<EmployeeViewModel>(_repository.GetAll());
+            Employees = new ObservableCollection<EmployeeViewModel>(_repository.GetAll());
 
-            EmployeesShowableList = new ObservableCollection<EmployeeViewModel>();
-
-            EmployeesCompleteList.ToList().ForEach(e => EmployeesShowableList.Add(e));
-
-            SearchCategoryList = new List<string>();
-            SearchCategoryList.Add("Naam");
-            SearchCategoryList.Add("ID");
-            SearchCategoryList.Add("Regio");
-            SearchCategoryList.Add("Functie");
-
-            Category = SearchCategoryList.First();
-
-            SearchEmployeesCommand = new SearchEmployeesCommand(this);
             ShowEditEmployeeCommand = new RelayCommand(ShowEditView, EmployeeIsNotNull);
             SetEmployeeDismissCommand = new RelayCommand(DismissEmployee, EmployeeIsNotNull);
     }
@@ -108,17 +76,15 @@ namespace ParkInspect.ViewModel
 
         private void DismissEmployee()
         {
+            var result = MessageBox.Show("Weet u zeker dat u " + SelectedEmployee.Name + " op non-actief wilt zetten?", "Werknemer op non-actief zetten", MessageBoxButtons.YesNo);
 
-            var result = MessageBox.Show("Weet u zeker dat u " + SelectedEmployee.Person.Name + " op non-actief wilt zetten?", "Werknemer op non-actief zetten", MessageBoxButtons.YesNo);
-            if (result == System.Windows.Forms.DialogResult.Yes)
-            {
-                SelectedEmployee.Dismissal_Date = DateTime.Now;
-                if (_repository.Update(SelectedEmployee))
-                {
-                    EmployeesCompleteList.Remove(SelectedEmployee);
-                    EmployeesShowableList.Remove(SelectedEmployee);
-                }
-            }
+            if (result != DialogResult.Yes) return;
+
+            SelectedEmployee.DismissalDate = DateTime.Now;
+
+            if (!_repository.Update(SelectedEmployee)) return;
+
+            Employees.Remove(SelectedEmployee);
         }
     }
 }
