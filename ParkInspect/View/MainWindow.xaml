@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:ParkInspect"
         xmlns:view="clr-namespace:ParkInspect.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow"
         WindowStartupLocation="CenterScreen"
+        Height="500"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
     <Grid>
 
