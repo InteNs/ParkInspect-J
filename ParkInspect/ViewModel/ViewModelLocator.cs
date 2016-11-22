@@ -1,4 +1,3 @@
-
 using Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
@@ -26,6 +25,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
             SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
             SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
+            SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
@@ -33,6 +33,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<ManagementRapportenViewModel>();
             SimpleIoc.Default.Register<AuthenticationViewModel>();
+            SimpleIoc.Default.Register<CustomersViewModel>();
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
@@ -45,6 +46,8 @@ namespace ParkInspect.ViewModel
         public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
         public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
+        public CustomersViewModel Customers => ServiceLocator.Current.GetInstance<CustomersViewModel>();
+        public AddCustomerViewModel AddCustomer => new AddCustomerViewModel(ServiceLocator.Current.GetInstance<ICustomerRepository>(), Router, Customers);
 
         public static void Cleanup()
         {

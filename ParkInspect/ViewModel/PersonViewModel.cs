@@ -10,8 +10,8 @@ namespace ParkInspect.ViewModel
     {
         private string _name;
         private string _zipCode;
-        private int _streetNumber;
-        private int _phoneNumber;
+        private string _streetNumber;
+        private string _phoneNumber;
         private string _email;
 
         public string Name
@@ -34,7 +34,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public int StreetNumber
+        public string StreetNumber
         {
             get { return _streetNumber; }
             set
@@ -44,7 +44,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public int PhoneNumber
+        public string PhoneNumber
         {
             get { return _phoneNumber; }
             set
