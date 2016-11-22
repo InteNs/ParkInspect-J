@@ -21,17 +21,11 @@ namespace ParkInspect.Repositories
             commissions.Add(new CommissionViewModel(3, 2, 3, 1, null, new DateTime(2016, 11, 17, 19, 57, 0), null, "Test Description 3", "Utrecht"));
         }
 
-        public IEnumerable GetAll()
+        public IEnumerable<CommissionViewModel> GetAll()
         {
             return commissions;
         }
-
-
-
-        IEnumerable<CommissionViewModel> ICommissionRepository.GetAll()
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public bool Create(CommissionViewModel commission)
         {

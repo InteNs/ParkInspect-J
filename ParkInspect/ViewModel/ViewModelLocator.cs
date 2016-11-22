@@ -8,10 +8,7 @@ using ParkInspect.View;
 
 namespace ParkInspect.ViewModel
 {
-    /// <summary>
-    /// This class contains static references to all the view models in the
-    /// application and provides an entry point for the bindings.
-    /// </summary>
+
     public class ViewModelLocator
     {
         /// <summary>
@@ -25,25 +22,32 @@ namespace ParkInspect.ViewModel
             //database context
             SimpleIoc.Default.Register<ParkInspectEntities>();
             //repositories
-            SimpleIoc.Default.Register<ITestItemRepository, DummyTestItemRepository>();
+            SimpleIoc.Default.Register<IEmployeeRepository, DummyEmployeesRepository>();
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
+            SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
+            SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<TestViewModel1>();
-            SimpleIoc.Default.Register<TestViewModel2>();
+            SimpleIoc.Default.Register<EmployeesViewModel>();
+            SimpleIoc.Default.Register<ManagementRapportenViewModel>();
+            SimpleIoc.Default.Register<AuthenticationViewModel>();
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
         //viewmodels
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public TestViewModel1 Test1 => ServiceLocator.Current.GetInstance<TestViewModel1>();
-        public TestViewModel2 Test2 => ServiceLocator.Current.GetInstance<TestViewModel2>();
+        public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
+   	    public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>(); 
+
+
+        public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
+        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
+        public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => new AddCommissionViewModel(ServiceLocator.Current.GetInstance<ICommissionRepository>(), Router, Commissions);
-    
 
         public static void Cleanup()
         {
