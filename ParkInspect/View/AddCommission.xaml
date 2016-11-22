@@ -90,7 +90,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Postcode: " />
                 </Viewbox>
-                <TextBox  Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=ZipCode}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -99,7 +99,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: " />
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=StreetNumber}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -108,7 +108,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "></Label>
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Region}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -117,7 +117,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Frequentie: " ></Label>
                 </Viewbox>
-                <TextBox  Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Frequency}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -126,7 +126,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Beschrijving "></Label>
                 </Viewbox>
-                <TextBox  Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Description}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
 

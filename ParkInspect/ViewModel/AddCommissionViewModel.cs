@@ -14,7 +14,51 @@ namespace ParkInspect.ViewModel
     public class AddCommissionViewModel : ViewModelBase
     {
 
-      private string _selectedCustomer;
+        private string _zipCode;
+        private int _streetNumber;
+        private int _frequency;
+        private string _description;
+        private string _region;
+
+        public string ZipCode
+        {
+            get { return _zipCode; }
+            set
+            {
+                _zipCode = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public int StreetNumber
+        {
+            get { return _streetNumber; }
+            set
+            {
+                _streetNumber = value;
+                RaisePropertyChanged();
+            }
+        }
+        public int Frequency
+        {
+            get { return _frequency; }
+            set { _frequency = value; RaisePropertyChanged("Frequency"); }
+        }
+
+        public string Description
+        {
+            get { return _description; }
+            set { _description = value; RaisePropertyChanged("Description"); }
+        }
+
+        public string Region
+        {
+            get { return _region; }
+            set { _region = value; RaisePropertyChanged("Region"); }
+        }
+
+
+        private string _selectedCustomer;
 
         public string SelectedCustomer
         {
