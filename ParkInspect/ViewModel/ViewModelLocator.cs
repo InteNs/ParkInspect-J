@@ -25,12 +25,14 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<IEmployeeRepository, DummyEmployeesRepository>();
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
             SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
+            SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<ManagementRapportenViewModel>();
+            SimpleIoc.Default.Register<AuthenticationViewModel>();
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
@@ -42,6 +44,7 @@ namespace ParkInspect.ViewModel
 
         public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
         public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
+        public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
 
         public static void Cleanup()
         {
