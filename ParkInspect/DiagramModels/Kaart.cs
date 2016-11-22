@@ -9,23 +9,23 @@ namespace ParkInspect.DiagramModels
     public class Kaart : IDiagram
     {
         public string Name { get; set; }
-        public Dictionary<string, List<string>> Options { get; set; }
+        public Dictionary<string, List<Filter>> Options { get; set; }
 
         public Kaart()
         {
             Name = "Kaart";
-            Options = new Dictionary<string, List<string>>
+            Options = new Dictionary<string, List<Filter>>
             {
-                ["Aantal opdrachten per locatie"] = new List<string>
+                ["Aantal opdrachten per locatie"] = new List<Filter>
                 {
-                    "tijdsperiode", "klant", "manager", "status"
+                    Filter.Tijdsperiode, Filter.Klant, Filter.Manager, Filter.Status
                 },
-                ["Aantal inspecties per locatie"] = new List<string>
+                ["Aantal inspecties per locatie"] = new List<Filter>
                 {
-                    "tijdsperiode", "inspecteur", "antwoord"
+                    Filter.Tijdsperiode, Filter.Inspecteur, Filter.Vraag
                 },
-                ["Aantal inspecteurs per locatie"] = new List<string>(),
-                ["Aantal klanten per locatie"] = new List<string>()
+                ["Aantal inspecteurs per locatie"] = new List<Filter>(),
+                ["Aantal klanten per locatie"] = new List<Filter>()
             };
         }
     }

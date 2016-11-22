@@ -9,6 +9,19 @@ namespace ParkInspect
     public interface IDiagram
     {
         string Name { get; set; }
-        Dictionary<string, List<string>> Options { get; set; }
+        Dictionary<string, List<Filter>> Options { get; set; }
+    }
+    
+    public enum Filter
+    {
+        Klant,
+        Locatie,
+        Tijdsperiode,
+        Opdracht,
+        Vraag,
+        Functie,
+        Inspecteur,
+        Manager,
+        Status
     }
 }

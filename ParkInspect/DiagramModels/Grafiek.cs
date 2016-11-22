@@ -9,30 +9,30 @@ namespace ParkInspect.DiagramModels
     public class Grafiek : IDiagram
     {
         public string Name { get; set; }
-        public Dictionary<string, List<string>> Options { get; set; }
+        public Dictionary<string, List<Filter>> Options { get; set; }
 
         public Grafiek()
         {
             Name = "Grafiek";
-            List<string> list1 = new List<string>
+            List<Filter> list1 = new List<Filter>
             {
-                "tijdsperiode",
-                "opdracht",
-                "klant",
-                "antwoord"
+                Filter.Tijdsperiode,
+                Filter.Opdracht,
+                Filter.Klant,
+                Filter.Vraag
             };
-            List<string> list2 = new List<string>
+            List<Filter> list2 = new List<Filter>
             {
-                "tijdsperiode",
-                "klant"
+                Filter.Tijdsperiode,
+                Filter.Klant
             };
-            List<string> list3 = new List<string>
+            List<Filter> list3 = new List<Filter>
             {
-                "tijdsperiode",
-                "functie",
-                "locatie"
+                Filter.Tijdsperiode,
+                Filter.Functie,
+                Filter.Locatie
             };
-            Options = new Dictionary<string, List<string>>
+            Options = new Dictionary<string, List<Filter>>
             {
                 ["Aantal inspecties die zijn uitgevoerd per dag"] = list1,
                 ["Aantal inspecties die zijn uitgevoerd per week"] = list1,

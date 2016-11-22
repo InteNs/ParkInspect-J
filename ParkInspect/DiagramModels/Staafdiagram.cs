@@ -9,19 +9,19 @@ namespace ParkInspect
     public class Staafdiagram : IDiagram
     {
         public string Name { get; set; }
-        public Dictionary<string, List<string>> Options { get; set; }
+        public Dictionary<string, List<Filter>> Options { get; set; }
         public Staafdiagram()
         {
             Name = "Staafdiagram";
-            List<string> list1 = new List<string>
+            List<Filter> list1 = new List<Filter>
             {
-                "tijdsperiode", "antwoord", "opdracht", "klant"
+                Filter.Tijdsperiode, Filter.Vraag, Filter.Opdracht, Filter.Klant
             };
-            List<string> list2 = new List<string>
+            List<Filter> list2 = new List<Filter>
             {
-                "tijdsperiode", "status", "klant"
+                Filter.Tijdsperiode, Filter.Status, Filter.Klant
             };
-            Options = new Dictionary<string, List<string>>
+            Options = new Dictionary<string, List<Filter>>
             {
                 ["Aantal inspecties per inspecteur"] = list1,
                 ["Aantal inspecties per klant"] = list1,

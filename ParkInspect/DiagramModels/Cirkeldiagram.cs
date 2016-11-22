@@ -9,27 +9,27 @@ namespace ParkInspect.DiagramModels
     public class Cirkeldiagram : IDiagram
     {
         public string Name { get; set; }
-        public Dictionary<string, List<string>> Options { get; set; }
+        public Dictionary<string, List<Filter>> Options { get; set; }
 
         public Cirkeldiagram()
         {
             Name = "Cirkeldiagram";
-            Options = new Dictionary<string, List<string>>
+            Options = new Dictionary<string, List<Filter>>
             {
-                ["Verdeling van de functies van de werknemers"] = new List<string>
+                ["Verdeling van de functies van de werknemers"] = new List<Filter>
                 {
-                    "locatie"
+                    Filter.Locatie
                 },
-                ["Verdeling van de status van de opdrachten"] = new List<string>
+                ["Verdeling van de status van de opdrachten"] = new List<Filter>
                 {
-                    "tijdsperiode", "klant"
+                    Filter.Tijdsperiode, Filter.Klant
                 },
-                ["Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"] = new List<string>
+                ["Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"] = new List<Filter>
                 {
-                    "opdracht",
-                    "locatie",
-                    "tijdsperiode",
-                    "vraag"
+                    Filter.Opdracht,
+                    Filter.Locatie,
+                    Filter.Tijdsperiode,
+                    Filter.Vraag
                 }
             };
         }

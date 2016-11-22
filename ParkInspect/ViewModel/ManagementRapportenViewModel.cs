@@ -21,6 +21,7 @@ namespace ParkInspect.ViewModel
         public DateTime EndDate { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
+        public bool[] BoolsList;
         public ManagementRapportenViewModel(IManagementRapportenRepository repo)
         {
             Repository = repo;
@@ -32,6 +33,7 @@ namespace ParkInspect.ViewModel
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
             NavigateBackCommand = new RelayCommand(NavigateBack);
             ComboBox1List = new List<string>();
+            BoolsList = new []{_date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status};
         }
 
         private void NavigateBack()
@@ -46,44 +48,36 @@ namespace ParkInspect.ViewModel
 
         private void SetVisibilitys()
         {
-            Date = false;
-            Klant = false;
-            Opdracht = false;
-            Locatie = false;
-            Inspecteur = false;
-            Manager = false;
-            Functie = false;
-            Antwoord = false;
-            Status = false;
+            for (int i = 0; i < BoolsList.Length; i++) { BoolsList[i] = false; }
             if (SelectedOption == null) return;
-            foreach (var s in SelectedDiagram.Options[SelectedOption])
+            foreach (Filter s in SelectedDiagram.Options[SelectedOption])
                 switch (s)
                 {
-                    case "tijdsperiode":
+                    case Filter.Tijdsperiode:
                         Date = true;
                         break;
-                    case "klant":
+                    case Filter.Klant:
                         Klant = true;
                         break;
-                    case "opdracht":
+                    case Filter.Opdracht:
                         Opdracht = true;
                         break;
-                    case "locatie":
+                    case Filter.Locatie:
                         Locatie = true;
                         break;
-                    case "antwoord":
+                    case Filter.Vraag:
                         Antwoord = true;
                         break;
-                    case "inspecteur":
+                    case Filter.Inspecteur:
                         Inspecteur = true;
                         break;
-                    case "manager":
+                    case Filter.Manager:
                         Manager = true;
                         break;
-                    case "functie":
+                    case Filter.Functie:
                         Functie = true;
                         break;
-                    case "status":
+                    case Filter.Status:
                         Status = true;
                         break;
                 }
