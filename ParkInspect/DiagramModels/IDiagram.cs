@@ -9,7 +9,6 @@ namespace ParkInspect
     public interface IDiagram
     {
         string Name { get; set; }
-        List<string> Properties { get; set; }
-
+        Dictionary<string, List<string>> Options { get; set; }
     }
 }
