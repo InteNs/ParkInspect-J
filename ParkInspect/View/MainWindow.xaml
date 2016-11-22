@@ -6,13 +6,20 @@
         xmlns:local="clr-namespace:ParkInspect"
         xmlns:view="clr-namespace:ParkInspect.View"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="MainWindow"
         WindowStartupLocation="CenterScreen"
+        Height="500"
         DataContext="{Binding Main, Source={StaticResource Locator}}">
-    <StackPanel>
-        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-1">Test1 Items</Button>
-        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-2">Test2 Items</Button>
-        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-3">Add a commission</Button>
-        <ContentControl Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />
-    </StackPanel>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-1">Test1 Items</Button>
+        <Button Grid.Row="1" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="authentication">Inloggen</Button>
+        <ContentControl Grid.Row="2" Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />
+    </Grid>
 </Window>
