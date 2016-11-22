@@ -60,6 +60,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Activities" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -97,6 +98,8 @@
     <Compile Include="Repositories\IAuthenticationRepository.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />

@@ -19,6 +19,8 @@ namespace ParkInspect.ViewModel
         private int _frequency;
         private string _description;
         private string _region;
+        private string _selectedRegion;
+        private CustomerViewModel _selectedCustomer;
 
         public string ZipCode
         {
@@ -58,9 +60,15 @@ namespace ParkInspect.ViewModel
         }
 
 
-        private string _selectedCustomer;
+        
 
-        public string SelectedCustomer
+        public string SelectedRegion
+        {
+            get { return _selectedRegion; }
+            set { _selectedRegion = value; RaisePropertyChanged(); }
+        }
+
+        public CustomerViewModel SelectedCustomer
         {
             get { return _selectedCustomer; }
             set
@@ -69,7 +77,8 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged();
             }
         }
-        public List<string> CustomerList { get; set; }
+        public List<CustomerViewModel> CustomerList { get; set; }
+        
 
         private CommissionViewModel Commission { get; set; }
 
@@ -79,12 +88,20 @@ namespace ParkInspect.ViewModel
         private RouterViewModel _router;
         private CommissionOverviewViewModel _cvm;
 
+        public List<string> RegionList { get; set; }
+
         public AddCommissionViewModel(ICommissionRepository icr, RouterViewModel router, CommissionOverviewViewModel cvm)
         {
             _icr = icr;
             _router = router;
             _cvm = cvm;
-            Commission = new CommissionViewModel();
+            CustomerList = new List<CustomerViewModel>();
+            foreach (CustomerViewModel customer in _icr.GetCustomers())
+            {
+                CustomerList.Add(customer);
+            }
+            RegionList = _icr.GetRegions().ToList();
+            
             AddCommissionCommand = new RelayCommand(AddCommission, CanAddCommission);
         }
 
@@ -104,9 +121,13 @@ namespace ParkInspect.ViewModel
 
         public void AddCommission()
         {
-            
+            Commission.Region = SelectedRegion;
+            int locationId = _icr.GetLocationViewModels().ToList().Count;
+
             if (this.ValidateInput())
             {
+                _icr.CreateLocation(new LocationViewModel(locationId, ZipCode, StreetNumber, SelectedRegion));
+                Commission = new CommissionViewModel(_icr.GetAll().ToList().Count, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, Region);
                 if (_icr.Create(Commission))
                 {
                     _cvm.EmployeesCompleteList.Add(Commission);

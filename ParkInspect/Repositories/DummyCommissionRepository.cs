@@ -12,15 +12,23 @@ namespace ParkInspect.Repositories
     {
 
         private List<CommissionViewModel> commissions;
+        private List<LocationViewModel> locations;
+        private List<CustomerViewModel> customers;
 
         public DummyCommissionRepository()
         {
+            customers = new List<CustomerViewModel> {new CustomerViewModel(1, "Nur"), new CustomerViewModel(2, "Edward"), new CustomerViewModel(3, "Mathijs")};
+            
             commissions = new List<CommissionViewModel>();
-            commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 11, 19, 20, 13, 0), "Test Description 1", "Utrecht"));
+            commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 11, 19, 20, 13, 0), "Test Description 1", "Limburg"));
             commissions.Add(new CommissionViewModel(2, 1, 2, 2, 2, new DateTime(2016, 10, 5, 19, 57, 0), null, "Test Description 2", "Utrecht"));
-            commissions.Add(new CommissionViewModel(3, 2, 3, 1, null, new DateTime(2016, 11, 17, 19, 57, 0), null, "Test Description 3", "Utrecht"));
+            commissions.Add(new CommissionViewModel(3, 2, 3, 1, null, new DateTime(2016, 11, 17, 19, 57, 0), null, "Test Description 3", "Brabant"));
         }
 
+        public IEnumerable<CustomerViewModel> GetCustomers()
+        {
+            return customers;
+        }
         public IEnumerable<CommissionViewModel> GetAll()
         {
             return commissions;
@@ -40,6 +48,28 @@ namespace ParkInspect.Repositories
         public void Delete(CommissionViewModel commission)
         {
             throw new NotImplementedException();
+        }
+
+        
+
+        public void CreateLocation(LocationViewModel location)
+        {
+            locations.Add(location);
+        }
+
+        public IEnumerable<string> GetRegions()
+        {
+            return new List<string>
+            {
+                "Limburg",
+                "Utrecht",
+                "Brabant"
+            };
+        }
+
+        public IEnumerable<LocationViewModel> GetLocationViewModels()
+        {
+            return locations;
         }
     }
 }

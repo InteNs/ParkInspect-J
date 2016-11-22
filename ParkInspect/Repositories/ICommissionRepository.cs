@@ -15,5 +15,12 @@ namespace ParkInspect.Repositories
         bool Update(CommissionViewModel commission);
         void Delete(CommissionViewModel commission);
 
+        void CreateLocation(LocationViewModel location);
+
+
+        IEnumerable<string> GetRegions();
+        IEnumerable<CustomerViewModel> GetCustomers();
+        IEnumerable<LocationViewModel> GetLocationViewModels();
+
     }
 }

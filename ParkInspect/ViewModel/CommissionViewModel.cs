@@ -87,11 +87,7 @@ namespace ParkInspect.ViewModel
             Region = region;
         }
 
-        public CommissionViewModel()
-        {
-            
-        }
-
+       
 
         
     }
