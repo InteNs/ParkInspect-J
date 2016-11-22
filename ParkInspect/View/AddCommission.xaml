@@ -90,7 +90,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Postcode: " />
                 </Viewbox>
-                <TextBox Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox  Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
