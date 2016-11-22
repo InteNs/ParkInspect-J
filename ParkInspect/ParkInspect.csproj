@@ -93,7 +93,6 @@
     <Compile Include="DiagramModels\Staafdiagram.cs" />
     <Compile Include="DiagramModels\IDiagram.cs" />
     <Compile Include="ViewModel\KPIGenererenVM.cs" />
-    <Compile Include="ViewModel\TestItemViewModel.cs" />
     <Page Include="View\GenerateKPI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
