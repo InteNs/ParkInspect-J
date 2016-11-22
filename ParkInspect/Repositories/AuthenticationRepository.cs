@@ -1,22 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ParkInspect.ViewModel;
+using System.IO;
+using System.IO.Packaging;
+using System.Net;
 
 namespace ParkInspect.Repositories
 {
-    public class DummyAuthenticationRepository : IAuthenticationRepository
+    class AuthenticationRepository:IAuthenticationRepository
     {
         private string loginFile;
 
-        public DummyAuthenticationRepository()
+        public AuthenticationRepository()
         {
-            loginFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"ParkInspect\Login.data");
-
+            loginFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),@"ParkInspect\Login.data");
+            
         }
 
         public void FillUserFile()
@@ -38,10 +39,10 @@ namespace ParkInspect.Repositories
             while ((line = file.ReadLine()) != null)
             {
                 string[] data = line.Split(';');
-                if (data[0] == username && data[1] == password)
+                if(data[0] == username && data[1] == password)
                 {
                     file.Close();
-                    return new AuthenticationViewModel() { EmployeeId = Convert.ToInt32(data[3]), UserId = Convert.ToInt32(data[2]), Username = data[0] };
+                    return new AuthenticationViewModel() {EmployeeId=Convert.ToInt32(data[3]),UserId = Convert.ToInt32(data[2]), Username = data[0]};
                 }
             }
 
