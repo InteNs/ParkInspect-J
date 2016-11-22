@@ -21,14 +21,10 @@ namespace ParkInspect.ViewModel
             SetViewCommand = new RelayCommand<string>(SetView);
             _views = new Dictionary<string, Type>
             {
-                { "employees-list", typeof(EmployeesView) },
-                { "employees-add", typeof(AddEmployeeView) },
-                { "employees-edit", typeof(EditEmployeeView) },
                 { "test-1", typeof(UserControl1) },
                 { "test-2", typeof(UserControl2) },
                 { "Customers-list", typeof(CustomersView) },
                 { "Customers-add", typeof(AddCustomerView) },
-                //{ "Customers-edit", typeof(EditCustomersView) }
             };
 
         }

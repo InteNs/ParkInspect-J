@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using ParkInspect.Command;
 using ParkInspect.Repositories;
 using System;
 using System.Collections.Generic;
@@ -15,16 +14,11 @@ namespace ParkInspect.ViewModel
 {
     public class CustomersViewModel : ViewModelBase
     {
-        public ObservableCollection<CustomerViewModel> CustomerCompleteList { get; set; }
-
-        public ObservableCollection<CustomerViewModel> CustomerShowableList { get; set; }
-
-        public List<string> SearchCategoryList { get; set; }
+        public ObservableCollection<CustomerViewModel> Customers{ get; set; }
 
         private CustomerViewModel _selectedCustomer;
         private ICustomerRepository _repo;
         private RouterViewModel _router;
-        private string _category;
         private string _input;
 
         public CustomerViewModel SelectedCustomer
@@ -51,37 +45,13 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public string Category
-        {
-            get { return _category; }
-            set
-            {
-                _category = value;
-                RaisePropertyChanged();
-            }
-        }
-
        public CustomersViewModel(ICustomerRepository repo, RouterViewModel router)
         {
             _repo = repo;
             _router = router;
 
-            CustomerCompleteList = new ObservableCollection<CustomerViewModel>(repo.GetAll());
+            Customers = new ObservableCollection<CustomerViewModel>(repo.GetAll());
 
-            CustomerShowableList = new ObservableCollection<CustomerViewModel>();
-
-            CustomerCompleteList.ToList().ForEach(e => CustomerShowableList.Add(e));
-
-            SearchCategoryList = new List<string>();
-            SearchCategoryList.Add("Naam");
-            SearchCategoryList.Add("ID");
-            SearchCategoryList.Add("Postcode");
-            SearchCategoryList.Add("Telefoon");
-            SearchCategoryList.Add("Email");
-
-            Category = SearchCategoryList.First();
-
-            SearchCustomersCommand = new SearchCustomersCommand(this);
             ShowEditCustomersCommand = new RelayCommand(ShowEditView, CustomerIsNotNull);
         }
 

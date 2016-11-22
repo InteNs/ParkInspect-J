@@ -1,5 +1,4 @@
-﻿using ParkInspect.DummyModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,57 +7,29 @@ using GalaSoft.MvvmLight;
 
 namespace ParkInspect.ViewModel
 {
-    public class CustomerViewModel : ViewModelBase
+    public class CustomerViewModel : PersonViewModel
     {
-        private Customer _customer;
+        private int id;
+        private string function;
+
         public int Id
         {
-            get { return _customer.Id; }
+            get { return id; }
             set
             {
-                _customer.Id = value;
+                id = value;
                 RaisePropertyChanged();
             }
         }
 
-        public Person person
+        public string Function
         {
-            get { return _customer.person; }
+            get { return function; }
             set
             {
-                _customer.person = value;
+                function = value;
                 RaisePropertyChanged();
             }
-        }
-
-        public Function Function
-        {
-            get { return _customer.Function; }
-            set
-            {
-                _customer.Function = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public CustomerViewModel()
-        {
-            _customer = new Customer();
-            _customer.person = new Person();
-            _customer.Function = new Function();
-        }
-        public CustomerViewModel(int id, string name, string zipcode, string telephone, int streetnr, string email, string region, string function)
-        {
-            _customer = new Customer();
-            _customer.Id = id;
-            _customer.person = new Person();
-            person.Name = name;
-            person.Email = email;
-            person.Phone_Number = telephone;
-            person.Street_Number = streetnr;
-            person.Zip_Code = zipcode;
-            _customer.Function = new Function();
-            Function.Name = function;
         }
     }
 }

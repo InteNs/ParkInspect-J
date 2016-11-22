@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ParkInspect.ViewModel;
-using ParkInspect.DummyModel;
 
 namespace ParkInspect.Repositories
 {
@@ -19,11 +18,11 @@ namespace ParkInspect.Repositories
         {
             return new List<CustomerViewModel>
             {
-                new CustomerViewModel(1, "Pim Westervoort", "5624KN", "06-tooawesomeforyou", 1, "pim.westervoort@gmail.com", "Noord-Brabant", "Klant"),
-                new CustomerViewModel(2, "Pim Westermoord", "4628JE", "06-tooawesomeforyou", 1, "pim.westermoord@gmail.com", "Noord-Holland", "Klant"),
-                new CustomerViewModel(3, "Pim Westerman", "8466UT", "06-tooawesomeforyou", 1, "pim.westerman@gmail.com", "Limburg", "Klant"),
-                new CustomerViewModel(4, "Pim Westerpoort", "4878HE", "06-tooawesomeforyou", 1, "pim.westerpoort@gmail.com", "Zuid-Holland", "Klant"),
-                new CustomerViewModel(5, "Pim Westernoord", "9922KK", "06-tooawesomeforyou", 1, "pim.westernoord@gmail.com", "Utrecht", "Klant")
+                new CustomerViewModel { Id = 1, Name = "Pim Westervoort", ZipCode = "5624KN", PhoneNumber = "06-tooawesomeforyou", StreetNumber = 1, Email = "pim.westervoort@gmail.com", Function = "Klant" },
+                new CustomerViewModel { Id = 2, Name = "Pim Westermoord", ZipCode = "4628JE", PhoneNumber = "06-tooawesomeforyou", StreetNumber = 1, Email = "pim.westermoord@gmail.com", Function = "Klant" },
+                new CustomerViewModel { Id = 3, Name = "Pim Westerman", ZipCode = "8466UT", PhoneNumber = "06-tooawesomeforyou", StreetNumber = 1, Email = "pim.westerman@gmail.com", Function = "Klant" },
+                new CustomerViewModel { Id = 4, Name = "Pim Westerpoort", ZipCode = "4878HE", PhoneNumber = "06-tooawesomeforyou", StreetNumber = 1, Email = "pim.westerpoort@gmail.com", Function = "Klant" },
+                new CustomerViewModel { Id = 5, Name = "Pim Westernoord", ZipCode = "9922KK", PhoneNumber = "06-tooawesomeforyou", StreetNumber = 1, Email = "pim.westernoord@gmail.com", Function = "Klant" }
             };
         }
 

@@ -4,9 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParkInspect.View"
+             xmlns:converter="clr-namespace:ParkInspect.Converter"
+             xmlns:viewModel="clr-namespace:ParkInspect.ViewModel"
+             xmlns:service="clr-namespace:ParkInspect.Service"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="750"
              DataContext="{Binding Customers, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <converter:FilterCustomerConverter x:Key="Customer" />
+    </UserControl.Resources>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -71,6 +77,16 @@
                 <Button Content="Nieuwe opdracht" Command="{Binding }" />
             </Grid>
 
+            <Grid Grid.Row="3"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="6">
+                <AdornerDecorator>
+                    <TextBox Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
+                        
+                    </TextBox>
+                </AdornerDecorator>
+            </Grid>
+
             <Grid Grid.Row="1"
           Grid.Column="5"/>
 
@@ -78,8 +94,15 @@
               Grid.Column="1"
                 Grid.ColumnSpan="6"
               >
+
                 <DataGrid GridLinesVisibility="None"
-      Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" ItemsSource="{Binding CustomerShowableList}" >
+      Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
+                    <DataGrid.ItemsSource>
+                        <MultiBinding Converter="{StaticResource Converter}">
+                            <Binding Path="Customers"></Binding>
+                            <Binding Path="(viewModel:CustomersViewModel.Input)"></Binding>
+                        </MultiBinding>
+                    </DataGrid.ItemsSource>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
                         <DataGridTextColumn Header="Naam" Binding="{Binding person.Name}" Width="*" />
@@ -90,24 +113,6 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
-
-            <Grid Grid.Row="5"
-              Grid.Column="1"
-                Grid.ColumnSpan="5">
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.4*" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="0.25*" />
-
-                </Grid.ColumnDefinitions>
-
-                <TextBox FontSize="16" Grid.Column="1" Grid.Row="0" Text="{Binding Path=Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="AUTO" TextAlignment="Center" />
-                <Button Grid.Column="2" Grid.Row="0" Command="{Binding SearchCustomersCommand}" CommandParameter="{Binding SearchCustomersCommand}"  Content="Go!" />
-                <ComboBox Grid.Column="0" Grid.Row="0" ItemsSource="{Binding SearchCategoryList}" SelectedValue="{Binding Category}" HorizontalAlignment="Right" />
-
-            </Grid>
-
         </Grid>
     </Grid>
     </UserControl>

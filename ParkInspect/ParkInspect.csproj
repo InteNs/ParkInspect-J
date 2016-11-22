@@ -86,21 +86,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command\SearchCustomersCommand.cs" />
-    <Compile Include="DummyModel\Customer.cs" />
-    <Compile Include="DummyModel\Employee.cs" />
-    <Compile Include="DummyModel\Function.cs" />
-    <Compile Include="DummyModel\Person.cs" />
-    <Compile Include="DummyModel\Region.cs" />
+    <Compile Include="Converter\FilterCustomerConverter.cs" />
     <Compile Include="Repositories\DummyCustomersRepository.cs" />
-    <Compile Include="Repositories\DummyEmployeesRepository.cs" />
     <Compile Include="Repositories\DummyTestItemRepository.cs" />
     <Compile Include="Repositories\ICustomerRepository.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ITestItemRepository.cs" />
     <Compile Include="ViewModel\AddCustomerViewModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
@@ -110,17 +104,8 @@
     <Compile Include="View\AddCustomerView.xaml.cs">
       <DependentUpon>AddCustomerView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\AddEmployeeView.xaml.cs">
-      <DependentUpon>AddEmployeeView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EditEmployeeView.xaml.cs">
-      <DependentUpon>EditEmployeeView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\EmployeesView.xaml.cs">
-      <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\UserControl1.xaml.cs">
       <DependentUpon>UserControl1.xaml</DependentUpon>
@@ -132,31 +117,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\AddEmployeeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="View\CustomersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\EditEmployeeView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\EmployeesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="Command\SearchEmployeesCommand.cs" />
-    <Compile Include="ViewModel\AddEmployeeViewModel.cs" />
-    <Compile Include="ViewModel\EditEmployeeViewModel.cs" />
-    <Compile Include="ViewModel\EmployeesViewModel.cs" />
-    <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
