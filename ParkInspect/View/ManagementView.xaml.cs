@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ParkInspect.View
 {
     /// <summary>
-    /// Interaction logic for UserControl1.xaml
+    /// Interaction logic for ManagementView.xaml
     /// </summary>
-    public partial class UserControl1 : UserControl
+    public partial class ManagementView : UserControl
     {
-        public UserControl1()
+        public ManagementView()
         {
             InitializeComponent();
         }
