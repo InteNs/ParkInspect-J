@@ -86,6 +86,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Factory\DiagramFactory.cs" />
+    <Compile Include="DiagramModels\Cirkeldiagram.cs" />
+    <Compile Include="DiagramModels\Grafiek.cs" />
+    <Compile Include="DiagramModels\Kaart.cs" />
+    <Compile Include="DiagramModels\Staafdiagram.cs" />
+    <Compile Include="DiagramModels\IDiagram.cs" />
     <Compile Include="Converter\FilterEmployeeConverter.cs" />
     <Compile Include="Lib\WatermarkAdorner.cs" />
     <Compile Include="Repositories\DummyEmployeesRepository.cs" />

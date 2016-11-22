@@ -22,7 +22,6 @@ namespace ParkInspect.View
     {
         public MainWindow()
         {
-            InitializeComponent();
         }
 
     }
