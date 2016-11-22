@@ -89,14 +89,13 @@
     <Compile Include="Converter\FilterEmployeeConverter.cs" />
     <Compile Include="Lib\WatermarkAdorner.cs" />
     <Compile Include="Repositories\DummyEmployeesRepository.cs" />
-    <Compile Include="Repositories\Commission.cs" />
     <Compile Include="Repositories\DummyCommissionRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ICommissionRepository.cs" />
     <Compile Include="Repositories\IManagementRapportenRepository.cs" />
-	<Compile Include="Repositories\DummyAuthenticationRepository.cs" />
-	<Compile Include="Repositories\IAuthenticationRepository.cs" />
-	<Compile Include="ViewModel\AuthenticationViewModel.cs" />
+    <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
+    <Compile Include="Repositories\IAuthenticationRepository.cs" />
+    <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
