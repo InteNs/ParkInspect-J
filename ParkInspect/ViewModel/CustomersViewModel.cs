@@ -30,9 +30,6 @@ namespace ParkInspect.ViewModel
                 RaisePropertyChanged();
             }
         }
-
-        public ICommand SearchCustomersCommand { get; set; }
-
         public ICommand ShowEditCustomersCommand { get; set; }
 
         public string Input
