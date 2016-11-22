@@ -11,7 +11,7 @@
              d:DesignHeight="500" d:DesignWidth="750"
              DataContext="{Binding Customers, Source={StaticResource Locator}}">
     <UserControl.Resources>
-        <converter:FilterCustomerConverter x:Key="Customer" />
+        <converter:FilterCustomerConverter x:Key="Converter" />
     </UserControl.Resources>
     <Grid>
 
@@ -58,13 +58,15 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="0.01*"/>
-                <RowDefinition Height="0.15*"/>
-                <RowDefinition Height="0.01*"/>
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.15*" />
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.01*" />
                 <RowDefinition Height="1*" />
-                <RowDefinition Height="0.01*"/>
-                <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="0.01*"/>
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.01*" />
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="1"
@@ -81,8 +83,10 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
                 <AdornerDecorator>
-                    <TextBox Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
-                        
+                    <TextBox  Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
+                        <service:WatermarkService.Watermark>
+                            <TextBlock>Zoeken...</TextBlock>
+                        </service:WatermarkService.Watermark>
                     </TextBox>
                 </AdornerDecorator>
             </Grid>
@@ -90,13 +94,13 @@
             <Grid Grid.Row="1"
           Grid.Column="5"/>
 
-            <Grid Grid.Row="3"
-              Grid.Column="1"
-                Grid.ColumnSpan="6"
-              >
+            <Grid Grid.Row="5"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="6">
 
                 <DataGrid GridLinesVisibility="None"
-      Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
+                          Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False"
+                          IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
                     <DataGrid.ItemsSource>
                         <MultiBinding Converter="{StaticResource Converter}">
                             <Binding Path="Customers"></Binding>
@@ -105,11 +109,11 @@
                     </DataGrid.ItemsSource>
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
-                        <DataGridTextColumn Header="Naam" Binding="{Binding person.Name}" Width="*" />
-                        <DataGridTextColumn Header="Postcode" Binding="{Binding person.Zip_Code}" Width="*" />
-                        <DataGridTextColumn Header="Straat-nr" Binding="{Binding person.Street_Number}" Width="*" />
-                        <DataGridTextColumn Header="Telefoon" Binding="{Binding person.Phone_Number}" Width="*" />
-                        <DataGridTextColumn Header="Email" Binding="{Binding person.Email}" Width="*" />
+                        <DataGridTextColumn Header="Naam" Binding="{Binding Name}" Width="*" />
+                        <DataGridTextColumn Header="Postcode" Binding="{Binding ZipCode}" Width="*" />
+                        <DataGridTextColumn Header="Straat-nr" Binding="{Binding StreetNumber}" Width="*" />
+                        <DataGridTextColumn Header="Telefoon" Binding="{Binding PhoneNumber}" Width="*" />
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

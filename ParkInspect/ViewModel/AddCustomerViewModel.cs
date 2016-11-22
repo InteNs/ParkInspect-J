@@ -67,14 +67,14 @@ namespace ParkInspect.ViewModel
             bool validate = false;
 
             //check if all fields are filled in
-            if (this._selectedFunction == null || this.Customer.person.Name == null || this.Customer.person.Zip_Code == null ||
-                this.Customer.person.Street_Number < 0 || this.Customer.person.Phone_Number == null || this.Customer.person.Email == null)
+            if (_selectedFunction == null || Customer.Name == null || Customer.ZipCode == null ||
+                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null)
             {
                 return validate;
             }
 
             //Name can not contain a number
-            if (this.Customer.person.Name.Any(c => char.IsDigit(c)))
+            if (this.Customer.Name.Any(c => char.IsDigit(c)))
             { 
                 return validate;
             }
@@ -91,8 +91,7 @@ namespace ParkInspect.ViewModel
             {
                 if (_ier.Create(Customer))
                 {
-                    _cvm.CustomerCompleteList.Add(Customer);
-                    _cvm.CustomerShowableList.Add(Customer);
+                    _cvm.Customers.Add(Customer);
                     _router.SetViewCommand.Execute("Customers-list");
                 }
             }

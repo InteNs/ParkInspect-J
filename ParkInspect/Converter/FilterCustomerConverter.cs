@@ -17,8 +17,7 @@ namespace ParkInspect.Converter
         {
             var subjects = (ObservableCollection<CustomerViewModel>)values[0];
             var query = values[1]?.ToString() ?? "";
-            //return subjects.Where(e => e.Name.Contains(query) || e.Email.Contains(query) || e.ZipCode.Contains(query) || e.StreetNumber.Contains(query) || e.PhoneNumber.Contains(query) || e.Id.ToString().Contains(query)).ToList();
-            return null;
+            return subjects.Where(e => e.Name.Contains(query) || e.Email.Contains(query) || e.ZipCode.Contains(query) || e.StreetNumber.Contains(query) || e.PhoneNumber.Contains(query) || e.Id.ToString().Contains(query)).ToList();
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

@@ -1,4 +1,3 @@
-
 using Data;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
