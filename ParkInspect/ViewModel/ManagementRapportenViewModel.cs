@@ -46,7 +46,7 @@ namespace ParkInspect.ViewModel
             throw new NotImplementedException();
         }
 
-        private void SetVisibilitys()
+        private void SetVisibilities()
         {
             for (int i = 0; i < BoolsList.Length; i++) { BoolsList[i] = false; }
             if (SelectedOption == null) return;
@@ -91,7 +91,7 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedOption = value;
-                SetVisibilitys();
+                SetVisibilities();
             }
         }
 
