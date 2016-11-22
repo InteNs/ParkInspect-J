@@ -100,9 +100,9 @@
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ICommissionRepository.cs" />
     <Compile Include="Repositories\IManagementRapportenRepository.cs" />
-	<Compile Include="Repositories\DummyAuthenticationRepository.cs" />
-	<Compile Include="Repositories\IAuthenticationRepository.cs" />
-	<Compile Include="ViewModel\AuthenticationViewModel.cs" />
+    <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
+    <Compile Include="Repositories\IAuthenticationRepository.cs" />
+    <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
@@ -110,11 +110,23 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\AddCommissionViewModel.cs" />
     <Compile Include="ViewModel\CommissionViewModel.cs" />
+    <Compile Include="Converter\FilterCustomerConverter.cs" />
+    <Compile Include="Repositories\DummyCustomersRepository.cs" />
+    <Compile Include="Repositories\ICustomerRepository.cs" />
+    <Compile Include="ViewModel\AddCustomerViewModel.cs" />
+    <Compile Include="ViewModel\CustomersViewModel.cs" />
+    <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
     <Compile Include="ViewModel\RouterViewModel.cs" />
     <Compile Include="View\AddCommission.xaml.cs">
       <DependentUpon>AddCommission.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddCustomerView.xaml.cs">
+      <DependentUpon>AddCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\CustomersView.xaml.cs">
+      <DependentUpon>CustomersView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CommissionOverview.xaml.cs">
       <DependentUpon>CommissionOverview.xaml</DependentUpon>
@@ -154,6 +166,14 @@
     <Page Include="View\CommissionOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddCustomerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CustomersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
