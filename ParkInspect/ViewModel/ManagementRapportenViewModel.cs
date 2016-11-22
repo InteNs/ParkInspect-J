@@ -20,7 +20,7 @@ namespace ParkInspect.ViewModel
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
-
+        public ObservableCollection<IDiagram> Diagrams { get; set; }
         public ManagementRapportenViewModel(IManagementRapportenRepository repo)
         {
             Repository = repo;
@@ -28,6 +28,7 @@ namespace ParkInspect.ViewModel
             EndDate = DateTime.Now;
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
+
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
             NavigateBackCommand = new RelayCommand(NavigateBack);
             ComboBox1List = new List<string>();
@@ -54,38 +55,38 @@ namespace ParkInspect.ViewModel
             Functie = false;
             Antwoord = false;
             Status = false;
-            if (SelectedOption != null)
-                foreach (var s in SelectedDiagram.Options[SelectedOption])
-                    switch (s)
-                    {
-                        case "tijdsperiode":
-                            Date = true;
-                            break;
-                        case "klant":
-                            Klant = true;
-                            break;
-                        case "opdracht":
-                            Opdracht = true;
-                            break;
-                        case "locatie":
-                            Locatie = true;
-                            break;
-                        case "antwoord":
-                            Antwoord = true;
-                            break;
-                        case "inspecteur":
-                            Inspecteur = true;
-                            break;
-                        case "manager":
-                            Manager = true;
-                            break;
-                        case "functie":
-                            Functie = true;
-                            break;
-                        case "status":
-                            Status = true;
-                            break;
-                    }
+            if (SelectedOption == null) return;
+            foreach (var s in SelectedDiagram.Options[SelectedOption])
+                switch (s)
+                {
+                    case "tijdsperiode":
+                        Date = true;
+                        break;
+                    case "klant":
+                        Klant = true;
+                        break;
+                    case "opdracht":
+                        Opdracht = true;
+                        break;
+                    case "locatie":
+                        Locatie = true;
+                        break;
+                    case "antwoord":
+                        Antwoord = true;
+                        break;
+                    case "inspecteur":
+                        Inspecteur = true;
+                        break;
+                    case "manager":
+                        Manager = true;
+                        break;
+                    case "functie":
+                        Functie = true;
+                        break;
+                    case "status":
+                        Status = true;
+                        break;
+                }
         }
 
         // Helper Classes
@@ -199,8 +200,6 @@ namespace ParkInspect.ViewModel
                 ComboBox1List = _selectedDiagram.Options.Keys.ToList();
             }
         }
-
-        public ObservableCollection<IDiagram> Diagrams { get; set; }
 
         public List<string> ComboBox1List
         {

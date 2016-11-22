@@ -43,15 +43,6 @@ namespace ParkInspect.ViewModel
         public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
         public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
 
-
-        public KPIGenererenVM KPIGenereren
-        {
-            get
-            {
-                return new KPIGenererenVM();
-            }
-        }
-
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
