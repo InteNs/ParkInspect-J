@@ -22,7 +22,8 @@ namespace ParkInspect.ViewModel
             _views = new Dictionary<string, Type>
             {
                 { "test-1", typeof(UserControl1) },
-                { "test-2", typeof(UserControl2) }
+                { "test-2", typeof(UserControl2) },
+                { "test-3", typeof(AddCommission) }
             };
 
         }
