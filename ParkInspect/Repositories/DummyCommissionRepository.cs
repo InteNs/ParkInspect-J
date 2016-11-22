@@ -4,50 +4,72 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repositories
 {
     public class DummyCommissionRepository : ICommissionRepository
     {
-        private List<Commission> commissions;
+
+        private List<CommissionViewModel> commissions;
+        private List<LocationViewModel> locations;
+        private List<CustomerViewModel> customers;
+
         public DummyCommissionRepository()
         {
-            commissions = new List<Commission>();
-            commissions.Add(new Commission { Id = 1, Frequency = 0, CustomerId = 1 });
-            commissions.Add(new Commission { Id = 2, Frequency = 0, CustomerId = 2 });
-            commissions.Add(new Commission { Id = 3, Frequency = 2, CustomerId = 3 });
+            customers = new List<CustomerViewModel> {new CustomerViewModel(1, "Nur"), new CustomerViewModel(2, "Edward"), new CustomerViewModel(3, "Mathijs")};
+            
+            commissions = new List<CommissionViewModel>();
+            commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 11, 19, 20, 13, 0), "Test Description 1", "Limburg"));
+            commissions.Add(new CommissionViewModel(2, 1, 2, 2, 2, new DateTime(2016, 10, 5, 19, 57, 0), null, "Test Description 2", "Utrecht"));
+            commissions.Add(new CommissionViewModel(3, 2, 3, 1, null, new DateTime(2016, 11, 17, 19, 57, 0), null, "Test Description 3", "Brabant"));
         }
 
-        public Commission Get()
+        public IEnumerable<CustomerViewModel> GetCustomers()
         {
-            throw new NotImplementedException();
+            return customers;
         }
-
-        List<Commission> ICommissionRepository.GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Commission Create(Commission commission)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Commission Update(Commission commission)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Commission commission)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable GetAll()
+        public IEnumerable<CommissionViewModel> GetAll()
         {
             return commissions;
         }
+        
 
+        public bool Create(CommissionViewModel commission)
+        {
+            return true;
+        }
 
+        public bool Update(CommissionViewModel commission)
+        {
+            return true;
+        }
+
+        public void Delete(CommissionViewModel commission)
+        {
+            throw new NotImplementedException();
+        }
+
+        
+
+        public void CreateLocation(LocationViewModel location)
+        {
+            locations.Add(location);
+        }
+
+        public IEnumerable<string> GetRegions()
+        {
+            return new List<string>
+            {
+                "Limburg",
+                "Utrecht",
+                "Brabant"
+            };
+        }
+
+        public IEnumerable<LocationViewModel> GetLocationViewModels()
+        {
+            return locations;
+        }
     }
 }

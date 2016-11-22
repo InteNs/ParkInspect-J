@@ -19,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <Button Grid.Row="0" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="test-1">Test1 Items</Button>
-        <Button Grid.Row="1" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="authentication">Inloggen</Button>
+        <Button Grid.Row="1" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="commissions-add">Add a commission</Button>
         <ContentControl Grid.Row="2" Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />
     </Grid>
 </Window>
