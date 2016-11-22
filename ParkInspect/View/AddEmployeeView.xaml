@@ -12,11 +12,7 @@
             <Setter Property="Width" Value="230"></Setter>
             <Setter Property="FontSize" Value="25"></Setter>
             <Setter Property="Padding" Value="0"></Setter>
-        </Style>
-        <Style x:Key="DefaultTextBoxStyle" TargetType="TextBox">
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="FontSize" Value="25"></Setter>
-            <Setter Property="Margin" Value="-3"></Setter>
+            <Setter Property="Foreground" Value="White"></Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -38,10 +34,10 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-list" Grid.Column="1" Grid.Row="1" Content="Terug" />
+        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-list" Grid.Column="1" Grid.Row="1" Content="Terug" Height="AUTO" />
 
         <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="#FF008CFF">
+          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Werknemer Toevoegen" />
             </Viewbox>
@@ -50,13 +46,8 @@
         <Grid Grid.Row="3"
               Grid.Column="1"
                 Grid.ColumnSpan="4"
+              Background="SlateBlue"
               >
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                    <GradientStop Color="#FF2B2B2B" Offset="-1"/>
-                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*" />
@@ -90,7 +81,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Person.Name}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Employee.Person.Name}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -99,7 +90,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Person.Zip_Code}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Employee.Person.Zip_Code}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -108,7 +99,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Person.Street_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Employee.Person.Street_Number}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -117,7 +108,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Person.Phone_Number}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Employee.Person.Phone_Number}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -126,7 +117,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Person.Email}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Employee.Person.Email}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel
@@ -150,7 +141,7 @@
             <Grid
                 Grid.Row="15"
                 Grid.Column="1">
-                <Button Command="{Binding AddEmployeeCommand}" Content="Werknemer Toevoegen" Width="275" FontSize="20" Background="#FF999999" />
+                <Button Command="{Binding AddEmployeeCommand}" Content="Werknemer Toevoegen" Width="275" />
             </Grid>
 
         </Grid>

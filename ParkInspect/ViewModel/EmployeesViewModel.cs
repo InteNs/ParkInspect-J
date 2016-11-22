@@ -9,8 +9,12 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Input;
+using MahApps.Metro.Controls.Dialogs;
+using MaterialDesignThemes.Wpf;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace ParkInspect.ViewModel
 {
@@ -104,6 +108,7 @@ namespace ParkInspect.ViewModel
 
         private void DismissEmployee()
         {
+
             var result = MessageBox.Show("Weet u zeker dat u " + SelectedEmployee.Person.Name + " op non-actief wilt zetten?", "Werknemer op non-actief zetten", MessageBoxButtons.YesNo);
             if (result == System.Windows.Forms.DialogResult.Yes)
             {
