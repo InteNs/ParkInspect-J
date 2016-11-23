@@ -77,15 +77,6 @@
                 <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding SetViewCommand }" CommandParameter="" Content="Rapportage Overzicht" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
             </Grid>
-
-
-            <!--<Button Grid.Row="0" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="employees-list">Werknemers Beheren</Button>
-            <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="Customers-list">Opdracht inplannen</Button>
-            <Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="Customers-list">Klanten Beheren</Button>
-            <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="management-view">KPI scherm</Button>
-            <Button Grid.Row="4" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="">Inspectie overzicht</Button>
-            <Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="">Rapportage overzicht</Button>
-            <ContentControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />-->
         </Grid>
     </Grid>
 </UserControl>
