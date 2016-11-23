@@ -16,13 +16,13 @@ using System.Windows.Shapes;
 namespace ParkInspect.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for QuestionsView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class QuestionsView : UserControl
     {
-        public MainWindow()
+        public QuestionsView()
         {
+            InitializeComponent();
         }
-
     }
 }
