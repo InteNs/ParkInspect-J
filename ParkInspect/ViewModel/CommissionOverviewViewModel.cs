@@ -2,6 +2,7 @@
 using ParkInspect.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,14 +10,11 @@ using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
 {
-    class CommissionOverviewViewModel : ViewModelBase
+    public class CommissionOverviewViewModel : ViewModelBase
     {
-        private ICommand BackCommand;
-        private ICommand AddCommissionCommand;
+        public ICommand BackCommand { get; set; }
+        public ICommand AddCommissionCommand { get; set; }
         private ICommissionRepository _icr;
-        private List<CommissionViewModel> _commissionList;
-        private List<EmployeeViewModel> _showableEmployeeList;
-        private List<EmployeeViewModel> _completeEmployeeList;
         private CommissionViewModel _selectedCommission;
         private RouterViewModel _router;
 
@@ -24,6 +22,18 @@ namespace ParkInspect.ViewModel
         {
             this._icr = _icr;
             _router = router;
+        }
+
+        public ObservableCollection<CommissionViewModel> CommissionList { get; set; }
+
+        public ObservableCollection<EmployeeViewModel> ShowableEmployeeList { get; set; }
+
+        public ObservableCollection<EmployeeViewModel> CompleteEmployeeList { get; set; }
+
+        public CommissionViewModel SelectedCommission
+        {
+            get { return _selectedCommission; }
+            set { _selectedCommission = value; RaisePropertyChanged("SelectedCommission"); }
         }
     }
 }

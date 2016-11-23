@@ -130,7 +130,7 @@ namespace ParkInspect.ViewModel
                 Commission = new CommissionViewModel(_icr.GetAll().ToList().Count, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, Region);
                 if (_icr.Create(Commission))
                 {
-                    _cvm.EmployeesCompleteList.Add(Commission);
+                    _cvm.CommissionList.Add(Commission);
                     
                     _router.SetViewCommand.Execute("Customers-list");
                 }
