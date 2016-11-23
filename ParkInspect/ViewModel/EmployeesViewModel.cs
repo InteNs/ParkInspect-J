@@ -3,17 +3,8 @@ using GalaSoft.MvvmLight.CommandWpf;
 using ParkInspect.Repositories;
 using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Input;
-using MahApps.Metro.Controls.Dialogs;
-using MaterialDesignThemes.Wpf;
-using MessageBox = System.Windows.Forms.MessageBox;
+using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
 {
@@ -74,17 +65,20 @@ namespace ParkInspect.ViewModel
             _router.SetViewCommand.Execute("employees-edit");
         }
 
-        private void DismissEmployee()
+        public async void DismissEmployee()
         {
-            var result = MessageBox.Show("Weet u zeker dat u " + SelectedEmployee.Name + " op non-actief wilt zetten?", "Werknemer op non-actief zetten", MessageBoxButtons.YesNo);
+            var dialog = new MetroDialogService();
+            await dialog.Show("Werknemer non-actief zetten",
+                        "Weet u zeker dat u deze werknemer op non-actief wilt zetten?");
 
-            if (result != DialogResult.Yes) return;
-
+            if (dialog.IsAffirmative != true) return;
             SelectedEmployee.DismissalDate = DateTime.Now;
 
             if (!_repository.Update(SelectedEmployee)) return;
 
             Employees.Remove(SelectedEmployee);
+
+            RaisePropertyChanged("Employees");
         }
     }
 }

@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
-             DataContext="{Binding AddEmployee,Source={StaticResource Locator}}">
+             DataContext="{Binding AddEmployee,Source={StaticResource Locator}}"
+             Foreground="Black">
     <UserControl.Resources>
         <Style x:Key="DefaultLabelStyle" TargetType="Label">
             <Setter Property="Width" Value="230"></Setter>
             <Setter Property="FontSize" Value="25"></Setter>
             <Setter Property="Padding" Value="0"></Setter>
-            <Setter Property="Foreground" Value="White"></Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -34,8 +34,6 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-list" Grid.Column="1" Grid.Row="1" Content="Terug" Height="AUTO" />
-
         <Grid Grid.Row="1" Grid.RowSpan="2"
           Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
@@ -46,7 +44,6 @@
         <Grid Grid.Row="3"
               Grid.Column="1"
                 Grid.ColumnSpan="4"
-              Background="SlateBlue"
               >
 
             <Grid.ColumnDefinitions>
