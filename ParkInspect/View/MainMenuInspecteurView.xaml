@@ -13,12 +13,14 @@
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.1*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         
         <Button Grid.Row="0" Command="{Binding SetViewCommand}" CommandParameter="Customers-list">Inspectie uitvoeren</Button>
         <Button Grid.Row="1" Command="{Binding SetViewCommand}" CommandParameter="Customers-list">Inspectie inplannen</Button>
-        <Button Grid.Row="2" Command="{Binding SetViewCommand}" CommandParameter="employees-list">Templatescherm</Button>
-        <Button Grid.Row="3" Command="{Binding SetViewCommand}" CommandParameter="employees-list">Rapport genereren</Button>
+        <Button Grid.Row="2" Command="{Binding SetViewCommand}" CommandParameter="templates-list">Templatescherm</Button>
+        <Button Grid.Row="3" Command="{Binding SetViewCommand}" CommandParameter="questions-list">Vragenscherm</Button>
+        <Button Grid.Row="4" Command="{Binding SetViewCommand}" CommandParameter="employees-list">Rapport genereren</Button>
     </Grid>
 </UserControl>
