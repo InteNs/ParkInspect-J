@@ -38,6 +38,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<CustomersViewModel>();
             SimpleIoc.Default.Register<QuestionsViewModel>();
             SimpleIoc.Default.Register<TemplatesViewModel>();
+            
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
