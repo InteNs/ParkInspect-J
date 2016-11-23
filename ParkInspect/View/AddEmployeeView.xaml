@@ -78,7 +78,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Person.Name}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Employee.Name}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
