@@ -109,9 +109,6 @@
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
-    <Compile Include="ViewModel\testingControl.xaml.cs">
-      <DependentUpon>testingControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\AddCommissionViewModel.cs" />
     <Compile Include="ViewModel\CommissionViewModel.cs" />
@@ -187,14 +184,6 @@
     <Page Include="View\CommissionOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\AddCustomerView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\CustomersView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AddCustomerView.xaml">
       <Generator>MSBuild:Compile</Generator>
