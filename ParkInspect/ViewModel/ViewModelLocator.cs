@@ -31,6 +31,7 @@ namespace ParkInspect.ViewModel
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
+            SimpleIoc.Default.Register<CommissionOverviewViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<ManagementRapportenViewModel>();
@@ -53,6 +54,8 @@ namespace ParkInspect.ViewModel
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CustomersViewModel Customers => ServiceLocator.Current.GetInstance<CustomersViewModel>();
         public AddCustomerViewModel AddCustomer => new AddCustomerViewModel(ServiceLocator.Current.GetInstance<ICustomerRepository>(), Router, Customers);
+        public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
+        public AddCommissionViewModel AddCommission => new AddCommissionViewModel(ServiceLocator.Current.GetInstance<ICommissionRepository>(), Router, Commissions);
 
         public static void Cleanup()
         {

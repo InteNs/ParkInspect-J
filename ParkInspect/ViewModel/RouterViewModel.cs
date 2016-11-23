@@ -29,7 +29,8 @@ namespace ParkInspect.ViewModel
                 { "questions-list", typeof(QuestionsView)},
                 { "templates-list", typeof(TemplatesView) },
                 { "Customers-list", typeof(CustomersView) },
-                { "Customers-add", typeof(AddCustomerView) }
+                { "Customers-add", typeof(AddCustomerView) },
+                { "commissions-add", typeof(AddCommission) }
             };
 
         }
