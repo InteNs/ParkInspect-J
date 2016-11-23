@@ -20,12 +20,12 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Grid.Row="0" Grid.ColumnSpan="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="employees-list">Werknemers Beheren</Button>
-        <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="Customers-list">Opdracht inplannen</Button>
-        <Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="Customers-list">Klanten Beheren</Button>
-        <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="management-view">KPI scherm</Button>
-        <Button Grid.Row="4" Grid.ColumnSpan="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="">Inspectie overzicht</Button>
-        <Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="">Rapportage overzicht</Button>
+        <Button Grid.Row="0" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="employees-list">Werknemers Beheren</Button>
+        <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="Customers-list">Opdracht inplannen</Button>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="Customers-list">Klanten Beheren</Button>
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="management-view">KPI scherm</Button>
+        <Button Grid.Row="4" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="">Inspectie overzicht</Button>
+        <Button Grid.Row="5" Grid.ColumnSpan="2" Command="{Binding SetViewCommand }" CommandParameter="">Rapportage overzicht</Button>
         <!--<ContentControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Router.CurrentView, Source={StaticResource Locator}}" />-->
     </Grid>
 </UserControl>

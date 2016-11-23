@@ -33,6 +33,9 @@ namespace ParkInspect.ViewModel
                 { "dashboard-manager", typeof(DashboardManagerView) }
             };
 
+            //Test
+            SetView("dashboard-manager");
+
         }
         private void SetView(string viewName)
         {
