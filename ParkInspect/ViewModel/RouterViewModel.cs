@@ -35,8 +35,11 @@ namespace ParkInspect.ViewModel
                 { "questions-list", typeof(QuestionsView)},
                 { "templates-list", typeof(TemplatesView) },
                 { "Customers-list", typeof(CustomersView) },
-                { "Customers-add", typeof(AddCustomerView) }
+                { "Customers-add", typeof(AddCustomerView) },
+                { "dashboard-manager", typeof(DashboardManagerView) }
             };
+            //Test
+            SetView("dashboard-manager");
             _previousViews = new Stack<UserControl>();
         }
         private void SetView(string viewName)

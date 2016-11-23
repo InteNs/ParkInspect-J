@@ -52,7 +52,6 @@ namespace ParkInspect.ViewModel
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CustomersViewModel Customers => ServiceLocator.Current.GetInstance<CustomersViewModel>();
         public AddCustomerViewModel AddCustomer => new AddCustomerViewModel(ServiceLocator.Current.GetInstance<ICustomerRepository>(), Router, Customers);
-
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
