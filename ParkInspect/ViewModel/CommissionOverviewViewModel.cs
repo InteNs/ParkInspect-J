@@ -18,10 +18,12 @@ namespace ParkInspect.ViewModel
         private List<EmployeeViewModel> _showableEmployeeList;
         private List<EmployeeViewModel> _completeEmployeeList;
         private CommissionViewModel _selectedCommission;
+        private RouterViewModel _router;
 
-        public CommissionOverviewViewModel(ICommissionRepository _icr)
+        public CommissionOverviewViewModel(ICommissionRepository _icr, RouterViewModel router)
         {
             this._icr = _icr;
+            _router = router;
         }
     }
 }
