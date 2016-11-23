@@ -43,13 +43,13 @@ namespace ParkInspect.ViewModel
         public int Frequency
         {
             get { return _frequency; }
-            set { _frequency = value; RaisePropertyChanged("Frequency"); }
+            set { _frequency = value; RaisePropertyChanged(); }
         }
 
         public string Description
         {
             get { return _description; }
-            set { _description = value; RaisePropertyChanged("Description"); }
+            set { _description = value; RaisePropertyChanged(); }
         }
         
 
@@ -87,7 +87,7 @@ namespace ParkInspect.ViewModel
             _router = router;
             _cvm = cvm;
             CustomerList = new List<CustomerViewModel>();
-            foreach (CustomerViewModel customer in _icr.GetCustomers())
+            foreach (var customer in _icr.GetCustomers())
             {
                 CustomerList.Add(customer);
             }
@@ -112,9 +112,9 @@ namespace ParkInspect.ViewModel
 
         public void AddCommission()
         {
-            int locationId = _icr.GetLocationViewModels().ToList().Count;
+            var locationId = _icr.GetLocationViewModels().ToList().Count;
 
-            if (this.ValidateInput())
+            if (ValidateInput())
             {
                 _icr.CreateLocation(new LocationViewModel(locationId, ZipCode, StreetNumber, SelectedRegion));
                 Commission = new CommissionViewModel(_icr.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, SelectedRegion, SelectedCustomer.Name);
@@ -127,7 +127,7 @@ namespace ParkInspect.ViewModel
             }
             else
             {
-                this.ShowValidationError();
+                ShowValidationError();
             }
         }
 

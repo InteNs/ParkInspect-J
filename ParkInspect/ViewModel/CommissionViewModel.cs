@@ -24,67 +24,64 @@ namespace ParkInspect.ViewModel
         public int Id
         {
             get { return _id; }
-            set { _id = value; RaisePropertyChanged("Id"); }
+            set { _id = value; RaisePropertyChanged(); }
         }
 
         public int Frequency
         {
             get { return _frequency; }
-            set { _frequency = value; RaisePropertyChanged("Frequency"); }
+            set { _frequency = value; RaisePropertyChanged(); }
         }
 
         public int CustomerId
         {
             get { return _customerId; }
-            set { _customerId = value; RaisePropertyChanged("CustomerId"); }
+            set { _customerId = value; RaisePropertyChanged(); }
         }
 
         public int LocationId
         {
             get { return _locationId; }
-            set { _locationId = value; RaisePropertyChanged("LocationId"); }
+            set { _locationId = value; RaisePropertyChanged(); }
         }
 
         public int? EmployeeId
         {
             get { return _employeeId; }
-            set { _employeeId = value; RaisePropertyChanged("EmployeeId"); }
+            set { _employeeId = value; RaisePropertyChanged(); }
         }
 
         public DateTime DateCreated
         {
             get { return _dateCreated; }
-            set { _dateCreated = value; RaisePropertyChanged("DateCreated"); }
+            set { _dateCreated = value; RaisePropertyChanged(); }
         }
 
         public DateTime? DateCompleted
         {
             get { return _dateCompleted; }
-            set { _dateCompleted = value; RaisePropertyChanged("DateCompleted"); }
+            set { _dateCompleted = value; RaisePropertyChanged(); }
         }
 
         public string Description
         {
             get { return _description; }
-            set { _description = value; RaisePropertyChanged("Description"); }
+            set { _description = value; RaisePropertyChanged(); }
         }
 
         public string Region
         {
             get { return _region; }
-            set { _region = value; RaisePropertyChanged("Region"); }
+            set { _region = value; RaisePropertyChanged(); }
         }
 
         public string CustomerName
         {
             get { return _customerName; }
-            set { _customerName = value;  RaisePropertyChanged("CustomerName"); }
+            set { _customerName = value;  RaisePropertyChanged(); }
         }
 
-        public string Info
-        {
-            get { return "Opdracht " + Id + " - " + CustomerName; }
-        }
+        public string Info => "Opdracht " + Id + " - " + CustomerName;
 
         public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime? completed, string description, string region, string customerName)
         {

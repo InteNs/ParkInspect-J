@@ -17,10 +17,10 @@ namespace ParkInspect.ViewModel
         private ICommissionRepository _icr;
         private CommissionViewModel _selectedCommission;
 
-        public CommissionOverviewViewModel(ICommissionRepository _icr)
+        public CommissionOverviewViewModel(ICommissionRepository icr)
         {
-            this._icr = _icr;
-            CommissionList = new ObservableCollection<CommissionViewModel>(_icr.GetAll());
+            this._icr = icr;
+            CommissionList = new ObservableCollection<CommissionViewModel>(icr.GetAll());
             ShowableEmployeeList = new ObservableCollection<EmployeeViewModel>();
             CompleteEmployeeList = new ObservableCollection<EmployeeViewModel>();
         }
@@ -34,7 +34,7 @@ namespace ParkInspect.ViewModel
         public CommissionViewModel SelectedCommission
         {
             get { return _selectedCommission; }
-            set { _selectedCommission = value; RaisePropertyChanged("SelectedCommission"); }
+            set { _selectedCommission = value; RaisePropertyChanged(); }
         }
     }
 }
