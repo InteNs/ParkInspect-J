@@ -86,11 +86,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Factory\DiagramFactory.cs" />
+    <Compile Include="DiagramModels\Cirkeldiagram.cs" />
+    <Compile Include="DiagramModels\Grafiek.cs" />
+    <Compile Include="DiagramModels\Kaart.cs" />
+    <Compile Include="DiagramModels\Staafdiagram.cs" />
+    <Compile Include="DiagramModels\IDiagram.cs" />
     <Compile Include="Converter\FilterEmployeeConverter.cs" />
     <Compile Include="Lib\WatermarkAdorner.cs" />
     <Compile Include="Repositories\DummyEmployeesRepository.cs" />
     <Compile Include="Repositories\Commission.cs" />
     <Compile Include="Repositories\DummyCommissionRepository.cs" />
+    <Compile Include="Repositories\DummyQuestionRepository.cs" />
+    <Compile Include="Repositories\DummyTemplateRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ICommissionRepository.cs" />
     <Compile Include="Repositories\IManagementRapportenRepository.cs" />
@@ -113,7 +121,14 @@
     <Compile Include="ViewModel\AddCustomerViewModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
+    <Compile Include="Enumeration\QuestionType.cs" />
+    <Compile Include="Repositories\IQuestionRepository.cs" />
+    <Compile Include="Repositories\ITemplateRepository.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\QuestionsViewModel.cs" />
+    <Compile Include="ViewModel\QuestionViewModel.cs" />
+    <Compile Include="ViewModel\TemplatesViewModel.cs" />
+    <Compile Include="ViewModel\TemplateViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
     <Compile Include="ViewModel\RouterViewModel.cs" />
     <Compile Include="View\AddCommission.xaml.cs">
@@ -143,10 +158,12 @@
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
     </Compile>
-    <Page Include="ViewModel\testingControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="View\QuestionsView.xaml.cs">
+      <DependentUpon>QuestionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TemplatesView.xaml.cs">
+      <DependentUpon>TemplatesView.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\AuthenticationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -179,6 +196,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\AddCustomerView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\CustomersView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\MainMenuInspecteurView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -200,6 +225,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\ManagementView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuestionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TemplatesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
