@@ -30,7 +30,12 @@ namespace ParkInspect.ViewModel
                 { "employees-list", typeof(EmployeesView) },
                 { "employees-add", typeof(AddEmployeeView) },
                 { "employees-edit", typeof(EditEmployeeView) },
-                { "management-view", typeof(ManagementView) }
+                { "management-view", typeof(ManagementView) },
+                { "authentication", typeof(AuthenticationView) },
+                { "questions-list", typeof(QuestionsView)},
+                { "templates-list", typeof(TemplatesView) },
+                { "Customers-list", typeof(CustomersView) },
+                { "Customers-add", typeof(AddCustomerView) }
             };
             _previousViews = new Stack<UserControl>();
         }
