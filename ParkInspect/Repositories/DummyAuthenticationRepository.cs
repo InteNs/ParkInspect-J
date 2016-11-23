@@ -31,7 +31,7 @@ namespace ParkInspect.Repositories
 
         }
 
-        public AuthenticationViewModel Login(string username, string password)
+        public string[] Login(string username, string password)
         {
             string line = "";
             StreamReader file = new StreamReader(loginFile);
@@ -41,7 +41,7 @@ namespace ParkInspect.Repositories
                 if (data[0] == username && data[1] == password)
                 {
                     file.Close();
-                    return new AuthenticationViewModel() { EmployeeId = Convert.ToInt32(data[3]), UserId = Convert.ToInt32(data[2]), Username = data[0] };
+                    return data; //{ EmployeeId = Convert.ToInt32(data[3]), UserId = Convert.ToInt32(data[2]), Username = data[0] };
                 }
             }
 

@@ -10,7 +10,7 @@ namespace ParkInspect.Repositories
     public interface IAuthenticationRepository
     {
         void FillUserFile();
-        AuthenticationViewModel Login(string username, string password);
+        string[] Login(string username, string password);
         AuthenticationViewModel Logout(AuthenticationViewModel user);
         bool IsLoggedIn(AuthenticationViewModel user);
     }
