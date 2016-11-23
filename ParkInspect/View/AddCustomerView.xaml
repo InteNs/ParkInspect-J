@@ -108,7 +108,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=CustomerStreetNumber}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.StreetNumber}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
