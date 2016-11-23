@@ -69,7 +69,7 @@ namespace ParkInspect.ViewModel
         {
             var dialog = new MetroDialogService();
             await dialog.Show("Werknemer non-actief zetten",
-                        "Weet u zeker dat u deze werknemer op non-actief wilt zetten?");
+                        "Weet u zeker dat u "+SelectedEmployee.Name+" op non-actief wilt zetten?");
 
             if (dialog.IsAffirmative != true) return;
             SelectedEmployee.DismissalDate = DateTime.Now;

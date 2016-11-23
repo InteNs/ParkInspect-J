@@ -101,8 +101,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
                         <DataGridTextColumn Header="Naam" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Regio" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Functie" Binding="{Binding Name}" Width="*" />
+                        <DataGridTextColumn Header="Regio" Binding="{Binding Region}" Width="*" />
+                        <DataGridTextColumn Header="Functie" Binding="{Binding Function}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

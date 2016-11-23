@@ -44,7 +44,7 @@ namespace ParkInspect.ViewModel
         }
         private void SetView(string viewName)
         {
-            _previousViews.Push(CurrentView);
+            _previousViews?.Push(CurrentView);
             this.CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
             RaisePropertyChanged("CurrentView");
         }
