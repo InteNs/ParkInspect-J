@@ -16,12 +16,13 @@ namespace ParkInspect.ViewModel
         public ICommand AddCommissionCommand { get; set; }
         private ICommissionRepository _icr;
         private CommissionViewModel _selectedCommission;
-        private RouterViewModel _router;
 
-        public CommissionOverviewViewModel(ICommissionRepository _icr, RouterViewModel router)
+        public CommissionOverviewViewModel(ICommissionRepository _icr)
         {
             this._icr = _icr;
-            _router = router;
+            CommissionList = new ObservableCollection<CommissionViewModel>(_icr.GetAll());
+            ShowableEmployeeList = new ObservableCollection<EmployeeViewModel>();
+            CompleteEmployeeList = new ObservableCollection<EmployeeViewModel>();
         }
 
         public ObservableCollection<CommissionViewModel> CommissionList { get; set; }

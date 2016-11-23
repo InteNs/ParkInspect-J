@@ -65,22 +65,22 @@
 
             <Grid Grid.Row="1"
           Grid.Column="1">
-                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter=""  />
+                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="commissions-add"  />
             </Grid>
 
             <Grid Grid.Row="1"
           Grid.Column="3">
-                <ComboBox SelectedValue="{Binding SelectedCommission}" ItemsSource="{Binding CommissionList}" />
+                <ComboBox SelectedValue="{Binding SelectedCommission}" ItemsSource="{Binding CommissionList}" DisplayMemberPath="Info" />
             </Grid>
 
             <Grid Grid.Row="1"
           Grid.Column="5">
-                <Label Content="poep"  Foreground="White" FontSize="20" HorizontalAlignment="Center"/>
+                <Label Content="{Binding SelectedCommission.Region}"  Foreground="White" FontSize="20" HorizontalAlignment="Center"/>
             </Grid>
 
             <Grid Grid.Row="1"
           Grid.Column="6">
-                <Label Content="beschrijving"  Foreground="White" FontSize="12" />
+                <Label Content="{Binding SelectedCommission.Description}"  Foreground="White" FontSize="12" />
             </Grid>
 
 

@@ -19,6 +19,7 @@ namespace ParkInspect.ViewModel
         private DateTime? _dateCompleted;
         private string _description;
         private string _region;
+        private string _customerName;
 
         public int Id
         {
@@ -74,7 +75,18 @@ namespace ParkInspect.ViewModel
             set { _region = value; RaisePropertyChanged("Region"); }
         }
 
-        public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime? completed, string description, string region)
+        public string CustomerName
+        {
+            get { return _customerName; }
+            set { _customerName = value;  RaisePropertyChanged("CustomerName"); }
+        }
+
+        public string Info
+        {
+            get { return "Opdracht " + Id + " - " + CustomerName; }
+        }
+
+        public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime? completed, string description, string region, string customerName)
         {
             Id = id;
             Frequency = frequency;
@@ -85,10 +97,8 @@ namespace ParkInspect.ViewModel
             DateCompleted = completed;
             Description = description;
             Region = region;
+            CustomerName = customerName;
         }
-
-       
-
         
     }
 }

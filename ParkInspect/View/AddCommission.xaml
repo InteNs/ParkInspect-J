@@ -90,7 +90,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Klant: " />
                 </Viewbox>
-                <ComboBox  SelectedItem="{Binding SelectedCustomer}" ItemsSource="{Binding Path=CustomerList}" DisplayMemberPath="Name" SelectionChanged="ComboBox_SelectionChanged"/>
+                <ComboBox  SelectedItem="{Binding SelectedCustomer}" ItemsSource="{Binding Path=CustomerList}" DisplayMemberPath="Name"/>
             </DockPanel>
             
             <DockPanel Grid.Row="3"
@@ -117,7 +117,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "></Label>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding SelectedRegion}" ItemsSource="{Binding Path=RegionList}" />
+                <ComboBox SelectedValue="{Binding SelectedRegion}" ItemsSource="{Binding Path=RegionList}"/>
             </DockPanel>
 
             <DockPanel Grid.Row="9"
