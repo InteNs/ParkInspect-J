@@ -32,7 +32,7 @@
 
         <Grid Grid.Row="1"
               Grid.Column="1">
-            <Button Content="Terug" FontSize="23" />
+            <Button Content="Terug" FontSize="23"  Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="dashboard-manager"></Button>
         </Grid>
 
         <Grid Grid.Row="3"
