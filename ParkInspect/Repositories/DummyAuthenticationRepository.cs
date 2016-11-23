@@ -15,7 +15,7 @@ namespace ParkInspect.Repositories
 
         public DummyAuthenticationRepository()
         {
-            loginFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"ParkInspect\Login.data");
+            loginFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Login.data");
 
         }
 
@@ -24,10 +24,12 @@ namespace ParkInspect.Repositories
             if (!File.Exists(loginFile))
                 File.Create(loginFile);
 
-            StreamWriter file = new System.IO.StreamWriter(loginFile);
-            file.WriteLine("admin;password;1;1");
-            file.WriteLine("henk;kees;2;2");
-            file.Close();
+            using (StreamWriter file = new StreamWriter(loginFile, true))
+            {
+                file.WriteLine("admin;password;1;1");
+                file.WriteLine("henk;kees;2;2");
+                file.Close();
+            }
 
         }
 

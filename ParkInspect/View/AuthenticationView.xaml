@@ -87,7 +87,7 @@
                 <PasswordBox PasswordChar="*" Name="PasswordContent" FontSize="20" VerticalAlignment="Center" />
             </DockPanel>
 
-            <Button Grid.Column="2" Grid.Row="5" Command="{Binding DoLoginCommand}" CommandParameter="{Binding ElementName=PasswordContent}" Content="Inloggen" FontSize="30" />
+            <Button Grid.Column="2" Grid.Row="5" Command="{Binding DoLoginCommand}" CommandParameter="{Binding ElementName=PasswordContent }" Content="Inloggen" FontSize="30" />
 
         </Grid>
     </Grid>

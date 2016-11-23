@@ -33,7 +33,7 @@ namespace ParkInspect.ViewModel
             };
 
         }
-        private void SetView(string viewName)
+        public void SetView(string viewName)
         {
             this.CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
             RaisePropertyChanged("CurrentView");

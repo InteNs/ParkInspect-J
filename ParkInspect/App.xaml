@@ -1,4 +1,4 @@
-<Application x:Class="ParkInspect.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:ParkInspect" StartupUri="View/MainWindow.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm=" ParkInspect.ViewModel"
+<Application x:Class="ParkInspect.App" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="clr-namespace:ParkInspect" StartupUri="View/AuthenticationView.xaml" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:vm=" ParkInspect.ViewModel"
              xmlns:view="clr-namespace:ParkInspect.View"
              xmlns:viewModel="clr-namespace:ParkInspect.ViewModel">
     <Application.Resources>

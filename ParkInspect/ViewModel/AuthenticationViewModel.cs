@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Repositories;
@@ -17,24 +18,27 @@ namespace ParkInspect.ViewModel
         public int EmployeeId { get; set; }
 
         private IAuthenticationRepository _repo;
+        private readonly RouterViewModel _router;
+        public ICommand DoLoginCommand { get; set; }
 
-        public ICommand DoLoginCommand;
-
-        public AuthenticationViewModel(IAuthenticationRepository repo)
+        public AuthenticationViewModel(IAuthenticationRepository repo, RouterViewModel router)
         {
             _repo = repo;
-            DoLoginCommand = new RelayCommand<string>(DoLogin);
+            _router = router;
+            DoLoginCommand = new RelayCommand<PasswordBox>(DoLogin);
+            repo.FillUserFile();
         }
 
-        private void DoLogin(string password)
+        private void DoLogin(PasswordBox password)
         {
-            string[] user = _repo.Login(Username, password);
+            string[] user = _repo.Login(Username, password.Password);
             if (user != null)
             {
                 UserId = Convert.ToInt32(user[2]);
                 EmployeeId = Convert.ToInt32(user[3]);
                 Username = user[0];
-                MessageBox.Show("Ingelogd!");
+                _router.SetView("MainInspect");
+                
                 return;
             }
             MessageBox.Show("Foute inloggegevens!");
