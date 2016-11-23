@@ -13,6 +13,9 @@
     <UserControl.Resources>
         <converter:FilterEmployeeConverter x:Key="Converter" />
     </UserControl.Resources>
+    <UserControl.CommandBindings>
+        <CommandBinding Command="ApplicationCommands.New" Executed="Dismissal_Executed" CanExecute="Dismissal_CanExecute" />
+    </UserControl.CommandBindings>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -24,27 +27,14 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="0.01*" />
-            <RowDefinition Height="0.15*" />
-            <RowDefinition Height="0.01*" />
             <RowDefinition Height="1*" />
             <RowDefinition Height="0.01*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1"
-              Grid.Column="1">
-            <Button Content="Terug" FontSize="23" Height="63" VerticalAlignment="Top" />
-        </Grid>
-
-        <Grid Grid.Row="3"
               Grid.Column="1"
-              Grid.ColumnSpan="2">
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                    <GradientStop Color="#FF2B2B2B" Offset="-1" />
-                    <GradientStop Color="#FFB9B9B9" Offset="1" />
-                </LinearGradientBrush>
-            </Grid.Background>
-
+                Grid.ColumnSpan="2">
+            
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*" />
                 <ColumnDefinition Width="116*" />
@@ -75,8 +65,9 @@
             </Grid>
 
             <Grid Grid.Row="1"
-                  Grid.Column="3">
-                <Button Content="Non-Actief" Command="{Binding SetEmployeeDismissCommand}" />
+          Grid.Column="3">
+
+                <Button Content="Non-Actief" Command="ApplicationCommands.New" />
             </Grid>
 
             <Grid Grid.Row="1"
@@ -85,10 +76,11 @@
             </Grid>
 
             <Grid Grid.Row="3"
-                  Grid.Column="1"
-                  Grid.ColumnSpan="6">
+              Grid.Column="1"
+                Grid.ColumnSpan="6"
+              >
                 <AdornerDecorator>
-                    <TextBox  Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
+                    <TextBox Foreground="Black" Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
                         <service:WatermarkService.Watermark>
                             <TextBlock>Zoeken...</TextBlock>
                         </service:WatermarkService.Watermark>
@@ -98,9 +90,8 @@
             <Grid Grid.Row="5"
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
-                <DataGrid GridLinesVisibility="None"
-                          Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False"
-                          IsReadOnly="True" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}">
+                <DataGrid GridLinesVisibility="None" 
+       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" >
                     <DataGrid.ItemsSource>
                         <MultiBinding Converter="{StaticResource Converter}">
                             <Binding Path="Employees"></Binding>
@@ -110,8 +101,8 @@
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
                         <DataGridTextColumn Header="Naam" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Regio" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Functie" Binding="{Binding Name}" Width="*" />
+                        <DataGridTextColumn Header="Regio" Binding="{Binding Region}" Width="*" />
+                        <DataGridTextColumn Header="Functie" Binding="{Binding Function}" Width="*" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

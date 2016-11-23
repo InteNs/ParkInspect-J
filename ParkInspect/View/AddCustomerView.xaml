@@ -6,17 +6,13 @@
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
+             Foreground="Black"
              DataContext="{Binding AddCustomer,Source={StaticResource Locator}}">
     <UserControl.Resources>
         <Style x:Key="DefaultLabelStyle" TargetType="Label">
             <Setter Property="Width" Value="230"></Setter>
             <Setter Property="FontSize" Value="25"></Setter>
             <Setter Property="Padding" Value="0"></Setter>
-        </Style>
-        <Style x:Key="DefaultTextBoxStyle" TargetType="TextBox">
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="FontSize" Value="25"></Setter>
-            <Setter Property="Margin" Value="-3"></Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -38,8 +34,6 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Button Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="Customers-list" Grid.Column="1" Grid.Row="1" Content="Terug" />
-
         <Grid Grid.Row="1" Grid.RowSpan="2"
           Grid.Column="3" Background="#FF008CFF">
             <Viewbox>
@@ -51,12 +45,6 @@
               Grid.Column="1"
                 Grid.ColumnSpan="4"
               >
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                    <GradientStop Color="#FF2B2B2B" Offset="-1"/>
-                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*" />
@@ -90,7 +78,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Name}"  Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.Name}" TextAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -99,7 +87,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.ZipCode}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.ZipCode}" TextAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -108,7 +96,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=CustomerStreetNumber}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.StreetNumber}" TextAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -117,7 +105,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.PhoneNumber}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.PhoneNumber}" TextAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -126,7 +114,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Email}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Customer.Email}" TextAlignment="Center" />
             </DockPanel>
 
             <DockPanel
@@ -142,7 +130,7 @@
             <Grid
                 Grid.Row="15"
                 Grid.Column="1">
-                <Button Command="{Binding AddCustomerCommand}" Content="Klant Toevoegen" Width="275" FontSize="20" Background="#FF999999"/>
+                <Button Command="{Binding AddCustomerCommand}" Content="Klant Toevoegen" Width="275" FontSize="17"/>
             </Grid>
 
         </Grid>
