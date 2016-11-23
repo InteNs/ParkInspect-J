@@ -6,7 +6,8 @@
              xmlns:service="clr-namespace:ParkInspect.Service"
              xmlns:viewModel="clr-namespace:ParkInspect.ViewModel"
              mc:Ignorable="d" 
-             d:DesignHeight="500" d:DesignWidth="750">
+             d:DesignHeight="500" d:DesignWidth="750"
+             DataContext="{Binding Commissions,Source={StaticResource Locator}}">
     <Grid>
         <Grid.ColumnDefinitions>
         <ColumnDefinition Width="0.01*" />
@@ -24,7 +25,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1"
-          Grid.Column="1">
+          Grid.Column="1" Height="63" VerticalAlignment="Bottom">
             <Button Content="Terug" FontSize="23" />
         </Grid>
 
@@ -64,10 +65,25 @@
 
             <Grid Grid.Row="1"
           Grid.Column="1">
-                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="" />
+                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter=""  />
             </Grid>
 
-            
+            <Grid Grid.Row="1"
+          Grid.Column="3">
+                <ComboBox SelectedValue="{Binding SelectedCommission}" ItemsSource="{Binding CommissionList}" />
+            </Grid>
+
+            <Grid Grid.Row="1"
+          Grid.Column="5">
+                <Label Content="poep"  Foreground="White" FontSize="20" HorizontalAlignment="Center"/>
+            </Grid>
+
+            <Grid Grid.Row="1"
+          Grid.Column="6">
+                <Label Content="beschrijving"  Foreground="White" FontSize="12" />
+            </Grid>
+
+
 
             <Grid Grid.Row="3"
                   Grid.Column="1"
@@ -86,20 +102,21 @@
 
             <Grid Grid.Row="5"
                   Grid.Column="1"
-                  Grid.ColumnSpan="6">
+                  Grid.ColumnSpan="5">
 
                 <DataGrid GridLinesVisibility="None"
                           Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False"
-                          IsReadOnly="True" >
+                          IsReadOnly="True" ItemsSource="{Binding ShowableEmployeeList, Mode=TwoWay}">
                    
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding }" Width="0.2*" />
-                        <DataGridTextColumn Header="Inspecteur" Binding="{Binding }" Width="0.5*" />
-                        <DataGridTextColumn Header="Regio" Binding="{Binding }" Width="0.5*" />
-                        <DataGridTextColumn Header="Effort" Binding="{Binding }" Width="*" />
+                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
+                        <DataGridTextColumn Header="Inspecteur" Binding="{Binding Name}" Width="*" />
+                        <DataGridTextColumn Header="Regio" Binding="{Binding Region}" Width="*" />
+                        
                         
                     </DataGrid.Columns>
                 </DataGrid>
+                
             </Grid>
         </Grid>
 

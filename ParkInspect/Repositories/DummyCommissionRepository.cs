@@ -17,7 +17,7 @@ namespace ParkInspect.Repositories
 
         public DummyCommissionRepository()
         {
-            customers = new List<CustomerViewModel> {new CustomerViewModel(1, "Nur"), new CustomerViewModel(2, "Edward"), new CustomerViewModel(3, "Mathijs")};
+            //customers = new List<CustomerViewModel> {new CustomerViewModel(1, "Nur"), new CustomerViewModel(2, "Edward"), new CustomerViewModel(3, "Mathijs")};
             
             commissions = new List<CommissionViewModel>();
             commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 11, 19, 20, 13, 0), "Test Description 1", "Limburg"));
