@@ -26,6 +26,8 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
             SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
             SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();
+            SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
+            SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
@@ -34,15 +36,17 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ManagementRapportenViewModel>();
             SimpleIoc.Default.Register<AuthenticationViewModel>();
             SimpleIoc.Default.Register<CustomersViewModel>();
+            SimpleIoc.Default.Register<QuestionsViewModel>();
+            SimpleIoc.Default.Register<TemplatesViewModel>();
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
         //viewmodels
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
-   	    public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>(); 
-
-
+   	    public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>();
+        public QuestionsViewModel Questions => ServiceLocator.Current.GetInstance<QuestionsViewModel>();
+        public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
         public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
         public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
