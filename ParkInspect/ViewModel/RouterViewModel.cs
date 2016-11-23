@@ -22,6 +22,7 @@ namespace ParkInspect.ViewModel
             _views = new Dictionary<string, Type>
             {
                 { "employees-list", typeof(EmployeesView) },
+                { "MainInspect", typeof(MainMenuInspecteurView) },
                 { "employees-add", typeof(AddEmployeeView) },
                 { "employees-edit", typeof(EditEmployeeView) },
                 { "management-view", typeof(ManagementView) },
@@ -31,9 +32,10 @@ namespace ParkInspect.ViewModel
                 { "Customers-list", typeof(CustomersView) },
                 { "Customers-add", typeof(AddCustomerView) }
             };
-
+            //test
+            SetView("MainInspect");
         }
-        private void SetView(string viewName)
+        public void SetView(string viewName)
         {
             this.CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
             RaisePropertyChanged("CurrentView");

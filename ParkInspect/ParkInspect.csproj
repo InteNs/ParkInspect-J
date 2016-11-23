@@ -149,6 +149,9 @@
     <Compile Include="View\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenuInspecteurView.xaml.cs">
+      <DependentUpon>MainMenuInspecteurView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
     </Compile>
@@ -189,6 +192,10 @@
     <Page Include="View\CustomersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\MainMenuInspecteurView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
