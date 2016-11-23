@@ -24,5 +24,6 @@ namespace ParkInspect.View
         {
             InitializeComponent();
         }
+        
     }
 }
