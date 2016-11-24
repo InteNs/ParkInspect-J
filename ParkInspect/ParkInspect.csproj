@@ -120,15 +120,18 @@
     <Compile Include="Lib\WatermarkAdorner.cs" />
     <Compile Include="Repositories\DummyEmployeesRepository.cs" />
     <Compile Include="Repositories\DummyCommissionRepository.cs" />
+    <Compile Include="Repositories\DummyInspectionsRepository.cs" />
     <Compile Include="Repositories\DummyQuestionRepository.cs" />
     <Compile Include="Repositories\DummyTemplateRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ICommissionRepository.cs" />
+    <Compile Include="Repositories\IInspectionsRepository.cs" />
     <Compile Include="Repositories\IManagementRapportenRepository.cs" />
     <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
     <Compile Include="Repositories\IAuthenticationRepository.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
+    <Compile Include="ViewModel\InspectionsViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
@@ -177,6 +180,9 @@
     <Compile Include="View\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\InspectionsView.xaml.cs">
+      <DependentUpon>InspectionsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
     </Compile>
@@ -221,6 +227,10 @@
     <Page Include="View\CustomersView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\InspectionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
