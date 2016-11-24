@@ -6,6 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using ParkInspect.ViewModel;
+using System.Security.Cryptography;
 
 namespace ParkInspect.Repositories
 {
@@ -22,12 +23,12 @@ namespace ParkInspect.Repositories
         public void FillUserFile()
         {
             if (!File.Exists(loginFile))
-                File.Create(loginFile);
-
+                File.Create(loginFile).Close();
+            
             using (StreamWriter file = new StreamWriter(loginFile, true))
             {
-                file.WriteLine("admin;password;1;1");
-                file.WriteLine("henk;kees;2;2");
+                file.WriteLine("admin;"+HashString("password")+";1;1");
+                file.WriteLine("henk;" + HashString("kees") + ";2;2");
                 file.Close();
             }
 
@@ -40,7 +41,7 @@ namespace ParkInspect.Repositories
             while ((line = file.ReadLine()) != null)
             {
                 string[] data = line.Split(';');
-                if (data[0] == username && data[1] == password)
+                if (data[0] == username && data[1] == HashString(password))
                 {
                     file.Close();
                     return data; //{ EmployeeId = Convert.ToInt32(data[3]), UserId = Convert.ToInt32(data[2]), Username = data[0] };
@@ -61,6 +62,19 @@ namespace ParkInspect.Repositories
         public bool IsLoggedIn(AuthenticationViewModel user)
         {
             return (user != null);
+        }
+
+        private string HashString(string content)
+        {
+
+            HashAlgorithm algorithm = SHA256.Create();
+            
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in algorithm.ComputeHash(Encoding.UTF8.GetBytes(content)))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
+
         }
 
         private bool HasInternet()
