@@ -6,6 +6,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+*Database/Database.jfm
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -301,3 +302,5 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+Database/Database.jfm
+*.jfm
