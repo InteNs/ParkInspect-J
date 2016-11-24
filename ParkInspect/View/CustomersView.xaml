@@ -9,7 +9,7 @@
              xmlns:service="clr-namespace:ParkInspect.Service"
              mc:Ignorable="d"
              d:DesignHeight="500" d:DesignWidth="750"
-             Foreground="White"
+             Foreground="Black"
              DataContext="{Binding Customers, Source={StaticResource Locator}}">
     <UserControl.Resources>
         <converter:FilterCustomerConverter x:Key="Converter" />
