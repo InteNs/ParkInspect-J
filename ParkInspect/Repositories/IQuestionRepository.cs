@@ -10,7 +10,7 @@ namespace ParkInspect.Repositories
     public interface IQuestionRepository
     {
         QuestionViewModel Find(int id);
-        IEnumerable<QuestionViewModel> All();
+        IEnumerable<QuestionViewModel> GetAll();
         QuestionViewModel Create(QuestionViewModel question);
         QuestionViewModel Update(QuestionViewModel question);
     }

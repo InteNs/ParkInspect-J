@@ -122,6 +122,7 @@
     <Compile Include="Repositories\DummyCommissionRepository.cs" />
     <Compile Include="Repositories\DummyInspectionsRepository.cs" />
     <Compile Include="Repositories\DummyQuestionRepository.cs" />
+    <Compile Include="Repositories\DummyTaskRepository.cs" />
     <Compile Include="Repositories\DummyTemplateRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ICommissionRepository.cs" />
@@ -130,6 +131,7 @@
     <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
     <Compile Include="Repositories\IAuthenticationRepository.cs" />
     <Compile Include="Service\IRouterService.cs" />
+    <Compile Include="Repositories\ITaskRepository.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\InspectionsViewModel.cs" />
@@ -137,6 +139,7 @@
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
+    <Compile Include="ViewModel\TaskViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\AddCommissionViewModel.cs" />
     <Compile Include="ViewModel\CommissionOverviewViewModel.cs" />

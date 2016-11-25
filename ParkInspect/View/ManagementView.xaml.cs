@@ -25,5 +25,21 @@ namespace ParkInspect.View
         {
             InitializeComponent();
         }
+        private void ComboBox_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            ComboBox db = (ComboBox)sender;
+            db.SelectedIndex = -1;
+        }
+
+        private void TextBox_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            TextBox tb = (TextBox)sender;
+            tb.Text = null;
+        }
+        private void DatePicked_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            DatePicker dp = (DatePicker)sender;
+            dp.SelectedDate = !dp.IsEnabled ? new DateTime(2001, 01, 01) : DateTime.Now;
+        }
     }
 }

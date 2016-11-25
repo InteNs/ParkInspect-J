@@ -26,6 +26,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
             SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
             SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
+            SimpleIoc.Default.Register<ITaskRepository, DummyTaskRepository>();
             SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();
             SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
             SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
