@@ -70,7 +70,7 @@ namespace ParkInspect.ViewModel
             throw new NotImplementedException();
         }
 
-        private void SetVisibilitys()
+        private void SetVisibilities()
         {
             Date = false;
             Klant = false;
@@ -124,7 +124,7 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedOption = value;
-                SetVisibilitys();
+                SetVisibilities();
             }
         }
 
