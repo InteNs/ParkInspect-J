@@ -33,6 +33,8 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<IInspectionsRepository, DummyInspectionsRepository>();
 
             //viewmodels
+            SimpleIoc.Default.Register<AddCommissionViewModel>();
+            SimpleIoc.Default.Register<CommissionOverviewViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();

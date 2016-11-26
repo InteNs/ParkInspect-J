@@ -32,7 +32,6 @@
         </i:EventTrigger>
     </i:Interaction.Triggers>
 
-
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.05*" />
@@ -43,13 +42,12 @@
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
-            <Button Grid.Row="0" Foreground="White" FontSize="25" Content="{DynamicResource PreviousIcon}" Command="{Binding RouteBackCommand}" />
-        </Grid>
-        <Grid Grid.Column="1" Grid.Row="0" />
 
-        
-        <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Content="{Binding CurrentView}" />
+    <Grid Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}">
+        <Button Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}" Foreground="White" FontSize="25" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" Content="{DynamicResource PreviousIcon}" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding RouteBackCommand}" />
     </Grid>
-    
+    <Grid Grid.Column="1" Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}" />
+
+    <ContentControl Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="3" Content="{Binding CurrentView}" />
+    </Grid>
 </controls:MetroWindow>
