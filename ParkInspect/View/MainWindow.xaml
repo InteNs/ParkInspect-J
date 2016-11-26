@@ -15,7 +15,7 @@
         Title="Park Inspect"
         WindowStartupLocation="CenterScreen"
         Height="500"
-        DataContext="{Binding Router, Source={StaticResource Locator}}"
+        DataContext="{Binding RouterService, Source={StaticResource Locator}}"
         Background="White"
         Foreground="White">
 
