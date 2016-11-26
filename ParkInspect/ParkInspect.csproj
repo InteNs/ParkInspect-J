@@ -127,6 +127,7 @@
     <Compile Include="Repositories\IManagementRapportenRepository.cs" />
     <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
     <Compile Include="Repositories\IAuthenticationRepository.cs" />
+    <Compile Include="Service\IRouterService.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
@@ -152,7 +153,7 @@
     <Compile Include="ViewModel\TemplatesViewModel.cs" />
     <Compile Include="ViewModel\TemplateViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
-    <Compile Include="ViewModel\RouterViewModel.cs" />
+    <Compile Include="Service\RouterService.cs" />
     <Compile Include="View\AddCommission.xaml.cs">
       <DependentUpon>AddCommission.xaml</DependentUpon>
     </Compile>

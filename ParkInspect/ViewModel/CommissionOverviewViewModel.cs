@@ -7,17 +7,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class CommissionOverviewViewModel : ViewModelBase
+    public class CommissionOverviewViewModel : MainViewModel
     {
         public ICommand BackCommand { get; set; }
         public ICommand AddCommissionCommand { get; set; }
         private ICommissionRepository _icr;
         private CommissionViewModel _selectedCommission;
 
-        public CommissionOverviewViewModel(ICommissionRepository icr)
+        public CommissionOverviewViewModel(ICommissionRepository icr, IRouterService router) : base(router)
         {
             this._icr = icr;
             CommissionList = new ObservableCollection<CommissionViewModel>(icr.GetAll());

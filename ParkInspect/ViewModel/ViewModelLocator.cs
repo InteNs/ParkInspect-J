@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using ParkInspect.Repositories;
+using ParkInspect.Service;
 using ParkInspect.View;
 
 namespace ParkInspect.ViewModel
@@ -17,7 +18,7 @@ namespace ParkInspect.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             //router
-            SimpleIoc.Default.Register<RouterViewModel>();
+            SimpleIoc.Default.Register<IRouterService, RouterService>();
             //database context
             SimpleIoc.Default.Register<ParkInspectEntities>();
             //repositories
@@ -30,9 +31,9 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
 
             //viewmodels
+            SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();
-            SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<ManagementRapportenViewModel>();
             SimpleIoc.Default.Register<AuthenticationViewModel>();
@@ -42,7 +43,7 @@ namespace ParkInspect.ViewModel
             
         }
         //router
-        public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
+        public IRouterService Router => ServiceLocator.Current.GetInstance<IRouterService>();
         //viewmodels
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
         public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
