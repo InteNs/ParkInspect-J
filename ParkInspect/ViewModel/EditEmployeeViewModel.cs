@@ -4,10 +4,11 @@ using ParkInspect.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class EditEmployeeViewModel : ViewModelBase
+    public class EditEmployeeViewModel : MainViewModel
     {
 
         private string _selectedRegion;
@@ -15,8 +16,6 @@ namespace ParkInspect.ViewModel
         private string _selectedFunction;
 
         private readonly IEmployeeRepository _repository;
-
-        private readonly RouterViewModel _router;
 
         public string SelectedRegion
         {
@@ -46,10 +45,9 @@ namespace ParkInspect.ViewModel
 
         public ICommand EditEmployeeCommand { get; set; }
 
-        public EditEmployeeViewModel(IEmployeeRepository ier,RouterViewModel router, EmployeesViewModel evm)
+        public EditEmployeeViewModel(IEmployeeRepository ier,IRouterService router, EmployeesViewModel evm) : base(router)
         {
             _repository = ier;
-            _router = router;
 
             SelectedEmployee = evm.SelectedEmployee;
 
@@ -70,7 +68,7 @@ namespace ParkInspect.ViewModel
         {
             if (_repository.Update(SelectedEmployee))
             {
-                _router.SetViewCommand.Execute("employees-list");
+               RouterService.SetView("employees-list");
             }
         }
     }
