@@ -18,13 +18,13 @@ namespace ParkInspect.ViewModel
         public IDiagram _selectedDiagram;
         private IEmployeeRepository _employeeRepository;
         private ICustomerRepository _customerRepository;
-        private IQuestionRepository _questionRepository;
+        private IQuestionListRepository _questionListRepository;
         private ITaskRepository _taskRepository;
         public PieChartViewModel PieChart { get; set; }
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
         public EmployeeViewModel SelectedManager { get; set; }
-        public QuestionViewModel SelectedQuestion { get; set; }
+        public QuestionItemViewModel SelectedQuestion { get; set; }
         public string SelectedFunction { get; set; }
         public string SelectedRegion { get; set; }
         public string SelectedStatus { get; set; }
@@ -72,7 +72,7 @@ namespace ParkInspect.ViewModel
         public List<string> Functions => _employeeRepository.GetFunctions().ToList();
         public List<string> Locations => _employeeRepository.GetRegions().ToList();
         public List<CustomerViewModel> Customers => _customerRepository.GetAll().ToList();
-        public List<QuestionViewModel> Questions => _questionRepository.GetAll().ToList();
+        public List<QuestionItemViewModel> Questions { get; set; }
 
         public List<EmployeeViewModel> Inspectors
             => _employeeRepository.GetAll().Where(e => e.Function == "Inspecteur").ToList();
@@ -83,18 +83,27 @@ namespace ParkInspect.ViewModel
         public List<TaskViewModel> Tasks => _taskRepository.GetAll().ToList();
 
         public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust,
-            IEmployeeRepository emp, IQuestionRepository ques, ITaskRepository task)
+            IEmployeeRepository emp, IQuestionListRepository ques, ITaskRepository task)
         {
             Repository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
-            _questionRepository = ques;
+            _questionListRepository = ques;
             _taskRepository = task;
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
             ComboBox1List = new List<string>();
+            Questions = new List<QuestionItemViewModel>();
+            List<QuestionListViewModel> questionLists = _questionListRepository.GetAll().ToList();
+            foreach (QuestionListViewModel qlvm in questionLists)
+            {
+                foreach (QuestionItemViewModel qivm in qlvm.QuestionItems)
+                {
+                    Questions.Add(qivm);
+                }
+            }
         }
 
         private void GenerateDiagram()
@@ -113,7 +122,7 @@ namespace ParkInspect.ViewModel
                     SelectedOption.Equals(
                         "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
                 {
-                    PieChart = new PieChartViewModel(new DummyQuestionRepository(), SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                    PieChart = new PieChartViewModel(new DummyQuestionListRepository(), SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
                 }
 
             }

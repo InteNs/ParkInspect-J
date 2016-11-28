@@ -139,7 +139,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxVraag"/>
                 <TextBlock Grid.Column="1" Text="Antwoord op vraag:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" ItemsSource="{Binding Questions}" DisplayMemberPath="Description" SelectedValue="{Binding SelectedQuestion}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" ItemsSource="{Binding Questions}" DisplayMemberPath="QuestionDescription" SelectedValue="{Binding SelectedQuestion}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
                 <TextBox Grid.Column="3" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" Text="{Binding SelectedAnswer}" IsEnabledChanged="TextBox_OnIsEnabledChanged"/>
             </Grid>
             <Button Content="Genereer diagram" Command="{Binding GenerateDiagramCommand}"  Width="150" HorizontalAlignment="Left"/>

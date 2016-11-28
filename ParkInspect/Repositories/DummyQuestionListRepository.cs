@@ -26,13 +26,24 @@ namespace ParkInspect.Repositories
                                 Version = 1,
                                 QuestionType = QuestionType.Count
                             }
+                        },
+                        new QuestionItemViewModel
+                        {
+                            Answer = "5",
+                            Question = new QuestionViewModel
+                            {
+                                Description = "hoeveel overtredingen ofzo",
+                                Id = 2,
+                                Version = 1,
+                                QuestionType = QuestionType.Count
+                            }
                         }
                     }
                 )
             };
         }
 
-        public IEnumerable<QuestionListViewModel> All()
+        public IEnumerable<QuestionListViewModel> GetAll()
         {
             return QuestionLists;
         }

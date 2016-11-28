@@ -159,6 +159,7 @@
     <Compile Include="ViewModel\QuestionListsviewModel.cs" />
     <Compile Include="ViewModel\QuestionListViewModel.cs" />
     <Compile Include="ViewModel\TaskViewModel.cs" />
+    <Compile Include="ViewModel\PieChartViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\AddCommissionViewModel.cs" />
     <Compile Include="ViewModel\CommissionOverviewViewModel.cs" />

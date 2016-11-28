@@ -16,7 +16,8 @@ namespace ParkInspect.ViewModel
 
        private List<EmployeeViewModel> _employeesList;
        private List<CommissionViewModel> _commissionsList;
-       private List<QuestionViewModel> _questionsList;
+       private List<QuestionListViewModel> _questionListsList;
+       private List<QuestionItemViewModel> _questionItemsList;
         public PieChartViewModel(IEmployeeRepository ier, string RegionFilter)
         {
             _employeesList = ier.GetAll().ToList();
@@ -63,26 +64,41 @@ namespace ParkInspect.ViewModel
             model.Series.Add(series);
             pieChart = model;
         }
-        public PieChartViewModel(IQuestionRepository iqr, CommissionViewModel cvm, String RegionFilter, DateTime? startTime, DateTime? endTime, QuestionViewModel question)
+        public PieChartViewModel(IQuestionListRepository iqr, CommissionViewModel cvm, String RegionFilter, DateTime? startTime, DateTime? endTime, QuestionItemViewModel question)
         {
-            _questionsList = iqr.GetAll().ToList();
+            _questionListsList = iqr.GetAll().ToList();
+            _questionItemsList = new List<QuestionItemViewModel>();
+            foreach (QuestionListViewModel qlvm in _questionListsList)
+            {
+                foreach (QuestionItemViewModel qivm in qlvm.QuestionItems)
+                {
+                    _questionItemsList.Add(qivm);
+                }
+            }
 
             if (cvm != null)
             {
-                _commissionsList.RemoveAll(co => co.CustomerId != cvm.Id);
+                //remove wat dingesen ofzo
             }
             if (!String.IsNullOrEmpty(RegionFilter))
             {
-                _employeesList.RemoveAll(evm => !evm.Region.Equals(RegionFilter));
+                //remove nog wat dingesen ofzo
             }
-            
-            
+            if (startTime != null && endTime != null)
+            {
+                //remove nog meer dingesen. yay
+            }
+            if (question != null)
+            {
+                _questionItemsList.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
+            }
+
             PlotModel model = new PlotModel();
             dynamic series = new PieSeries();
-            string[] statuses = new string[4] { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
-            foreach (string status in statuses)
+            
+            foreach (QuestionItemViewModel qivm in _questionItemsList)
             {
-                PieSlice ps = new PieSlice(status, _commissionsList.Count(co => co.Status.Equals(status)));
+                PieSlice ps = new PieSlice(qivm.Answer, _questionItemsList.Count(qvm => qvm.Answer.Equals(qivm.Answer)));
                 if (ps.Value != 0)
                 {
                     series.Slices.Add(ps);
