@@ -75,8 +75,8 @@
 
                 <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding SetViewCommand }" CommandParameter="employees-list" Content="Rapport genereren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-                <Button Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" VerticalAlignment="Center" HorizontalAlignment="Center" Content="{DynamicResource banner}">
-                </Button>
+                <Image Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" VerticalAlignment="Center" HorizontalAlignment="Center" Source="../Resources/banner.png">
+                </Image>
             </Grid>
     </Grid>
     </Grid>
