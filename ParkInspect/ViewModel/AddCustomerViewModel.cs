@@ -47,8 +47,7 @@ namespace ParkInspect.ViewModel
 
             Customer = new CustomerViewModel();
 
-            FunctionList = new List<string>();
-            FunctionList.Add("Klant");
+            FunctionList = new List<string> {"Klant"};
 
             AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
         }

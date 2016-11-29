@@ -12,18 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MahApps.Metro.Controls;
 
 namespace ParkInspect.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for DashboardManagerView.xaml
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class DashboardManagerView : UserControl
     {
-        public MainWindow()
+        public DashboardManagerView()
         {
+            InitializeComponent();
         }
-
     }
 }

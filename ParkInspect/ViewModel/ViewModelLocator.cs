@@ -25,12 +25,15 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
             SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
             SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
+            SimpleIoc.Default.Register<ITaskRepository, DummyTaskRepository>();
             SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();
             SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
             SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
+            SimpleIoc.Default.Register<IInspectionsRepository, DummyInspectionsRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<AddCommissionViewModel>();
+            SimpleIoc.Default.Register<CommissionOverviewViewModel>();
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<ManagementRapportenViewModel>();
@@ -38,6 +41,8 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<CustomersViewModel>();
             SimpleIoc.Default.Register<QuestionsViewModel>();
             SimpleIoc.Default.Register<TemplatesViewModel>();
+            SimpleIoc.Default.Register<InspectionsViewModel>();
+            
         }
         //router
         public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
@@ -52,7 +57,9 @@ namespace ParkInspect.ViewModel
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CustomersViewModel Customers => ServiceLocator.Current.GetInstance<CustomersViewModel>();
         public AddCustomerViewModel AddCustomer => new AddCustomerViewModel(ServiceLocator.Current.GetInstance<ICustomerRepository>(), Router, Customers);
-
+        public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
+        public AddCommissionViewModel AddCommission => new AddCommissionViewModel(ServiceLocator.Current.GetInstance<ICommissionRepository>(), Router, Commissions);
+        public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

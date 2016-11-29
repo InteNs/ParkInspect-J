@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             Foreground="Black"
              DataContext="{Binding Management, Source={StaticResource Locator}}">
 
     <UserControl.Resources>
@@ -18,7 +19,6 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <StackPanel>
-            <Button Content="Terug" Width="70" HorizontalAlignment="Left" />
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -31,7 +31,7 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Text="Soort diagram:" Grid.Row="1"/>
-                <ComboBox Grid.Row="2" SelectedValue="{Binding SelectedDiagram}" ItemsSource="{Binding Diagrams}" DisplayMemberPath="Name"/>
+                <ComboBox Grid.Row="2" SelectedValue="{Binding SelectedDiagram}" ItemsSource="{Binding Diagrams}" DisplayMemberPath="Name" />
                 <TextBlock Text="Inhoud:" Grid.Row="1" Grid.Column="1"/>
                 <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ComboBox1List}" SelectedValue="{Binding SelectedOption}" />
             </Grid>
@@ -48,9 +48,9 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxDatum"/>
                 <TextBlock Grid.Row="0" Grid.Column="1"  Text="Startdatum"/>
-                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding StartDate,Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" />
+                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding StartDate,Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" IsEnabledChanged="DatePicked_OnIsEnabledChanged"/>
                 <TextBlock Grid.Row="0" Text="Einddatum" Grid.Column="2"/>
-                <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}"/>
+                <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" IsEnabledChanged="DatePicked_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Locatie, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -60,7 +60,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxLocatie"/>
                 <TextBlock Grid.Column="1" Text="Locatie:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxLocatie, Path=IsChecked}"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxLocatie, Path=IsChecked}" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedRegion}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Inspecteur, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -70,7 +70,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxInspecteur"/>
                 <TextBlock Grid.Column="1" Text="Inspecteur:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxInspecteur, Path=IsChecked}"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxInspecteur, Path=IsChecked}" ItemsSource="{Binding Inspectors}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedInspector}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Manager, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -80,7 +80,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxManager"/>
                 <TextBlock Grid.Column="1" Text="Manager:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxManager, Path=IsChecked}" />
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxManager, Path=IsChecked}" ItemsSource="{Binding Managers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedManager}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Klant, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -90,7 +90,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxKlant"/>
                 <TextBlock Grid.Column="1" Text="Klant:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxKlant, Path=IsChecked}"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxKlant, Path=IsChecked}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCustomer}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Opdracht, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -100,7 +100,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxOpdracht"/>
                 <TextBlock Grid.Column="1" Text="Opdracht:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxOpdracht, Path=IsChecked}"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxOpdracht, Path=IsChecked}" ItemsSource="{Binding Tasks}" DisplayMemberPath="Description" SelectedItem="{Binding SelectedTask}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Functie, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -110,7 +110,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxFunctie"/>
                 <TextBlock Grid.Column="1" Text="Functie:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxFunctie, Path=IsChecked}"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxFunctie, Path=IsChecked}" ItemsSource="{Binding Functions}" SelectedItem="{Binding SelectedFunction}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Status, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -120,7 +120,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxStatus"/>
                 <TextBlock Grid.Column="1" Text="Status:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}">
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}" SelectedValue="{Binding SelectedStatus}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged">
                     <ComboBoxItem Content="Nieuw" />
                     <ComboBoxItem Content="Ingedeeld" />
                     <ComboBoxItem Content="Bezig" />
@@ -136,8 +136,8 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxVraag"/>
                 <TextBlock Grid.Column="1" Text="Antwoord op vraag:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}"/>
-                <TextBox Grid.Column="3" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" ItemsSource="{Binding Questions}" DisplayMemberPath="Description" SelectedValue="{Binding SelectedQuestion}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
+                <TextBox Grid.Column="3" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" Text="{Binding SelectedAnswer}" IsEnabledChanged="TextBox_OnIsEnabledChanged"/>
             </Grid>
             <Button Content="Genereer diagram"  Width="150" HorizontalAlignment="Left"/>
         </StackPanel>
