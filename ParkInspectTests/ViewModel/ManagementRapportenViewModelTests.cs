@@ -13,7 +13,7 @@ namespace ParkInspectTests.ViewModel
     [TestClass()]
     public class ManagementRapportenViewModelTests
     {
-        ManagementRapportenViewModel MRVM = new ManagementRapportenViewModel(new ManagementRapportenRepository());
+        ManagementRapportenViewModel MRVM = new ManagementRapportenViewModel(new ManagementRapportenRepository(), new DummyCustomersRepository(), new DummyEmployeesRepository(), new DummyQuestionRepository(), new DummyTaskRepository());
         
         [TestMethod()]
         public void SetVisibilitiesTest()

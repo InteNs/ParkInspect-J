@@ -27,7 +27,7 @@ namespace ParkInspectTests.Repositories
         {
             QuestionViewModel newVM = new QuestionViewModel();
             DQR.Create(newVM);
-            Assert.IsTrue(DQR.All().Contains(newVM));
+            Assert.IsTrue(DQR.GetAll().Contains(newVM));
 
         }
 
@@ -38,8 +38,8 @@ namespace ParkInspectTests.Repositories
             QuestionViewModel updatedVM = new QuestionViewModel() {Description = "test1", Id = 11};
             DQR.Create(newVM);
             DQR.Update(updatedVM);
-            Assert.IsFalse(DQR.All().Contains(newVM));
-            Assert.IsTrue(DQR.All().Contains(updatedVM));
+            Assert.IsFalse(DQR.GetAll().Contains(newVM));
+            Assert.IsTrue(DQR.GetAll().Contains(updatedVM));
         }
     }
 }
