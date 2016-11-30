@@ -195,6 +195,9 @@
     <Compile Include="View\InspectionsView.xaml.cs">
       <DependentUpon>InspectionsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenuInspecteurView.xaml.cs">
+      <DependentUpon>MainMenuInspecteurView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
     </Compile>
@@ -241,6 +244,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\InspectionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenuInspecteurView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -308,7 +315,9 @@
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\banner.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\previousIcon.png" />
   </ItemGroup>

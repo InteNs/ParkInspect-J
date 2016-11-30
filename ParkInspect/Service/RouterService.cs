@@ -31,6 +31,7 @@ namespace ParkInspect.Service
             _views = new Dictionary<string, Type>
             {
                 { "employees-list", typeof(EmployeesView) },
+                { "dashboard-inspecteur", typeof(MainMenuInspecteurView) },
                 { "employees-add", typeof(AddEmployeeView) },
                 { "employees-edit", typeof(EditEmployeeView) },
                 { "management-view", typeof(ManagementView) },
