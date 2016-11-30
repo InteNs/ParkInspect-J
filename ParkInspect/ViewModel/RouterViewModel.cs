@@ -28,7 +28,7 @@ namespace ParkInspect.ViewModel
             _views = new Dictionary<string, Type>
             {
                 { "employees-list", typeof(EmployeesView) },
-                { "MainInspect", typeof(MainMenuInspecteurView) },
+                { "dashboard-inspecteur", typeof(MainMenuInspecteurView) },
                 { "employees-add", typeof(AddEmployeeView) },
                 { "employees-edit", typeof(EditEmployeeView) },
                 { "management-view", typeof(ManagementView) },
@@ -43,10 +43,10 @@ namespace ParkInspect.ViewModel
                 { "inspections-list", typeof(InspectionsView) }
             };
             //Test
-            SetView("MainInspect");
+            SetView("dashboard-manager");
             _previousViews = new Stack<UserControl>();
         }
-        public void SetView(string viewName)
+        private void SetView(string viewName)
         {
             _previousViews?.Push(CurrentView);
             this.CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
