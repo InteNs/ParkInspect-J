@@ -5,19 +5,17 @@ using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Helper;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class EmployeesViewModel : ViewModelBase
+    public class EmployeesViewModel : MainViewModel
     {
         private EmployeeViewModel _selectedEmployee;
 
         private string _input;
 
         private readonly IEmployeeRepository _repository;
-
-        private readonly RouterViewModel _router;
-
         public EmployeeViewModel SelectedEmployee
         {
             get { return _selectedEmployee; }
@@ -44,10 +42,9 @@ namespace ParkInspect.ViewModel
 
         public ICommand ShowEditEmployeeCommand { get; set; }
 
-        public EmployeesViewModel(IEmployeeRepository repo, RouterViewModel router)
+        public EmployeesViewModel(IEmployeeRepository repo, IRouterService router) : base(router)
         {
             _repository = repo;
-            _router = router;
 
             Employees = new ObservableCollection<EmployeeViewModel>(_repository.GetAll());
 
@@ -62,7 +59,7 @@ namespace ParkInspect.ViewModel
 
         private void ShowEditView()
         {
-            _router.SetViewCommand.Execute("employees-edit");
+           RouterService.SetView("employees-edit");
         }
 
         public async void DismissEmployee()
