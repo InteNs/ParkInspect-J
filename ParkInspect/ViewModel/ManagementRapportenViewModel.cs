@@ -15,31 +15,54 @@ namespace ParkInspect.ViewModel
         private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
         private string _selectedOption;
         private IDiagram _selectedDiagram;
+        private IEmployeeRepository _employeeRepository;
+        private ICustomerRepository _customerRepository;
+        private IQuestionRepository _questionRepository;
+        private ITaskRepository _taskRepository;
+        public CustomerViewModel SelectedCustomer { get; set; }
+        public EmployeeViewModel SelectedInspector { get; set; }
+        public EmployeeViewModel SelectedManager { get; set; }
+        public QuestionViewModel SelectedQuestion { get; set; }
+        public string SelectedFunction { get; set; }
+        public string SelectedRegion { get; set; }
+        public string SelectedStatus { get; set; }
+        public TaskViewModel SelectedTask { get; set; }
+        public string SelectedAnswer { get; set; }
         public ICommand GenerateDiagramCommand { get; set; }
-        public ICommand NavigateBackCommand { get; set; }
         private List<string> _comboBox1List;
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
-        public bool[] BoolsList;
-        public ManagementRapportenViewModel(IManagementRapportenRepository repo)
+        public List<string> Functions => _employeeRepository.GetFunctions().ToList();
+        public List<string> Locations => _employeeRepository.GetRegions().ToList();
+        public List<CustomerViewModel> Customers => _customerRepository.GetAll().ToList();
+        public List<QuestionViewModel> Questions => _questionRepository.GetAll().ToList();
+
+        public List<EmployeeViewModel> Inspectors
+            => _employeeRepository.GetAll().Where(e => e.Function == "Inspecteur").ToList();
+
+        public List<EmployeeViewModel> Managers
+            => _employeeRepository.GetAll().Where(e => e.Function == "Manager").ToList();
+
+        public List<TaskViewModel> Tasks => _taskRepository.GetAll().ToList();
+
+        public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust,
+            IEmployeeRepository emp, IQuestionRepository ques, ITaskRepository task)
         {
             Repository = repo;
+            _employeeRepository = emp;
+            _customerRepository = cust;
+            _questionRepository = ques;
+            _taskRepository = task;
+
             StartDate = DateTime.Now;
             EndDate = DateTime.Now;
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
-            NavigateBackCommand = new RelayCommand(NavigateBack);
             ComboBox1List = new List<string>();
-            BoolsList = new []{_date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status};
-        }
-
-        private void NavigateBack()
-        {
-            throw new NotImplementedException();
         }
 
         private void GenerateDiagram()
@@ -49,7 +72,15 @@ namespace ParkInspect.ViewModel
 
         private void SetVisibilities()
         {
-            for (int i = 0; i < BoolsList.Length; i++) { BoolsList[i] = false; }
+            Date = false;
+            Klant = false;
+            Opdracht = false;
+            Locatie = false;
+            Inspecteur = false;
+            Manager = false;
+            Functie = false;
+            Antwoord = false;
+            Status = false;
             if (SelectedOption == null) return;
             foreach (Filter s in SelectedDiagram.Options[SelectedOption])
                 switch (s)
@@ -85,6 +116,7 @@ namespace ParkInspect.ViewModel
         }
 
         // Helper Classes
+
 
         public string SelectedOption
         {
