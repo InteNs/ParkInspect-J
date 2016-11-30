@@ -4,7 +4,7 @@ using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repositories
 {
-    class DummyQuestionRepository : IQuestionRepository
+    public class DummyQuestionRepository : IQuestionRepository
     {
         public QuestionViewModel Find(int id)
         {

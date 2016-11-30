@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using ParkInspect.Factory;
 using ParkInspect.Repositories;
 
 namespace ParkInspect.ViewModel

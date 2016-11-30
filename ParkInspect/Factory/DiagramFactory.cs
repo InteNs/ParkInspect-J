@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParkInspect
+namespace ParkInspect.Factory
 {
     public class DiagramFactory
     {
