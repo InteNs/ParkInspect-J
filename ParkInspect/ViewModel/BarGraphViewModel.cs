@@ -83,6 +83,7 @@ namespace ParkInspect.ViewModel
             dynamic series = new BarSeries();
             series.ItemsSource = new List<BarItem>();
             series.LabelPlacement = LabelPlacement.Inside;
+            series.LabelFormatString = "{0}";
             foreach (EmployeeViewModel emvm in icr.GetEmployees())
             {
                 series.ItemsSource.Add(new BarItem
@@ -104,6 +105,7 @@ namespace ParkInspect.ViewModel
                 ItemsSource = employeenames
             };
             model.Series.Add(series);
+            
             model.Axes.Add(ca);
             KPIModel = model;
         }
@@ -130,6 +132,7 @@ namespace ParkInspect.ViewModel
             dynamic series = new BarSeries();
             series.ItemsSource = new List<BarItem>();
             series.LabelPlacement = LabelPlacement.Inside;
+            series.LabelFormatString = "{0}";
             foreach (CustomerViewModel cusvm in icr.GetCustomers())
             {
                 series.ItemsSource.Add(new BarItem
