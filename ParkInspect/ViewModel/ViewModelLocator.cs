@@ -3,6 +3,8 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using ParkInspect.Repositories;
+using ParkInspect.Repository;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 using ParkInspect.View;
 
@@ -26,7 +28,7 @@ namespace ParkInspect.ViewModel
             //repositories
             SimpleIoc.Default.Register<IEmployeeRepository, DummyEmployeesRepository>();
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
-            SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
+            SimpleIoc.Default.Register<IManagementRapportenRepository, DummyManagementRapportenRepository>();
             SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
             SimpleIoc.Default.Register<ITaskRepository, DummyTaskRepository>();
             SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();

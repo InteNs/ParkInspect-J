@@ -4,7 +4,7 @@ using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repositories
 {
-    public class ManagementRapportenRepository : IManagementRapportenRepository
+    public class DummyManagementRapportenRepository : IManagementRapportenRepository
     {
         public ManagementRapportenViewModel Get()
         {

@@ -6,7 +6,6 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Factory;
 using ParkInspect.Repositories;
-using System.Diagnostics;
 
 namespace ParkInspect.ViewModel
 {
