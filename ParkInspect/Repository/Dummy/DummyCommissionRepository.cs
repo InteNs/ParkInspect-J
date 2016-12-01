@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ParkInspect.ViewModel;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.Repositories
 {

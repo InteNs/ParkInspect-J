@@ -5,16 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.Repository.Interface
 {
-    public interface ICommissionRepository
+    public interface ICommissionRepository : IBaseRepository<CommissionViewModel>
     {
-        IEnumerable<CommissionViewModel> GetAll();
-        
-        bool Create(CommissionViewModel commission);
-        bool Update(CommissionViewModel commission);
-        void Delete(CommissionViewModel commission);
-
         void CreateLocation(LocationViewModel location);
 
 
