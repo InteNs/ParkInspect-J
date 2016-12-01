@@ -6,8 +6,6 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Factory;
 using ParkInspect.Repositories;
-using ParkInspect.Repository;
-using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
@@ -16,30 +14,64 @@ namespace ParkInspect.ViewModel
         private IManagementRapportenRepository Repository { get; set; }
         private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
         private string _selectedOption;
-        private IDiagram _selectedDiagram;
+        public IDiagram _selectedDiagram;
         private IEmployeeRepository _employeeRepository;
         private ICustomerRepository _customerRepository;
-        private IQuestionRepository _questionRepository;
+        private IQuestionListRepository _questionListRepository;
         private ITaskRepository _taskRepository;
+        public PieChartViewModel PieChart { get; set; }
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
         public EmployeeViewModel SelectedManager { get; set; }
-        public QuestionViewModel SelectedQuestion { get; set; }
+        public QuestionItemViewModel SelectedQuestion { get; set; }
         public string SelectedFunction { get; set; }
         public string SelectedRegion { get; set; }
         public string SelectedStatus { get; set; }
-        public TaskViewModel SelectedTask { get; set; }
+        public CommissionViewModel SelectedCommission { get; set; }
         public string SelectedAnswer { get; set; }
         public ICommand GenerateDiagramCommand { get; set; }
         private List<string> _comboBox1List;
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        private DateTime? _startDate;
+        public DateTime? StartDate
+        {
+            get
+            {
+                if (DateSelected)
+                {
+                    return _startDate;
+                }
+                return null;
+            }
+            set
+            {
+                _startDate = value;
+                RaisePropertyChanged();
+            }
+        }
+        private DateTime? _endDate;
+        public DateTime? EndDate
+        {
+            get
+            {
+                if (DateSelected)
+                {
+                    return _endDate;
+                }
+                return null;
+            }
+            set
+            {
+                _endDate = value;
+                RaisePropertyChanged();
+            }
+        }
+        public bool DateSelected { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
         public List<string> Functions => _employeeRepository.GetFunctions().ToList();
         public List<string> Locations => _employeeRepository.GetRegions().ToList();
         public List<CustomerViewModel> Customers => _customerRepository.GetAll().ToList();
-        public List<QuestionViewModel> Questions => _questionRepository.GetAll().ToList();
+        public List<QuestionItemViewModel> Questions { get; set; }
 
         public List<EmployeeViewModel> Inspectors
             => _employeeRepository.GetAll().Where(e => e.Function == "Inspecteur").ToList();
@@ -50,26 +82,50 @@ namespace ParkInspect.ViewModel
         public List<TaskViewModel> Tasks => _taskRepository.GetAll().ToList();
 
         public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust,
-            IEmployeeRepository emp, IQuestionRepository ques, ITaskRepository task)
+            IEmployeeRepository emp, IQuestionListRepository ques, ITaskRepository task)
         {
             Repository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
-            _questionRepository = ques;
+            _questionListRepository = ques;
             _taskRepository = task;
-
-            StartDate = DateTime.Now;
-            EndDate = DateTime.Now;
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
             ComboBox1List = new List<string>();
+            Questions = new List<QuestionItemViewModel>();
+            List<QuestionListViewModel> questionLists = _questionListRepository.GetAll().ToList();
+            foreach (QuestionListViewModel qlvm in questionLists)
+            {
+                foreach (QuestionItemViewModel qivm in qlvm.QuestionItems)
+                {
+                    Questions.Add(qivm);
+                }
+            }
         }
 
         private void GenerateDiagram()
         {
-            throw new NotImplementedException();
+            if (SelectedDiagram.Name.Equals("Cirkeldiagram"))
+            {
+                if (SelectedOption.Equals("Verdeling van de functies van de werknemers"))
+                {
+                    PieChart = new PieChartViewModel(new DummyEmployeesRepository(), SelectedRegion);
+                }
+                if (SelectedOption.Equals("Verdeling van de status van de opdrachten"))
+                {
+                    PieChart = new PieChartViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedCustomer);
+                }
+                if (
+                    SelectedOption.Equals(
+                        "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
+                {
+                    PieChart = new PieChartViewModel(new DummyQuestionListRepository(), SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                }
+
+            }
+            RaisePropertyChanged("");
         }
 
         private void SetVisibilities()

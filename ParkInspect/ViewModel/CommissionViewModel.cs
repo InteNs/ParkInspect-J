@@ -21,6 +21,7 @@ namespace ParkInspect.ViewModel
         private string _description;
         private string _region;
         private string _customerName;
+        private string _status;
 
         public int Id
         {
@@ -84,7 +85,13 @@ namespace ParkInspect.ViewModel
 
         public string Info => "Opdracht " + Id + " - " + CustomerName;
 
-        public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime? completed, string description, string region, string customerName)
+        public string Status
+        {
+            get { return _status; }
+            set { _status = value; RaisePropertyChanged(); }
+        }
+
+        public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime? completed, string description, string region, string customerName, string status)
         {
             Id = id;
             Frequency = frequency;
@@ -96,6 +103,7 @@ namespace ParkInspect.ViewModel
             Description = description;
             Region = region;
             CustomerName = customerName;
+            Status = status;
         }
         
     }
