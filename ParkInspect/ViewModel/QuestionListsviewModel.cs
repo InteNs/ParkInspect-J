@@ -16,7 +16,7 @@ namespace ParkInspect.ViewModel
         public QuestionListsviewModel(IQuestionListRepository repo)
         {
             _repository = repo;
-            QuestionLists = new ObservableCollection<QuestionListViewModel>(_repository.All());
+            QuestionLists = new ObservableCollection<QuestionListViewModel>(_repository.GetAll());
         }
     }
 }
