@@ -126,6 +126,7 @@
     <Compile Include="Repositories\DummyQuestionRepository.cs" />
     <Compile Include="Repositories\DummyTaskRepository.cs" />
     <Compile Include="Repositories\DummyTemplateRepository.cs" />
+    <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IEmployeeRepository.cs" />
     <Compile Include="Repositories\ICommissionRepository.cs" />
     <Compile Include="Repositories\IInspectionsRepository.cs" />
