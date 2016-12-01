@@ -20,6 +20,7 @@ namespace ParkInspect.Repositories
 
         IEnumerable<string> GetRegions();
         IEnumerable<CustomerViewModel> GetCustomers();
+        IEnumerable<EmployeeViewModel> GetEmployees();
         IEnumerable<LocationViewModel> GetLocationViewModels();
 
     }

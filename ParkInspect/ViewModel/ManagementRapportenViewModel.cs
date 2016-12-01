@@ -21,6 +21,8 @@ namespace ParkInspect.ViewModel
         private IQuestionListRepository _questionListRepository;
         private ITaskRepository _taskRepository;
         public PieChartViewModel PieChart { get; set; }
+        public BarGraphViewModel BarGraph { get; set; }
+        public MainViewModel CurrentGraph { get; set; }
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
         public EmployeeViewModel SelectedManager { get; set; }
@@ -28,6 +30,7 @@ namespace ParkInspect.ViewModel
         public string SelectedFunction { get; set; }
         public string SelectedRegion { get; set; }
         public string SelectedStatus { get; set; }
+        public string[] Statuses { get; set; } = new string[] {"Nieuw", "Ingedeeld", "Bezig", "Klaar"};
         public CommissionViewModel SelectedCommission { get; set; }
         public string SelectedAnswer { get; set; }
         public ICommand GenerateDiagramCommand { get; set; }
@@ -113,18 +116,45 @@ namespace ParkInspect.ViewModel
                 if (SelectedOption.Equals("Verdeling van de functies van de werknemers"))
                 {
                     PieChart = new PieChartViewModel(new DummyEmployeesRepository(), SelectedRegion);
+                    CurrentGraph = PieChart;
                 }
                 if (SelectedOption.Equals("Verdeling van de status van de opdrachten"))
                 {
                     PieChart = new PieChartViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedCustomer);
+                    CurrentGraph = PieChart;
                 }
                 if (
                     SelectedOption.Equals(
                         "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
                 {
                     PieChart = new PieChartViewModel(new DummyQuestionListRepository(), SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                    CurrentGraph = PieChart;
                 }
 
+            }
+
+            if (SelectedDiagram.Name.Equals("Staafdiagram"))
+            {
+                if (SelectedOption.Equals("Aantal inspecties per inspecteur"))
+                {
+                    //insert right constructor
+                }
+
+                if (SelectedOption.Equals("Aantal inspecties per klant"))
+                {
+                    //insert right constructor
+                }
+
+                if (SelectedOption.Equals("Aantal opdrachten per manager"))
+                {
+                    BarGraph = new BarGraphViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedStatus, SelectedManager);
+                    CurrentGraph = BarGraph;
+                }
+                if (SelectedOption.Equals("Aantal opdrachten per klant"))
+                {
+                    BarGraph = new BarGraphViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedStatus, SelectedCustomer);
+                    CurrentGraph = BarGraph;
+                }
             }
             RaisePropertyChanged("");
         }

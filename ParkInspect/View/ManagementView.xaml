@@ -123,12 +123,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxStatus"/>
                 <TextBlock Grid.Column="1" Text="Status:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}" SelectedValue="{Binding SelectedStatus}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged">
-                    <ComboBoxItem Content="Nieuw" />
-                    <ComboBoxItem Content="Ingedeeld" />
-                    <ComboBoxItem Content="Bezig" />
-                    <ComboBoxItem Content="Klaar" />
-                </ComboBox>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}" ItemsSource="{Binding Statuses}"  SelectedValue="{Binding SelectedStatus}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Antwoord, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -146,7 +141,7 @@
         </StackPanel>
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" HorizontalAlignment="Left" Height="370"  VerticalAlignment="Top" Width="5" />
         <GroupBox Header="Diagram" Height="200" Grid.Column="1" Margin="10,0,0,100">
-            <oxy:PlotView Model="{Binding PieChart.pieChart}"/>
+            <oxy:PlotView Model="{Binding CurrentGraph.KPIModel}"/>
         </GroupBox>
         
     </Grid>
