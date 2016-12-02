@@ -4,7 +4,7 @@
     [QuestionId] INT NOT NULL, 
 	[QuestionVersion] INT NOT NULL,
     [QuestionListId] INT NOT NULL,
-	[Guid] uniqueidentifier NOT NULL PRIMARY KEY,
+	[Guid] uniqueidentifier NOT NULL,
 	
      
     CONSTRAINT [FK_QuestionItem_Answer] FOREIGN KEY ([AnswerId]) REFERENCES [Answer]([Id]), 

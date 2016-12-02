@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[Assignment]
+﻿CREATE TABLE [dbo].[Commission]
 (
 	[Id] INT NOT NULL PRIMARY KEY,
 	[Guid] uniqueidentifier NOT NULL PRIMARY KEY,
