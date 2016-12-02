@@ -115,7 +115,7 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 _icr.CreateLocation(new LocationViewModel(locationId, ZipCode, StreetNumber, SelectedRegion));
-                Commission = new CommissionViewModel(_icr.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, SelectedRegion, SelectedCustomer.Name, "Nieuw");
+                Commission = new CommissionViewModel(_icr.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, DateTime.Now.AddMonths(2), Description, SelectedRegion, SelectedCustomer.Name, "Nieuw");
                 if (_icr.Create(Commission))
                 {
                     _cvm.CommissionList.Add(Commission);

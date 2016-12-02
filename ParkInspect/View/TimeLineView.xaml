@@ -1,0 +1,128 @@
+﻿<UserControl x:Class="ParkInspect.View.TimeLineView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:converter="clr-namespace:ParkInspect.Converter"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParkInspect.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="750"
+             DataContext="{Binding TimeLine,Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <converter:NameToBrushConverter x:Key="TextToBrushConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="0.01*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.01*"/>
+            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.01*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.01*"/>
+        </Grid.RowDefinitions>
+        
+        <DataGrid GridLinesVisibility="None"
+                          Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False"
+                          IsReadOnly="True" ItemsSource="{Binding TimeLineItems, Mode=TwoWay}" Grid.ColumnSpan="3" Grid.Row="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="0.2*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
+                <DataGridTextColumn Header="Inspecteur" Binding="{Binding Employee.Name}" Width="*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
+                <DataGridTextColumn Header="Regio" Binding="{Binding Employee.Region}" Width="*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
+                <DataGridTextColumn Binding="{Binding Monday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Monday,
+                      RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{Binding Monday, Converter={StaticResource TextToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Tuesday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Tuesday,
+                      RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{Binding Tuesday, Converter={StaticResource TextToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Wednesday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Wednesday,
+                      RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{Binding Wednesday, Converter={StaticResource TextToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Thursday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Thursday,
+                      RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{Binding Thursday, Converter={StaticResource TextToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Friday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Friday,
+                      RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{Binding Friday, Converter={StaticResource TextToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Saturday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Saturday,
+                      RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{Binding Saturday, Converter={StaticResource TextToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+                <DataGridTextColumn Binding="{Binding Sunday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataContext.Sunday,
+                      RelativeSource={RelativeSource AncestorType=DataGrid}}"/>
+                    </DataGridTextColumn.Header>
+                    <DataGridTextColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}">
+                            <Setter Property="Background" Value="{Binding Sunday, Converter={StaticResource TextToBrushConverter}}"/>
+                        </Style>
+                    </DataGridTextColumn.CellStyle>
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Grid.Row="1"
+          Grid.Column="1">
+            <Button Command="{Binding PreviousWeekCommand}" Content="Previous"></Button>
+        </Grid>
+        <Grid Grid.Row="1"
+          Grid.Column="2">
+        <Button Command="{Binding NextWeekCommand}" Content="Next"></Button>
+    </Grid>
+
+    </Grid>
+    
+</UserControl>

@@ -66,6 +66,21 @@
                 </Style.Triggers>
             </Style>
 
+            <!-- Timeline style-->
+            <Style TargetType="{ x:Type DataGridColumnHeader}" x:Key="tlStylech">
+                <Setter Property="Background" Value="Azure" />
+            </Style>
+
+            <Style TargetType="{x:Type DataGridCell}" x:Key="tlStylec">
+                <Setter Property="Background" Value="AliceBlue" />
+
+                <Style.Triggers>
+                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                        <Setter Property="Background" Value="CornflowerBlue" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
         </ResourceDictionary>
     </Application.Resources>
 </Application>
