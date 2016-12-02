@@ -2,8 +2,8 @@
 (
 	[Id] INT NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
-	[Employee_Id] int NOT NULL,
-	[Customer_Id] int NOT NULL,
+	[EmployeeId] int NOT NULL,
+	[CustomerId] int NOT NULL,
 	[ZipCode] varchar(6),
 	[StreetNumber] varchar(5),
 	[DateCreated] date NOT NULL,
@@ -15,4 +15,7 @@
 		Id,
 		Guid
 	)
+
+	CONSTRAINT [FK_CustPerson] FOREIGN KEY (CustomerId) REFERENCES Person (Id)
+	CONSTRAINT [FK_EmplPerson] FOREIGN KEY (EmployeeId) REFERENCES Person (Id)
 )

@@ -2,7 +2,7 @@
 (
 	[Id] INT NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
-	[Assignment_Id] int NOT NULL,
+	[CommissionId] int NOT NULL,
 	[DateTimeStart] datetime NOT NULL,
 	[DateTimeEnd] datetime,
 	[DateCancelled] date
