@@ -74,12 +74,21 @@
       <HintPath>..\packages\MaterialDesignThemes.2.2.0.725\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.1.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
@@ -109,6 +118,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\NameToBrushConverter.cs" />
+    <Compile Include="Enumeration\Function.cs" />
     <Compile Include="Factory\DiagramFactory.cs" />
     <Compile Include="DiagramModels\Cirkeldiagram.cs" />
     <Compile Include="DiagramModels\Grafiek.cs" />
@@ -121,6 +132,7 @@
     <Compile Include="Repositories\DummyEmployeesRepository.cs" />
     <Compile Include="Repositories\DummyCommissionRepository.cs" />
     <Compile Include="Repositories\DummyInspectionsRepository.cs" />
+    <Compile Include="Repositories\DummyQuestionListRepository.cs" />
     <Compile Include="Repositories\DummyQuestionRepository.cs" />
     <Compile Include="Repositories\DummyTaskRepository.cs" />
     <Compile Include="Repositories\DummyTemplateRepository.cs" />
@@ -130,16 +142,28 @@
     <Compile Include="Repositories\IManagementRapportenRepository.cs" />
     <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
     <Compile Include="Repositories\IAuthenticationRepository.cs" />
+    <Compile Include="Repositories\IQuestionListRepository.cs" />
+    <Compile Include="Service\AuthService.cs" />
+    <Compile Include="Service\IAuthService.cs" />
+    <Compile Include="Service\IRouterService.cs" />
     <Compile Include="Repositories\ITaskRepository.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
+    <Compile Include="ViewModel\BarGraphViewModel.cs" />
     <Compile Include="ViewModel\InspectionsViewModel.cs" />
     <Compile Include="ViewModel\InspectionViewModel.cs" />
+    <Compile Include="ViewModel\LineChartViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
+    <Compile Include="ViewModel\QuestionItemViewModel.cs" />
+    <Compile Include="ViewModel\QuestionListsviewModel.cs" />
+    <Compile Include="ViewModel\QuestionListViewModel.cs" />
     <Compile Include="ViewModel\TaskViewModel.cs" />
+    <Compile Include="ViewModel\PieChartViewModel.cs" />
+    <Compile Include="ViewModel\TimeLineItemViewModel.cs" />
+    <Compile Include="ViewModel\TimeLineViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\AddCommissionViewModel.cs" />
     <Compile Include="ViewModel\CommissionOverviewViewModel.cs" />
@@ -159,7 +183,7 @@
     <Compile Include="ViewModel\TemplatesViewModel.cs" />
     <Compile Include="ViewModel\TemplateViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
-    <Compile Include="ViewModel\RouterViewModel.cs" />
+    <Compile Include="Service\RouterService.cs" />
     <Compile Include="View\AddCommission.xaml.cs">
       <DependentUpon>AddCommission.xaml</DependentUpon>
     </Compile>
@@ -187,6 +211,9 @@
     <Compile Include="View\InspectionsView.xaml.cs">
       <DependentUpon>InspectionsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\MainMenuInspecteurView.xaml.cs">
+      <DependentUpon>MainMenuInspecteurView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
     </Compile>
@@ -195,6 +222,9 @@
     </Compile>
     <Compile Include="View\TemplatesView.xaml.cs">
       <DependentUpon>TemplatesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TimeLineView.xaml.cs">
+      <DependentUpon>TimeLineView.xaml</DependentUpon>
     </Compile>
     <Page Include="View\AuthenticationView.xaml">
       <SubType>Designer</SubType>
@@ -236,6 +266,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\MainMenuInspecteurView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -261,6 +295,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TemplatesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TimeLineView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -300,7 +338,9 @@
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\banner.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\previousIcon.png" />
   </ItemGroup>

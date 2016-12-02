@@ -9,10 +9,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class AddCustomerViewModel : ViewModelBase
+    public class AddCustomerViewModel : MainViewModel
     {
 
         private string _selectedFunction;
@@ -35,14 +36,12 @@ namespace ParkInspect.ViewModel
 
 
         private ICustomerRepository _ier;
-        private RouterViewModel _router;
 
         private CustomersViewModel _cvm;
 
-        public AddCustomerViewModel(ICustomerRepository ier, RouterViewModel router, CustomersViewModel cvm)
+        public AddCustomerViewModel(ICustomerRepository ier, IRouterService router, CustomersViewModel cvm) : base(router)
         {
             _ier = ier;
-            _router = router;
             _cvm = cvm;
 
             Customer = new CustomerViewModel();
@@ -91,7 +90,7 @@ namespace ParkInspect.ViewModel
                 if (_ier.Create(Customer))
                 {
                     _cvm.Customers.Add(Customer);
-                    _router.SetViewCommand.Execute("Customers-list");
+                    RouterService.SetPreviousView();
                 }
             }
             else

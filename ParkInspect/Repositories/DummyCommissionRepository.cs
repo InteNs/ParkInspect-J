@@ -28,9 +28,9 @@ namespace ParkInspect.Repositories
             };
 
             commissions = new List<CommissionViewModel>();
-            commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 11, 19, 20, 13, 0), "Test Description 1", "Limburg", "Pim Westervoort"));
-            commissions.Add(new CommissionViewModel(2, 1, 2, 2, 2, new DateTime(2016, 10, 5, 19, 57, 0), null, "Test Description 2", "Utrecht", "Pim Westermoord"));
-            commissions.Add(new CommissionViewModel(3, 2, 3, 1, null, new DateTime(2016, 11, 17, 19, 57, 0), null, "Test Description 3", "Brabant", "Pim Westerman"));
+            commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 12, 19, 20, 13, 0), "Test Description 1", "Limburg", "Pim Westervoort", "Nieuw"));
+            commissions.Add(new CommissionViewModel(2, 1, 2, 2, 2, new DateTime(2016, 10, 5, 19, 57, 0), new DateTime(2016, 12, 5, 19, 57, 0), "Test Description 2", "Utrecht", "Pim Westermoord", "Bezig"));
+            commissions.Add(new CommissionViewModel(3, 2, 3, 1, 4, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 12, 1, 19, 57, 0), "Test Description 3", "Brabant", "Pim Westerman", "Klaar"));
         }
 
         public IEnumerable<CustomerViewModel> GetCustomers()
