@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Commission]
 (
-	[Id] INT NOT NULL PRIMARY KEY,
-	[Guid] uniqueidentifier NOT NULL PRIMARY KEY,
+	[Id] INT NOT NULL,
+	[Guid] uniqueidentifier NOT NULL,
 	[Employee_Id] int NOT NULL,
 	[Customer_Id] int NOT NULL,
 	[ZipCode] varchar(6),
@@ -9,4 +9,10 @@
 	[DateCreated] date NOT NULL,
 	[DateCompleted] date,
 	[Description] varchar(MAX)
+
+	CONSTRAINT [PK_Commission] PRIMARY KEY CLUSTERED 
+	(
+		Id,
+		Guid
+	)
 )
