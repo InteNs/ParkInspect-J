@@ -7,7 +7,7 @@ using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repositories
 {
-    class DummyTaskRepository : ITaskRepository
+    public class DummyTaskRepository : ITaskRepository
     {
         public IEnumerable<TaskViewModel> GetAll()
         {
