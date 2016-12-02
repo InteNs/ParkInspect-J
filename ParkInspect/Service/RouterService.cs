@@ -43,7 +43,8 @@ namespace ParkInspect.Service
                 { "commissions-add", typeof(AddCommission) },
                 { "commissions-overview", typeof(CommissionOverview) },
                 { "dashboard-manager", typeof(DashboardManagerView) },
-                { "inspections-list", typeof(InspectionsView) }
+                { "inspections-list", typeof(InspectionsView) },
+                { "timeline", typeof(TimeLineView) }
             };
             _previousViews = new Stack<UserControl>();
         }

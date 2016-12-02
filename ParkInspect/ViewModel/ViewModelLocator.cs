@@ -49,6 +49,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<QuestionListsviewModel>();
             SimpleIoc.Default.Register<TemplatesViewModel>();
             SimpleIoc.Default.Register<InspectionsViewModel>();
+            SimpleIoc.Default.Register<TimeLineViewModel>();
         }
         //Services
         public IRouterService RouterService => ServiceLocator.Current.GetInstance<IRouterService>();
@@ -68,6 +69,7 @@ namespace ParkInspect.ViewModel
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => new AddCommissionViewModel(ServiceLocator.Current.GetInstance<ICommissionRepository>(), RouterService, Commissions);
         public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
+        public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
