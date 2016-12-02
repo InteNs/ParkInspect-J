@@ -14,6 +14,7 @@ namespace ParkInspect.Repositories
         private List<CommissionViewModel> commissions;
         private List<LocationViewModel> locations;
         private List<CustomerViewModel> customers;
+        private List<EmployeeViewModel> employees;
 
         public DummyCommissionRepository()
         {
@@ -27,6 +28,14 @@ namespace ParkInspect.Repositories
                 new CustomerViewModel { Id = 5, Name = "Pim Westernoord", ZipCode = "9922KK", PhoneNumber = "06-tooawesomeforyou", StreetNumber = "1", Email = "pim.westernoord@gmail.com", Function = "Klant" }
             };
 
+            employees = new List<EmployeeViewModel>()
+            {new EmployeeViewModel { Id = 1, Name = "Pim Westervoort", Region = "Brabant", Function = "Inspecteur", Email = "pim.west@hotmail.com"},
+                new EmployeeViewModel { Id = 2, Name = "Edward van Lieshout", Region = "Brabant", Function = "Inspecteur", Email = "eddie.hout@gmail.com"},
+                new EmployeeViewModel { Id = 3, Name = "Mark Havekes", Region = "Utrecht", Function = "Inspecteur", Email = "mark.havekes@gmail.com"},
+                new EmployeeViewModel { Id = 4, Name = "Pim Pam Pet", Region = "Limburg", Function = "Inspecteur", Email = "pimpampet@hetnet.net"},
+                new EmployeeViewModel { Id = 5, Name = "Mathijs van Bree", Region = "Limburg", Function = "Directeur", Email = "mattie@msn.com"}
+            };
+        
             commissions = new List<CommissionViewModel>();
             commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 11, 19, 20, 13, 0), "Test Description 1", "Limburg", "Pim Westervoort", "Nieuw"));
             commissions.Add(new CommissionViewModel(2, 1, 2, 2, 2, new DateTime(2016, 10, 5, 19, 57, 0), null, "Test Description 2", "Utrecht", "Pim Westermoord", "Bezig"));
@@ -36,6 +45,11 @@ namespace ParkInspect.Repositories
         public IEnumerable<CustomerViewModel> GetCustomers()
         {
             return customers;
+        }
+
+        public IEnumerable<EmployeeViewModel> GetEmployees()
+        {
+            return employees;
         }
         public IEnumerable<CommissionViewModel> GetAll()
         {

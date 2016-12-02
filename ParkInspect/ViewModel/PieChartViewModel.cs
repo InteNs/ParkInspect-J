@@ -36,7 +36,7 @@ namespace ParkInspect.ViewModel
                 }
             }
             model.Series.Add(series);
-            pieChart = model;
+            KPIModel = model;
         }
 
         public PieChartViewModel(ICommissionRepository icr, DateTime? startTime, DateTime? endTime, CustomerViewModel cvm)
@@ -62,7 +62,7 @@ namespace ParkInspect.ViewModel
                 }
             }
             model.Series.Add(series);
-            pieChart = model;
+            KPIModel = model;
         }
         public PieChartViewModel(IQuestionListRepository iqr, CommissionViewModel cvm, String RegionFilter, DateTime? startTime, DateTime? endTime, QuestionItemViewModel question)
         {
@@ -105,10 +105,10 @@ namespace ParkInspect.ViewModel
                 }
             }
             model.Series.Add(series);
-            pieChart = model;
+            KPIModel = model;
         }
 
 
-        public PlotModel pieChart { get; set; }
+        public PlotModel KPIModel { get; set; }
     }
 }
