@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using ParkInspect.Service;
 using ParkInspect.View;
 
 namespace ParkInspect.Service
@@ -15,14 +12,18 @@ namespace ParkInspect.Service
     {
 
         private readonly Stack<UserControl> _previousViews;
+        private readonly IDictionary<string, Type> _views;
+        private UserControl _currentView;
 
-        public UserControl CurrentView { get; set; }
+        public UserControl CurrentView
+        {
+            get { return _currentView; }
+            set { _currentView = value; RaisePropertyChanged(); }
+        }
 
         public ICommand RouteCommand { get; set; }
 
         public ICommand RouteBackCommand { get; set; }
-
-        private readonly IDictionary<string, Type> _views;
 
         public RouterService()
         {
@@ -38,8 +39,9 @@ namespace ParkInspect.Service
                 { "authentication", typeof(AuthenticationView) },
                 { "questions-list", typeof(QuestionsView) },
                 { "templates-list", typeof(TemplatesView) },
-                { "Customers-list", typeof(CustomersView) },
-                { "Customers-add", typeof(AddCustomerView) },
+                { "customers-list", typeof(CustomersView) },
+                { "customers-add", typeof(AddCustomerView) },
+                { "customers-edit", typeof(EditCustomerView) },
                 { "commissions-add", typeof(AddCommission) },
                 { "commissions-overview", typeof(CommissionOverview) },
                 { "dashboard-manager", typeof(DashboardManagerView) },
@@ -56,15 +58,13 @@ namespace ParkInspect.Service
             }
 
             _previousViews?.Push(CurrentView);
-            this.CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
-            RaisePropertyChanged("CurrentView");
+            CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
         }
 
         public void SetPreviousView()
         {
             if (!(_previousViews?.Count > 0)) return;
-            this.CurrentView = _previousViews.Pop();
-            RaisePropertyChanged("CurrentView");
+            CurrentView = _previousViews.Pop();
         }
 
         private class ViewNotRegisteredException : Exception

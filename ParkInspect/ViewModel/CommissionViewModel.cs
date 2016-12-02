@@ -91,7 +91,7 @@ namespace ParkInspect.ViewModel
             set { _status = value; RaisePropertyChanged(); }
         }
 
-        public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime completed, string description, string region, string customerName, string status)
+        public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime? completed, string description, string region, string customerName, string status)
         {
             Id = id;
             Frequency = frequency;
