@@ -7,13 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ParkInspect.Repositories;
+using ParkInspect.Service;
 using ParkInspect.View;
 
 namespace ParkInspect.ViewModel
 {
-    public class AddCommissionViewModel : ViewModelBase
+    public class AddCommissionViewModel : MainViewModel
     {
-
         private string _zipCode;
         private int _streetNumber;
         private int _frequency;
@@ -76,15 +76,13 @@ namespace ParkInspect.ViewModel
         public ICommand AddCommissionCommand { get; set; }
 
         private ICommissionRepository _icr;
-        private RouterViewModel _router;
         private CommissionOverviewViewModel _cvm;
 
         public List<string> RegionList { get; set; }
 
-        public AddCommissionViewModel(ICommissionRepository icr, RouterViewModel router, CommissionOverviewViewModel cvm)
+        public AddCommissionViewModel(ICommissionRepository icr, IRouterService router, CommissionOverviewViewModel cvm) : base(router)
         {
             _icr = icr;
-            _router = router;
             _cvm = cvm;
             CustomerList = new List<CustomerViewModel>();
             foreach (var customer in _icr.GetCustomers())
@@ -117,12 +115,11 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 _icr.CreateLocation(new LocationViewModel(locationId, ZipCode, StreetNumber, SelectedRegion));
-                Commission = new CommissionViewModel(_icr.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, SelectedRegion, SelectedCustomer.Name);
+                Commission = new CommissionViewModel(_icr.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, DateTime.Now.AddMonths(2), Description, SelectedRegion, SelectedCustomer.Name, "Nieuw");
                 if (_icr.Create(Commission))
                 {
                     _cvm.CommissionList.Add(Commission);
-                    
-                    _router.SetViewCommand.Execute("commissions-overview");
+                    RouterService.SetView("commissions-overview");
                 }
             }
             else

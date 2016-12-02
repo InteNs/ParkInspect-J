@@ -65,7 +65,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="1">
-                <Button Content="Toevoegen" Command="{Binding Router.SetViewCommand, Source={StaticResource Locator} }" CommandParameter="commissions-add"  />
+                <Button Content="Toevoegen" Command="{Binding RouteCommand}" CommandParameter="commissions-add"  />
             </Grid>
 
             <Grid Grid.Row="1"

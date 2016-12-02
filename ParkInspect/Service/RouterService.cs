@@ -1,61 +1,74 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using ParkInspect.Service;
 using ParkInspect.View;
 
-namespace ParkInspect.ViewModel
+namespace ParkInspect.Service
 {
-    public class RouterViewModel : ViewModelBase
+    public class RouterService : ViewModelBase, IRouterService
     {
 
-        private Stack<UserControl> _previousViews;
+        private readonly Stack<UserControl> _previousViews;
 
         public UserControl CurrentView { get; set; }
 
-        public ICommand SetViewCommand { get; set; }
+        public ICommand RouteCommand { get; set; }
 
-        public ICommand SetPreviousViewCommand { get; set; }
+        public ICommand RouteBackCommand { get; set; }
 
-        private IDictionary<string, Type> _views;
+        private readonly IDictionary<string, Type> _views;
 
-        public RouterViewModel()
+        public RouterService()
         {
-            SetViewCommand = new RelayCommand<string>(SetView);
-            SetPreviousViewCommand = new RelayCommand(SetPreviousView);
+            RouteCommand = new RelayCommand<string>(SetView);
+            RouteBackCommand = new RelayCommand(SetPreviousView);
             _views = new Dictionary<string, Type>
             {
                 { "employees-list", typeof(EmployeesView) },
+                { "dashboard-inspecteur", typeof(MainMenuInspecteurView) },
                 { "employees-add", typeof(AddEmployeeView) },
                 { "employees-edit", typeof(EditEmployeeView) },
                 { "management-view", typeof(ManagementView) },
                 { "authentication", typeof(AuthenticationView) },
-                { "questions-list", typeof(QuestionsView)},
+                { "questions-list", typeof(QuestionsView) },
                 { "templates-list", typeof(TemplatesView) },
                 { "Customers-list", typeof(CustomersView) },
                 { "Customers-add", typeof(AddCustomerView) },
                 { "commissions-add", typeof(AddCommission) },
                 { "commissions-overview", typeof(CommissionOverview) },
-                { "dashboard-manager", typeof(DashboardManagerView) }
+                { "dashboard-manager", typeof(DashboardManagerView) },
+                { "inspections-list", typeof(InspectionsView) },
+                { "timeline", typeof(TimeLineView) }
             };
-            //Test
-            SetView("dashboard-manager");
             _previousViews = new Stack<UserControl>();
         }
-        private void SetView(string viewName)
+        public void SetView(string viewName)
         {
+            if (!_views.ContainsKey(viewName))
+            {
+                throw new ViewNotRegisteredException();
+            }
+
             _previousViews?.Push(CurrentView);
             this.CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
             RaisePropertyChanged("CurrentView");
         }
 
-        private void SetPreviousView()
+        public void SetPreviousView()
         {
             if (!(_previousViews?.Count > 0)) return;
             this.CurrentView = _previousViews.Pop();
             RaisePropertyChanged("CurrentView");
+        }
+
+        private class ViewNotRegisteredException : Exception
+        {
         }
     }
 }

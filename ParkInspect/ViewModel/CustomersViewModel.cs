@@ -9,16 +9,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class CustomersViewModel : ViewModelBase
+    public class CustomersViewModel : MainViewModel
     {
         public ObservableCollection<CustomerViewModel> Customers{ get; set; }
 
         private CustomerViewModel _selectedCustomer;
         private ICustomerRepository _repo;
-        private RouterViewModel _router;
         private string _input;
 
         public CustomerViewModel SelectedCustomer
@@ -42,10 +42,9 @@ namespace ParkInspect.ViewModel
             }
         }
 
-       public CustomersViewModel(ICustomerRepository repo, RouterViewModel router)
+       public CustomersViewModel(ICustomerRepository repo, IRouterService router) : base(router)
         {
             _repo = repo;
-            _router = router;
 
             Customers = new ObservableCollection<CustomerViewModel>(repo.GetAll());
 
@@ -59,7 +58,7 @@ namespace ParkInspect.ViewModel
 
         private void ShowEditView()
         {
-            _router.SetViewCommand.Execute("Customers-list");
+            RouterService.SetView("Customers-list");
         }
 
     }
