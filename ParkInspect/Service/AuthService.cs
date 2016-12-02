@@ -18,6 +18,7 @@ namespace ParkInspect.Service
         public ICommand LogInCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
         public string UserName { get; set; }
+
         private IAuthenticationRepository _repo;
         public  AuthenticationViewModel User { get; set; }
         private IRouterService _router;
@@ -28,6 +29,7 @@ namespace ParkInspect.Service
             _router = router;
             User = new AuthenticationViewModel();
             LogInCommand = new RelayCommand<PasswordBox>(Login);
+            LogOutCommand = new RelayCommand(Logout);
             repo.FillUserFile();
         }
 
@@ -48,7 +50,15 @@ namespace ParkInspect.Service
 
         public void Logout()
         {
+            _router.SetView("authentication");
+            _router.ClearPreviousStack();
             _repo.Logout(User);
+            
+        }
+
+        public bool IsLoggedIn()
+        {
+            return _repo.IsLoggedIn(User);
         }
 
 

@@ -15,5 +15,6 @@ namespace ParkInspect.Service
         ICommand RouteBackCommand { get; set; }
         void SetView(string viewName);
         void SetPreviousView();
+        void ClearPreviousStack();
     }
 }

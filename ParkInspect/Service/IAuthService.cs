@@ -14,9 +14,10 @@ namespace ParkInspect.Service
     {
         ICommand LogInCommand { get; set; }
         ICommand LogOutCommand { get; set; }
-
+        string UserName { get; set; }
         void Login(PasswordBox password);
         void Logout();
+        bool IsLoggedIn();
         Function CurrentFunction();
         EmployeeViewModel CurrentEmployee();
 
