@@ -134,6 +134,7 @@
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repositories\ManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\InspectionsViewModel.cs" />
+    <Compile Include="ViewModel\InspectionViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
     <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
