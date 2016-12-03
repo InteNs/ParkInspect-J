@@ -153,28 +153,33 @@
     <Compile Include="Converter\FilterEmployeeConverter.cs" />
     <Compile Include="Helper\MetroDialogService.cs" />
     <Compile Include="Lib\WatermarkAdorner.cs" />
-    <Compile Include="Repositories\DummyEmployeesRepository.cs" />
-    <Compile Include="Repositories\DummyCommissionRepository.cs" />
-    <Compile Include="Repositories\DummyInspectionsRepository.cs" />
-    <Compile Include="Repositories\DummyQuestionListRepository.cs" />
-    <Compile Include="Repositories\DummyQuestionRepository.cs" />
-    <Compile Include="Repositories\DummyTaskRepository.cs" />
-    <Compile Include="Repositories\DummyTemplateRepository.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
-    <Compile Include="Repositories\ICommissionRepository.cs" />
-    <Compile Include="Repositories\IInspectionsRepository.cs" />
-    <Compile Include="Repositories\IManagementRapportenRepository.cs" />
-    <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
-    <Compile Include="Repositories\IAuthenticationRepository.cs" />
-    <Compile Include="Repositories\IQuestionListRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyEmployeesRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyCommissionRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyInspectionsRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyQuestionListRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyQuestionRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyRegionRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyTaskRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyTemplateRepository.cs" />
+    <Compile Include="Repository\Interface\IBaseRepository.cs" />
+    <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
+    <Compile Include="Repository\Interface\ICommissionRepository.cs" />
+    <Compile Include="Repository\Interface\IInspectionsRepository.cs" />
+    <Compile Include="Repository\Interface\IManagementRapportenRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyAuthenticationRepository.cs" />
+    <Compile Include="Repository\Interface\IAuthenticationRepository.cs" />
+    <Compile Include="Repository\Interface\IQuestionListRepository.cs" />
+    <Compile Include="Repository\Interface\IRegionRepository.cs" />
     <Compile Include="Service\AuthService.cs" />
     <Compile Include="Service\IAuthService.cs" />
     <Compile Include="Service\IRouterService.cs" />
     <Compile Include="Repositories\ITaskRepository.cs" />
     <Compile Include="ViewModel\AddInspectionViewModel.cs" />
+    <Compile Include="Repository\Interface\ITaskRepository.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
-    <Compile Include="Repositories\ManagementRapportenRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\BarGraphViewModel.cs" />
+    <Compile Include="ViewModel\EditCustomerViewModel.cs" />
     <Compile Include="ViewModel\InspectionsViewModel.cs" />
     <Compile Include="ViewModel\InspectionViewModel.cs" />
     <Compile Include="ViewModel\LineChartViewModel.cs" />
@@ -194,14 +199,14 @@
     <Compile Include="ViewModel\CommissionOverviewViewModel.cs" />
     <Compile Include="ViewModel\CommissionViewModel.cs" />
     <Compile Include="Converter\FilterCustomerConverter.cs" />
-    <Compile Include="Repositories\DummyCustomersRepository.cs" />
-    <Compile Include="Repositories\ICustomerRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyCustomersRepository.cs" />
+    <Compile Include="Repository\Interface\ICustomerRepository.cs" />
     <Compile Include="ViewModel\AddCustomerViewModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="Enumeration\QuestionType.cs" />
-    <Compile Include="Repositories\IQuestionRepository.cs" />
-    <Compile Include="Repositories\ITemplateRepository.cs" />
+    <Compile Include="Repository\Interface\IQuestionRepository.cs" />
+    <Compile Include="Repository\Interface\ITemplateRepository.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\QuestionsViewModel.cs" />
     <Compile Include="ViewModel\QuestionViewModel.cs" />
@@ -229,6 +234,9 @@
     </Compile>
     <Compile Include="View\DashboardManagerView.xaml.cs">
       <DependentUpon>DashboardManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditCustomerView.xaml.cs">
+      <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
@@ -267,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DashboardManagerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditCustomerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

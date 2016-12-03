@@ -7,7 +7,7 @@ namespace ParkInspect.ViewModel
     {
         private int _id;
         private DateTime _employmentDate;
-        private DateTime _dismissalDate;
+        private DateTime? _dismissalDate;
         private string _region;
         private string _function;
 
@@ -31,7 +31,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public DateTime DismissalDate
+        public DateTime? DismissalDate
         {
             get { return _dismissalDate; }
             set

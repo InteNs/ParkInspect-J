@@ -1,25 +1,16 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using ParkInspect.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
     public class CustomersViewModel : MainViewModel
     {
-        public ObservableCollection<CustomerViewModel> Customers{ get; set; }
+        public ObservableCollection<CustomerViewModel> Customers { get; set; }
 
         private CustomerViewModel _selectedCustomer;
-        private ICustomerRepository _repo;
-        private string _input;
 
         public CustomerViewModel SelectedCustomer
         {
@@ -27,39 +18,21 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedCustomer = value;
+                EditCustomerCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged();
             }
         }
-        public ICommand ShowEditCustomersCommand { get; set; }
-
-        public string Input
-        {
-            get { return _input; }
-            set
-            {
-                _input = value;
-                RaisePropertyChanged();
-            }
-        }
-
+        public RelayCommand EditCustomerCommand { get; set; }
+        
        public CustomersViewModel(ICustomerRepository repo, IRouterService router) : base(router)
         {
-            _repo = repo;
-
-            Customers = new ObservableCollection<CustomerViewModel>(repo.GetAll());
-
-            ShowEditCustomersCommand = new RelayCommand(ShowEditView, CustomerIsNotNull);
+            Customers = repo.GetAll();
+            EditCustomerCommand = new RelayCommand(() => RouterService.SetView("customers-edit"), CanEditCustomer);
         }
 
-        private bool CustomerIsNotNull()
+        private bool CanEditCustomer()
         {
             return SelectedCustomer != null;
         }
-
-        private void ShowEditView()
-        {
-            RouterService.SetView("Customers-list");
-        }
-
     }
 }

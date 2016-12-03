@@ -1,10 +1,9 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.CommandWpf;
-using ParkInspect.Repositories;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Helper;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
@@ -13,9 +12,9 @@ namespace ParkInspect.ViewModel
     {
         private EmployeeViewModel _selectedEmployee;
 
-        private string _input;
+        private readonly IEmployeeRepository _employeeRepository;
+        private ObservableCollection<EmployeeViewModel> _employees;
 
-        private readonly IEmployeeRepository _repository;
         public EmployeeViewModel SelectedEmployee
         {
             get { return _selectedEmployee; }
@@ -25,57 +24,43 @@ namespace ParkInspect.ViewModel
                 RaisePropertyChanged();
             }
         }
-
-        public string Input
+       
+        public ObservableCollection<EmployeeViewModel> Employees
         {
-            get { return _input; }
-            set
-            {
-                _input = value;
-                RaisePropertyChanged();
-            }
+            get { return _employees; }
+            set { _employees = value; RaisePropertyChanged(); }
         }
-
-        public ObservableCollection<EmployeeViewModel> Employees { get; set; }
 
         public ICommand SetEmployeeDismissCommand { get; set; }
 
-        public ICommand ShowEditEmployeeCommand { get; set; }
+        public ICommand EditEmployeeCommand { get; set; }
 
-        public EmployeesViewModel(IEmployeeRepository repo, IRouterService router) : base(router)
+        public EmployeesViewModel(IEmployeeRepository employeeRepository, IRouterService router) : base(router)
         {
-            _repository = repo;
+            _employeeRepository = employeeRepository;
 
-            Employees = new ObservableCollection<EmployeeViewModel>(_repository.GetAll());
+            Employees = _employeeRepository.GetAll();
 
-            ShowEditEmployeeCommand = new RelayCommand(ShowEditView, EmployeeIsNotNull);
-            SetEmployeeDismissCommand = new RelayCommand(DismissEmployee, EmployeeIsNotNull);
-    }
+            EditEmployeeCommand = new RelayCommand(() => RouterService.SetView("employees-edit"), CanEditEmployee);
+            SetEmployeeDismissCommand = new RelayCommand(DismissEmployee, CanEditEmployee);
+        }
 
-        private bool EmployeeIsNotNull()
+        private bool CanEditEmployee()
         {
             return SelectedEmployee != null;
         }
 
-        private void ShowEditView()
-        {
-           RouterService.SetView("employees-edit");
-        }
-
-        public async void DismissEmployee()
+        private async void DismissEmployee()
         {
             var dialog = new MetroDialogService();
             await dialog.Show("Werknemer non-actief zetten",
-                        "Weet u zeker dat u "+SelectedEmployee.Name+" op non-actief wilt zetten?");
+                "Weet u zeker dat u " + SelectedEmployee.Name + " op non-actief wilt zetten?");
 
-            if (dialog.IsAffirmative != true) return;
-            SelectedEmployee.DismissalDate = DateTime.Now;
-
-            if (!_repository.Update(SelectedEmployee)) return;
-
-            Employees.Remove(SelectedEmployee);
-
-            RaisePropertyChanged("Employees");
+            if (dialog.IsAffirmative)
+            {
+                SelectedEmployee.DismissalDate = DateTime.Now;
+                _employeeRepository.Update(SelectedEmployee);
+            }
         }
     }
 }

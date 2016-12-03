@@ -8,7 +8,7 @@ using ParkInspect.DiagramModels;
 using OxyPlot;
 using OxyPlot.Series;
 using ParkInspect.Repositories;
-
+using ParkInspect.Repository.Interface;
 namespace ParkInspect.ViewModel
 {
    public class PieChartViewModel : MainViewModel
