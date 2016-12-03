@@ -159,7 +159,6 @@
     <Compile Include="Repository\Dummy\DummyQuestionListRepository.cs" />
     <Compile Include="Repository\Dummy\DummyQuestionRepository.cs" />
     <Compile Include="Repository\Dummy\DummyRegionRepository.cs" />
-    <Compile Include="Repository\Dummy\DummyTaskRepository.cs" />
     <Compile Include="Repository\Dummy\DummyTemplateRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
@@ -173,9 +172,7 @@
     <Compile Include="Service\AuthService.cs" />
     <Compile Include="Service\IAuthService.cs" />
     <Compile Include="Service\IRouterService.cs" />
-    <Compile Include="Repositories\ITaskRepository.cs" />
     <Compile Include="ViewModel\AddInspectionViewModel.cs" />
-    <Compile Include="Repository\Interface\ITaskRepository.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="Repository\Dummy\DummyManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\BarGraphViewModel.cs" />
@@ -190,7 +187,6 @@
     <Compile Include="ViewModel\QuestionItemViewModel.cs" />
     <Compile Include="ViewModel\QuestionListsviewModel.cs" />
     <Compile Include="ViewModel\QuestionListViewModel.cs" />
-    <Compile Include="ViewModel\TaskViewModel.cs" />
     <Compile Include="ViewModel\PieChartViewModel.cs" />
     <Compile Include="ViewModel\TimeLineItemViewModel.cs" />
     <Compile Include="ViewModel\TimeLineViewModel.cs" />
