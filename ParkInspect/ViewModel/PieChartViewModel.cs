@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.DiagramModels;
 using OxyPlot;
 using OxyPlot.Series;
 using ParkInspect.Repositories;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {

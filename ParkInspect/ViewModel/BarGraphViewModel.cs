@@ -4,10 +4,8 @@ using System.Diagnostics;
 using System.Linq;
 using OxyPlot;
 using OxyPlot.Series;
-using System.Text;
-using System.Threading.Tasks;
 using OxyPlot.Axes;
-using ParkInspect.Repositories;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {

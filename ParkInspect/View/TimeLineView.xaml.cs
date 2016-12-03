@@ -10,19 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace ParkInspect.View
 {
     /// <summary>
-    /// Interaction logic for CustomersView.xaml
+    /// Interaction logic for TimeLineView.xaml
     /// </summary>
-    public partial class CustomersView : UserControl
+    public partial class TimeLineView : UserControl
     {
-        public CustomersView()
+        public TimeLineView()
         {
             InitializeComponent();
         }
-
     }
 }

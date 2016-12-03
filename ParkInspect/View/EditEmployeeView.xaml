@@ -125,7 +125,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "/>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding SelectedRegion}" SelectedItem="{Binding Path=SelectedEmployee.Region}" ItemsSource="{Binding RegionList}" />
+                <ComboBox SelectedItem="{Binding Path=SelectedEmployee.Region, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding RegionList}" />
             </DockPanel>
 
             <DockPanel
@@ -134,7 +134,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Functie: "/>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding SelectedFunction}" SelectedItem="{Binding Path=SelectedEmployee.Function}" ItemsSource="{Binding FunctionList}" />
+                <ComboBox SelectedItem="{Binding SelectedEmployee.Function, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding FunctionList}" />
             </DockPanel>
 
             <Grid

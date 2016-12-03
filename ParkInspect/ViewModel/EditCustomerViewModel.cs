@@ -8,27 +8,23 @@ using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class AddCustomerViewModel : MainViewModel
+    public class EditCustomerViewModel : MainViewModel
     {
+        public ObservableCollection<string> FunctionList { get; set; }
+
+        public CustomerViewModel Customer { get; set; }
+
+        public ICommand EditCustomerCommand { get; set; }
+
         private readonly ICustomerRepository _customerRepository;
 
-        public ObservableCollection<string> FunctionList { get; set; }
-        public CustomerViewModel Customer { get; set; }
-        public ICommand AddCustomerCommand { get; set; }
-
-        public AddCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm) : base(router)
+        public EditCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm) : base(router)
         {
             _customerRepository = customerRepository;
-            Customer = new CustomerViewModel();
-            FunctionList = customerRepository.GetFunctions();
+            Customer = cvm.SelectedCustomer;
+            FunctionList = _customerRepository.GetFunctions();
 
-            AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
-        }
-
-        private bool CanAddCustomer()
-        {
-            //TODO: check if all fields are filled in
-            return true;
+            EditCustomerCommand = new RelayCommand(EditCustomer, CanEditCustomer);
         }
 
         private bool ValidateInput()
@@ -41,14 +37,20 @@ namespace ParkInspect.ViewModel
             }
 
             //Name can not contain a number
-            return !Customer.Name.Any(char.IsDigit);
+            return !this.Customer.Name.Any(char.IsDigit);
         }
 
-        private void AddCustomer()
+        private bool CanEditCustomer()
         {
-            if (ValidateInput())
+            //TODO check content
+            return true;
+        }
+
+        private void EditCustomer()
+        {
+            if (this.ValidateInput())
             {
-                if (_customerRepository.Add(Customer))
+                if (_customerRepository.Update(Customer))
                 {
                     RouterService.SetPreviousView();
                 }
@@ -64,6 +66,5 @@ namespace ParkInspect.ViewModel
             //TODO: Validation error
             return "Error, de velden zijn niet juist ingevuld.";
         }
-
     }
 }
