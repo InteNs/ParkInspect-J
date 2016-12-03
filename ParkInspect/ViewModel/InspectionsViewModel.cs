@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-using ParkInspect.Repositories;
+﻿using System.Collections.ObjectModel;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
@@ -28,16 +21,10 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public InspectionsViewModel(ICommissionRepository commissionRepository,IRouterService router):base(router)
+        public InspectionsViewModel(ICommissionRepository commissionRepository,
+            IInspectionsRepository inspectionsRepository, IRouterService router) : base(router)
         {
-            InspectionList = new ObservableCollection<InspectionViewModel>
-            {
-                new InspectionViewModel("Inspectie 1"),
-                new InspectionViewModel("Inspectie 2"),
-                new InspectionViewModel("Inspectie 3"),
-                new InspectionViewModel("Inspectie 4"),
-                new InspectionViewModel("Inspectie 5")
-            };
+            InspectionList = inspectionsRepository.GetAll();
             CommissionList = new ObservableCollection<CommissionViewModel>(commissionRepository.GetAll());
         }
     }

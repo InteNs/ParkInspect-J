@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.Repository.Interface
 {
-    public interface IQuestionListRepository
+    public interface IQuestionListRepository : IBaseRepository<QuestionListViewModel>
     {
-        IEnumerable<QuestionListViewModel> GetAll();
-        QuestionListViewModel Create(QuestionListViewModel questionList);
-        QuestionListViewModel Update(QuestionListViewModel questionList);
+        ObservableCollection<QuestionItemViewModel> GetAllQuestionItems();
         bool AddItem(QuestionListViewModel list, QuestionItemViewModel item);
         bool RemoveItem(QuestionListViewModel list, QuestionItemViewModel item);
-
     }
 }

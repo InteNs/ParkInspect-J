@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
 
@@ -89,6 +90,11 @@ namespace ParkInspect.Repository.Dummy
             {
                 "Manager", "Inspecteur", "Directeur"
             };
+        }
+
+        public IEnumerable<EmployeeViewModel> GetByFunction(string function)
+        {
+            return _employees.Where(e => e.Function.Equals(function));
         }
     }
 }

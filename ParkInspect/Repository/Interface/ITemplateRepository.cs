@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.ViewModel;
+﻿using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.Repository.Interface
 {
-    public interface ITemplateRepository
+    public interface ITemplateRepository :IBaseRepository<TemplateViewModel>
     {
-        TemplateViewModel Find(int id);
-        IEnumerable<TemplateViewModel> All();
-        TemplateViewModel Create(TemplateViewModel template);
-        TemplateViewModel Update(TemplateViewModel template);
-
+        bool AddItem(TemplateViewModel list, QuestionItemViewModel item);
+        bool RemoveItem(TemplateViewModel list, QuestionItemViewModel item);
     }
 }
