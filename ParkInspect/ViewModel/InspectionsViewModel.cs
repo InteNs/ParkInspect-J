@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using ParkInspect.Repositories;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
