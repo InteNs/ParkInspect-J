@@ -62,7 +62,7 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                    <Button Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding RouteCommand}" CommandParameter="inspections-add">
                         <Viewbox >
                             <ContentControl Content="+"/>
                         </Viewbox>
@@ -101,8 +101,7 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.4*" />
-                <ColumnDefinition Width="0.5*" />
+                <ColumnDefinition Width="0.3*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
             
@@ -125,9 +124,23 @@
                         </HierarchicalDataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-
             </Grid>
 
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="0.25*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="0.15*" />
+                </Grid.ColumnDefinitions>
+                
+                <local:TimeLineView />
+
+            </Grid>
+            
         </Grid>
     </Grid>
 </UserControl>

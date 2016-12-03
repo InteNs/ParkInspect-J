@@ -6,10 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using ParkInspect.Repositories;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class InspectionsViewModel : ViewModelBase
+    public class InspectionsViewModel : MainViewModel
     {
         private CommissionViewModel _selectedCommission;
 
@@ -26,7 +27,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public InspectionsViewModel(ICommissionRepository commissionRepository)
+        public InspectionsViewModel(ICommissionRepository commissionRepository,IRouterService router):base(router)
         {
             InspectionList = new ObservableCollection<InspectionViewModel>
             {

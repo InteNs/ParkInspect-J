@@ -69,6 +69,7 @@ namespace ParkInspect.ViewModel
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => new AddCommissionViewModel(ServiceLocator.Current.GetInstance<ICommissionRepository>(), RouterService, Commissions);
         public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
+        public AddInspectionViewModel AddInspection => new AddInspectionViewModel();
         public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
         public static void Cleanup()
         {
