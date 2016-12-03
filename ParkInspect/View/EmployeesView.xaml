@@ -13,9 +13,6 @@
     <UserControl.Resources>
         <converter:FilterEmployeeConverter x:Key="Converter" />
     </UserControl.Resources>
-    <UserControl.CommandBindings>
-        <CommandBinding Command="ApplicationCommands.New" Executed="Dismissal_Executed" CanExecute="Dismissal_CanExecute" />
-    </UserControl.CommandBindings>
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -67,12 +64,12 @@
             <Grid Grid.Row="1"
           Grid.Column="3">
 
-                <Button Content="Non-Actief" Command="ApplicationCommands.New" />
+                <Button Content="Non-Actief" Command="{Binding SetEmployeeDismissCommand}" />
             </Grid>
 
             <Grid Grid.Row="1"
                   Grid.Column="5">
-                <Button Content="Bekijken" Command="{Binding ShowEditEmployeeCommand}" />
+                <Button Content="Bekijken" Command="{Binding EditEmployeeCommand}" />
             </Grid>
 
             <Grid Grid.Row="3"
@@ -80,7 +77,7 @@
                 Grid.ColumnSpan="6"
               >
                 <AdornerDecorator>
-                    <TextBox Foreground="Black" Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
+                    <TextBox Foreground="Black" Name="Search" Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
                         <service:WatermarkService.Watermark>
                             <TextBlock>Zoeken...</TextBlock>
                         </service:WatermarkService.Watermark>
@@ -95,7 +92,8 @@
                     <DataGrid.ItemsSource>
                         <MultiBinding Converter="{StaticResource Converter}">
                             <Binding Path="Employees"></Binding>
-                            <Binding Path="(viewModel:EmployeesViewModel.Input)"></Binding>
+                            <Binding ElementName="Search" Path="Text"/>
+                            <Binding Path="Employees.Count" />
                         </MultiBinding>
                     </DataGrid.ItemsSource>
                     <DataGrid.Columns>
@@ -109,4 +107,6 @@
         </Grid>
     </Grid>
 </UserControl>
+
+
 

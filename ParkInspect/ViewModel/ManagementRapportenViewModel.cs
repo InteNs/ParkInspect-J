@@ -6,7 +6,8 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Factory;
 using ParkInspect.Repositories;
-using System.Diagnostics;
+using ParkInspect.Repository.Dummy;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
@@ -18,6 +19,7 @@ namespace ParkInspect.ViewModel
         public IDiagram _selectedDiagram;
         private IEmployeeRepository _employeeRepository;
         private ICustomerRepository _customerRepository;
+        private IRegionRepository _regionRepository;
         private IQuestionListRepository _questionListRepository;
         private ITaskRepository _taskRepository;
         public PieChartViewModel PieChart { get; set; }
@@ -70,7 +72,7 @@ namespace ParkInspect.ViewModel
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
         public List<string> Functions => _employeeRepository.GetFunctions().ToList();
-        public List<string> Locations => _employeeRepository.GetRegions().ToList();
+        public List<string> Locations => _regionRepository.GetAll().ToList();
         public List<CustomerViewModel> Customers => _customerRepository.GetAll().ToList();
         public List<QuestionItemViewModel> Questions { get; set; }
 
@@ -81,14 +83,15 @@ namespace ParkInspect.ViewModel
             => _employeeRepository.GetAll().Where(e => e.Function == "Manager").ToList();
 
         public List<TaskViewModel> Tasks => _taskRepository.GetAll().ToList();
-
-        public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust,
+        
+        public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust, IRegionRepository region,
             IEmployeeRepository emp, IQuestionListRepository ques, ITaskRepository task)
         {
             Repository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
             _questionListRepository = ques;
+            _regionRepository = region;
             _taskRepository = task;
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
@@ -126,7 +129,7 @@ namespace ParkInspect.ViewModel
                 }
 
             }
-            RaisePropertyChanged("");
+            RaisePropertyChanged();
         }
 
         private void SetVisibilities()

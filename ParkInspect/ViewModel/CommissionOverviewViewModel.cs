@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
