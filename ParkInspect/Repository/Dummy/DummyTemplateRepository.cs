@@ -1,29 +1,83 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using GalaSoft.MvvmLight.Messaging;
+using ParkInspect.Enumeration;
+using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.Repository.Dummy
 {
     public class DummyTemplateRepository : ITemplateRepository
     {
-        public TemplateViewModel Find(int id)
+        private readonly ObservableCollection<TemplateViewModel> _templates;
+
+        public DummyTemplateRepository()
         {
-            throw new NotImplementedException();
+            _templates = new ObservableCollection<TemplateViewModel>
+            {
+                new TemplateViewModel(new List<QuestionItemViewModel>
+                    {
+                        new QuestionItemViewModel
+                        {
+                            Answer = "45",
+                            Question = new QuestionViewModel
+                            {
+                                Description = "hoeveel autos",
+                                Id = 1,
+                                Version = 1,
+                                QuestionType = QuestionType.Count
+                            }
+                        },
+                        new QuestionItemViewModel
+                        {
+                            Answer = "5",
+                            Question = new QuestionViewModel
+                            {
+                                Description = "hoeveel overtredingen ofzo",
+                                Id = 2,
+                                Version = 1,
+                                QuestionType = QuestionType.Count
+                            }
+                        }
+                    }) { Description = "template 1"}
+            };
+        }
+        public ObservableCollection<TemplateViewModel> GetAll()
+        {
+            return _templates;
         }
 
-        public IEnumerable<TemplateViewModel> All()
+        public bool Add(TemplateViewModel item)
         {
-            throw new NotImplementedException();
+            _templates.Add(item);
+            return true;
         }
 
-        public TemplateViewModel Create(TemplateViewModel template)
+        public bool Delete(TemplateViewModel item)
         {
-            throw new NotImplementedException();
+            return _templates.Remove(item);
         }
 
-        public TemplateViewModel Update(TemplateViewModel template)
+        public bool Update(TemplateViewModel item)
         {
-            throw new NotImplementedException();
+            var index = _templates.IndexOf(item);
+            if (index < 0) return false;
+            _templates.RemoveAt(index);
+            _templates.Insert(index, item);
+            return true;
+        }
+
+        public bool AddItem(TemplateViewModel list, QuestionItemViewModel item)
+        {
+            list.QuestionItems.Add(item);
+            return Update(list);
+        }
+
+        public bool RemoveItem(TemplateViewModel list, QuestionItemViewModel item)
+        {
+            list.QuestionItems.Remove(item);
+            return Update(list);
         }
     }
 }

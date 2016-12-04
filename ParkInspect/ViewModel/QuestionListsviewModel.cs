@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.Repositories;
+﻿using System.Collections.ObjectModel;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
     public class QuestionListsviewModel : MainViewModel
     {
-        private IQuestionListRepository _repository;
+        private IQuestionListRepository _questionListRepository;
         public ObservableCollection<QuestionListViewModel> QuestionLists { get; set; }
 
         public QuestionListsviewModel(IQuestionListRepository repo)
         {
-            _repository = repo;
-            QuestionLists = new ObservableCollection<QuestionListViewModel>(_repository.GetAll());
+            _questionListRepository = repo;
+            QuestionLists = _questionListRepository.GetAll();
         }
     }
 }
