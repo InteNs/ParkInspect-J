@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace ParkInspect.Repositories
     public class DummyCommissionRepository : ICommissionRepository
     {
 
-        private List<CommissionViewModel> commissions;
+        private ObservableCollection<CommissionViewModel> commissions;
         private List<LocationViewModel> locations;
         private List<CustomerViewModel> customers;
         private List<EmployeeViewModel> employees;
@@ -37,22 +38,18 @@ namespace ParkInspect.Repositories
                 new EmployeeViewModel { Id = 5, Name = "Mathijs van Bree", Region = "Limburg", Function = "Directeur", Email = "mattie@msn.com"}
             };
         
-            commissions = new List<CommissionViewModel>();
+            commissions = new ObservableCollection<CommissionViewModel>();
             commissions.Add(new CommissionViewModel(1, 1, 1, 1, 1, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 12, 19, 20, 13, 0), "Test Description 1", "Limburg", "Pim Westervoort", "Nieuw"));
             commissions.Add(new CommissionViewModel(2, 1, 2, 2, 2, new DateTime(2016, 10, 5, 19, 57, 0), new DateTime(2016, 12, 5, 19, 57, 0), "Test Description 2", "Utrecht", "Pim Westermoord", "Bezig"));
             commissions.Add(new CommissionViewModel(3, 2, 3, 1, 4, new DateTime(2016, 11, 17, 19, 57, 0), new DateTime(2016, 12, 1, 19, 57, 0), "Test Description 3", "Brabant", "Pim Westerman", "Klaar"));
         }
 
-        public IEnumerable<CustomerViewModel> GetCustomers()
+        public ObservableCollection<string> GetStatuses()
         {
-            return customers;
+            return new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
         }
 
-        public IEnumerable<EmployeeViewModel> GetEmployees()
-        {
-            return employees;
-        }
-        public IEnumerable<CommissionViewModel> GetAll()
+        public ObservableCollection<CommissionViewModel> GetAll()
         {
             return commissions;
         }

@@ -17,7 +17,7 @@ namespace ParkInspect.ViewModel
         private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
         private string _selectedOption;
         public IDiagram _selectedDiagram;
-        private readonly IManagementRapportenRepository _managementRapportenRepository;
+        private readonly ICommissionRepository _commissionRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IRegionRepository _regionRepository;
@@ -69,21 +69,21 @@ namespace ParkInspect.ViewModel
         public IEnumerable<string> Functions { get; set; }
         public IEnumerable<string> Locations { get; set; }
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
+        public ObservableCollection<CommissionViewModel> Commissions { get; set; }
         public ObservableCollection<QuestionItemViewModel> Questions { get; set; }
-        public IEnumerable<EmployeeViewModel> Inspectors { get; set; }
-        public IEnumerable<EmployeeViewModel> Managers { get; set; }
+        public IEnumerable<EmployeeViewModel> Employees { get; set; }
         
-        public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust, IRegionRepository region,
+        public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
             IEmployeeRepository emp, IQuestionListRepository ques)
         {
-            _managementRapportenRepository = repo;
+            _commissionRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
             _questionListRepository = ques;
             _regionRepository = region;
-            Inspectors = _employeeRepository.GetByFunction("Inspecteur");
-            Managers   = _employeeRepository.GetByFunction("Manager");
+            Employees = _employeeRepository.GetAll();
             Functions  = _employeeRepository.GetFunctions();
+            Commissions = _commissionRepository.GetAll();
             Customers  = _customerRepository.GetAll();
             Locations  = _regionRepository.GetAll();
             Questions = _questionListRepository.GetAllQuestionItems();
@@ -103,19 +103,19 @@ namespace ParkInspect.ViewModel
             {
                 if (SelectedOption.Equals("Verdeling van de functies van de werknemers"))
                 {
-                    PieChart = new PieChartViewModel(new DummyEmployeesRepository(), SelectedRegion);
+                    PieChart = new PieChartViewModel(Employees, Functions, SelectedRegion);
                     CurrentGraph = PieChart;
                 }
                 if (SelectedOption.Equals("Verdeling van de status van de opdrachten"))
                 {
-                    PieChart = new PieChartViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedCustomer);
+                    PieChart = new PieChartViewModel(Commissions, _commissionRepository.GetStatuses(), StartDate, EndDate, SelectedCustomer);
                     CurrentGraph = PieChart;
                 }
                 if (
                     SelectedOption.Equals(
                         "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
                 {
-                    PieChart = new PieChartViewModel(new DummyQuestionListRepository(), SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                    PieChart = new PieChartViewModel(Questions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
                     CurrentGraph = PieChart;
                 }
 
@@ -135,12 +135,12 @@ namespace ParkInspect.ViewModel
 
                 if (SelectedOption.Equals("Aantal opdrachten per manager"))
                 {
-                    BarGraph = new BarGraphViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedStatus, SelectedManager);
+                    BarGraph = new BarGraphViewModel(Commissions, Employees.Where(e => e.Function.Equals("Manager")), StartDate, EndDate, SelectedStatus, SelectedManager);
                     CurrentGraph = BarGraph;
                 }
                 if (SelectedOption.Equals("Aantal opdrachten per klant"))
                 {
-                    BarGraph = new BarGraphViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedStatus, SelectedCustomer);
+                    BarGraph = new BarGraphViewModel(Commissions, Customers, StartDate, EndDate, SelectedStatus, SelectedCustomer);
                     CurrentGraph = BarGraph;
                 }
             }

@@ -3,57 +3,57 @@ using System.Collections.Generic;
 using System.Linq;
 using OxyPlot;
 using OxyPlot.Series;
-using ParkInspect.Repositories;
-using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
-   public class PieChartViewModel : MainViewModel
-   {
+    public class PieChartViewModel : MainViewModel
+    {
+        private readonly List<EmployeeViewModel> _employees;
+        private readonly List<CommissionViewModel> _commissions;
+        private readonly List<QuestionListViewModel> _questionLists;
+        private readonly List<QuestionItemViewModel> _questionItems;
 
-       private List<EmployeeViewModel> _employeesList;
-       private List<CommissionViewModel> _commissionsList;
-       private List<QuestionListViewModel> _questionListsList;
-       private List<QuestionItemViewModel> _questionItemsList;
-        public PieChartViewModel(IEmployeeRepository ier, string RegionFilter)
+        public PieChartViewModel(IEnumerable<EmployeeViewModel> employees, IEnumerable<string> functions,
+            string regionFilter)
         {
-            _employeesList = ier.GetAll().ToList();
-            if (!String.IsNullOrEmpty(RegionFilter))
+            _employees = employees.ToList();
+            if (!string.IsNullOrEmpty(regionFilter))
             {
-                _employeesList.RemoveAll(evm => !evm.Region.Equals(RegionFilter));
+                _employees.RemoveAll(evm => !evm.Region.Equals(regionFilter));
             }
-            PlotModel model = new PlotModel();
+            var model = new PlotModel();
             dynamic series = new PieSeries();
-            foreach (string function in ier.GetFunctions())
+            foreach (var function in functions)
             {
-                PieSlice ps = new PieSlice(function, _employeesList.Count(evm => evm.Function.Equals(function)));
-                if (ps.Value != 0)
+                var pieSlice = new PieSlice(function, _employees.Count(evm => evm.Function.Equals(function)));
+                if (pieSlice.Value > 0)
                 {
-                    series.Slices.Add(ps);
+                    series.Slices.Add(pieSlice);
                 }
             }
             model.Series.Add(series);
             KPIModel = model;
         }
 
-        public PieChartViewModel(ICommissionRepository icr, DateTime? startTime, DateTime? endTime, CustomerViewModel cvm)
+        public PieChartViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<string> statuses,
+            DateTime? startTime, DateTime? endTime, CustomerViewModel cvm)
         {
-            _commissionsList = icr.GetAll().ToList();
+            _commissions = commissions.ToList();
             if (startTime != null && endTime != null)
             {
-                _commissionsList.RemoveAll(co => (co.DateCreated > endTime || co.DateCompleted < startTime));
+                _commissions.RemoveAll(co => (co.DateCreated > endTime || co.DateCompleted < startTime));
             }
             if (cvm != null)
             {
-                _commissionsList.RemoveAll(co => co.CustomerId != cvm.Id);
+                _commissions.RemoveAll(co => co.CustomerId != cvm.Id);
             }
-            PlotModel model = new PlotModel();
+            var model = new PlotModel();
             dynamic series = new PieSeries();
-            string[] statuses = new string[4] { "Nieuw", "Ingedeeld", "Bezig", "Klaar"};
-            foreach (string status in statuses)
+
+            foreach (var status in statuses)
             {
-                PieSlice ps = new PieSlice(status, _commissionsList.Count(co => co.Status.Equals(status)));
-                if (ps.Value != 0)
+                PieSlice ps = new PieSlice(status, _commissions.Count(co => co.Status.Equals(status)));
+                if (ps.Value > 0)
                 {
                     series.Slices.Add(ps);
                 }
@@ -61,23 +61,17 @@ namespace ParkInspect.ViewModel
             model.Series.Add(series);
             KPIModel = model;
         }
-        public PieChartViewModel(IQuestionListRepository iqr, CommissionViewModel cvm, String RegionFilter, DateTime? startTime, DateTime? endTime, QuestionItemViewModel question)
+
+        public PieChartViewModel(IEnumerable<QuestionItemViewModel> questionItems, CommissionViewModel cvm,
+            string regionFilter, DateTime? startTime, DateTime? endTime, QuestionItemViewModel question)
         {
-            _questionListsList = iqr.GetAll().ToList();
-            _questionItemsList = new List<QuestionItemViewModel>();
-            foreach (QuestionListViewModel qlvm in _questionListsList)
-            {
-                foreach (QuestionItemViewModel qivm in qlvm.QuestionItems)
-                {
-                    _questionItemsList.Add(qivm);
-                }
-            }
+            _questionItems = questionItems.ToList();
 
             if (cvm != null)
             {
                 //remove wat dingesen ofzo
             }
-            if (!String.IsNullOrEmpty(RegionFilter))
+            if (!string.IsNullOrEmpty(regionFilter))
             {
                 //remove nog wat dingesen ofzo
             }
@@ -87,18 +81,19 @@ namespace ParkInspect.ViewModel
             }
             if (question != null)
             {
-                _questionItemsList.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
+                _questionItems.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
             }
 
-            PlotModel model = new PlotModel();
+            var model = new PlotModel();
             dynamic series = new PieSeries();
-            
-            foreach (QuestionItemViewModel qivm in _questionItemsList)
+
+            foreach (var questionItem in _questionItems)
             {
-                PieSlice ps = new PieSlice(qivm.Answer, _questionItemsList.Count(qvm => qvm.Answer.Equals(qivm.Answer)));
-                if (ps.Value != 0)
+                var pieSlice = new PieSlice(questionItem.Answer,
+                    _questionItems.Count(qvm => qvm.Answer.Equals(questionItem.Answer)));
+                if (pieSlice.Value > 0)
                 {
-                    series.Slices.Add(ps);
+                    series.Slices.Add(pieSlice);
                 }
             }
             model.Series.Add(series);
