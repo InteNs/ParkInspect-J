@@ -13,15 +13,15 @@ namespace ParkInspect.ViewModel
 {
     public class ManagementRapportenViewModel : MainViewModel
     {
-        private IManagementRapportenRepository Repository { get; set; }
+        
         private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
         private string _selectedOption;
         public IDiagram _selectedDiagram;
-        private IEmployeeRepository _employeeRepository;
-        private ICustomerRepository _customerRepository;
-        private IRegionRepository _regionRepository;
-        private IQuestionListRepository _questionListRepository;
-        private ITaskRepository _taskRepository;
+        private readonly IManagementRapportenRepository _managementRapportenRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IRegionRepository _regionRepository;
+        private readonly IQuestionListRepository _questionListRepository;
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
         public MainViewModel CurrentGraph { get; set; }
@@ -42,11 +42,7 @@ namespace ParkInspect.ViewModel
         {
             get
             {
-                if (DateSelected)
-                {
-                    return _startDate;
-                }
-                return null;
+                return DateSelected ? _startDate : null;
             }
             set
             {
@@ -59,11 +55,7 @@ namespace ParkInspect.ViewModel
         {
             get
             {
-                if (DateSelected)
-                {
-                    return _endDate;
-                }
-                return null;
+                return DateSelected ? _endDate : null;
             }
             set
             {
@@ -74,42 +66,35 @@ namespace ParkInspect.ViewModel
         public bool DateSelected { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
-        public List<string> Functions => _employeeRepository.GetFunctions().ToList();
-        public List<string> Locations => _regionRepository.GetAll().ToList();
-        public List<CustomerViewModel> Customers => _customerRepository.GetAll().ToList();
-        public List<QuestionItemViewModel> Questions { get; set; }
-
-        public List<EmployeeViewModel> Inspectors
-            => _employeeRepository.GetAll().Where(e => e.Function == "Inspecteur").ToList();
-
-        public List<EmployeeViewModel> Managers
-            => _employeeRepository.GetAll().Where(e => e.Function == "Manager").ToList();
-
-        public List<TaskViewModel> Tasks => _taskRepository.GetAll().ToList();
+        public IEnumerable<string> Functions { get; set; }
+        public IEnumerable<string> Locations { get; set; }
+        public ObservableCollection<CustomerViewModel> Customers { get; set; }
+        public ObservableCollection<QuestionItemViewModel> Questions { get; set; }
+        public IEnumerable<EmployeeViewModel> Inspectors { get; set; }
+        public IEnumerable<EmployeeViewModel> Managers { get; set; }
         
         public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust, IRegionRepository region,
-            IEmployeeRepository emp, IQuestionListRepository ques, ITaskRepository task)
+            IEmployeeRepository emp, IQuestionListRepository ques)
         {
-            Repository = repo;
+            _managementRapportenRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
             _questionListRepository = ques;
             _regionRepository = region;
-            _taskRepository = task;
+            Inspectors = _employeeRepository.GetByFunction("Inspecteur");
+            Managers   = _employeeRepository.GetByFunction("Manager");
+            Functions  = _employeeRepository.GetFunctions();
+            Customers  = _customerRepository.GetAll();
+            Locations  = _regionRepository.GetAll();
+            Questions = _questionListRepository.GetAllQuestionItems();
+
+           
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
             ComboBox1List = new List<string>();
-            Questions = new List<QuestionItemViewModel>();
-            List<QuestionListViewModel> questionLists = _questionListRepository.GetAll().ToList();
-            foreach (QuestionListViewModel qlvm in questionLists)
-            {
-                foreach (QuestionItemViewModel qivm in qlvm.QuestionItems)
-                {
-                    Questions.Add(qivm);
-                }
-            }
+            
         }
 
         private void GenerateDiagram()

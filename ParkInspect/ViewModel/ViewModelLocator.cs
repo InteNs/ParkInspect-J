@@ -1,14 +1,11 @@
 using System;
 using Data;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using ParkInspect.Repositories;
-using ParkInspect.Repository;
 using ParkInspect.Repository.Dummy;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using ParkInspect.View;
 
 namespace ParkInspect.ViewModel
 {
@@ -32,7 +29,6 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<IManagementRapportenRepository, DummyManagementRapportenRepository>();
             SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
             SimpleIoc.Default.Register<IRegionRepository, DummyRegionRepository>();
-            SimpleIoc.Default.Register<ITaskRepository, DummyTaskRepository>();
             SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();
             SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
             SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
@@ -88,6 +84,7 @@ namespace ParkInspect.ViewModel
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => ServiceLocator.Current.GetInstance<AddCommissionViewModel>();
         public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
+        public AddInspectionViewModel AddInspection => NewInstance<AddInspectionViewModel>(ref _addInspectionKey);
         public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
 
         public static void Cleanup()
@@ -99,6 +96,7 @@ namespace ParkInspect.ViewModel
         private string _editEmployeeKey = "1";
         private string _addCustomerKey = "1";
         private string _editCustomerKey = "1";
+        private string _addInspectionKey = "1";
 
         private static T NewInstance<T>(ref string key) where T : class
         {
