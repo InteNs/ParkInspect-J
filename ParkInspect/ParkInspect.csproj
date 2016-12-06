@@ -166,7 +166,6 @@
     <Compile Include="Repository\Interface\ICommissionRepository.cs" />
     <Compile Include="Repository\Interface\IInspectionsRepository.cs" />
     <Compile Include="Repository\Interface\ILocationRepository.cs" />
-    <Compile Include="Repository\Interface\IManagementRapportenRepository.cs" />
     <Compile Include="Repository\Dummy\DummyAuthenticationRepository.cs" />
     <Compile Include="Repository\Interface\IAuthenticationRepository.cs" />
     <Compile Include="Repository\Interface\IQuestionListRepository.cs" />
@@ -176,7 +175,6 @@
     <Compile Include="Service\IRouterService.cs" />
     <Compile Include="ViewModel\AddInspectionViewModel.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
-    <Compile Include="Repository\Dummy\DummyManagementRapportenRepository.cs" />
     <Compile Include="ViewModel\BarGraphViewModel.cs" />
     <Compile Include="ViewModel\EditCustomerViewModel.cs" />
     <Compile Include="ViewModel\IGraphViewModel.cs" />
