@@ -18,5 +18,5 @@
 	)
 
 	CONSTRAINT [FK_Employee_Person] FOREIGN KEY (PersonId, PersonGuid) REFERENCES Person (Id, Guid)
-	CONSTRAINT [FK_Employee_Function] FOREIGN KEY (FunctionId, functionGuid) REFERENCES "Function" (Id, Guid) 
+	CONSTRAINT [FK_Employee_Function] FOREIGN KEY (FunctionId, FunctionGuid) REFERENCES "Function" (Id, Guid) 
 )

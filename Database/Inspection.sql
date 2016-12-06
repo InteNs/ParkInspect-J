@@ -3,6 +3,7 @@
 	[Id] INT NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[CommissionId] int NOT NULL,
+	[CommissionGuid] uniqueidentifier NOT NULL,
 	[DateTimeStart] datetime NOT NULL,
 	[DateTimeEnd] datetime,
 	[DateCancelled] date
@@ -12,4 +13,6 @@
 		Id,
 		Guid
 	)
+
+	CONSTRAINT [FK_Inspection_Commission] FOREIGN KEY (CommissionId, CommissionGuid) REFERENCES Commission (Id, Guid)
 )
