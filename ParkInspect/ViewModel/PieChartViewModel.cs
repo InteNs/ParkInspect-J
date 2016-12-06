@@ -6,7 +6,7 @@ using OxyPlot.Series;
 
 namespace ParkInspect.ViewModel
 {
-    public class PieChartViewModel : MainViewModel
+    public class PieChartViewModel : MainViewModel, IGraphViewModel
     {
         private readonly List<EmployeeViewModel> _employees;
         private readonly List<CommissionViewModel> _commissions;
@@ -36,16 +36,16 @@ namespace ParkInspect.ViewModel
         }
 
         public PieChartViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<string> statuses,
-            DateTime? startTime, DateTime? endTime, CustomerViewModel cvm)
+            DateTime? startTime, DateTime? endTime, CustomerViewModel customer)
         {
             _commissions = commissions.ToList();
             if (startTime != null && endTime != null)
             {
                 _commissions.RemoveAll(co => (co.DateCreated > endTime || co.DateCompleted < startTime));
             }
-            if (cvm != null)
+            if (customer != null)
             {
-                _commissions.RemoveAll(co => co.CustomerId != cvm.Id);
+                _commissions.RemoveAll(co => co.Customer != customer);
             }
             var model = new PlotModel();
             dynamic series = new PieSeries();

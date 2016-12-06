@@ -1,27 +1,24 @@
-﻿using GalaSoft.MvvmLight;
-using ParkInspect.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.Service;
+﻿using System;
 
 namespace ParkInspect.ViewModel
 {
-    public class CommissionViewModel : MainViewModel
+    public class CommissionViewModel : LocationViewModel
     {
         private int _id;
         private int _frequency;
-        private int _customerId;
-        private int _locationId;
-        private int? _employeeId;
         private DateTime _dateCreated;
         private DateTime? _dateCompleted;
         private string _description;
-        private string _region;
         private string _customerName;
         private string _status;
+        private CustomerViewModel _customer;
+        private EmployeeViewModel _employee;
+
+        public CustomerViewModel Customer
+        {
+            get { return _customer; }
+            set { _customer = value; RaisePropertyChanged(); }
+        }
 
         public int Id
         {
@@ -35,22 +32,10 @@ namespace ParkInspect.ViewModel
             set { _frequency = value; RaisePropertyChanged(); }
         }
 
-        public int CustomerId
+        public EmployeeViewModel Employee
         {
-            get { return _customerId; }
-            set { _customerId = value; RaisePropertyChanged(); }
-        }
-
-        public int LocationId
-        {
-            get { return _locationId; }
-            set { _locationId = value; RaisePropertyChanged(); }
-        }
-
-        public int? EmployeeId
-        {
-            get { return _employeeId; }
-            set { _employeeId = value; RaisePropertyChanged(); }
+            get { return _employee; }
+            set { _employee = value; RaisePropertyChanged(); }
         }
 
         public DateTime DateCreated
@@ -71,12 +56,6 @@ namespace ParkInspect.ViewModel
             set { _description = value; RaisePropertyChanged(); }
         }
 
-        public string Region
-        {
-            get { return _region; }
-            set { _region = value; RaisePropertyChanged(); }
-        }
-
         public string CustomerName
         {
             get { return _customerName; }
@@ -90,21 +69,5 @@ namespace ParkInspect.ViewModel
             get { return _status; }
             set { _status = value; RaisePropertyChanged(); }
         }
-
-        public CommissionViewModel(int id, int frequency, int customerId, int locationId, int? employeeId, DateTime created, DateTime? completed, string description, string region, string customerName, string status)
-        {
-            Id = id;
-            Frequency = frequency;
-            CustomerId = customerId;
-            LocationId = locationId;
-            EmployeeId = employeeId;
-            DateCreated = created;
-            DateCompleted = completed;
-            Description = description;
-            Region = region;
-            CustomerName = customerName;
-            Status = status;
-        }
-        
     }
 }

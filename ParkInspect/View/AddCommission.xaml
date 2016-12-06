@@ -90,7 +90,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Klant: " />
                 </Viewbox>
-                <ComboBox  SelectedItem="{Binding SelectedCustomer}" ItemsSource="{Binding Path=CustomerList}" DisplayMemberPath="Name"/>
+                <ComboBox  SelectedItem="{Binding Commission.Customer, Mode=TwoWay}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name"/>
             </DockPanel>
             
             <DockPanel Grid.Row="3"
@@ -99,7 +99,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=ZipCode}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Commission.ZipCode, Mode=TwoWay}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -108,7 +108,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=StreetNumber}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Commission.StreetNumber, Mode=TwoWay}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -117,7 +117,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "></Label>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding SelectedRegion}" ItemsSource="{Binding Path=RegionList}"/>
+                <ComboBox SelectedValue="{Binding Commission.Region, Mode=TwoWay}" ItemsSource="{Binding Regions}"/>
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -126,7 +126,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Frequentie: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Frequency}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Commission.Frequency, Mode=TwoWay}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
 
             <DockPanel Grid.Row="11"
@@ -135,15 +135,9 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Beschrijving "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Description}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Commission.Description, Mode=TwoWay}" Style="{StaticResource DefaultTextBoxStyle}" />
             </DockPanel>
-
-
-
-
-
-
-
+            
             <Grid
                 Grid.Row="15"
                 Grid.Column="1">

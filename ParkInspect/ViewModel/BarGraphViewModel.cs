@@ -9,7 +9,7 @@ using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
-    public class BarGraphViewModel : MainViewModel
+    public class BarGraphViewModel : MainViewModel, IGraphViewModel
     {
         private readonly List<EmployeeViewModel> _employees;
         private readonly List<QuestionItemViewModel> _questionItems;
@@ -19,7 +19,7 @@ namespace ParkInspect.ViewModel
         public PlotModel KPIModel { get; set; }
 
         public BarGraphViewModel(IEmployeeRepository ier, DateTime? startTime, DateTime? endTime,
-            QuestionItemViewModel question, CommissionViewModel covm, CustomerViewModel cuvm)
+            QuestionItemViewModel question, CommissionViewModel covm, CustomerViewModel selectedCustomer)
         {
             _employees = ier.GetAll().ToList();
             _questionItems = new List<QuestionItemViewModel>();
@@ -36,7 +36,7 @@ namespace ParkInspect.ViewModel
             {
                 _questionItems.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
             }
-            if (cuvm != null)
+            if (selectedCustomer != null)
             {
                 //
             }
@@ -76,7 +76,7 @@ namespace ParkInspect.ViewModel
             }
             if (evm != null)
             {
-                _commissions.RemoveAll(co => co.EmployeeId != evm.Id);
+                _commissions.RemoveAll(co => co.Employee != evm);
             }
             var model = new PlotModel();
             dynamic series = new BarSeries();
@@ -86,7 +86,7 @@ namespace ParkInspect.ViewModel
             series.ItemsSource =
                 new List<BarItem>(_employees.Select(e =>
                         new BarItem(_commissions.Count(c =>
-                                    e.Id.Equals(c.EmployeeId)
+                                    e.Equals(c.Employee)
                         ))
                 ));
 
@@ -103,7 +103,7 @@ namespace ParkInspect.ViewModel
 
         public BarGraphViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<CustomerViewModel> customers,
             DateTime? startTime, DateTime? endTime, String status,
-            CustomerViewModel cuvm)
+            CustomerViewModel selectedCustomer)
         {
             _commissions = commissions.ToList();
             _customers = customers.ToList();
@@ -117,9 +117,9 @@ namespace ParkInspect.ViewModel
             {
                 _commissions.RemoveAll(com => !com.Status.Equals(status));
             }
-            if (cuvm != null)
+            if (selectedCustomer != null)
             {
-                _commissions.RemoveAll(co => co.CustomerId != cuvm.Id);
+                _commissions.RemoveAll(co => co.Customer != selectedCustomer);
             }
             PlotModel model = new PlotModel();
             dynamic series = new BarSeries();
@@ -128,7 +128,7 @@ namespace ParkInspect.ViewModel
             series.LabelFormatString = "{0}";
             series.ItemsSource = new List<BarItem>(_customers.Select(cust =>
                 new BarItem(_commissions.Count(com =>
-                    cust.Name.Equals(com.CustomerName)
+                    cust.Name.Equals(com.Customer.Name)
                 ))
             ));
             foreach (var customer in _customers)
@@ -136,7 +136,7 @@ namespace ParkInspect.ViewModel
                 series.ItemsSource.Add(new BarItem
                 {
                     Value =
-                        (_commissions.Count(c => customer.Name.Equals(c.CustomerName)))
+                        (_commissions.Count(c => customer.Name.Equals(c.Customer.Name)))
                 });
             }
             var axis = new CategoryAxis
