@@ -2,7 +2,8 @@
 (
 	[Id] INT NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
-	[PersonId] int NOT NULL
+	[PersonId] int NOT NULL,
+	[PersonGuid] uniqueidentifier NOT NULL
 
 	CONSTRAINT [PK_Customer] PRIMARY KEY CLUSTERED
 	(
@@ -10,5 +11,5 @@
 		Guid
 	)
 
-	CONSTRAINT [FK_CustomerPerson] FOREIGN KEY (PersonId) REFERENCES Person (Id)
+	CONSTRAINT [FK_Customer_Person] FOREIGN KEY (PersonId, PersonGuid) REFERENCES Person (Id, Guid)
 )

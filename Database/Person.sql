@@ -10,6 +10,7 @@
 
 	CONSTRAINT [PK_Person] PRIMARY KEY CLUSTERED
 	(
-		Id
+		Id,
+		Guid
 	)
 )

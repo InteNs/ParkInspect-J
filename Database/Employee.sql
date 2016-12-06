@@ -2,9 +2,12 @@
 (
 	[Id] INT NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
+	[Password] VARCHAR(MAX),
 	[Region] int NOT NULL,
-	[Function] int NOT NULL,
+	[FunctionId] int NOT NULL,
+	[FunctionGuid] uniqueidentifier NOT NULL,
 	[PersonId] int NOT NULL,
+	[PersonGuid] uniqueidentifier NOT NULL,
 	[DateHired] date NOT NULL,
 	[DateFired] date
 
@@ -14,5 +17,6 @@
 		Guid
 	)
 
-	CONSTRAINT [FK_EmployeePerson] FOREIGN KEY (PersonId) REFERENCES Person (Id)
+	CONSTRAINT [FK_Employee_Person] FOREIGN KEY (PersonId, PersonGuid) REFERENCES Person (Id, Guid)
+	CONSTRAINT [FK_Employee_Function] FOREIGN KEY (FunctionId, functionGuid) REFERENCES "Function" (Id, Guid) 
 )
