@@ -17,7 +17,6 @@ namespace ParkInspect.Converter
             if (input.Contains("Opdracht"))
             {
                 int colourvalue = int.Parse(input.Substring(9)) % 10;
-                Debug.WriteLine(colourvalue);
                 return new SolidColorBrush(Color.FromArgb((byte)(50 + colourvalue * 20), 0, (byte)(colourvalue * 25), 240));
             }
             switch (input)

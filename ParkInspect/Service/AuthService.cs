@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using ParkInspect.Enumeration;
-using ParkInspect.Repositories;
 using ParkInspect.ViewModel;
 using GalaSoft.MvvmLight.Command;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.Service
 {

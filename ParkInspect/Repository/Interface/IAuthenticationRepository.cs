@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.Repository.Interface
 {
     public interface IAuthenticationRepository
     {

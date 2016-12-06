@@ -14,6 +14,7 @@
     <UserControl.Resources>
         <converter:FilterCustomerConverter x:Key="Converter" />
     </UserControl.Resources>
+
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -59,11 +60,16 @@
 
             <Grid Grid.Row="1"
           Grid.Column="1">
-                <Button Content="Toevoegen" Command="{Binding RouteCommand}" CommandParameter="Customers-add" />
+                <Button Content="Toevoegen" Command="{Binding RouteCommand}" CommandParameter="customers-add" />
+            </Grid>
+            
+            <Grid Grid.Row="1"
+          Grid.Column="3">
+                <Button Content="Aanpassen" Command="{Binding EditCustomerCommand}"/>
             </Grid>
 
             <Grid Grid.Row="1"
-          Grid.Column="3">
+          Grid.Column="5">
                 <Button Content="Nieuwe opdracht" Command="{Binding }" />
             </Grid>
 
@@ -71,7 +77,7 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
                 <AdornerDecorator>
-                    <TextBox  Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
+                    <TextBox Name="Search" Text="{Binding None, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
                         <service:WatermarkService.Watermark>
                             <TextBlock>Zoeken...</TextBlock>
                         </service:WatermarkService.Watermark>
@@ -86,12 +92,13 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
 
-                <DataGrid GridLinesVisibility="None" FontSize="15" AutoGenerateColumns="False"
-                          IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}">
+                <DataGrid GridLinesVisibility="None" 
+       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" >
                     <DataGrid.ItemsSource>
                         <MultiBinding Converter="{StaticResource Converter}">
-                            <Binding Path="Customers"></Binding>
-                            <Binding Path="(viewModel:CustomersViewModel.Input)"></Binding>
+                            <Binding Path="Customers"/>
+                            <Binding ElementName="Search" Path="Text"/>
+                            <Binding Path="Customers.Count"/>
                         </MultiBinding>
                     </DataGrid.ItemsSource>
                     <DataGrid.Columns>
