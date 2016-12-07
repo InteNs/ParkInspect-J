@@ -1,62 +1,26 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using ParkInspect.Repositories;
-using System.Collections.Generic;
-using System.Linq;
+﻿using GalaSoft.MvvmLight.Command;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
     public class AddEmployeeViewModel : MainViewModel
     {
-        private string _selectedRegion;
+        private readonly IEmployeeRepository _employeeRepository;
 
-        private string _selectedFunction;
-
-        private readonly IEmployeeRepository _repository;
-
-        private readonly EmployeesViewModel _employeesVm;
-
-
-        public string SelectedRegion
-        {
-            get { return _selectedRegion; }
-            set
-            {
-                _selectedRegion = value;
-                base.RaisePropertyChanged();
-            }
-        }
-
-        public string SelectedFunction
-        {
-            get { return _selectedFunction; }
-            set
-            {
-                _selectedFunction = value;
-                base.RaisePropertyChanged();
-            }
-        }
-
-        public List<string> RegionList { get; set; }
-
-        public List<string> FunctionList { get; set; }
-
+        public ObservableCollection<string> RegionList { get; set; }
+        public ObservableCollection<string> FunctionList { get; set; }
         public EmployeeViewModel Employee { get; set; }
-
         public ICommand AddEmployeeCommand { get; set; }
-
-        public AddEmployeeViewModel(IEmployeeRepository ier, IRouterService router, EmployeesViewModel evm) : base(router)
+         
+        public AddEmployeeViewModel(IEmployeeRepository employeeRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
         {
-            _repository = ier;
-            _employeesVm = evm;
-
+            _employeeRepository = employeeRepository;
             Employee = new EmployeeViewModel();
-
-            FunctionList = _repository.GetFunctions().ToList();
-
-            RegionList = _repository.GetRegions().ToList();
+            FunctionList = _employeeRepository.GetFunctions();
+            RegionList = regionRepository.GetAll();
 
             AddEmployeeCommand = new RelayCommand(AddEmployee, CanAddEmployee);
         }
@@ -75,19 +39,16 @@ namespace ParkInspect.ViewModel
 
         private void AddEmployee()
         {
-            Employee.Region = SelectedRegion;
-            Employee.Function = SelectedFunction;
-            if (this.ValidateInput())
+            if (ValidateInput())
             {
-                if (_repository.Create(Employee))
+                if (_employeeRepository.Add(Employee))
                 {
-                    _employeesVm.Employees.Add(Employee);
-                    RouterService.SetView("employees-list");
+                    RouterService.SetPreviousView();
                 }
             }
             else
             {
-                this.ShowValidationError();
+                ShowValidationError();
             }
         }
 
@@ -95,6 +56,5 @@ namespace ParkInspect.ViewModel
         {
             //TODO: Validation error
         }
-
     }
 }

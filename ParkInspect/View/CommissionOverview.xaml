@@ -70,7 +70,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="3">
-                <ComboBox SelectedValue="{Binding SelectedCommission}" ItemsSource="{Binding CommissionList}" DisplayMemberPath="Info" />
+                <ComboBox SelectedValue="{Binding SelectedCommission}" ItemsSource="{Binding Commissions}" DisplayMemberPath="Info" />
             </Grid>
 
             <Grid Grid.Row="1"

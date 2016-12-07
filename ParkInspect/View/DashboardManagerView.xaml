@@ -47,9 +47,9 @@
 
                 <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="employees-list" Content="Werknemers Beheren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-                <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="Customers-list" Content="Opdracht Inplannen" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
+                <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="commissions-overview" Content="Opdracht Inplannen" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-                <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="Customers-list" Content="Klanten Beheren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
+                <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="customers-list" Content="Klanten Beheren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
             </Grid>
 

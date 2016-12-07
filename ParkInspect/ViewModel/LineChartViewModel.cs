@@ -5,11 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using OxyPlot;
 using OxyPlot.Series;
-using ParkInspect.Repositories;
 
 namespace ParkInspect.ViewModel
 {
-  public class LineChartViewModel : MainViewModel
+  public class LineChartViewModel : MainViewModel, IGraphViewModel
     {
 
         private readonly List<CommissionViewModel> _commissions;

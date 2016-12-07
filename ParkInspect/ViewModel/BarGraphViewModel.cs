@@ -4,26 +4,25 @@ using System.Diagnostics;
 using System.Linq;
 using OxyPlot;
 using OxyPlot.Series;
-using System.Text;
-using System.Threading.Tasks;
 using OxyPlot.Axes;
-using ParkInspect.Repositories;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
-    public class BarGraphViewModel : MainViewModel
+    public class BarGraphViewModel : MainViewModel, IGraphViewModel
     {
-        private List<EmployeeViewModel> _employeesList;
-        private List<QuestionItemViewModel> _questionItemsList;
-        private List<CommissionViewModel> _commissionsList;
-        private List<CustomerViewModel> _customersList;
+        private readonly List<EmployeeViewModel> _employees;
+        private readonly List<QuestionItemViewModel> _questionItems;
+        private readonly List<CommissionViewModel> _commissions;
+        private readonly List<CustomerViewModel> _customers;
 
         public PlotModel KPIModel { get; set; }
 
-        public BarGraphViewModel(IEmployeeRepository ier, DateTime? startTime, DateTime? endTime, QuestionItemViewModel question, CommissionViewModel covm, CustomerViewModel cuvm)
+        public BarGraphViewModel(IEmployeeRepository ier, DateTime? startTime, DateTime? endTime,
+            QuestionItemViewModel question, CommissionViewModel covm, CustomerViewModel selectedCustomer)
         {
-            _employeesList = ier.GetAll().ToList();
-            _questionItemsList = new List<QuestionItemViewModel>();
+            _employees = ier.GetAll().ToList();
+            _questionItems = new List<QuestionItemViewModel>();
 
             if (startTime != null && endTime != null)
             {
@@ -35,126 +34,118 @@ namespace ParkInspect.ViewModel
             }
             if (question != null)
             {
-                _questionItemsList.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
+                _questionItems.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
             }
-            if (cuvm != null)
+            if (selectedCustomer != null)
             {
                 //
             }
 
 
-
             PlotModel model = new PlotModel();
             dynamic series = new BarSeries();
-           // foreach ()
-          //  {
-                //BarItem bi = new BarItem();
-               // if (bi.Value != 0)
-               // {
-                //    series.Add(bi);
-               // }
-          //  }
+            // foreach ()
+            //  {
+            //BarItem bi = new BarItem();
+            // if (bi.Value != 0)
+            // {
+            //    series.Add(bi);
+            // }
+            //  }
             model.Series.Add(series);
             KPIModel = model;
         }
 
-        
 
-        public BarGraphViewModel(ICommissionRepository icr, DateTime? startTime, DateTime? endTime, String status,
-           EmployeeViewModel evm)
+        public BarGraphViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<EmployeeViewModel> employees,
+            DateTime? startTime, DateTime? endTime, string status,
+            EmployeeViewModel evm)
         {
-            _commissionsList = icr.GetAll().ToList();
+            _commissions = commissions.ToList();
+            _employees = employees.ToList();
 
             if (startTime != null && endTime != null)
             {
-                _commissionsList.RemoveAll(co => (co.DateCreated > endTime || co.DateCompleted < startTime));
+                _commissions.RemoveAll(co => (co.DateCreated > endTime || co.DateCompleted < startTime));
             }
 
-            if (!String.IsNullOrEmpty(status))
+            if (!string.IsNullOrEmpty(status))
             {
-                _commissionsList.RemoveAll(com => !com.Status.Equals(status));
+                _commissions.RemoveAll(com => !com.Status.Equals(status));
                 Debug.WriteLine(status);
             }
             if (evm != null)
             {
-                _commissionsList.RemoveAll(co => co.EmployeeId != evm.Id);
+                _commissions.RemoveAll(co => co.Employee != evm);
             }
-            PlotModel model = new PlotModel();
+            var model = new PlotModel();
             dynamic series = new BarSeries();
-            series.ItemsSource = new List<BarItem>();
+
             series.LabelPlacement = LabelPlacement.Inside;
             series.LabelFormatString = "{0}";
-            foreach (EmployeeViewModel emvm in icr.GetEmployees())
-            {
-                series.ItemsSource.Add(new BarItem
-                {
-                    Value =
-                        (_commissionsList.Count(c => emvm.Id.Equals(c.EmployeeId)))
-                });
-            }
-            string[] employeenames = new string[icr.GetEmployees().Count()];
-            int i = 0;
-            foreach (EmployeeViewModel emvm in icr.GetEmployees())
-            {
-                employeenames[i] = emvm.Name;
-                i++;
-            }
-            CategoryAxis ca = new CategoryAxis
+            series.ItemsSource =
+                new List<BarItem>(_employees.Select(e =>
+                        new BarItem(_commissions.Count(c =>
+                                    e.Equals(c.Employee)
+                        ))
+                ));
+
+            var axis = new CategoryAxis
             {
                 Position = AxisPosition.Left,
-                ItemsSource = employeenames
+                ItemsSource = _employees.Select(e => e.Name)
             };
             model.Series.Add(series);
-            
-            model.Axes.Add(ca);
+
+            model.Axes.Add(axis);
             KPIModel = model;
         }
 
-        public BarGraphViewModel(ICommissionRepository icr, DateTime? startTime, DateTime? endTime, String status,
-            CustomerViewModel cuvm)
+        public BarGraphViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<CustomerViewModel> customers,
+            DateTime? startTime, DateTime? endTime, String status,
+            CustomerViewModel selectedCustomer)
         {
-            _commissionsList = icr.GetAll().ToList();
+            _commissions = commissions.ToList();
+            _customers = customers.ToList();
 
             if (startTime != null && endTime != null)
             {
-                _commissionsList.RemoveAll(co => (co.DateCreated > endTime || co.DateCompleted < startTime));
+                _commissions.RemoveAll(co => (co.DateCreated > endTime || co.DateCompleted < startTime));
             }
 
             if (!String.IsNullOrEmpty(status))
             {
-                _commissionsList.RemoveAll(com => !com.Status.Equals(status));
+                _commissions.RemoveAll(com => !com.Status.Equals(status));
             }
-            if (cuvm != null)
+            if (selectedCustomer != null)
             {
-                _commissionsList.RemoveAll(co => co.CustomerId != cuvm.Id);
+                _commissions.RemoveAll(co => co.Customer != selectedCustomer);
             }
             PlotModel model = new PlotModel();
             dynamic series = new BarSeries();
-            series.ItemsSource = new List<BarItem>();
+            
             series.LabelPlacement = LabelPlacement.Inside;
             series.LabelFormatString = "{0}";
-            foreach (CustomerViewModel cusvm in icr.GetCustomers())
+            series.ItemsSource = new List<BarItem>(_customers.Select(cust =>
+                new BarItem(_commissions.Count(com =>
+                    cust.Name.Equals(com.Customer.Name)
+                ))
+            ));
+            foreach (var customer in _customers)
             {
                 series.ItemsSource.Add(new BarItem
                 {
                     Value =
-                        (_commissionsList.Count(c => cusvm.Name.Equals(c.CustomerName)))
+                        (_commissions.Count(c => customer.Name.Equals(c.Customer.Name)))
                 });
             }
-            string[] customernames = new string[icr.GetCustomers().Count()];
-            int i = 0;
-            foreach (CustomerViewModel cusvm in icr.GetCustomers())
-            {
-                customernames[i] = cusvm.Name;
-                i++;
-            }
-            CategoryAxis ca = new CategoryAxis
+            var axis = new CategoryAxis
             {
                 Position = AxisPosition.Left,
-                ItemsSource = customernames
+                ItemsSource = _customers.Select(c => c.Name)
             };
             model.Series.Add(series);
-            model.Axes.Add(ca);
+            model.Axes.Add(axis);
             KPIModel = model;
         }
     }

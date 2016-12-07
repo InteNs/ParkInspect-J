@@ -6,24 +6,34 @@ using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Factory;
 using ParkInspect.Repositories;
-using System.Diagnostics;
+using ParkInspect.Repository.Dummy;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
     public class ManagementRapportenViewModel : MainViewModel
     {
-        private IManagementRapportenRepository Repository { get; set; }
         private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
         private string _selectedOption;
-        public IDiagram _selectedDiagram;
-        private IEmployeeRepository _employeeRepository;
-        private ICustomerRepository _customerRepository;
-        private IQuestionListRepository _questionListRepository;
-        private ITaskRepository _taskRepository;
+        private DateTime? _endDate;
+        private IGraphViewModel _currentGraph;
+        private IDiagram _selectedDiagram;
+        private readonly ICommissionRepository _commissionRepository;
+        private readonly IEmployeeRepository _employeeRepository;
+        private readonly ICustomerRepository _customerRepository;
+        private readonly IRegionRepository _regionRepository;
+        private readonly IQuestionListRepository _questionListRepository;
+
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
         public LineChartViewModel LineChart { get; set; }
-        public MainViewModel CurrentGraph { get; set; }
+
+        public IGraphViewModel CurrentGraph
+        {
+            get { return _currentGraph; }
+            set { _currentGraph = value; RaisePropertyChanged(); }
+        }
+
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
         public EmployeeViewModel SelectedManager { get; set; }
@@ -31,21 +41,19 @@ namespace ParkInspect.ViewModel
         public string SelectedFunction { get; set; }
         public string SelectedRegion { get; set; }
         public string SelectedStatus { get; set; }
-        public string[] Statuses { get; set; } = new string[] {"Nieuw", "Ingedeeld", "Bezig", "Klaar"};
+        public ObservableCollection<string> Statuses { get; set; }
         public CommissionViewModel SelectedCommission { get; set; }
         public string SelectedAnswer { get; set; }
         public ICommand GenerateDiagramCommand { get; set; }
-        private List<string> _comboBox1List;
+
+        private List<string> _options;
+
         private DateTime? _startDate;
         public DateTime? StartDate
         {
             get
             {
-                if (DateSelected)
-                {
-                    return _startDate;
-                }
-                return null;
+                return DateSelected ? _startDate : null;
             }
             set
             {
@@ -53,16 +61,12 @@ namespace ParkInspect.ViewModel
                 RaisePropertyChanged();
             }
         }
-        private DateTime? _endDate;
+
         public DateTime? EndDate
         {
             get
             {
-                if (DateSelected)
-                {
-                    return _endDate;
-                }
-                return null;
+                return DateSelected ? _endDate : null;
             }
             set
             {
@@ -73,62 +77,61 @@ namespace ParkInspect.ViewModel
         public bool DateSelected { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
-        public List<string> Functions => _employeeRepository.GetFunctions().ToList();
-        public List<string> Locations => _employeeRepository.GetRegions().ToList();
-        public List<CustomerViewModel> Customers => _customerRepository.GetAll().ToList();
-        public List<QuestionItemViewModel> Questions { get; set; }
+        public IEnumerable<string> Functions { get; set; }
+        public IEnumerable<string> Locations { get; set; }
+        public ObservableCollection<CustomerViewModel> Customers { get; set; }
+        public ObservableCollection<CommissionViewModel> Commissions { get; set; }
+        public ObservableCollection<QuestionItemViewModel> Questions { get; set; }
+        public ObservableCollection<EmployeeViewModel> Employees { get; set; }
+        public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
+        public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
 
-        public List<EmployeeViewModel> Inspectors
-            => _employeeRepository.GetAll().Where(e => e.Function == "Inspecteur").ToList();
-
-        public List<EmployeeViewModel> Managers
-            => _employeeRepository.GetAll().Where(e => e.Function == "Manager").ToList();
-
-        public List<TaskViewModel> Tasks => _taskRepository.GetAll().ToList();
-
-        public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust,
-            IEmployeeRepository emp, IQuestionListRepository ques, ITaskRepository task)
+        public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
+            IEmployeeRepository emp, IQuestionListRepository ques)
         {
-            Repository = repo;
+            _commissionRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
             _questionListRepository = ques;
-            _taskRepository = task;
+            _regionRepository = region;
+            Employees = _employeeRepository.GetAll();
+            Functions  = _employeeRepository.GetFunctions();
+            Commissions = _commissionRepository.GetAll();
+            Customers  = _customerRepository.GetAll();
+            Locations  = _regionRepository.GetAll();
+            Questions = _questionListRepository.GetAllQuestionItems();
+            Statuses = _commissionRepository.GetStatuses();
+
+           
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
-            ComboBox1List = new List<string>();
-            Questions = new List<QuestionItemViewModel>();
-            List<QuestionListViewModel> questionLists = _questionListRepository.GetAll().ToList();
-            foreach (QuestionListViewModel qlvm in questionLists)
-            {
-                foreach (QuestionItemViewModel qivm in qlvm.QuestionItems)
-                {
-                    Questions.Add(qivm);
-                }
-            }
+            Options = new List<string>();
+            
         }
 
         private void GenerateDiagram()
         {
+            if(SelectedOption == null || SelectedDiagram == null) return;
+
             if (SelectedDiagram.Name.Equals("Cirkeldiagram"))
             {
                 if (SelectedOption.Equals("Verdeling van de functies van de werknemers"))
                 {
-                    PieChart = new PieChartViewModel(new DummyEmployeesRepository(), SelectedRegion);
+                    PieChart = new PieChartViewModel(Employees, Functions, SelectedRegion);
                     CurrentGraph = PieChart;
                 }
                 if (SelectedOption.Equals("Verdeling van de status van de opdrachten"))
                 {
-                    PieChart = new PieChartViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedCustomer);
+                    PieChart = new PieChartViewModel(Commissions, _commissionRepository.GetStatuses(), StartDate, EndDate, SelectedCustomer);
                     CurrentGraph = PieChart;
                 }
                 if (
                     SelectedOption.Equals(
                         "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
                 {
-                    PieChart = new PieChartViewModel(new DummyQuestionListRepository(), SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                    PieChart = new PieChartViewModel(Questions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
                     CurrentGraph = PieChart;
                 }
 
@@ -141,22 +144,24 @@ namespace ParkInspect.ViewModel
                     //insert right constructor
                 }
 
-                if (SelectedOption.Equals("Aantal inspecties per klant"))
+                else if (SelectedOption.Equals("Aantal inspecties per klant"))
                 {
                     //insert right constructor
                 }
 
-                if (SelectedOption.Equals("Aantal opdrachten per manager"))
+                else if (SelectedOption.Equals("Aantal opdrachten per manager"))
                 {
-                    BarGraph = new BarGraphViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedStatus, SelectedManager);
+                    BarGraph = new BarGraphViewModel(Commissions, Managers, StartDate, EndDate, SelectedStatus, SelectedManager);
                     CurrentGraph = BarGraph;
                 }
-                if (SelectedOption.Equals("Aantal opdrachten per klant"))
+                else if (SelectedOption.Equals("Aantal opdrachten per klant"))
                 {
-                    BarGraph = new BarGraphViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedStatus, SelectedCustomer);
+                    BarGraph = new BarGraphViewModel(Commissions, Customers, StartDate, EndDate, SelectedStatus, SelectedCustomer);
                     CurrentGraph = BarGraph;
                 }
+            }
 
+            
                 if (SelectedDiagram.Name.Equals("Grafiek"))
                 {
                     if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per dag"))
@@ -221,7 +226,7 @@ namespace ParkInspect.ViewModel
             Antwoord = false;
             Status = false;
             if (SelectedOption == null) return;
-            foreach (Filter s in SelectedDiagram.Options[SelectedOption])
+            foreach (var s in SelectedDiagram.Options[SelectedOption])
                 switch (s)
                 {
                     case Filter.Tijdsperiode:
@@ -363,16 +368,16 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedDiagram = DiagramFactory.GetDiagram(value.Name);
-                ComboBox1List = _selectedDiagram.Options.Keys.ToList();
+                Options = _selectedDiagram.Options.Keys.ToList();
             }
         }
 
-        public List<string> ComboBox1List
+        public List<string> Options
         {
-            get { return _comboBox1List; }
+            get { return _options; }
             set
             {
-                _comboBox1List = value;
+                _options = value;
                 RaisePropertyChanged();
             }
         }
