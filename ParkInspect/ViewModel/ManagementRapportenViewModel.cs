@@ -186,7 +186,7 @@ namespace ParkInspect.ViewModel
                     }
                     if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per week"))
                     {
-                        //insert right constructor
+                        LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer);
                         CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per maand"))

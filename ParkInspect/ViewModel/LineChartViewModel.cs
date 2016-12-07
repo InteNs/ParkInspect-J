@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using OxyPlot;
 using OxyPlot.Series;
+using OxyPlot.Axes;
+using System.Diagnostics;
 
 namespace ParkInspect.ViewModel
 {
@@ -29,14 +31,19 @@ namespace ParkInspect.ViewModel
 
             if (cuvm != null)
             {
-                _commissions.RemoveAll(co => co.CustomerId != cuvm.Id);
+                Debug.WriteLine(cuvm.Id);
+                _commissions.RemoveAll(co => co.Customer.Id != cuvm.Id);
             }
 
             PlotModel model = new PlotModel();
+
+            model.Axes.Add(new DateTimeAxis { Position = AxisPosition.Bottom, IntervalType = DateTimeIntervalType.Weeks, StringFormat = "ww"});
+            model.Axes.Add(new LinearAxis { Position = AxisPosition.Left});
+
             dynamic series1 = new LineSeries();
             dynamic series2 = new LineSeries();
 
-            
+            _timeRange = new List<DateTime>();
             //line for aangemaakt per week
             if (startTime == null && endTime == null)
             {
@@ -61,12 +68,12 @@ namespace ParkInspect.ViewModel
             
             foreach (DateTime dt in _timeRange)
             {
-                series1.Points.Add(new DataPoint(dt.ToOADate(), _commissions.Count(c => c.DateCreated>=dt && c.DateCreated < dt.AddDays(7))));
+                series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt), _commissions.Count(c => c.DateCreated>=dt && c.DateCreated < dt.AddDays(7))));
             }
 
             model.Series.Add(series1);
             model.Series.Add(series2);
-            model = KPIModel;
+            KPIModel = model;
 
         }
     }
