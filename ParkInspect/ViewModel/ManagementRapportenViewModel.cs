@@ -210,7 +210,6 @@ namespace ParkInspect.ViewModel
                         CurrentGraph = LineChart;
                     }
                 }
-            }
             RaisePropertyChanged("");
         }
 
@@ -257,6 +256,7 @@ namespace ParkInspect.ViewModel
                         Status = true;
                         break;
                 }
+
         }
 
         // Helper Classes
