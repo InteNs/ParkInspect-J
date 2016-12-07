@@ -22,6 +22,7 @@ namespace ParkInspect.ViewModel
         private ITaskRepository _taskRepository;
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
+        public LineChartViewModel LineChart { get; set; }
         public MainViewModel CurrentGraph { get; set; }
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
@@ -154,6 +155,55 @@ namespace ParkInspect.ViewModel
                 {
                     BarGraph = new BarGraphViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedStatus, SelectedCustomer);
                     CurrentGraph = BarGraph;
+                }
+
+                if (SelectedDiagram.Name.Equals("Grafiek"))
+                {
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per dag"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per week"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per maand"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per jaar"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per week"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per maand"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per jaar"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per maand"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per jaar"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
                 }
             }
             RaisePropertyChanged("");
