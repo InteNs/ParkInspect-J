@@ -69,7 +69,7 @@ namespace ParkInspect.ViewModel
                     string status = "Beschikbaar";
                     foreach(CommissionViewModel cvm in _icr.GetAll())
                     {
-                        if(cvm.EmployeeId == evm.Id && cvm.DateCreated < day && cvm.DateCompleted > day)
+                        if(cvm.Employee.Equals(evm) && cvm.DateCreated < day && cvm.DateCompleted > day)
                         {
                             status = "Opdracht " + cvm.Id;
                         }

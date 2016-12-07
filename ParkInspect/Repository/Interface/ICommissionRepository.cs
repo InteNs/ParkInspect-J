@@ -1,22 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.ObjectModel;
 using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repository.Interface
 {
-    public interface ICommissionRepository
+    public interface ICommissionRepository : IBaseRepository<CommissionViewModel>
     {
-        IEnumerable<CommissionViewModel> GetAll();
-
-        bool Create(CommissionViewModel commission);
-        bool Update(CommissionViewModel commission);
-        void Delete(CommissionViewModel commission);
-
-        void CreateLocation(LocationViewModel location);
-
-
-        IEnumerable<string> GetRegions();
-        IEnumerable<CustomerViewModel> GetCustomers();
-        IEnumerable<LocationViewModel> GetLocationViewModels();
-
+        ObservableCollection<string> GetStatuses();
     }
 }

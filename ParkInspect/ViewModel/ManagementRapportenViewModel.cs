@@ -13,16 +13,26 @@ namespace ParkInspect.ViewModel
 {
     public class ManagementRapportenViewModel : MainViewModel
     {
-        
         private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
         private string _selectedOption;
-        public IDiagram _selectedDiagram;
-        private readonly IManagementRapportenRepository _managementRapportenRepository;
+        private DateTime? _endDate;
+        private IGraphViewModel _currentGraph;
+        private IDiagram _selectedDiagram;
+        private readonly ICommissionRepository _commissionRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ICustomerRepository _customerRepository;
         private readonly IRegionRepository _regionRepository;
         private readonly IQuestionListRepository _questionListRepository;
+
         public PieChartViewModel PieChart { get; set; }
+        public BarGraphViewModel BarGraph { get; set; }
+
+        public IGraphViewModel CurrentGraph
+        {
+            get { return _currentGraph; }
+            set { _currentGraph = value; RaisePropertyChanged(); }
+        }
+
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
         public EmployeeViewModel SelectedManager { get; set; }
@@ -30,10 +40,13 @@ namespace ParkInspect.ViewModel
         public string SelectedFunction { get; set; }
         public string SelectedRegion { get; set; }
         public string SelectedStatus { get; set; }
+        public ObservableCollection<string> Statuses { get; set; }
         public CommissionViewModel SelectedCommission { get; set; }
         public string SelectedAnswer { get; set; }
         public ICommand GenerateDiagramCommand { get; set; }
-        private List<string> _comboBox1List;
+
+        private List<string> _options;
+
         private DateTime? _startDate;
         public DateTime? StartDate
         {
@@ -47,7 +60,7 @@ namespace ParkInspect.ViewModel
                 RaisePropertyChanged();
             }
         }
-        private DateTime? _endDate;
+
         public DateTime? EndDate
         {
             get
@@ -66,55 +79,86 @@ namespace ParkInspect.ViewModel
         public IEnumerable<string> Functions { get; set; }
         public IEnumerable<string> Locations { get; set; }
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
+        public ObservableCollection<CommissionViewModel> Commissions { get; set; }
         public ObservableCollection<QuestionItemViewModel> Questions { get; set; }
-        public IEnumerable<EmployeeViewModel> Inspectors { get; set; }
-        public IEnumerable<EmployeeViewModel> Managers { get; set; }
-        
-        public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust, IRegionRepository region,
+        public ObservableCollection<EmployeeViewModel> Employees { get; set; }
+        public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
+        public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
+
+        public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
             IEmployeeRepository emp, IQuestionListRepository ques)
         {
-            _managementRapportenRepository = repo;
+            _commissionRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
             _questionListRepository = ques;
             _regionRepository = region;
-            Inspectors = _employeeRepository.GetByFunction("Inspecteur");
-            Managers   = _employeeRepository.GetByFunction("Manager");
+            Employees = _employeeRepository.GetAll();
             Functions  = _employeeRepository.GetFunctions();
+            Commissions = _commissionRepository.GetAll();
             Customers  = _customerRepository.GetAll();
             Locations  = _regionRepository.GetAll();
             Questions = _questionListRepository.GetAllQuestionItems();
+            Statuses = _commissionRepository.GetStatuses();
 
            
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
-            ComboBox1List = new List<string>();
+            Options = new List<string>();
             
         }
 
         private void GenerateDiagram()
         {
+            if(SelectedOption == null || SelectedDiagram == null) return;
+
             if (SelectedDiagram.Name.Equals("Cirkeldiagram"))
             {
                 if (SelectedOption.Equals("Verdeling van de functies van de werknemers"))
                 {
-                    PieChart = new PieChartViewModel(new DummyEmployeesRepository(), SelectedRegion);
+                    PieChart = new PieChartViewModel(Employees, Functions, SelectedRegion);
+                    CurrentGraph = PieChart;
                 }
                 if (SelectedOption.Equals("Verdeling van de status van de opdrachten"))
                 {
-                    PieChart = new PieChartViewModel(new DummyCommissionRepository(), StartDate, EndDate, SelectedCustomer);
+                    PieChart = new PieChartViewModel(Commissions, _commissionRepository.GetStatuses(), StartDate, EndDate, SelectedCustomer);
+                    CurrentGraph = PieChart;
                 }
                 if (
                     SelectedOption.Equals(
                         "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
                 {
-                    PieChart = new PieChartViewModel(new DummyQuestionListRepository(), SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                    PieChart = new PieChartViewModel(Questions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                    CurrentGraph = PieChart;
                 }
 
             }
-            RaisePropertyChanged();
+
+            if (SelectedDiagram.Name.Equals("Staafdiagram"))
+            {
+                if (SelectedOption.Equals("Aantal inspecties per inspecteur"))
+                {
+                    //insert right constructor
+                }
+
+                else if (SelectedOption.Equals("Aantal inspecties per klant"))
+                {
+                    //insert right constructor
+                }
+
+                else if (SelectedOption.Equals("Aantal opdrachten per manager"))
+                {
+                    BarGraph = new BarGraphViewModel(Commissions, Managers, StartDate, EndDate, SelectedStatus, SelectedManager);
+                    CurrentGraph = BarGraph;
+                }
+                else if (SelectedOption.Equals("Aantal opdrachten per klant"))
+                {
+                    BarGraph = new BarGraphViewModel(Commissions, Customers, StartDate, EndDate, SelectedStatus, SelectedCustomer);
+                    CurrentGraph = BarGraph;
+                }
+            }
         }
 
         private void SetVisibilities()
@@ -129,7 +173,7 @@ namespace ParkInspect.ViewModel
             Antwoord = false;
             Status = false;
             if (SelectedOption == null) return;
-            foreach (Filter s in SelectedDiagram.Options[SelectedOption])
+            foreach (var s in SelectedDiagram.Options[SelectedOption])
                 switch (s)
                 {
                     case Filter.Tijdsperiode:
@@ -271,16 +315,16 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedDiagram = DiagramFactory.GetDiagram(value.Name);
-                ComboBox1List = _selectedDiagram.Options.Keys.ToList();
+                Options = _selectedDiagram.Options.Keys.ToList();
             }
         }
 
-        public List<string> ComboBox1List
+        public List<string> Options
         {
-            get { return _comboBox1List; }
+            get { return _options; }
             set
             {
-                _comboBox1List = value;
+                _options = value;
                 RaisePropertyChanged();
             }
         }

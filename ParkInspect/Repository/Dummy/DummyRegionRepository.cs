@@ -5,7 +5,7 @@ namespace ParkInspect.Repository.Dummy
 {
     public class DummyRegionRepository : IRegionRepository
     {
-        private ObservableCollection<string> _regions;
+        private readonly ObservableCollection<string> _regions;
         public DummyRegionRepository()
         {
             _regions = new ObservableCollection<string>
