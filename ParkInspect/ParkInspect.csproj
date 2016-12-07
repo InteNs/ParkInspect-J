@@ -261,11 +261,11 @@
     <Compile Include="View\TimeLineView.xaml.cs">
       <DependentUpon>TimeLineView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\AddInspectionView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\AddEmployeeView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="View\AuthenticationView.xaml">
+    <Page Include="View\AddInspectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
