@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.ViewModel
 {
-    public interface IInspectionsRepository
+  public class LineChartViewModel : MainViewModel
     {
     }
 }

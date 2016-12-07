@@ -3,7 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:oxy="http://oxyplot.org/wpf"
+             
              xmlns:local="clr-namespace:ParkInspect.View"
+           
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              Foreground="Black"
@@ -46,11 +49,11 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <CheckBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxDatum"/>
+                <CheckBox Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxDatum" IsChecked="{Binding DateSelected}"/>
                 <TextBlock Grid.Row="0" Grid.Column="1"  Text="Startdatum"/>
-                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding StartDate,Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" IsEnabledChanged="DatePicked_OnIsEnabledChanged"/>
+                <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding StartDate,Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}"/>
                 <TextBlock Grid.Row="0" Text="Einddatum" Grid.Column="2"/>
-                <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" IsEnabledChanged="DatePicked_OnIsEnabledChanged"/>
+                <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}"/>
             </Grid>
             <Grid Visibility="{Binding Locatie, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -136,12 +139,15 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxVraag"/>
                 <TextBlock Grid.Column="1" Text="Antwoord op vraag:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" ItemsSource="{Binding Questions}" DisplayMemberPath="Description" SelectedValue="{Binding SelectedQuestion}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" ItemsSource="{Binding Questions}" DisplayMemberPath="QuestionDescription" SelectedValue="{Binding SelectedQuestion}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
                 <TextBox Grid.Column="3" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" Text="{Binding SelectedAnswer}" IsEnabledChanged="TextBox_OnIsEnabledChanged"/>
             </Grid>
-            <Button Content="Genereer diagram"  Width="150" HorizontalAlignment="Left"/>
+            <Button Content="Genereer diagram" Command="{Binding GenerateDiagramCommand}"  Width="150" HorizontalAlignment="Left"/>
         </StackPanel>
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" HorizontalAlignment="Left" Height="370"  VerticalAlignment="Top" Width="5" />
-        <GroupBox Header="Diagram" Height="200" Grid.Column="1" Margin="5,10,5,160"/>
+        <GroupBox Header="Diagram" Height="200" Grid.Column="1" Margin="10,0,0,100">
+            <oxy:PlotView Model="{Binding PieChart.pieChart}"/>
+        </GroupBox>
+        
     </Grid>
 </UserControl>

@@ -2,11 +2,13 @@
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using ParkInspect.Repositories;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 using ParkInspect.View;
 
@@ -68,28 +70,24 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged();
             }
         }
-        public List<CustomerViewModel> CustomerList { get; set; }
+        public ObservableCollection<CustomerViewModel> CustomerList { get; set; }
         
 
         private CommissionViewModel Commission { get; set; }
 
         public ICommand AddCommissionCommand { get; set; }
 
-        private ICommissionRepository _icr;
+        private ICommissionRepository _commissionRepository;
         private CommissionOverviewViewModel _cvm;
 
-        public List<string> RegionList { get; set; }
+        public ObservableCollection<string> RegionList { get; set; }
 
-        public AddCommissionViewModel(ICommissionRepository icr, IRouterService router, CommissionOverviewViewModel cvm) : base(router)
+        public AddCommissionViewModel(ICommissionRepository commissionRepository, ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router, CommissionOverviewViewModel cvm) : base(router)
         {
-            _icr = icr;
+            _commissionRepository = commissionRepository;
             _cvm = cvm;
-            CustomerList = new List<CustomerViewModel>();
-            foreach (var customer in _icr.GetCustomers())
-            {
-                CustomerList.Add(customer);
-            }
-            RegionList = _icr.GetRegions().ToList();
+            CustomerList = customerRepository.GetAll();
+            RegionList = regionRepository.GetAll();
             
             AddCommissionCommand = new RelayCommand(AddCommission, CanAddCommission);
         }
@@ -110,16 +108,15 @@ namespace ParkInspect.ViewModel
 
         public void AddCommission()
         {
-            var locationId = _icr.GetLocationViewModels().ToList().Count;
+            var locationId = _commissionRepository.GetLocationViewModels().ToList().Count;
 
             if (ValidateInput())
             {
-                _icr.CreateLocation(new LocationViewModel(locationId, ZipCode, StreetNumber, SelectedRegion));
-                Commission = new CommissionViewModel(_icr.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, SelectedRegion, SelectedCustomer.Name);
-                if (_icr.Create(Commission))
+                _commissionRepository.CreateLocation(new LocationViewModel(locationId, ZipCode, StreetNumber, SelectedRegion));
+                Commission = new CommissionViewModel(_commissionRepository.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, SelectedRegion, SelectedCustomer.Name, "Nieuw");
+                if (_commissionRepository.Create(Commission))
                 {
-                    _cvm.CommissionList.Add(Commission);
-                    RouterService.SetView("commissions-overview");
+                    RouterService.SetPreviousView();
                 }
             }
             else

@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.ViewModel;
 using System.Security.Cryptography;
+using System.Text;
+using ParkInspect.Repository.Interface;
+using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.Repository.Dummy
 {
     public class DummyAuthenticationRepository : IAuthenticationRepository
     {

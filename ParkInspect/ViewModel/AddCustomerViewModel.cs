@@ -1,57 +1,29 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using ParkInspect.Repositories;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using GalaSoft.MvvmLight.Command;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
     public class AddCustomerViewModel : MainViewModel
     {
+        private readonly ICustomerRepository _customerRepository;
 
-        private string _selectedFunction;
-
-        public string SelectedFunction
-        {
-            get { return _selectedFunction; }
-            set
-            {
-                _selectedFunction = value;
-                base.RaisePropertyChanged();
-            }
-        }
-
-        public List<string> FunctionList { get; set; }
-
+        public ObservableCollection<string> FunctionList { get; set; }
         public CustomerViewModel Customer { get; set; }
-
         public ICommand AddCustomerCommand { get; set; }
 
-
-        private ICustomerRepository _ier;
-
-        private CustomersViewModel _cvm;
-
-        public AddCustomerViewModel(ICustomerRepository ier, IRouterService router, CustomersViewModel cvm) : base(router)
+        public AddCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm) : base(router)
         {
-            _ier = ier;
-            _cvm = cvm;
-
+            _customerRepository = customerRepository;
             Customer = new CustomerViewModel();
-
-            FunctionList = new List<string> {"Klant"};
+            FunctionList = customerRepository.GetFunctions();
 
             AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
         }
-
-
 
         private bool CanAddCustomer()
         {
@@ -61,35 +33,23 @@ namespace ParkInspect.ViewModel
 
         private bool ValidateInput()
         {
-            //TODO: Check if all fields have the right content
-            bool validate = false;
-
             //check if all fields are filled in
-            if (_selectedFunction == null || Customer.Name == null || Customer.ZipCode == null ||
+            if (Customer.Function == null || Customer.Name == null || Customer.ZipCode == null ||
                 Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null)
             {
-                return validate;
+                return false;
             }
 
             //Name can not contain a number
-            if (this.Customer.Name.Any(c => char.IsDigit(c)))
-            { 
-                return validate;
-            }
-
-
-            return true;
+            return !Customer.Name.Any(char.IsDigit);
         }
 
         private void AddCustomer()
         {
-            //Customer.Region.Name = SelectedRegion;
-            //Customer.Function.Name = SelectedFunction;
-            if (this.ValidateInput())
+            if (ValidateInput())
             {
-                if (_ier.Create(Customer))
+                if (_customerRepository.Add(Customer))
                 {
-                    _cvm.Customers.Add(Customer);
                     RouterService.SetPreviousView();
                 }
             }

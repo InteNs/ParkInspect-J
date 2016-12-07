@@ -10,6 +10,7 @@ using ParkInspect.Enumeration;
 using ParkInspect.Repositories;
 using ParkInspect.ViewModel;
 using GalaSoft.MvvmLight.Command;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.Service
 {

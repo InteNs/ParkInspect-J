@@ -36,10 +36,5 @@ namespace ParkInspect.View
             TextBox tb = (TextBox)sender;
             tb.Text = null;
         }
-        private void DatePicked_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            DatePicker dp = (DatePicker)sender;
-            dp.SelectedDate = !dp.IsEnabled ? new DateTime(2001, 01, 01) : DateTime.Now;
-        }
     }
 }
