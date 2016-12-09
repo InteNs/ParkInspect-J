@@ -25,8 +25,9 @@ namespace ParkInspect.Repository.Dummy
             
             using (StreamWriter file = new StreamWriter(loginFile, true))
             {
-                file.WriteLine("admin;"+HashString("password")+";1;1");
-                file.WriteLine("henk;" + HashString("kees") + ";2;2");
+                file.WriteLine("admin;"+HashString("password")+";1;1;manager");
+                file.WriteLine("henk;" + HashString("kees") + ";2;2;inspecteur");
+                file.WriteLine("Dikke;" + HashString("teur") + ";3;3;directeur");
                 file.Close();
             }
 

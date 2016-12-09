@@ -19,7 +19,7 @@ namespace ParkInspect.Service
         public ICommand LogInCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
         public string UserName { get; set; }
-
+        private EmployeeViewModel employee;
         private IAuthenticationRepository _repo;
         public  AuthenticationViewModel User { get; set; }
         private IRouterService _router;
@@ -42,8 +42,23 @@ namespace ParkInspect.Service
                 User.UserId = Convert.ToInt32(user[2]);
                 User.EmployeeId = Convert.ToInt32(user[3]);
                 User.Username = user[0];
-                _router.SetView("dashboard-manager");
 
+                // TODO: Hier de employee ophalen uit de DB ipv handmatig vullen!
+                employee = new EmployeeViewModel() {Function = user[4]};
+
+                switch (CurrentFunction())
+                {
+                    case "inspecteur":
+                        _router.SetView("dashboard-inspecteur");
+                        break;
+                    case "manager":
+                        _router.SetView("dashboard-manager");
+                        break;
+                    default:
+                        MessageBox.Show("Uw functie heeft geen werkomgeving! Neem contact op met de systeembeheerder.","Probleem opgetreden",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        break;
+                }
+                
                 return;
             }
             MessageBox.Show("Foute inloggegevens!");
@@ -63,14 +78,14 @@ namespace ParkInspect.Service
         }
 
 
-        public Function CurrentFunction()
+        public string CurrentFunction()
         {
-            throw new NotImplementedException();
+            return employee.Function;
         }
 
         public EmployeeViewModel CurrentEmployee()
         {
-            throw new NotImplementedException();
+            return employee;
         }
     }
 }
