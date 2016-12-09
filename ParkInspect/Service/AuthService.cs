@@ -21,13 +21,15 @@ namespace ParkInspect.Service
         public string UserName { get; set; }
         private EmployeeViewModel employee;
         private IAuthenticationRepository _repo;
+        private IEmployeeRepository _employeeRepository;
         public  AuthenticationViewModel User { get; set; }
         private IRouterService _router;
 
-        public AuthService(IAuthenticationRepository repo, IRouterService router)
+        public AuthService(IAuthenticationRepository repo, IRouterService router, IEmployeeRepository employeeRepository)
         {
             _repo = repo;
             _router = router;
+            _employeeRepository = employeeRepository;
             User = new AuthenticationViewModel();
             LogInCommand = new RelayCommand<PasswordBox>(Login);
             LogOutCommand = new RelayCommand(Logout);
@@ -43,10 +45,9 @@ namespace ParkInspect.Service
                 User.EmployeeId = Convert.ToInt32(user[3]);
                 User.Username = user[0];
 
-                // TODO: Hier de employee ophalen uit de DB ipv handmatig vullen!
-                employee = new EmployeeViewModel() {Function = user[4]};
+                employee = _employeeRepository.GetAll().Where(e => e.Id == User.EmployeeId).FirstOrDefault();
 
-                switch (CurrentFunction())
+                switch (CurrentFunction().ToLower())
                 {
                     case "inspecteur":
                         _router.SetView("dashboard-inspecteur");
@@ -58,7 +59,7 @@ namespace ParkInspect.Service
                         MessageBox.Show("Uw functie heeft geen werkomgeving! Neem contact op met de systeembeheerder.","Probleem opgetreden",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
                         break;
                 }
-                
+                _router.ClearPreviousStack();
                 return;
             }
             MessageBox.Show("Foute inloggegevens!");
