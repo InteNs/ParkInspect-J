@@ -162,7 +162,7 @@ namespace ParkInspect.ViewModel
             }
 
             
-                if (SelectedDiagram.Name.Equals("Grafiek"))
+                if (SelectedDiagram.Name.Equals("Lijndiagram"))
                 {
                     if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per dag"))
                     {
@@ -186,18 +186,18 @@ namespace ParkInspect.ViewModel
                     }
                     if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per week"))
                     {
-                        LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer);
+                        LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "week");
                         CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per maand"))
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                    LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "maand");
+                    CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per jaar"))
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                    LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "jaar");
+                    CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per maand"))
                     {
