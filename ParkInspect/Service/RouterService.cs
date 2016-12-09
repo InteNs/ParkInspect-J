@@ -36,7 +36,7 @@ namespace ParkInspect.Service
                 { "employees-add", typeof(AddEmployeeView) },
                 { "employees-edit", typeof(EditEmployeeView) },
                 { "management-view", typeof(ManagementView) },
-                { "authentication", typeof(AuthenticationView) },
+                { "authentication", typeof(AuthView) },
                 { "questions-list", typeof(QuestionsView) },
                 { "templates-list", typeof(TemplatesView) },
                 { "customers-list", typeof(CustomersView) },
@@ -66,6 +66,11 @@ namespace ParkInspect.Service
         {
             if (!(_previousViews?.Count > 0)) return;
             CurrentView = _previousViews.Pop();
+        }
+
+        public void ClearPreviousStack()
+        {
+            _previousViews.Clear();
         }
 
         private class ViewNotRegisteredException : Exception

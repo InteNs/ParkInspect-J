@@ -42,7 +42,7 @@ namespace ParkInspect.Repository.Dummy
                 if (data[0] == username && data[1] == HashString(password))
                 {
                     file.Close();
-                    return data; //{ EmployeeId = Convert.ToInt32(data[3]), UserId = Convert.ToInt32(data[2]), Username = data[0] };
+                    return data;
                 }
             }
 
@@ -51,15 +51,16 @@ namespace ParkInspect.Repository.Dummy
             return null;
         }
 
-        public AuthenticationViewModel Logout(AuthenticationViewModel user)
+        public void Logout(AuthenticationViewModel user)
         {
-            user = null;
-            return user;
+            user.UserId = 0;
+            user.EmployeeId = 0;
+            user.Username = "";
         }
 
         public bool IsLoggedIn(AuthenticationViewModel user)
         {
-            return (user != null);
+            return (user.Username != "" && user.UserId != 0);
         }
 
         private string HashString(string content)
