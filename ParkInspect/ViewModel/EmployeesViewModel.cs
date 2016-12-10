@@ -53,7 +53,7 @@ namespace ParkInspect.ViewModel
         private async void DismissEmployee()
         {
             var dialog = new MetroDialogService();
-            await dialog.Show("Werknemer non-actief zetten",
+            await dialog.ShowConfirmative("Werknemer non-actief zetten",
                 "Weet u zeker dat u " + SelectedEmployee.Name + " op non-actief wilt zetten?");
 
             if (dialog.IsAffirmative)

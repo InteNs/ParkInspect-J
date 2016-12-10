@@ -14,11 +14,25 @@ namespace ParkInspect.Service
         private readonly Stack<UserControl> _previousViews;
         private readonly IDictionary<string, Type> _views;
         private UserControl _currentView;
+        private bool _isLoggedIn;
+        private string _currentDashboard;
+
+        public bool IsLoggedIn
+        {
+            get { return _isLoggedIn; }
+            set { _isLoggedIn = value; RaisePropertyChanged("IsLoggedIn"); }
+        }
 
         public UserControl CurrentView
         {
             get { return _currentView; }
             set { _currentView = value; RaisePropertyChanged(); }
+        }
+
+        public string CurrentDashboard
+        {
+            get { return _currentDashboard; }
+            set { _currentDashboard = value; RaisePropertyChanged("CurrentDashboard"); }
         }
 
         public ICommand RouteCommand { get; set; }
@@ -27,6 +41,7 @@ namespace ParkInspect.Service
 
         public RouterService()
         {
+            IsLoggedIn = false;
             RouteCommand = new RelayCommand<string>(SetView);
             RouteBackCommand = new RelayCommand(SetPreviousView);
             _views = new Dictionary<string, Type>
@@ -60,6 +75,8 @@ namespace ParkInspect.Service
 
             _previousViews?.Push(CurrentView);
             CurrentView = (UserControl)Activator.CreateInstance(_views[viewName]);
+
+            IsLoggedIn = CurrentView.GetType() != typeof(AuthView);
         }
 
         public void SetPreviousView()
