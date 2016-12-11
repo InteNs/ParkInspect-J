@@ -7,6 +7,7 @@
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
+             Foreground="Black"
              DataContext="{Binding AuthService,Source={StaticResource Locator}}">
     <UserControl.Resources>
         <Style x:Key="DefaultLabelStyle" TargetType="Label">
@@ -34,7 +35,7 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="#FF008CFF">
+          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Inloggen" />
             </Viewbox>
@@ -44,12 +45,6 @@
               Grid.Column="1"
                 Grid.ColumnSpan="4"
               >
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                    <GradientStop Color="#FF2B2B2B" Offset="-1"/>
-                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.25*" />
@@ -73,9 +68,9 @@
                        Grid.ColumnSpan="2"
                         >
                 <Viewbox>
-                    <Label   Content="Gebruikersnaam: " />
+                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Gebruikersnaam: " />
                 </Viewbox>
-                <TextBox FontSize="20" Text="{Binding UserName}" VerticalAlignment="Center" />
+                <TextBox FontSize="20" Text="{Binding UserName}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -83,12 +78,12 @@
                        Grid.ColumnSpan="2"
                         >
                 <Viewbox>
-                    <Label  Content="Wachtwoord: " />
+                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Wachtwoord: " />
                 </Viewbox>
-                <PasswordBox PasswordChar="*" Name="PasswordContent" FontSize="20" VerticalAlignment="Center" />
+                <PasswordBox PasswordChar="*" Name="PasswordContent" FontSize="20" HorizontalContentAlignment="Center" />
             </DockPanel>
 
-            <Button Grid.Column="2" Grid.Row="5" Command="{Binding LogInCommand}" CommandParameter="{Binding ElementName=PasswordContent }" Content="Inloggen" FontSize="30" />
+            <Button Grid.Column="2" Grid.Row="5" Command="{Binding LogInCommand}" CommandParameter="{Binding ElementName=PasswordContent }" Content="Inloggen" FontSize="17.5" />
 
         </Grid>
     </Grid>

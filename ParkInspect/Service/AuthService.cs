@@ -11,6 +11,7 @@ using ParkInspect.Repositories;
 using ParkInspect.ViewModel;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Repository.Interface;
+using ParkInspect.Helper;
 
 namespace ParkInspect.Service
 {
@@ -39,6 +40,7 @@ namespace ParkInspect.Service
         public void Login(PasswordBox password)
         {
             string[] user = _repo.Login(UserName, password.Password);
+            var dialog = new MetroDialogService();
             if (user != null)
             {
                 User.UserId = Convert.ToInt32(user[2]);
@@ -47,22 +49,33 @@ namespace ParkInspect.Service
 
                 employee = _employeeRepository.GetAll().Where(e => e.Id == User.EmployeeId).FirstOrDefault();
 
+                var dashboardName = "";
+
                 switch (CurrentFunction().ToLower())
                 {
                     case "inspecteur":
-                        _router.SetView("dashboard-inspecteur");
+                        dashboardName = "dashboard-inspecteur";
                         break;
                     case "manager":
-                        _router.SetView("dashboard-manager");
+                        dashboardName = "dashboard-manager";
                         break;
                     default:
-                        MessageBox.Show("Uw functie heeft geen werkomgeving! Neem contact op met de systeembeheerder.","Probleem opgetreden",MessageBoxButtons.OK,MessageBoxIcon.Exclamation);
+                        dialog.ShowMessage("Probleem opgetreden",
+                            "Uw functie heeft geen werkomgeving! Neem contact op met de systeembeheerder.");
                         break;
                 }
+
+                if (dashboardName != string.Empty)
+                {
+                    _router.SetView(dashboardName);
+                    _router.CurrentDashboard = dashboardName;
+                }
+
                 _router.ClearPreviousStack();
                 return;
             }
-            MessageBox.Show("Foute inloggegevens!");
+            dialog.ShowMessage("Foute inloggegevens",
+                "De inloggegevens zijn verkeerd ingevoerd.");
         }
 
         public void Logout()
