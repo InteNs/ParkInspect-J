@@ -58,7 +58,9 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<QuestionListsviewModel>();
             SimpleIoc.Default.Register<TemplatesViewModel>();
             SimpleIoc.Default.Register<InspectionsViewModel>();
+            SimpleIoc.Default.Register<AddInspectionViewModel>();
             SimpleIoc.Default.Register<TimeLineViewModel>();
+            SimpleIoc.Default.Register<EmployeeInspectionsViewModel>();
         }
         //Services
         public IRouterService RouterService => ServiceLocator.Current.GetInstance<IRouterService>();
@@ -85,6 +87,7 @@ namespace ParkInspect.ViewModel
         public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
         public AddInspectionViewModel AddInspection => NewInstance<AddInspectionViewModel>(ref _addInspectionKey);
         public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
+        public EmployeeInspectionsViewModel EmployeeInspections => NewInstance<EmployeeInspectionsViewModel>(ref _addEmployeeInspectionsKey);
 
         public static void Cleanup()
         {
@@ -96,6 +99,7 @@ namespace ParkInspect.ViewModel
         private string _addCustomerKey = "1";
         private string _editCustomerKey = "1";
         private string _addInspectionKey = "1";
+        private string _addEmployeeInspectionsKey = "1";
 
         private static T NewInstance<T>(ref string key) where T : class
         {

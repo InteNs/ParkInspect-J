@@ -10,24 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MahApps.Metro.Controls;
 
 namespace ParkInspect.View
 {
     /// <summary>
-    /// Interaction logic for InspectionsView.xaml
+    /// Interaction logic for InspectionsWindow.xaml
     /// </summary>
-    public partial class InspectionsView : UserControl
+    public partial class EmployeeInspectionsWindow : MetroWindow
     {
-        public InspectionsView()
+        public EmployeeInspectionsWindow()
         {
             InitializeComponent();
-        }
-
-        private void AddInspecteur_Click(object sender, RoutedEventArgs e)
-        {
-            //Add inspecteur to inspection
         }
     }
 }

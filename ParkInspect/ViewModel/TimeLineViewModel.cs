@@ -13,6 +13,7 @@ namespace ParkInspect.ViewModel
         private List<DateTime> week;
         private ICommissionRepository _icr;
         private IEmployeeRepository _ier;
+        private TimeLineItemViewModel _selectedTimeLineItem;
         public TimeLineViewModel(IRouterService router, ICommissionRepository icr, IEmployeeRepository ier) : base(router)
         {
             _icr = icr;
@@ -46,6 +47,12 @@ namespace ParkInspect.ViewModel
 
             NextWeekCommand = new RelayCommand(NextWeek);
             PreviousWeekCommand = new RelayCommand(PreviousWeek);
+        }
+
+        public TimeLineItemViewModel SelectedTimeLineItem
+        {
+            get { return _selectedTimeLineItem;}
+            set { _selectedTimeLineItem = value; RaisePropertyChanged("SelectedTimeLineItem"); }
         }
         public ICommand NextWeekCommand { get; set; }
         public ICommand PreviousWeekCommand { get; set; }
