@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
         
         <DataGrid GridLinesVisibility="None"
-                          Background="White" Foreground="Black" FontSize="12" AutoGenerateColumns="False"
+                          Background="White" Foreground="Black" FontSize="12" AutoGenerateColumns="False" MouseDoubleClick="DataGrid_MouseDoubleClick"
                           IsReadOnly="True" ItemsSource="{Binding TimeLineItems, Mode=TwoWay}" Grid.ColumnSpan="3" Grid.Row="3">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="0.1*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
