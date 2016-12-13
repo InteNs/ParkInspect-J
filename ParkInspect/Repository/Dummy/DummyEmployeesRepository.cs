@@ -19,7 +19,7 @@ namespace ParkInspect.Repository.Dummy
                     Id = 1,
                     Name = "Pim Westervoort",
                     Region = "Brabant",
-                    Function = "Inspecteur",
+                    Function = "Manager",
                     Email = "pim.west@hotmail.com"
                 },
                 new EmployeeViewModel
