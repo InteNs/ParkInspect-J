@@ -201,13 +201,13 @@ namespace ParkInspect.ViewModel
                     }
                     if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per maand"))
                     {
-                        //insert right constructor
+                        LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "maand");
                         CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per jaar"))
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                    LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "jaar");
+                    CurrentGraph = LineChart;
                     }
                 }
             RaisePropertyChanged("");

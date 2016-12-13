@@ -28,13 +28,13 @@ namespace ParkInspect.ViewModel
             PlotModel model = new PlotModel();
             dynamic series1 = new LineSeries();
             dynamic series2 = new LineSeries();
-            
+
 
             _timeRange = new List<DateTime>();
 
             if (cuvm != null)
             {
-                
+
                 _commissions.RemoveAll(co => co.Customer.Id != cuvm.Id);
             }
 
@@ -42,7 +42,7 @@ namespace ParkInspect.ViewModel
             {
                 DateTime start = (DateTime) startTime;
                 DateTime end = (DateTime) endTime;
-               
+
                 if (interval.Equals("week"))
                 {
                     model.Axes.Add(new DateTimeAxis
@@ -67,7 +67,7 @@ namespace ParkInspect.ViewModel
                         }
                     }
 
-                    
+
                 }
                 if (interval.Equals("maand"))
                 {
@@ -102,7 +102,7 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Years,
                         StringFormat = "yyyy"
                     });
-                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
                         _timeRange.Add(dt);
@@ -119,7 +119,7 @@ namespace ParkInspect.ViewModel
                     }
                 }
             }
-           
+
 
 
 
@@ -172,7 +172,7 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Months,
                         StringFormat = "MMM"
                     });
-                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
                     for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
                     {
                         _timeRange.Add(dt);
@@ -196,7 +196,7 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Years,
                         StringFormat = "yyyy"
                     });
-                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
                         _timeRange.Add(dt);
@@ -214,16 +214,17 @@ namespace ParkInspect.ViewModel
                 }
             }
 
-          
+
             series1.Title = "Aangemaakt";
             series2.Title = "Afgerond";
             model.Series.Add(series1);
             model.Series.Add(series2);
             KPIModel = model;
 
-            }
+        }
 
-        public LineChartViewModel(IEnumerable<EmployeeViewModel> employees, DateTime? startTime, DateTime? endTime, string functionFilter,
+        public LineChartViewModel(IEnumerable<EmployeeViewModel> employees, DateTime? startTime, DateTime? endTime,
+            string functionFilter,
             string regionFilter, string interval)
         {
             _employees = employees.ToList();
@@ -245,10 +246,142 @@ namespace ParkInspect.ViewModel
                 _employees.RemoveAll(evm => !evm.Function.Equals(functionFilter));
             }
 
+            if (startTime != null && endTime != null)
+            {
+                DateTime start = (DateTime) startTime;
+                DateTime end = (DateTime) endTime;
 
+
+                //line for maand
+                if (interval.Equals("maand"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Months,
+                        StringFormat = "MMM"
+                    });
+                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                       
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddMonths(1))));
+
+                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddMonths(1))));
+                        
+                    }
+                }
+                //line voor jaar
+                if (interval.Equals("jaar"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Years,
+                        StringFormat = "yyyy"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddYears(1))));
+                       
+                                series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                    _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddYears(1))));
+                            
+                        }
+}
+                    
+                
+            }
+
+
+            if (startTime == null && endTime == null)
+            {
+                DateTime start = DateTime.Now;
+                DateTime end = DateTime.Now;
+                foreach (EmployeeViewModel evm in _employees)
+                {
+                    if (evm.EmploymentDate < start)
+                    {
+                        start = evm.EmploymentDate;
+                    }
+                    if (evm.DismissalDate > end && evm.DismissalDate != null)
+                    {
+                        end = (DateTime) evm.DismissalDate;
+                    }
+                }
+
+                //line for maand
+                if (interval.Equals("maand"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Months,
+                        StringFormat = "MMM"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                       
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddMonths(1))));
+                       
+                                series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                    _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddMonths(1))));
+                        
+                    }
+                }
+                if (interval.Equals("jaar"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Years,
+                        StringFormat = "yyyy"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddYears(1))));
+                       
+                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddYears(1))));
+                        
+                    }
+                }
+            }
+
+            series1.Title = "Aangenomen";
+            series2.Title = "Ontslagen";
+            model.Series.Add(series1);
+            model.Series.Add(series2);
+            KPIModel = model;
         }
-    }
 
-    
+
+    }
 }
 

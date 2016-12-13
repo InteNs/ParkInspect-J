@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ParkInspect.Repository.Interface;
@@ -20,7 +21,9 @@ namespace ParkInspect.Repository.Dummy
                     Name = "Pim Westervoort",
                     Region = "Brabant",
                     Function = "Inspecteur",
-                    Email = "pim.west@hotmail.com"
+                    Email = "pim.west@hotmail.com",
+                    EmploymentDate = new DateTime(2015, 03, 18),
+                    DismissalDate = new DateTime(2016, 12, 12)
                 },
                 new EmployeeViewModel
                 {
@@ -28,7 +31,8 @@ namespace ParkInspect.Repository.Dummy
                     Name = "Edward van Lieshout",
                     Region = "Brabant",
                     Function = "Inspecteur",
-                    Email = "eddie.hout@gmail.com"
+                    Email = "eddie.hout@gmail.com",
+                    EmploymentDate = new DateTime(2014, 03, 18)
                 },
                 new EmployeeViewModel
                 {
@@ -36,7 +40,8 @@ namespace ParkInspect.Repository.Dummy
                     Name = "Mark Havekes",
                     Region = "Utrecht",
                     Function = "Inspecteur",
-                    Email = "mark.havekes@gmail.com"
+                    Email = "mark.havekes@gmail.com",
+                    EmploymentDate = new DateTime(2016, 06, 12)
                 },
                 new EmployeeViewModel
                 {
@@ -44,7 +49,8 @@ namespace ParkInspect.Repository.Dummy
                     Name = "Pim Pam Pet",
                     Region = "Limburg",
                     Function = "Inspecteur",
-                    Email = "pimpampet@hetnet.net"
+                    Email = "pimpampet@hetnet.net",
+                    EmploymentDate = new DateTime(2011, 01, 20)
                 },
                 new EmployeeViewModel
                 {
@@ -52,7 +58,8 @@ namespace ParkInspect.Repository.Dummy
                     Name = "Mathijs van Bree",
                     Region = "Limburg",
                     Function = "Directeur",
-                    Email = "mattie@msn.com"
+                    Email = "mattie@msn.com",
+                    EmploymentDate = new DateTime(2015, 07, 28)
                 }
             };
 
