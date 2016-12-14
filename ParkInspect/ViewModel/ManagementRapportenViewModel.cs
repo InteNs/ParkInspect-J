@@ -17,6 +17,7 @@ namespace ParkInspect.ViewModel
         private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
         private string _selectedOption;
         public IDiagram _selectedDiagram;
+        private readonly IMapsRepository _mapsRepository;
         private readonly IManagementRapportenRepository _managementRapportenRepository;
         private readonly IEmployeeRepository _employeeRepository;
         private readonly ICustomerRepository _customerRepository;
@@ -71,13 +72,14 @@ namespace ParkInspect.ViewModel
         public IEnumerable<EmployeeViewModel> Managers { get; set; }
         
         public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust, IRegionRepository region,
-            IEmployeeRepository emp, IQuestionListRepository ques)
+            IEmployeeRepository emp, IQuestionListRepository ques, IMapsRepository imaps)
         {
             _managementRapportenRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
             _questionListRepository = ques;
             _regionRepository = region;
+            _mapsRepository = imaps;
             Inspectors = _employeeRepository.GetByFunction("Inspecteur");
             Managers   = _employeeRepository.GetByFunction("Manager");
             Functions  = _employeeRepository.GetFunctions();

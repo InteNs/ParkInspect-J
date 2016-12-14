@@ -34,6 +34,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
             SimpleIoc.Default.Register<IQuestionListRepository, DummyQuestionListRepository>();
             SimpleIoc.Default.Register<IInspectionsRepository, DummyInspectionsRepository>();
+            SimpleIoc.Default.Register<IMapsRepository, DummyMapsRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<MainViewModel>();
@@ -86,6 +87,8 @@ namespace ParkInspect.ViewModel
         public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
         public AddInspectionViewModel AddInspection => NewInstance<AddInspectionViewModel>(ref _addInspectionKey);
         public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
+        public MapViewModel Map => ServiceLocator.Current.GetInstance<MapViewModel>();
+
 
         public static void Cleanup()
         {
