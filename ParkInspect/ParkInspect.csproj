@@ -177,6 +177,7 @@
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\BarGraphViewModel.cs" />
     <Compile Include="ViewModel\EditCustomerViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeInspectionsViewModel.cs" />
     <Compile Include="ViewModel\IGraphViewModel.cs" />
     <Compile Include="ViewModel\InspectionsViewModel.cs" />
     <Compile Include="ViewModel\InspectionViewModel.cs" />
@@ -229,6 +230,9 @@
     <Compile Include="View\AddEmployeeView.xaml.cs">
       <DependentUpon>AddEmployeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AuthView.xaml.cs">
+      <DependentUpon>AuthView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DashboardManagerView.xaml.cs">
       <DependentUpon>DashboardManagerView.xaml</DependentUpon>
     </Compile>
@@ -243,6 +247,9 @@
     </Compile>
     <Compile Include="View\InspectionsView.xaml.cs">
       <DependentUpon>InspectionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EmployeeInspectionsWindow.xaml.cs">
+      <DependentUpon>EmployeeInspectionsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\MainMenuInspecteurView.xaml.cs">
       <DependentUpon>MainMenuInspecteurView.xaml</DependentUpon>
@@ -259,17 +266,17 @@
     <Compile Include="View\TimeLineView.xaml.cs">
       <DependentUpon>TimeLineView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AddEmployeeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\AddInspectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AuthenticationView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\AuthView.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\AddEmployeeView.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\DashboardManagerView.xaml">
       <SubType>Designer</SubType>
@@ -304,6 +311,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\InspectionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EmployeeInspectionsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

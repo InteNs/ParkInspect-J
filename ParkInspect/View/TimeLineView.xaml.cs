@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using ParkInspect.ViewModel;
 
 namespace ParkInspect.View
 {
@@ -23,6 +25,15 @@ namespace ParkInspect.View
         public TimeLineView()
         {
             InitializeComponent();
+        }
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var grid = sender as DataGrid;
+
+            var timelineItem = (TimeLineItemViewModel) grid.SelectedValue;
+            ((TimeLineViewModel) DataContext).SelectedTimeLineItem = timelineItem;
+            new EmployeeInspectionsWindow().Show();
         }
     }
 }

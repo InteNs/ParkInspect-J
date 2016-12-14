@@ -20,7 +20,7 @@ namespace ParkInspect.Repository.Dummy
                     Id = 1,
                     Name = "Pim Westervoort",
                     Region = "Brabant",
-                    Function = "Inspecteur",
+                    Function = "Manager",
                     Email = "pim.west@hotmail.com",
                     EmploymentDate = new DateTime(2015, 03, 18),
                     DismissalDate = new DateTime(2016, 12, 12)
