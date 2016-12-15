@@ -1,5 +1,6 @@
 ﻿CREATE TABLE [dbo].[Location]
 (
+	[Id] INT NOT NULL,
 	[StreetNumber] INT NOT NULL,
 	[ZipCode] varchar(6) NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
@@ -8,8 +9,7 @@
 
 	CONSTRAINT [PK_Location] PRIMARY KEY CLUSTERED
 	(
-		ZipCode,
-		StreetNumber,
+		Id,
 		Guid
 	)
 

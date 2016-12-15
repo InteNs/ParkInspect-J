@@ -3,8 +3,8 @@
 	[Id] INT NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[Name] varchar(MAX),
-	[ZipCode] varchar(6),
-	[StreetNumber] varchar(5),
+	[LocationId] int NOT NULL,
+	[LocationGuid] uniqueidentifier NOT NULL,
 	[PhoneNumber] int,
 	[Email] varchar(20)
 
@@ -13,4 +13,6 @@
 		Id,
 		Guid
 	)
+
+	CONSTRAINT [FK_Person_Location] FOREIGN KEY (LocationId, LocationGuid) REFERENCES "Location" (Id, Guid)
 )
