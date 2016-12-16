@@ -8,7 +8,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{b29a5add-235e-44e6-af92-b9205456e92b}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql110DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -23,6 +23,7 @@
     <SqlServerVerification>False</SqlServerVerification>
     <IncludeCompositeObjects>True</IncludeCompositeObjects>
     <TargetDatabaseSet>True</TargetDatabaseSet>
+    <GenerateCreateScript>False</GenerateCreateScript>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -57,5 +58,20 @@
   <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
   <ItemGroup>
     <Folder Include="Properties" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Answer.sql" />
+    <Build Include="Commission.sql" />
+    <Build Include="Customer.sql" />
+    <Build Include="Employee.sql" />
+    <Build Include="Function.sql" />
+    <Build Include="Inspection.sql" />
+    <Build Include="Location.sql" />
+    <Build Include="Person.sql" />
+    <Build Include="Question.sql" />
+    <Build Include="QuestionItem.sql" />
+    <Build Include="QuestionList.sql" />
+    <Build Include="Region.sql" />
+    <Build Include="Workday.sql" />
   </ItemGroup>
 </Project>
