@@ -22,7 +22,7 @@ namespace ParkInspect.Repository.Dummy
                 {
                     Id = 1,
                     Frequency = 1,
-                    Customer = new CustomerViewModel() {Name = "Mark Havekes"},
+                    Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"},
                     Employee = new EmployeeViewModel() {Name = "Pim Westervoort"},
                     ZipCode = "8473LD",
                     StreetNumber = 42,
@@ -33,7 +33,7 @@ namespace ParkInspect.Repository.Dummy
                 {
                     Id = 2,
                     Frequency = 1,
-                    Customer = new CustomerViewModel() {Name = "Pim Westervoort"},
+                    Customer = new CustomerViewModel() {Id = 2, Name = "Pim Westervoort"},
                     Employee = new EmployeeViewModel() {Name = "Edward Lieshout"},
                     ZipCode = "8473LD",
                     StreetNumber = 42,

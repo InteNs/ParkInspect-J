@@ -26,6 +26,7 @@ namespace ParkInspect.ViewModel
 
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
+        public LineChartViewModel LineChart { get; set; }
 
         public IGraphViewModel CurrentGraph
         {
@@ -159,6 +160,57 @@ namespace ParkInspect.ViewModel
                     CurrentGraph = BarGraph;
                 }
             }
+
+            
+                if (SelectedDiagram.Name.Equals("Lijndiagram"))
+                {
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per dag"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per week"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per maand"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per jaar"))
+                    {
+                        //insert right constructor
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per week"))
+                    {
+                        LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "week");
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per maand"))
+                    {
+                    LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "maand");
+                    CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per jaar"))
+                    {
+                    LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "jaar");
+                    CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per maand"))
+                    {
+                        LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "maand");
+                        CurrentGraph = LineChart;
+                    }
+                    if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per jaar"))
+                    {
+                    LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "jaar");
+                    CurrentGraph = LineChart;
+                    }
+                }
+            RaisePropertyChanged("");
         }
 
         private void SetVisibilities()
@@ -204,6 +256,7 @@ namespace ParkInspect.ViewModel
                         Status = true;
                         break;
                 }
+
         }
 
         // Helper Classes
