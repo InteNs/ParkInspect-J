@@ -92,7 +92,7 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
 
-                <DataGrid GridLinesVisibility="None" 
+                <DataGrid GridLinesVisibility="None" MouseDoubleClick="DataGrid_MouseDoubleClick"
        FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" >
                     <DataGrid.ItemsSource>
                         <MultiBinding Converter="{StaticResource Converter}">

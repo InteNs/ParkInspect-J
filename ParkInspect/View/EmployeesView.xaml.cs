@@ -14,5 +14,11 @@ namespace ParkInspect.View
         {
             InitializeComponent();
         }
+
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var datacontext = ((EmployeesViewModel)DataContext);
+            datacontext.RouterService.SetView("employees-edit");
+        }
     }
 }

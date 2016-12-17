@@ -24,10 +24,5 @@ namespace ParkInspect.View
         {
             InitializeComponent();
         }
-
-        private void AddInspecteur_Click(object sender, RoutedEventArgs e)
-        {
-            //Add inspecteur to inspection
-        }
     }
 }
