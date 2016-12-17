@@ -82,33 +82,19 @@ namespace ParkInspect.ViewModel
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public ObservableCollection<CommissionViewModel> Commissions { get; set; }
         public ObservableCollection<QuestionItemViewModel> Questions { get; set; }
-<<<<<<< HEAD
-        public IEnumerable<EmployeeViewModel> Inspectors { get; set; }
-        public IEnumerable<EmployeeViewModel> Managers { get; set; }
-        
-        public ManagementRapportenViewModel(IManagementRapportenRepository repo, ICustomerRepository cust, IRegionRepository region,
-            IEmployeeRepository emp, IQuestionListRepository ques, IMapsRepository imaps)
-=======
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
         public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
 
         public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
             IEmployeeRepository emp, IQuestionListRepository ques)
->>>>>>> development
         {
             _commissionRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
             _questionListRepository = ques;
             _regionRepository = region;
-<<<<<<< HEAD
-            _mapsRepository = imaps;
-            Inspectors = _employeeRepository.GetByFunction("Inspecteur");
-            Managers   = _employeeRepository.GetByFunction("Manager");
-=======
             Employees = _employeeRepository.GetAll();
->>>>>>> development
             Functions  = _employeeRepository.GetFunctions();
             Commissions = _commissionRepository.GetAll();
             Customers  = _customerRepository.GetAll();
