@@ -13,7 +13,7 @@ namespace ParkInspect.DiagramModels
 
         public Grafiek()
         {
-            Name = "Grafiek";
+            Name = "Lijndiagram";
             List<Filter> list1 = new List<Filter>
             {
                 Filter.Tijdsperiode,

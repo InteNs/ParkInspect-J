@@ -13,6 +13,7 @@ namespace ParkInspect.ViewModel
         private List<DateTime> week;
         private ICommissionRepository _icr;
         private IEmployeeRepository _ier;
+        private TimeLineItemViewModel _selectedTimeLineItem;
         public TimeLineViewModel(IRouterService router, ICommissionRepository icr, IEmployeeRepository ier) : base(router)
         {
             _icr = icr;
@@ -47,6 +48,12 @@ namespace ParkInspect.ViewModel
             NextWeekCommand = new RelayCommand(NextWeek);
             PreviousWeekCommand = new RelayCommand(PreviousWeek);
         }
+
+        public TimeLineItemViewModel SelectedTimeLineItem
+        {
+            get { return _selectedTimeLineItem;}
+            set { _selectedTimeLineItem = value; RaisePropertyChanged("SelectedTimeLineItem"); }
+        }
         public ICommand NextWeekCommand { get; set; }
         public ICommand PreviousWeekCommand { get; set; }
         public ObservableCollection<TimeLineItemViewModel> TimeLineItems { get; set; }
@@ -69,7 +76,7 @@ namespace ParkInspect.ViewModel
                     string status = "Beschikbaar";
                     foreach(CommissionViewModel cvm in _icr.GetAll())
                     {
-                        if(cvm.EmployeeId == evm.Id && cvm.DateCreated < day && cvm.DateCompleted > day)
+                        if(cvm.Employee.Equals(evm) && cvm.DateCreated < day && cvm.DateCompleted > day)
                         {
                             status = "Opdracht " + cvm.Id;
                         }

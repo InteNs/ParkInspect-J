@@ -5,8 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:service="clr-namespace:ParkInspect.Service"
              xmlns:viewModel="clr-namespace:ParkInspect.ViewModel"
+             xmlns:view="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
+             Foreground="Black"
              DataContext="{Binding Commissions,Source={StaticResource Locator}}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -18,27 +20,14 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="0.01*"/>
-            <RowDefinition Height="0.15*"/>
-            <RowDefinition Height="0.01*"/>
             <RowDefinition Height="1*" />
             <RowDefinition Height="0.01*"/>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1"
-          Grid.Column="1" Height="63" VerticalAlignment="Bottom">
-            <Button Content="Terug" FontSize="23" />
-        </Grid>
-
-        <Grid Grid.Row="3"
               Grid.Column="1"
                 Grid.ColumnSpan="2"
               >
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                    <GradientStop Color="#FF2B2B2B" Offset="-1"/>
-                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="4*" />
@@ -70,7 +59,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="3">
-                <ComboBox SelectedValue="{Binding SelectedCommission}" ItemsSource="{Binding CommissionList}" DisplayMemberPath="Info" />
+                <ComboBox SelectedValue="{Binding SelectedCommission}" ItemsSource="{Binding Commissions}" DisplayMemberPath="Info" />
             </Grid>
 
             <Grid Grid.Row="1"
@@ -102,21 +91,10 @@
 
             <Grid Grid.Row="5"
                   Grid.Column="1"
-                  Grid.ColumnSpan="5">
+                  Grid.ColumnSpan="6">
 
-                <DataGrid GridLinesVisibility="None"
-                          Background="White" Foreground="Black" FontSize="15" AutoGenerateColumns="False"
-                          IsReadOnly="True" ItemsSource="{Binding ShowableEmployeeList, Mode=TwoWay}">
-                   
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="0.2*" />
-                        <DataGridTextColumn Header="Inspecteur" Binding="{Binding Name}" Width="*" />
-                        <DataGridTextColumn Header="Regio" Binding="{Binding Region}" Width="*" />
-                        
-                        
-                    </DataGrid.Columns>
-                </DataGrid>
-                
+                <view:TimeLineView />
+
             </Grid>
         </Grid>
 

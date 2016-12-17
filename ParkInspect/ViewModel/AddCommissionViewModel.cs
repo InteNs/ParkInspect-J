@@ -1,65 +1,15 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
-using ParkInspect.Repositories;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using ParkInspect.View;
 
 namespace ParkInspect.ViewModel
 {
     public class AddCommissionViewModel : MainViewModel
     {
-        private string _zipCode;
-        private int _streetNumber;
-        private int _frequency;
-        private string _description;
-        private string _selectedRegion;
         private CustomerViewModel _selectedCustomer;
-
-        public string ZipCode
-        {
-            get { return _zipCode; }
-            set
-            {
-                _zipCode = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public int StreetNumber
-        {
-            get { return _streetNumber; }
-            set
-            {
-                _streetNumber = value;
-                RaisePropertyChanged();
-            }
-        }
-        public int Frequency
-        {
-            get { return _frequency; }
-            set { _frequency = value; RaisePropertyChanged(); }
-        }
-
-        public string Description
-        {
-            get { return _description; }
-            set { _description = value; RaisePropertyChanged(); }
-        }
-        
-
-        public string SelectedRegion
-        {
-            get { return _selectedRegion; }
-            set { _selectedRegion = value; RaisePropertyChanged(); }
-        }
+        private readonly ICommissionRepository _commissionRepository;
 
         public CustomerViewModel SelectedCustomer
         {
@@ -70,24 +20,18 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged();
             }
         }
-        public ObservableCollection<CustomerViewModel> CustomerList { get; set; }
-        
 
-        private CommissionViewModel Commission { get; set; }
-
+        public ObservableCollection<CustomerViewModel> Customers { get; set; }
+        public CommissionViewModel Commission { get; set; }
         public ICommand AddCommissionCommand { get; set; }
+        public ObservableCollection<string> Regions { get; set; }
 
-        private ICommissionRepository _commissionRepository;
-        private CommissionOverviewViewModel _cvm;
-
-        public ObservableCollection<string> RegionList { get; set; }
-
-        public AddCommissionViewModel(ICommissionRepository commissionRepository, ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router, CommissionOverviewViewModel cvm) : base(router)
+        public AddCommissionViewModel(ICommissionRepository commissionRepository, ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
         {
             _commissionRepository = commissionRepository;
-            _cvm = cvm;
-            CustomerList = customerRepository.GetAll();
-            RegionList = regionRepository.GetAll();
+
+            Customers = customerRepository.GetAll();
+            Regions = regionRepository.GetAll();
             
             AddCommissionCommand = new RelayCommand(AddCommission, CanAddCommission);
         }
@@ -95,26 +39,21 @@ namespace ParkInspect.ViewModel
         private bool ValidateInput()
         {
             //TODO: Check if all fields have the right content
-            bool validate = false;
 
             //check if all fields are filled in
-            if (this._selectedCustomer == null || _selectedRegion == null ||
-                _frequency <= 0 || _description == null)
+            if (Commission.Customer == null || Commission.Region == null ||
+                Commission.Frequency <= 0 || Commission.Description == null)
             {
-                return validate;
+                return false;
             }
             return true;
         }
 
-        public void AddCommission()
+        private void AddCommission()
         {
-            var locationId = _commissionRepository.GetLocationViewModels().ToList().Count;
-
             if (ValidateInput())
             {
-                _commissionRepository.CreateLocation(new LocationViewModel(locationId, ZipCode, StreetNumber, SelectedRegion));
-                Commission = new CommissionViewModel(_commissionRepository.GetAll().ToList().Count+1, Frequency, SelectedCustomer.Id, locationId, null, DateTime.Now, null, Description, SelectedRegion, SelectedCustomer.Name, "Nieuw");
-                if (_commissionRepository.Create(Commission))
+                if (_commissionRepository.Add(Commission))
                 {
                     RouterService.SetPreviousView();
                 }
@@ -125,7 +64,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public bool CanAddCommission()
+        private bool CanAddCommission()
         {
             return true;
         }

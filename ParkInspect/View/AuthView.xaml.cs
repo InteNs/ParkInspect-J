@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace ParkInspect.View
 {
     /// <summary>
-    /// Interaction logic for InspectionsView.xaml
+    /// Interaction logic for DashboardManagerView.xaml
     /// </summary>
-    public partial class InspectionsView : UserControl
+    public partial class AuthView : UserControl
     {
-        public InspectionsView()
+        public AuthView()
         {
             InitializeComponent();
-        }
-
-        private void AddInspecteur_Click(object sender, RoutedEventArgs e)
-        {
-            //Add inspecteur to inspection
         }
     }
 }

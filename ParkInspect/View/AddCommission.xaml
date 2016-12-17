@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
+             Foreground="Black"
     DataContext="{Binding AddCommission,Source={StaticResource Locator}}">
 
     <UserControl.Resources>
@@ -12,11 +13,6 @@
             <Setter Property="Width" Value="230"></Setter>
             <Setter Property="FontSize" Value="25"></Setter>
             <Setter Property="Padding" Value="0"></Setter>
-        </Style>
-        <Style x:Key="DefaultTextBoxStyle" TargetType="TextBox">
-            <Setter Property="VerticalAlignment" Value="Center"></Setter>
-            <Setter Property="FontSize" Value="25"></Setter>
-            <Setter Property="Margin" Value="-3"></Setter>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -38,10 +34,8 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Button Command="{Binding RouteCommand }" CommandParameter="Customers-list" Grid.Column="1" Grid.Row="1" Content="Terug" />
-
         <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="#FF008CFF">
+          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Opdracht aanmaken" />
             </Viewbox>
@@ -51,12 +45,6 @@
               Grid.Column="1"
                 Grid.ColumnSpan="4"
               >
-            <Grid.Background>
-                <LinearGradientBrush EndPoint="0,0" StartPoint="1,1">
-                    <GradientStop Color="#FF2B2B2B" Offset="-1"/>
-                    <GradientStop Color="#FFB9B9B9" Offset="1"/>
-                </LinearGradientBrush>
-            </Grid.Background>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*" />
@@ -90,7 +78,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Klant: " />
                 </Viewbox>
-                <ComboBox  SelectedItem="{Binding SelectedCustomer}" ItemsSource="{Binding Path=CustomerList}" DisplayMemberPath="Name"/>
+                <ComboBox  SelectedItem="{Binding Commission.Customer, Mode=TwoWay}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name"/>
             </DockPanel>
             
             <DockPanel Grid.Row="3"
@@ -99,7 +87,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=ZipCode}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Commission.ZipCode, Mode=TwoWay}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -108,7 +96,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=StreetNumber}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Commission.StreetNumber, Mode=TwoWay}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -117,7 +105,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "></Label>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding SelectedRegion}" ItemsSource="{Binding Path=RegionList}"/>
+                <ComboBox SelectedValue="{Binding Commission.Region, Mode=TwoWay}" ItemsSource="{Binding Regions}"/>
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -126,7 +114,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Frequentie: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Frequency}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Path=Commission.Frequency, Mode=TwoWay}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="11"
@@ -135,19 +123,13 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Beschrijving "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Description}" Style="{StaticResource DefaultTextBoxStyle}" />
+                <TextBox Text="{Binding Commission.Description, Mode=TwoWay}" HorizontalContentAlignment="Center" />
             </DockPanel>
-
-
-
-
-
-
-
+            
             <Grid
                 Grid.Row="15"
                 Grid.Column="1">
-                <Button Command="{Binding AddCommissionCommand}" Content="Opslaan" Width="275" FontSize="20" Background="#FF999999" />
+                <Button Command="{Binding AddCommissionCommand}" Content="Opslaan" Width="275" />
             </Grid>
 
         </Grid>

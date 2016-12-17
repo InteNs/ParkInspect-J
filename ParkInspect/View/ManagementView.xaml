@@ -4,9 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:oxy="http://oxyplot.org/wpf"
-             
-             xmlns:local="clr-namespace:ParkInspect.View"
-           
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
              Foreground="Black"
@@ -34,9 +31,9 @@
                     <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Text="Soort diagram:" Grid.Row="1"/>
-                <ComboBox Grid.Row="2" SelectedValue="{Binding SelectedDiagram}" ItemsSource="{Binding Diagrams}" DisplayMemberPath="Name" />
+                <ComboBox Grid.Column="0"  Grid.Row="2" SelectedValue="{Binding SelectedDiagram}" ItemsSource="{Binding Diagrams}" DisplayMemberPath="Name" />
                 <TextBlock Text="Inhoud:" Grid.Row="1" Grid.Column="1"/>
-                <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding ComboBox1List}" SelectedValue="{Binding SelectedOption}" />
+                <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Options}" SelectedValue="{Binding SelectedOption}" />
             </Grid>
             <TextBlock Text="Filters:"/>
             <Grid Visibility="{Binding Date, Converter={StaticResource Converter}}">
@@ -103,7 +100,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxOpdracht"/>
                 <TextBlock Grid.Column="1" Text="Opdracht:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxOpdracht, Path=IsChecked}" ItemsSource="{Binding Tasks}" DisplayMemberPath="Description" SelectedItem="{Binding SelectedTask}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxOpdracht, Path=IsChecked}" ItemsSource="{Binding Commissions}" DisplayMemberPath="Description" SelectedItem="{Binding SelectedCommission}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Functie, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -123,12 +120,7 @@
                 </Grid.ColumnDefinitions>
                 <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" Name="CheckBoxStatus"/>
                 <TextBlock Grid.Column="1" Text="Status:"/>
-                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}" SelectedValue="{Binding SelectedStatus}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged">
-                    <ComboBoxItem Content="Nieuw" />
-                    <ComboBoxItem Content="Ingedeeld" />
-                    <ComboBoxItem Content="Bezig" />
-                    <ComboBoxItem Content="Klaar" />
-                </ComboBox>
+                <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}" ItemsSource="{Binding Statuses}"  SelectedValue="{Binding SelectedStatus}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Antwoord, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
@@ -146,7 +138,7 @@
         </StackPanel>
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" HorizontalAlignment="Left" Height="370"  VerticalAlignment="Top" Width="5" />
         <GroupBox Header="Diagram" Height="200" Grid.Column="1" Margin="10,0,0,100">
-            <oxy:PlotView Model="{Binding PieChart.pieChart}"/>
+            <oxy:PlotView Model="{Binding CurrentGraph.KPIModel}"/>
         </GroupBox>
         
     </Grid>

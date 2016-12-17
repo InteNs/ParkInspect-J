@@ -123,6 +123,11 @@
                             <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
                         </HierarchicalDataTemplate>
                     </ListBox.ItemTemplate>
+                    <ListBox.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Inspecteur Koppelen" Click="AddInspecteur_Click"/>
+                        </ContextMenu>
+                    </ListBox.ContextMenu>
                 </ListBox>
             </Grid>
 
