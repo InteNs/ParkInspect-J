@@ -33,7 +33,6 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
             SimpleIoc.Default.Register<IQuestionListRepository, DummyQuestionListRepository>();
             SimpleIoc.Default.Register<IInspectionsRepository, DummyInspectionsRepository>();
-            SimpleIoc.Default.Register<IMapsRepository, DummyMapsRepository>();
 
             //viewmodels
             SimpleIoc.Default.Register<MainViewModel>();

@@ -4,10 +4,11 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using GoogleMaps.LocationServices;
+using MapControl;
 using ParkInspect.Factory;
-using ParkInspect.Repositories;
-using ParkInspect.Repository.Dummy;
 using ParkInspect.Repository.Interface;
+using MapPoint = ParkInspect.Maps.MapPoint;
 
 namespace ParkInspect.ViewModel
 {
@@ -23,21 +24,15 @@ namespace ParkInspect.ViewModel
         private readonly ICustomerRepository _customerRepository;
         private readonly IRegionRepository _regionRepository;
         private readonly IQuestionListRepository _questionListRepository;
-
+        private Location _mapCenter;
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
         public LineChartViewModel LineChart { get; set; }
-
-        public IGraphViewModel CurrentGraph
-        {
-            get { return _currentGraph; }
-            set { _currentGraph = value; RaisePropertyChanged(); }
-        }
-
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
         public EmployeeViewModel SelectedManager { get; set; }
         public QuestionItemViewModel SelectedQuestion { get; set; }
+        public GoogleLocationService LocationService { get; set; }
         public string SelectedFunction { get; set; }
         public string SelectedRegion { get; set; }
         public string SelectedStatus { get; set; }
@@ -45,35 +40,8 @@ namespace ParkInspect.ViewModel
         public CommissionViewModel SelectedCommission { get; set; }
         public string SelectedAnswer { get; set; }
         public ICommand GenerateDiagramCommand { get; set; }
-
         private List<string> _options;
-
         private DateTime? _startDate;
-        public DateTime? StartDate
-        {
-            get
-            {
-                return DateSelected ? _startDate : null;
-            }
-            set
-            {
-                _startDate = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public DateTime? EndDate
-        {
-            get
-            {
-                return DateSelected ? _endDate : null;
-            }
-            set
-            {
-                _endDate = value;
-                RaisePropertyChanged();
-            }
-        }
         public bool DateSelected { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
@@ -85,6 +53,7 @@ namespace ParkInspect.ViewModel
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
         public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
+        public ObservableCollection<MapPoint> Points { get; set; }
 
         public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
             IEmployeeRepository emp, IQuestionListRepository ques)
@@ -102,7 +71,11 @@ namespace ParkInspect.ViewModel
             Questions = _questionListRepository.GetAllQuestionItems();
             Statuses = _commissionRepository.GetStatuses();
 
-           
+            LocationService = new GoogleLocationService();
+
+            var avans = LocationService.GetLatLongFromAddress("Onderwijsboulevard 215, 5223 DE");
+            _mapCenter = new Location(avans.Latitude, avans.Longitude);
+
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
 
@@ -115,101 +88,85 @@ namespace ParkInspect.ViewModel
         {
             if(SelectedOption == null || SelectedDiagram == null) return;
 
-            if (SelectedDiagram.Name.Equals("Cirkeldiagram"))
+            switch (SelectedDiagram.Name)
             {
-                if (SelectedOption.Equals("Verdeling van de functies van de werknemers"))
-                {
-                    PieChart = new PieChartViewModel(Employees, Functions, SelectedRegion);
+                case "Cirkeldiagram":
+                    switch (SelectedOption)
+                    {
+                        case "Verdeling van de functies van de werknemers":
+                            PieChart = new PieChartViewModel(Employees, Functions, SelectedRegion);
+                            break;
+                        case "Verdeling van de status van de opdrachten":
+                            PieChart = new PieChartViewModel(Commissions, _commissionRepository.GetStatuses(), StartDate, EndDate, SelectedCustomer);
+                            break;
+                        case "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag":
+                            PieChart = new PieChartViewModel(Questions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                            break;
+                    }
                     CurrentGraph = PieChart;
-                }
-                if (SelectedOption.Equals("Verdeling van de status van de opdrachten"))
-                {
-                    PieChart = new PieChartViewModel(Commissions, _commissionRepository.GetStatuses(), StartDate, EndDate, SelectedCustomer);
-                    CurrentGraph = PieChart;
-                }
-                if (
-                    SelectedOption.Equals(
-                        "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
-                {
-                    PieChart = new PieChartViewModel(Questions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
-                    CurrentGraph = PieChart;
-                }
+                    break;
 
-            }
-
-            if (SelectedDiagram.Name.Equals("Staafdiagram"))
-            {
-                if (SelectedOption.Equals("Aantal inspecties per inspecteur"))
-                {
-                    //insert right constructor
-                }
-
-                else if (SelectedOption.Equals("Aantal inspecties per klant"))
-                {
-                    //insert right constructor
-                }
-
-                else if (SelectedOption.Equals("Aantal opdrachten per manager"))
-                {
-                    BarGraph = new BarGraphViewModel(Commissions, Managers, StartDate, EndDate, SelectedStatus, SelectedManager);
+                case "Staafdiagram":
+                    switch (SelectedOption)
+                    {
+                        case "Aantal inspecties per inspecteur":
+                            break;
+                        case "Aantal inspecties per klant":
+                            break;
+                        case "Aantal opdrachten per manager":
+                            BarGraph = new BarGraphViewModel(Commissions, Managers, StartDate, EndDate, SelectedStatus, SelectedManager);
+                            break;
+                        case "Aantal opdrachten per klant":
+                            BarGraph = new BarGraphViewModel(Commissions, Customers, StartDate, EndDate, SelectedStatus, SelectedCustomer);
+                            break;
+                    }
                     CurrentGraph = BarGraph;
-                }
-                else if (SelectedOption.Equals("Aantal opdrachten per klant"))
-                {
-                    BarGraph = new BarGraphViewModel(Commissions, Customers, StartDate, EndDate, SelectedStatus, SelectedCustomer);
-                    CurrentGraph = BarGraph;
-                }
-            }
+                    break;
 
-            
-                if (SelectedDiagram.Name.Equals("Lijndiagram"))
-                {
-                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per dag"))
+                case "Lijndiagram":
+                    switch (SelectedOption)
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                        case "Aantal inspecties die zijn uitgevoerd per dag":
+                            break;
+                        case "Aantal inspecties die zijn uitgevoerd per week":
+                            break;
+                        case "Aantal inspecties die zijn uitgevoerd per maand":
+                            break;
+                        case "Aantal inspecties die zijn uitgevoerd per jaar":
+                            break;
+                        case "Aantal opdrachten die zijn aangemaakt/afgerond per week":
+                            LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "week");
+                            break;
+                        case "Aantal opdrachten die zijn aangemaakt/afgerond per maand":
+                            LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "maand");
+                            break;
+                        case "Aantal opdrachten die zijn aangemaakt/afgerond per jaar":
+                            LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "jaar");
+                            break;
+                        case "Aantal werknemers die zijn aangenomen/ontslagen per maand":
+                            LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "maand");
+                            break;
+                        case "Aantal werknemers die zijn aangenomen/ontslagen per jaar":
+                            LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "jaar");
+                            break;
                     }
-                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per week"))
-                    {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
-                    }
-                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per maand"))
-                    {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
-                    }
-                    if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per jaar"))
-                    {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
-                    }
-                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per week"))
-                    {
-                        LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "week");
-                        CurrentGraph = LineChart;
-                    }
-                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per maand"))
-                    {
-                    LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "maand");
                     CurrentGraph = LineChart;
-                    }
-                    if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per jaar"))
+                    break;
+
+                case "Kaart":
+                    switch (SelectedOption)
                     {
-                    LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "jaar");
-                    CurrentGraph = LineChart;
+                        case "Aantal opdrachten per locatie":
+                            break;
+                        case "Aantal inspecties per locatie":
+                            break;
+                        case "Aantal inspecteurs per locatie":
+                            break;
+                        case "Aantal klanten per locatie":
+                            break;
                     }
-                    if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per maand"))
-                    {
-                        LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "maand");
-                        CurrentGraph = LineChart;
-                    }
-                    if (SelectedOption.Equals("Aantal werknemers die zijn aangenomen/ontslagen per jaar"))
-                    {
-                    LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "jaar");
-                    CurrentGraph = LineChart;
-                    }
-                }
+                    break;
+            }
             RaisePropertyChanged("");
         }
 
@@ -379,6 +336,47 @@ namespace ParkInspect.ViewModel
             {
                 _options = value;
                 RaisePropertyChanged();
+            }
+        }
+
+        public DateTime? StartDate
+        {
+            get
+            {
+                return DateSelected ? _startDate : null;
+            }
+            set
+            {
+                _startDate = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public DateTime? EndDate
+        {
+            get
+            {
+                return DateSelected ? _endDate : null;
+            }
+            set
+            {
+                _endDate = value;
+                RaisePropertyChanged();
+            }
+        }
+        public IGraphViewModel CurrentGraph
+        {
+            get { return _currentGraph; }
+            set { _currentGraph = value; RaisePropertyChanged(); }
+        }
+
+        public Location MapCenter
+        {
+            get { return _mapCenter; }
+            set
+            {
+                _mapCenter = value;
+                RaisePropertyChanged("MapCenter");
             }
         }
     }
