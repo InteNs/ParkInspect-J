@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
              DataContext="{Binding Inspections, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -36,7 +39,7 @@
                 </Grid.ColumnDefinitions>
                 
                 <WrapPanel Grid.Column="1" Grid.Row="1">
-                    <Button Content="Rapporteer Selectie" Width="250" />
+                    <Button Content="Rapporteer Selectie" Width="250" Visibility="{Binding Path=IsManager, Converter={StaticResource BoolToVis}}" />
                 </WrapPanel>
                 
             </Grid>
@@ -62,7 +65,7 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding RouteCommand}" CommandParameter="inspections-add">
+                    <Button Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding RouteCommand}" CommandParameter="inspections-add" Visibility="{Binding Path=IsInspecteur, Converter={StaticResource BoolToVis}}">
                         <Viewbox >
                             <ContentControl Content="+"/>
                         </Viewbox>
@@ -123,11 +126,6 @@
                             <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
                         </HierarchicalDataTemplate>
                     </ListBox.ItemTemplate>
-                    <ListBox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Inspecteur Koppelen" Click="AddInspecteur_Click"/>
-                        </ContextMenu>
-                    </ListBox.ContextMenu>
                 </ListBox>
             </Grid>
 
