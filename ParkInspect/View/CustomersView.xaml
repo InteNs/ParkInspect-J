@@ -70,7 +70,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="5">
-                <Button Content="Nieuwe opdracht" Command="{Binding }" />
+                <Button Content="Nieuwe opdracht" Command="{Binding RouteCommand}" CommandParameter="commissions-add"/>
             </Grid>
 
             <Grid Grid.Row="3"
@@ -92,8 +92,11 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
 
-                <DataGrid GridLinesVisibility="None" MouseDoubleClick="DataGrid_MouseDoubleClick"
+                <DataGrid GridLinesVisibility="None"
        FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedCustomer, Mode=TwoWay}" >
+                    <DataGrid.InputBindings>
+                        <MouseBinding Gesture="LeftDoubleClick" Command="{Binding RouteCommand}" CommandParameter="customers-edit" />
+                    </DataGrid.InputBindings>
                     <DataGrid.ItemsSource>
                         <MultiBinding Converter="{StaticResource Converter}">
                             <Binding Path="Customers"/>
