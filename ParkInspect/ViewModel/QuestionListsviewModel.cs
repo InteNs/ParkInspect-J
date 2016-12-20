@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ParkInspect.Repositories;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
@@ -17,8 +18,8 @@ namespace ParkInspect.ViewModel
 
         public QuestionListsviewModel(IQuestionListRepository repo)
         {
-            _repository = repo;
-            QuestionLists = new ObservableCollection<QuestionListViewModel>(_repository.GetAll());
+            _questionListRepository = repo;
+            QuestionLists = new ObservableCollection<QuestionListViewModel>(_questionListRepository.GetAll());
             selectedQuestionList = QuestionLists[0];
             allQuestions = new ObservableCollection<QuestionItemViewModel>();
             foreach(QuestionItemViewModel q in selectedQuestionList.QuestionItems)

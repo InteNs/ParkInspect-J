@@ -83,8 +83,6 @@ namespace ParkInspect.ViewModel
         public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
         public QuestionListsviewModel QuestionLists => ServiceLocator.Current.GetInstance<QuestionListsviewModel>();
         public QuestionListViewModel QuestionList => ServiceLocator.Current.GetInstance<QuestionListViewModel>();
-        public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), RouterService, Employees);
-        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), RouterService, Employees);
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => ServiceLocator.Current.GetInstance<AddCommissionViewModel>();
