@@ -186,6 +186,9 @@
     <Compile Include="View\AddCustomerView.xaml.cs">
       <DependentUpon>AddCustomerView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AnswerQuestionView.xaml.cs">
+      <DependentUpon>AnswerQuestionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
     </Compile>
@@ -219,6 +222,10 @@
     <Compile Include="View\TemplatesView.xaml.cs">
       <DependentUpon>TemplatesView.xaml</DependentUpon>
     </Compile>
+    <Page Include="View\AnswerQuestionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\AuthenticationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

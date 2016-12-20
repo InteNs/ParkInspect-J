@@ -36,14 +36,14 @@ namespace ParkInspect.Service
                 { "employees-edit", typeof(EditEmployeeView) },
                 { "management-view", typeof(ManagementView) },
                 { "authentication", typeof(AuthenticationView) },
-                { "questions-list", typeof(QuestionsView) },
                 { "templates-list", typeof(TemplatesView) },
                 { "Customers-list", typeof(CustomersView) },
                 { "Customers-add", typeof(AddCustomerView) },
                 { "commissions-add", typeof(AddCommission) },
                 { "commissions-overview", typeof(CommissionOverview) },
                 { "dashboard-manager", typeof(DashboardManagerView) },
-                { "inspections-list", typeof(InspectionsView) }
+                { "inspections-list", typeof(InspectionsView) },
+                { "questionnaire-start", typeof(AnswerQuestionView) }
             };
             _previousViews = new Stack<UserControl>();
         }
