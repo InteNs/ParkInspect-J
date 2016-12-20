@@ -18,11 +18,14 @@
         DataContext="{Binding RouterService, Source={StaticResource Locator}}"
         Background="White"
         Foreground="White">
+    <controls:MetroWindow.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </controls:MetroWindow.Resources>
 
     <controls:MetroWindow.RightWindowCommands>
-        <controls:WindowCommands>
-            <Button Content="Hoofdscherm" Command="{Binding RouteCommand}" CommandParameter="dashboard-manager" />
-            <Button Content="Uitloggen" />
+        <controls:WindowCommands Visibility="{Binding Path=IsLoggedIn, Converter={StaticResource BoolToVis}}">
+            <Button Content="Hoofdscherm" Command="{Binding RouteCommand}" CommandParameter="{Binding Path=CurrentDashboard}" />
+            <Button Content="Uitloggen" DataContext="{Binding AuthService, Source={StaticResource Locator}}" Command="{Binding LogOutCommand}"/>
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
 
@@ -34,12 +37,12 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition Width="50" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,7 +10,7 @@ namespace ParkInspect.ViewModel
 {
     public class QuestionListsviewModel : MainViewModel
     {
-        private IQuestionListRepository _repository;
+        private IQuestionListRepository _questionListRepository;
         public ObservableCollection<QuestionListViewModel> QuestionLists { get; set; }
         public QuestionListViewModel selectedQuestionList { get; set; }
         public ObservableCollection<QuestionItemViewModel> allQuestions;

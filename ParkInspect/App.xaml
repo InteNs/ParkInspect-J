@@ -40,7 +40,7 @@
             <SolidColorBrush x:Key="IdealForegroundDisabledBrush" Color="{DynamicResource Primary500}" Opacity="0.4"/>
 
             <Image x:Key="PreviousIcon" Source="Resources/previousIcon.png" />
-            <Image x:Key="banner" Source="Resources/banner.png" />
+            <Image x:Key="Banner" Source="Resources/banner.png" />
 
             <viewModel:ViewModelLocator x:Key="Locator" d:IsDataSource="True"  />
             
@@ -62,6 +62,21 @@
                 <Style.Triggers>
                     <Trigger Property="DataGridCell.IsSelected" Value="True">
                         <Setter Property="Background" Value="{DynamicResource SecondaryAccentBrush}" />
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+
+            <!-- Timeline style-->
+            <Style TargetType="{ x:Type DataGridColumnHeader}" x:Key="tlStylech">
+                <Setter Property="Background" Value="Azure" />
+            </Style>
+
+            <Style TargetType="{x:Type DataGridCell}" x:Key="tlStylec">
+                <Setter Property="Background" Value="AliceBlue" />
+
+                <Style.Triggers>
+                    <Trigger Property="DataGridCell.IsSelected" Value="True">
+                        <Setter Property="Background" Value="CornflowerBlue" />
                     </Trigger>
                 </Style.Triggers>
             </Style>

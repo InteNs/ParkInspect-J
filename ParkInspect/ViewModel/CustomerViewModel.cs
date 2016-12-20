@@ -1,33 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-
-namespace ParkInspect.ViewModel
+﻿namespace ParkInspect.ViewModel
 {
     public class CustomerViewModel : PersonViewModel
     {
-        private int id;
-        private string function;
+        private int _id;
+        private string _function;
 
         public int Id
         {
-            get { return id; }
+            get { return _id; }
             set
             {
-                id = value;
+                _id = value;
                 RaisePropertyChanged();
             }
         }
 
         public string Function
         {
-            get { return function; }
+            get { return _function; }
             set
             {
-                function = value;
+                _function = value;
                 RaisePropertyChanged();
             }
         }

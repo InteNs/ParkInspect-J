@@ -5,9 +5,145 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="500" d:DesignWidth="750"
              DataContext="{Binding Inspections, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions> 
+        
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*" />
+                <RowDefinition Height="0.5*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
             
+            <Grid Grid.Row="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="0.1*" />
+                </Grid.ColumnDefinitions>
+                
+                <WrapPanel Grid.Column="1" Grid.Row="1">
+                    <Button Content="Rapporteer Selectie" Width="250" Visibility="{Binding Path=IsManager, Converter={StaticResource BoolToVis}}" />
+                </WrapPanel>
+                
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.1*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="0.1*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.5*" />
+                        <ColumnDefinition Width="0.07*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="0.07*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Button Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding RouteCommand}" CommandParameter="inspections-add" Visibility="{Binding Path=IsInspecteur, Converter={StaticResource BoolToVis}}">
+                        <Viewbox >
+                            <ContentControl Content="+"/>
+                        </Viewbox>
+                    </Button>
+
+                    <ComboBox Grid.Column="2" SelectedItem="{Binding Path=SelectedCommission}" ItemsSource="{Binding Path=CommissionList}" />
+
+                    <Border Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="DimGray">
+                        <Viewbox>
+                            <Label Content="{Binding SelectedCommission.Region}" />
+                        </Viewbox>
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="0" Grid.RowSpan="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.06*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.06*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="0.2*" />
+                </Grid.ColumnDefinitions>
+                
+                <TextBox Text="{Binding SelectedCommission.Description}" Foreground="Black" IsReadOnly="True" Grid.Column="1" Grid.Row="1" />
+                
+            </Grid>
+
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.3*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="15*" />
+                    <RowDefinition Height="0.5*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*" />
+                    <ColumnDefinition Width="5*" />
+                    <ColumnDefinition Width="0.5*" />
+                </Grid.ColumnDefinitions>
+
+                <ListBox ItemsSource="{Binding InspectionList}" Grid.Column="1" Grid.Row="1">
+                    <ListBox.ItemTemplate>
+                        <HierarchicalDataTemplate>
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
+                        </HierarchicalDataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10*" />
+                    <RowDefinition Height="0.25*" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10*" />
+                    <ColumnDefinition Width="0.15*" />
+                </Grid.ColumnDefinitions>
+                
+                <local:TimeLineView />
+
+            </Grid>
+            
+        </Grid>
     </Grid>
 </UserControl>
