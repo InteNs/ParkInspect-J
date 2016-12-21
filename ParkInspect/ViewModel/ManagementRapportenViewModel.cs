@@ -172,23 +172,23 @@ namespace ParkInspect.ViewModel
                 {
                     if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per dag"))
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                         LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate, SelectedCommission, SelectedCustomer, SelectedQuestion, "dag");
+                         CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per week"))
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                    LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate, SelectedCommission, SelectedCustomer, SelectedQuestion, "week");
+                    CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per maand"))
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                    LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate, SelectedCommission, SelectedCustomer, SelectedQuestion, "maand");
+                    CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal inspecties die zijn uitgevoerd per jaar"))
                     {
-                        //insert right constructor
-                        CurrentGraph = LineChart;
+                    LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate, SelectedCommission, SelectedCustomer, SelectedQuestion, "jaar");
+                    CurrentGraph = LineChart;
                     }
                     if (SelectedOption.Equals("Aantal opdrachten die zijn aangemaakt/afgerond per week"))
                     {

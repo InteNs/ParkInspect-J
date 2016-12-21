@@ -54,7 +54,7 @@ namespace ParkInspect.ViewModel
 
             if (quest != null)
             {
-
+                _inspections.RemoveAll(i => quest.questionList.inspection.Id != i.Id);
             }
 
             if (startTime != null && endTime != null)
@@ -68,7 +68,7 @@ namespace ParkInspect.ViewModel
                     {
                         Position = AxisPosition.Bottom,
                         IntervalType = DateTimeIntervalType.Days,
-                        StringFormat = "dd"
+                        StringFormat = "MM/dd/yyyy"
                     });
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddDays(1); dt = dt.AddDays(1))
@@ -77,16 +77,204 @@ namespace ParkInspect.ViewModel
                     }
                     foreach (DateTime dt in _timeRange)
                     {
-                        if (_commissions.Count > 0)
+                        if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddDays(7))));
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddDays(7))));
+                                _inspections.Count(ins => ins.date == dt)));
+                        }
+                    }
+                }
+                if (interval.Equals("week"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Weeks,
+                        StringFormat = "ww"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddDays(6); dt = dt.AddDays(7))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_inspections.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddDays(7))));
+                        }
+                    }
+                }
+                if (interval.Equals("maand"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Months,
+                        StringFormat = "MMM"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_inspections.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddMonths(1))));
+                        }
+                    }
+                }
+                if (interval.Equals("jaar"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Years,
+                        StringFormat = "yyyy"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_inspections.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddYears(1))));
+                        }
+                    }
+                }
+
+            }
+            if (startTime == null && endTime == null)
+            {
+                DateTime start = DateTime.Now;
+                DateTime end = DateTime.Now;
+
+                foreach (InspectionViewModel ivm in _inspections)
+                {
+                    if (ivm.date < start)
+                    {
+                        start = ivm.date;
+                    }
+                    if (ivm.date > end)
+                    {
+                        end = ivm.date;
+                    }
+                }
+
+                if (interval.Equals("dag"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Days,
+                        StringFormat = "MM/dd/yyyy"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddDays(1); dt = dt.AddDays(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_inspections.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _inspections.Count(ins => ins.date == dt)));
+                        }
+                    }
+                }
+                if (interval.Equals("week"))
+                {
+                    int delta = DayOfWeek.Monday - start.DayOfWeek;
+                    start = start.AddDays(delta);
+                    delta = DayOfWeek.Monday - end.DayOfWeek;
+                    end = end.AddDays(delta+7);
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Weeks,
+                        StringFormat = "ww"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddDays(6); dt = dt.AddDays(7))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_inspections.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddDays(7))));
+                        }
+                    }
+                }
+                if (interval.Equals("maand"))
+                {
+                    start = new DateTime(start.Year, start.Month, 1);
+                    end = new DateTime(end.Year, end.AddMonths(1).Month, 1);
+                    if(end.Month == new DateTime(2000, 1, 1).Month)
+                    {
+                        end = end.AddYears(1);
+                    }
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Months,
+                        StringFormat = "MMM"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_inspections.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddMonths(1))));
+                        }
+                    }
+                }
+
+                if (interval.Equals("jaar"))
+                {
+                    start = new DateTime(start.Year, 1, 1);
+                    end = new DateTime(end.AddYears(1).Year, 1, 1);
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Years,
+                        StringFormat = "yyyy"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_inspections.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddYears(1))));
                         }
                     }
                 }
             }
+
+
+            model.Series.Add(series1);
+            KPIModel = model;
         }
 
         public LineChartViewModel(IEnumerable<CommissionViewModel> commissions, DateTime? startTime, DateTime? endTime,

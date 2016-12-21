@@ -30,7 +30,6 @@ namespace ParkInspect.ViewModel
             _inspections = inspections.ToList();
             _customers = customers.ToList();
             _employees = employees.ToList();
-            
 
             if (startTime != null && endTime != null)
             {
@@ -45,10 +44,12 @@ namespace ParkInspect.ViewModel
                     _inspections.RemoveAll(i => i.cvm.Id == comvm.Id);
                 }
             }
+
             if (question != null)
             {
-                //
+                _inspections.RemoveAll(i => question.questionList.inspection.Id != i.Id);
             }
+
             if (selectedCustomer != null)
             {
                 foreach(CommissionViewModel comvm in _commissions.Where(co => co.Customer.Id != selectedCustomer.Id))
