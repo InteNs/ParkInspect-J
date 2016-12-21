@@ -23,6 +23,7 @@ namespace ParkInspect.ViewModel
         private readonly ICustomerRepository _customerRepository;
         private readonly IRegionRepository _regionRepository;
         private readonly IQuestionListRepository _questionListRepository;
+        private readonly IInspectionsRepository _inspectionRepository;
 
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
@@ -81,14 +82,16 @@ namespace ParkInspect.ViewModel
         public IEnumerable<string> Locations { get; set; }
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public ObservableCollection<CommissionViewModel> Commissions { get; set; }
+        public ObservableCollection<InspectionViewModel> Inspections { get; set; }
         public ObservableCollection<QuestionItemViewModel> Questions { get; set; }
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
         public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
 
         public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
-            IEmployeeRepository emp, IQuestionListRepository ques)
+            IEmployeeRepository emp, IQuestionListRepository ques, IInspectionsRepository insp)
         {
+            _inspectionRepository = insp;
             _commissionRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
@@ -101,6 +104,7 @@ namespace ParkInspect.ViewModel
             Locations  = _regionRepository.GetAll();
             Questions = _questionListRepository.GetAllQuestionItems();
             Statuses = _commissionRepository.GetStatuses();
+            Inspections = _inspectionRepository.GetAll();
 
            
             DiagramFactory = new DiagramFactory();
@@ -141,17 +145,19 @@ namespace ParkInspect.ViewModel
             {
                 if (SelectedOption.Equals("Aantal inspecties per inspecteur"))
                 {
-                    //insert right constructor
+                    BarGraph = new BarGraphViewModel(Inspections, Commissions, Customers, Employees, StartDate, EndDate, SelectedQuestion, SelectedCommission, SelectedCustomer, "inspecteur");
+                    CurrentGraph = BarGraph;
                 }
 
                 else if (SelectedOption.Equals("Aantal inspecties per klant"))
                 {
-                    //insert right constructor
+                    BarGraph = new BarGraphViewModel(Inspections, Commissions, Customers, Employees, StartDate, EndDate, SelectedQuestion, SelectedCommission, SelectedCustomer, "klant");
+                    CurrentGraph = BarGraph;
                 }
 
-                else if (SelectedOption.Equals("Aantal opdrachten per manager"))
+                else if (SelectedOption.Equals("Aantal opdrachten per inspecteur"))
                 {
-                    BarGraph = new BarGraphViewModel(Commissions, Managers, StartDate, EndDate, SelectedStatus, SelectedManager);
+                    BarGraph = new BarGraphViewModel(Commissions, Inspectors, StartDate, EndDate, SelectedStatus, SelectedCustomer);
                     CurrentGraph = BarGraph;
                 }
                 else if (SelectedOption.Equals("Aantal opdrachten per klant"))

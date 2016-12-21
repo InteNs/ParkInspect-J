@@ -15,51 +15,99 @@ namespace ParkInspect.ViewModel
         private readonly List<QuestionItemViewModel> _questionItems;
         private readonly List<CommissionViewModel> _commissions;
         private readonly List<CustomerViewModel> _customers;
+        private readonly List<InspectionViewModel> _inspections;
+
 
         public PlotModel KPIModel { get; set; }
 
-        public BarGraphViewModel(IEmployeeRepository ier, DateTime? startTime, DateTime? endTime,
-            QuestionItemViewModel question, CommissionViewModel covm, CustomerViewModel selectedCustomer)
+        
+        
+
+        public BarGraphViewModel(IEnumerable<InspectionViewModel> inspections, IEnumerable<CommissionViewModel> commissions, IEnumerable<CustomerViewModel> customers, IEnumerable<EmployeeViewModel> employees, DateTime? startTime, DateTime? endTime,
+            QuestionItemViewModel question, CommissionViewModel covm, CustomerViewModel selectedCustomer, string person)
         {
-            _employees = ier.GetAll().ToList();
-            _questionItems = new List<QuestionItemViewModel>();
+            _commissions = commissions.ToList();
+            _inspections = inspections.ToList();
+            _customers = customers.ToList();
+            _employees = employees.ToList();
+            
 
             if (startTime != null && endTime != null)
             {
-                //remove nog meer dingesen. yay
+                foreach(CommissionViewModel comvm in _commissions.Where(co => (co.DateCreated > endTime || co.DateCompleted < startTime)))
+                {
+                    _inspections.RemoveAll(i => i.cvm.Id == comvm.Id);
+                }
+
             }
             if (covm != null)
             {
-                //
+                foreach(CommissionViewModel comvm in _commissions.Where(co => co.Id != covm.Id))
+                {
+                    _inspections.RemoveAll(i => i.cvm.Id == comvm.Id);
+                }
             }
             if (question != null)
             {
-                _questionItems.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
+                //
             }
             if (selectedCustomer != null)
             {
-                //
+                foreach(CommissionViewModel comvm in _commissions.Where(co => co.Customer.Id != selectedCustomer.Id))
+                {
+                    _inspections.RemoveAll(i => i.cvm.Id == comvm.Id);
+                }
             }
 
 
             PlotModel model = new PlotModel();
             dynamic series = new BarSeries();
-            // foreach ()
-            //  {
-            //BarItem bi = new BarItem();
-            // if (bi.Value != 0)
-            // {
-            //    series.Add(bi);
-            // }
-            //  }
+
+            series.LabelPlacement = LabelPlacement.Inside;
+            series.LabelFormatString = "{0}";
+
+            var axis = new CategoryAxis();
+
+            if(person.Equals("inspecteur"))
+            {
+                series.ItemsSource = new List<BarItem>(_employees.Select(emp =>
+                   new BarItem(_inspections.Count(ins =>
+                       ins.cvm.Employee.Id == (emp.Id)
+                   ))
+               ));
+                axis.Position = AxisPosition.Left;
+                axis.ItemsSource = _employees.Select(e => e.Name);
+            
+        }
+
+            if (person.Equals("klant"))
+            {
+                series.ItemsSource = new List<BarItem>(_customers.Select(cust =>
+                    new BarItem(_inspections.Count(ins =>
+                        ins.cvm.Customer.Id == (cust.Id)
+                    ))
+                ));
+                //foreach (var customer in _customers)
+                //{
+                //    series.ItemsSource.Add(new BarItem
+                //    {
+                //        Value =
+                //            (_inspections.Count(i => customer.Id == (i.cvm.Customer.Id)))
+                //    });
+                //}
+
+                axis.Position = AxisPosition.Left;
+                axis.ItemsSource = _customers.Select(c => c.Name);
+            }
             model.Series.Add(series);
+            model.Axes.Add(axis);
             KPIModel = model;
         }
 
 
         public BarGraphViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<EmployeeViewModel> employees,
             DateTime? startTime, DateTime? endTime, string status,
-            EmployeeViewModel evm)
+            CustomerViewModel cvm)
         {
             _commissions = commissions.ToList();
             _employees = employees.ToList();
@@ -74,21 +122,20 @@ namespace ParkInspect.ViewModel
                 _commissions.RemoveAll(com => !com.Status.Equals(status));
                 Debug.WriteLine(status);
             }
-            if (evm != null)
+            if (cvm != null)
             {
-                _commissions.RemoveAll(co => co.Employee != evm);
+                _commissions.RemoveAll(co => co.Customer.Id != cvm.Id);
             }
             var model = new PlotModel();
             dynamic series = new BarSeries();
 
             series.LabelPlacement = LabelPlacement.Inside;
             series.LabelFormatString = "{0}";
-            series.ItemsSource =
-                new List<BarItem>(_employees.Select(e =>
-                        new BarItem(_commissions.Count(c =>
-                                    e.Equals(c.Employee)
-                        ))
-                ));
+            series.ItemsSource = new List<BarItem>(_employees.Select(emp =>
+                new BarItem(_commissions.Count(com =>
+                    emp.Name.Equals(com.Employee.Name)
+                ))
+            ));
 
             var axis = new CategoryAxis
             {
