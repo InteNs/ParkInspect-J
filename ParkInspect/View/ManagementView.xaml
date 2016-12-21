@@ -50,7 +50,7 @@
                 <TextBlock Grid.Row="0" Grid.Column="1"  Text="Startdatum"/>
                 <DatePicker Grid.Row="1" Grid.Column="1" SelectedDate="{Binding StartDate,Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}"/>
                 <TextBlock Grid.Row="0" Text="Einddatum" Grid.Column="2"/>
-                <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" />
+                <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" IsEnabledChanged="DatePicked_OnIsEnabledChanged"/>
             </Grid>
             <Grid Visibility="{Binding Locatie, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
