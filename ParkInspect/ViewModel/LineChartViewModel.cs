@@ -15,11 +15,79 @@ namespace ParkInspect.ViewModel
 
         private readonly List<CommissionViewModel> _commissions;
         private readonly List<EmployeeViewModel> _employees;
+        private readonly List<InspectionViewModel> _inspections;
         private List<DateTime> _timeRange;
         private DateTime startTime;
         private DateTime endTime;
 
         public PlotModel KPIModel { get; set; }
+
+        public LineChartViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<InspectionViewModel> inspections, DateTime? startTime, DateTime? endTime, CommissionViewModel comvm,
+            CustomerViewModel cuvm, QuestionItemViewModel quest, string interval)
+        {
+            _commissions = commissions.ToList();
+            _inspections = inspections.ToList();
+
+            PlotModel model = new PlotModel();
+            dynamic series1 = new LineSeries();
+            dynamic series2 = new LineSeries();
+
+
+            _timeRange = new List<DateTime>();
+
+            if (comvm != null)
+            {
+                foreach (CommissionViewModel covm in _commissions.Where(co => co.Id != comvm.Id))
+                {
+                    _inspections.RemoveAll(i => i.cvm.Id == comvm.Id);
+                }
+            }
+
+            if (cuvm != null)
+            {
+
+                foreach (CommissionViewModel cvm in _commissions.Where(co => co.Customer.Id != cuvm.Id))
+                {
+                    _inspections.RemoveAll(i => i.cvm.Id == cvm.Id);
+                }
+            }
+
+            if (quest != null)
+            {
+
+            }
+
+            if (startTime != null && endTime != null)
+            {
+                DateTime start = (DateTime)startTime;
+                DateTime end = (DateTime)endTime;
+
+                if (interval.Equals("dag"))
+                {
+                    model.Axes.Add(new DateTimeAxis
+                    {
+                        Position = AxisPosition.Bottom,
+                        IntervalType = DateTimeIntervalType.Days,
+                        StringFormat = "dd"
+                    });
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
+                    for (DateTime dt = start; dt <= end.AddDays(1); dt = dt.AddDays(1))
+                    {
+                        _timeRange.Add(dt);
+                    }
+                    foreach (DateTime dt in _timeRange)
+                    {
+                        if (_commissions.Count > 0)
+                        {
+                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddDays(7))));
+                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddDays(7))));
+                        }
+                    }
+                }
+            }
+        }
 
         public LineChartViewModel(IEnumerable<CommissionViewModel> commissions, DateTime? startTime, DateTime? endTime,
             CustomerViewModel cuvm, string interval)

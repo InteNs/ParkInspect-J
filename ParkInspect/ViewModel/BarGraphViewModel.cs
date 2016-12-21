@@ -34,10 +34,8 @@ namespace ParkInspect.ViewModel
 
             if (startTime != null && endTime != null)
             {
-                foreach(CommissionViewModel comvm in _commissions.Where(co => (co.DateCreated > endTime || co.DateCompleted < startTime)))
-                {
-                    _inspections.RemoveAll(i => i.cvm.Id == comvm.Id);
-                }
+                _inspections.RemoveAll(ins => ins.date < startTime || ins.date > endTime);
+               
 
             }
             if (covm != null)
