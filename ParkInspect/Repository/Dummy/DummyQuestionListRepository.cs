@@ -4,6 +4,7 @@ using System.Linq;
 using ParkInspect.Enumeration;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
+using System;
 
 namespace ParkInspect.Repository.Dummy
 {
@@ -23,17 +24,20 @@ namespace ParkInspect.Repository.Dummy
                         new QuestionItemViewModel
                         {
                             Answer = "45",
+                             questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() { date = new DateTime(2016, 11, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
                             {
                                 Description = "Hoeveel autos staan er op de parkeerplaats?",
                                 Id = 1,
                                 Version = 1,
                                 QuestionType = QuestionType.Count
+                                
                             }
                         },
                         new QuestionItemViewModel
                         {
                             Answer = "5",
+                             questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() { date = new DateTime(2016, 5, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
                             {
                                 Description = "Hoeveel overtredingen zijn er?",
@@ -45,6 +49,7 @@ namespace ParkInspect.Repository.Dummy
                         new QuestionItemViewModel
                         {
                             Answer = "Ja",
+                             questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() { date = new DateTime(2016, 7, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
                             {
                                 Description = "Is de parkeerplaats leeg?",
@@ -56,10 +61,12 @@ namespace ParkInspect.Repository.Dummy
                         new QuestionItemViewModel
                         {
                             Answer = "Alles is kapot.",
+                            questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() { date = new DateTime(2016, 3, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
+                            
                             {
                                 Description = "Zijn er bijzonderheden zo ja, welke?",
-                                Id = 3,
+                                Id = 4,
                                 Version = 1,
                                 QuestionType = QuestionType.Open
                             }

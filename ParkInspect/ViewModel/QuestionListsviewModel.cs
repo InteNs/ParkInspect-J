@@ -15,6 +15,7 @@ namespace ParkInspect.ViewModel
         public ObservableCollection<QuestionListViewModel> QuestionLists { get; set; }
         public QuestionListViewModel selectedQuestionList { get; set; }
         public ObservableCollection<QuestionItemViewModel> allQuestions;
+      
 
         public QuestionListsviewModel(IQuestionListRepository repo)
         {

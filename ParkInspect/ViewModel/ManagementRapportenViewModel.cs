@@ -135,7 +135,7 @@ namespace ParkInspect.ViewModel
                     SelectedOption.Equals(
                         "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag"))
                 {
-                    PieChart = new PieChartViewModel(Questions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                    PieChart = new PieChartViewModel(Questions, Commissions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
                     CurrentGraph = PieChart;
                 }
 
