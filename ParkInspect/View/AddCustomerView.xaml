@@ -14,7 +14,36 @@
             <Setter Property="FontSize" Value="25"></Setter>
             <Setter Property="Padding" Value="0"></Setter>
         </Style>
+
+        <Style x:Key="tbError" TargetType="{x:Type TextBox}">
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate x:Name="TextErrorTemplate">
+                        <DockPanel LastChildFill="True">
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" 
+                                BorderThickness="2"/>
+                            </AdornedElementPlaceholder>
+                            <TextBlock FontSize="20" 
+                            Foreground="Red">*?*</TextBlock>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" 
+                Value="True">
+                    <Setter Property="ToolTip" 
+                    Value="{Binding RelativeSource=
+            {x:Static RelativeSource.Self},
+            Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
+    
+   
+    
     <Grid>
 
         <Grid.ColumnDefinitions>
@@ -72,13 +101,16 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
+            
+            
+            
             <DockPanel Grid.Row="1"
                         Grid.Column="1"
                         >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Name, Mode=TwoWay}" TextAlignment="Center" />
+                <TextBox Text="{Binding Path=Customer.Name, Mode=TwoWay, ValidatesOnNotifyDataErrors=True}" TextAlignment="Center"  Style="{StaticResource tbError}"/>
             </DockPanel>
 
             <DockPanel Grid.Row="3"

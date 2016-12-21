@@ -60,6 +60,7 @@ namespace ParkInspect.Service
                 { "commissions-add", typeof(AddCommission) },
                 { "commissions-overview", typeof(CommissionOverview) },
                 { "dashboard-manager", typeof(DashboardManagerView) },
+                { "questionnaire-start", typeof(AnswerQuestionView) },
                 { "inspections-list", typeof(InspectionsView) },
                 { "inspections-add" , typeof(AddInspectionView)},
                 { "timeline", typeof(TimeLineView) }

@@ -25,7 +25,7 @@ namespace ParkInspect.Repository.Dummy
                             Answer = "45",
                             Question = new QuestionViewModel
                             {
-                                Description = "hoeveel autos",
+                                Description = "Hoeveel autos staan er op de parkeerplaats?",
                                 Id = 1,
                                 Version = 1,
                                 QuestionType = QuestionType.Count
@@ -36,10 +36,32 @@ namespace ParkInspect.Repository.Dummy
                             Answer = "5",
                             Question = new QuestionViewModel
                             {
-                                Description = "hoeveel overtredingen ofzo",
+                                Description = "Hoeveel overtredingen zijn er?",
                                 Id = 2,
                                 Version = 1,
                                 QuestionType = QuestionType.Count
+                            }
+                        },
+                        new QuestionItemViewModel
+                        {
+                            Answer = "Ja",
+                            Question = new QuestionViewModel
+                            {
+                                Description = "Is de parkeerplaats leeg?",
+                                Id = 3,
+                                Version = 1,
+                                QuestionType = QuestionType.Boolean
+                            }
+                        },
+                        new QuestionItemViewModel
+                        {
+                            Answer = "Alles is kapot.",
+                            Question = new QuestionViewModel
+                            {
+                                Description = "Zijn er bijzonderheden zo ja, welke?",
+                                Id = 3,
+                                Version = 1,
+                                QuestionType = QuestionType.Open
                             }
                         }
                     }
