@@ -34,6 +34,13 @@ namespace ParkInspect.ViewModel
         private bool ValidateInput()
         {
             //TODO: Check if all fields have the right content
+
+            if (Employee.Function == null || Employee.Name == null || Employee.ZipCode == null ||
+                Employee.StreetNumber == null || Employee.PhoneNumber == null || Employee.Email == null || Employee.Region == null || Employee.Function == null)
+            {
+                return false;
+            }
+
             return true;
         }
 

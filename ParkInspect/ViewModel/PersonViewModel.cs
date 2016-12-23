@@ -93,6 +93,10 @@ namespace ParkInspect.ViewModel
 
                 if (string.IsNullOrWhiteSpace(_email))
                 { AddError("Email", "Email is verplicht"); }
+                else if(!_email.Contains("@"))
+                {
+                    AddError("Email", "Dit is geen geldige email");
+                }
                 else
                 { RemoveError("Email"); }
 
