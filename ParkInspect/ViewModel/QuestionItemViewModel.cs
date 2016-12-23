@@ -16,13 +16,15 @@ namespace ParkInspect.ViewModel
         {
 
         }
-        
+
         public QuestionViewModel Question { get; set; }
-        public string Answer { get; set; }
+        private string answer;
+        public string Answer { get { return answer; } set { answer = value; RaisePropertyChanged(); } }
 
         public int QuestionId => Question.Id;
         public int QuestionVersion => Question.Version;
         public string QuestionDescription => Question.Description;
+        private QuestionType questionType;
         public QuestionType QuestionType => Question.QuestionType;
 
     }
