@@ -56,6 +56,7 @@ namespace ParkInspect.ViewModel
            
             SimpleIoc.Default.Register<QuestionsViewModel>();
             SimpleIoc.Default.Register<QuestionListsviewModel>();
+            SimpleIoc.Default.Register<QuestionListViewModel>();
             SimpleIoc.Default.Register<TemplatesViewModel>();
             SimpleIoc.Default.Register<InspectionsViewModel>();
             SimpleIoc.Default.Register<AddInspectionViewModel>();
@@ -84,6 +85,7 @@ namespace ParkInspect.ViewModel
         public QuestionsViewModel Questions => ServiceLocator.Current.GetInstance<QuestionsViewModel>();
         public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
         public QuestionListsviewModel QuestionLists => ServiceLocator.Current.GetInstance<QuestionListsviewModel>();
+        public QuestionListViewModel QuestionList => ServiceLocator.Current.GetInstance<QuestionListViewModel>();
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => ServiceLocator.Current.GetInstance<AddCommissionViewModel>();

@@ -25,5 +25,18 @@ namespace Data
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Answer> Answer { get; set; }
+        public virtual DbSet<Commission> Commission { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
+        public virtual DbSet<Employee> Employee { get; set; }
+        public virtual DbSet<Function> Function { get; set; }
+        public virtual DbSet<Inspection> Inspection { get; set; }
+        public virtual DbSet<Location> Location { get; set; }
+        public virtual DbSet<Person> Person { get; set; }
+        public virtual DbSet<Question> Question { get; set; }
+        public virtual DbSet<QuestionItem> QuestionItem { get; set; }
+        public virtual DbSet<QuestionList> QuestionList { get; set; }
+        public virtual DbSet<Region> Region { get; set; }
+        public virtual DbSet<Workday> Workday { get; set; }
     }
 }

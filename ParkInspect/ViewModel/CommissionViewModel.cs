@@ -55,14 +55,9 @@ namespace ParkInspect.ViewModel
             get { return _description; }
             set { _description = value; RaisePropertyChanged(); }
         }
+        
 
-        public string CustomerName
-        {
-            get { return _customerName; }
-            set { _customerName = value;  RaisePropertyChanged(); }
-        }
-
-        public string Info => "Opdracht " + Id + " - " + CustomerName;
+        public string Info => "Opdracht " + Id + " - " + Customer.Name + "-" + Status;
 
         public string Status
         {

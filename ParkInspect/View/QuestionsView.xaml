@@ -5,8 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:local="clr-namespace:ParkInspect.View"
+             xmlns:viewModel="clr-namespace:ParkInspect.ViewModel"
+             xmlns:service="clr-namespace:ParkInspect.Service"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             Foreground="Black"
              DataContext="{Binding Questions, Source={StaticResource Locator}}">
     <Grid>
         <Grid.ColumnDefinitions>
