@@ -46,7 +46,7 @@
             </Grid.ColumnDefinitions>
 
 
-                <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="employees-list" Content="Inspectie uitvoeren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
+                <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="questionnaire-start" Content="Inspectie uitvoeren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
                 <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="inspections-list" Content="Inspectie inplannen" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
@@ -71,7 +71,7 @@
                 <ColumnDefinition Width="0.1*" />
                 </Grid.ColumnDefinitions>
 
-                <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding SetViewCommand }" CommandParameter="question-main" Content="Vragenscherm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
+                <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="question-main" Content="Vragenscherm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
                 <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="employees-list" Content="Rapport genereren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 

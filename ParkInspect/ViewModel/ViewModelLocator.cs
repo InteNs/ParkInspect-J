@@ -94,7 +94,6 @@ namespace ParkInspect.ViewModel
         public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
         public EmployeeInspectionsViewModel EmployeeInspections => NewInstance<EmployeeInspectionsViewModel>(ref _addEmployeeInspectionsKey);
         public QuestionControlMainViewModel QuestionMain => ServiceLocator.Current.GetInstance<QuestionControlMainViewModel>();
-        public QuestionListViewModel QuestionList => ServiceLocator.Current.GetInstance<QuestionListViewModel>();
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
