@@ -261,6 +261,15 @@
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\QuestionListsView.xaml.cs">
+      <DependentUpon>QuestionListsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuestionListView.xaml.cs">
+      <DependentUpon>QuestionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuestionsView.xaml.cs">
+      <DependentUpon>QuestionsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\TemplatesView.xaml.cs">
       <DependentUpon>TemplatesView.xaml</DependentUpon>
     </Compile>
@@ -349,6 +358,18 @@
     <Page Include="View\ManagementView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuestionListsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QuestionListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QuestionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TemplatesView.xaml">
       <SubType>Designer</SubType>
