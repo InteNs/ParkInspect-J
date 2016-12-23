@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="ParkInspect.View.QuestionListView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ParkInspect.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             DataContext="{Binding QuestionList, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="0.60*" />
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="0.30*" />
+            <ColumnDefinition Width="0.035*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="0.80*" />
+            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="0.20*"/>
+            <RowDefinition Height="0.035*"/>
+        </Grid.RowDefinitions>
+        <ComboBox ItemsSource="{Binding Path=Questions}" DisplayMemberPath="Description" SelectedItem="{Binding QuestionToAdd, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" MinHeight="50"/>
+        <Button Command="{Binding AddQuestionCommand}" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" FontSize="9">Add Question</Button>
+        <DataGrid CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Stretch"
+                  HorizontalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding QuestionItems}" SelectedItem="{Binding SelectedQuestionItem, Mode=TwoWay}"
+                  VerticalScrollBarVisibility="Visible" IsReadOnly="True"
+                  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="50" Header="#" Binding="{Binding QuestionId}" />
+                <DataGridTextColumn Width="*" Header="Description"
+                                    Binding="{Binding QuestionDescription}" />
+                <DataGridTextColumn Width="50" Header="Version" Binding="{Binding QuestionVersion}" />
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Button FontSize="10" Width="50" Padding="1" CommandParameter="{Binding}"
+                                        Command="{ Binding DataContext.RemoveQuestionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
+                                    Remove
+                                </Button>
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

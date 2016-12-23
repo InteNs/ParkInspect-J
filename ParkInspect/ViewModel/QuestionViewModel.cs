@@ -9,5 +9,26 @@ namespace ParkInspect.ViewModel
         public string Description { get; set; }
         public QuestionType QuestionType { get; set; }
 
+
+        public QuestionViewModel Update()
+        {
+            return null;
+        }
+        public QuestionViewModel Duplicate()
+        {
+            return null;
+        }
+        public void Reload()
+        {
+
+        }
+        public void Create()
+        {
+
+        }
+        public void Disable()
+        {
+
+        }
     }
 }
