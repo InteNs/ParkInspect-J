@@ -36,5 +36,10 @@ namespace ParkInspect.View
             TextBox tb = (TextBox)sender;
             tb.Text = null;
         }
+        private void DatePicked_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+            
+        }
     }
 }

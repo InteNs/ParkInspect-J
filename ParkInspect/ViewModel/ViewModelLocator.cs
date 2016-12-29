@@ -19,7 +19,8 @@ namespace ParkInspect.ViewModel
             //services
             SimpleIoc.Default.Register<IRouterService, RouterService>();
             SimpleIoc.Default.Register<IAuthService, AuthService>();
-            
+            SimpleIoc.Default.Register<ISyncService, SyncService>();
+
             //database context
             SimpleIoc.Default.Register<ParkInspectEntities>();
 
@@ -62,10 +63,13 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<AddInspectionViewModel>();
             SimpleIoc.Default.Register<TimeLineViewModel>();
             SimpleIoc.Default.Register<EmployeeInspectionsViewModel>();
+
+            SimpleIoc.Default.Register<SyncViewModel>();
         }
         //Services
         public IRouterService RouterService => ServiceLocator.Current.GetInstance<IRouterService>();
         public IAuthService AuthService => ServiceLocator.Current.GetInstance<IAuthService>();
+        public ISyncService SyncService => ServiceLocator.Current.GetInstance<ISyncService>();
         //viewmodels
 
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
@@ -89,6 +93,7 @@ namespace ParkInspect.ViewModel
         public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
         public AddInspectionViewModel AddInspection => NewInstance<AddInspectionViewModel>(ref _addInspectionKey);
         public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
+        public SyncViewModel Synchronisation => ServiceLocator.Current.GetInstance<SyncViewModel>();
         public EmployeeInspectionsViewModel EmployeeInspections => NewInstance<EmployeeInspectionsViewModel>(ref _addEmployeeInspectionsKey);
 
         public static void Cleanup()
