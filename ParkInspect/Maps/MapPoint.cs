@@ -4,15 +4,15 @@ namespace ParkInspect.Maps
 {
     public class MapPoint : MapBase
     {
-        private string _name;
+        private string _description;
         private Location _location;
 
-        public string Name
+        public string Description
         {
-            get { return _name; }
+            get { return _description; }
             set
             {
-                _name = value;
+                _description = value;
                 RaisePropertyChanged("Name");
             }
         }
