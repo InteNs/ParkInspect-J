@@ -14,6 +14,66 @@
             <Setter Property="FontSize" Value="25"></Setter>
             <Setter Property="Padding" Value="0"></Setter>
         </Style>
+
+        <Style x:Key="tbError" TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="230"></Setter>
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate x:Name="TextErrorTemplate">
+                        <DockPanel LastChildFill="True">
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" 
+                                BorderThickness="2"/>
+                            </AdornedElementPlaceholder>
+                            <TextBlock FontSize="20" 
+                            Foreground="Red">!</TextBlock>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" 
+                Value="True">
+                    <Setter Property="ToolTip" 
+                    Value="{Binding RelativeSource=
+            {x:Static RelativeSource.Self},
+            Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+
+        <Style x:Key="cbError" TargetType="{x:Type ComboBox}">
+            <Setter Property="Width" Value="230"></Setter>
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Validation.ErrorTemplate">
+                <Setter.Value>
+                    <ControlTemplate x:Name="TextErrorTemplate">
+                        <DockPanel LastChildFill="True">
+                            <AdornedElementPlaceholder>
+                                <Border BorderBrush="Red" 
+                                BorderThickness="2"/>
+                            </AdornedElementPlaceholder>
+                            <TextBlock FontSize="20" 
+                            Foreground="Red">!</TextBlock>
+                        </DockPanel>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" 
+                Value="True">
+                    <Setter Property="ToolTip" 
+                    Value="{Binding RelativeSource=
+            {x:Static RelativeSource.Self},
+            Path=(Validation.Errors)[0].ErrorContent}"></Setter>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </UserControl.Resources>
     <Grid>
 
@@ -78,7 +138,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Name}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Employee.Name,  NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -87,7 +147,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.ZipCode}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Employee.ZipCode,  NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -96,7 +156,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.StreetNumber}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Employee.StreetNumber,  NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -105,7 +165,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.PhoneNumber}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Employee.PhoneNumber,  NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -114,7 +174,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Employee.Email}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Employee.Email,  NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel
@@ -123,7 +183,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "/>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding Employee.Region}" ItemsSource="{Binding RegionList}" />
+                <ComboBox SelectedValue="{Binding Employee.Region}" ItemsSource="{Binding RegionList, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource cbError}" />
             </DockPanel>
 
             <DockPanel
@@ -132,7 +192,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Functie: "/>
                 </Viewbox>
-                <ComboBox SelectedValue="{Binding Employee.Function}" ItemsSource="{Binding FunctionList}" />
+                <ComboBox SelectedValue="{Binding Employee.Function}" ItemsSource="{Binding FunctionList, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource cbError}" />
             </DockPanel>
 
             <Grid

@@ -47,6 +47,10 @@ namespace ParkInspect.ViewModel
             set
             {
                 _region = value;
+                if (string.IsNullOrWhiteSpace(_region))
+                { AddError("Region", "Regio is verplicht"); }
+                else
+                { RemoveError("Region"); }
                 RaisePropertyChanged();
             }
         }
@@ -57,6 +61,10 @@ namespace ParkInspect.ViewModel
             set
             {
                 _function = value;
+                if (string.IsNullOrWhiteSpace(_function))
+                { AddError("Function", "Functie is verplicht"); }
+                else
+                { RemoveError("Function"); }
                 RaisePropertyChanged();
             }
         }

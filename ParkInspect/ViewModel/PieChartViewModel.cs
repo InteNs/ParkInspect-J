@@ -62,26 +62,34 @@ namespace ParkInspect.ViewModel
             KPIModel = model;
         }
 
-        public PieChartViewModel(IEnumerable<QuestionItemViewModel> questionItems, CommissionViewModel cvm,
+        public PieChartViewModel(IEnumerable<QuestionItemViewModel> questionItems, IEnumerable<CommissionViewModel> commissions, CommissionViewModel cvm,
             string regionFilter, DateTime? startTime, DateTime? endTime, QuestionItemViewModel question)
         {
             _questionItems = questionItems.ToList();
+            _commissions = commissions.ToList();
 
             if (cvm != null)
             {
-                //remove wat dingesen ofzo
+               foreach(CommissionViewModel comvm in _commissions.Where(c => c.Id == cvm.Id))
+                {
+                    _questionItems.RemoveAll(qi => qi.questionList.inspection.cvm.Id != comvm.Id);
+                }
             }
             if (!string.IsNullOrEmpty(regionFilter))
             {
-                //remove nog wat dingesen ofzo
+                foreach (CommissionViewModel comvm in _commissions.Where(c => c.Region != regionFilter))
+                {
+                    _questionItems.RemoveAll(qi => qi.questionList.inspection.cvm.Id == comvm.Id);
+                }
             }
             if (startTime != null && endTime != null)
             {
-                //remove nog meer dingesen. yay
+                _questionItems.RemoveAll(qi => qi.questionList.inspection.date < startTime || qi.questionList.inspection.date > endTime);
+            
             }
             if (question != null)
             {
-                _questionItems.RemoveAll(qi => qi.QuestionDescription.Equals(question.QuestionDescription));
+                _questionItems.RemoveAll(qi => qi.Question.Id != (question.Question.Id));
             }
 
             var model = new PlotModel();
