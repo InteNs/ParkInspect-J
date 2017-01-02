@@ -14,6 +14,12 @@ namespace Data
     
     public partial class Inspection
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Inspection()
+        {
+            this.QuestionList = new HashSet<QuestionList>();
+        }
+    
         public int Id { get; set; }
         public System.Guid Guid { get; set; }
         public int CommissionId { get; set; }
@@ -23,5 +29,7 @@ namespace Data
         public Nullable<System.DateTime> DateCancelled { get; set; }
     
         public virtual Commission Commission { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<QuestionList> QuestionList { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ParkInspectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ParkInspectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Answer">
           <Key>
             <PropertyRef Name="Id" />
@@ -130,10 +130,11 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
-          <Property Name="Assignment_Id" Type="int" />
+          <Property Name="InspectionId" Type="int" />
+          <Property Name="InspectionGuid" Type="uniqueidentifier" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -323,6 +324,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_QuestionList_Inspection">
+          <End Role="Inspection" Type="Self.Inspection" Multiplicity="0..1" />
+          <End Role="QuestionList" Type="Self.QuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inspection">
+              <PropertyRef Name="Id" />
+              <PropertyRef Name="Guid" />
+            </Principal>
+            <Dependent Role="QuestionList">
+              <PropertyRef Name="InspectionId" />
+              <PropertyRef Name="InspectionGuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Workday_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="Workday" Type="Self.Workday" Multiplicity="*" />
@@ -399,13 +414,16 @@
             <End Role="QuestionList" EntitySet="QuestionList" />
             <End Role="QuestionItem" EntitySet="QuestionItem" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuestionList_Inspection" Association="Self.FK_QuestionList_Inspection">
+            <End Role="Inspection" EntitySet="Inspection" />
+            <End Role="QuestionList" EntitySet="QuestionList" />
+          </AssociationSet>
           <AssociationSet Name="FK_Workday_Employee" Association="Self.FK_Workday_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="Workday" EntitySet="Workday" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ParkInspectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -494,6 +512,7 @@
           <Property Name="DateTimeEnd" Type="DateTime" Precision="3" />
           <Property Name="DateCancelled" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Commission" Relationship="Self.FK_Inspection_Commission" FromRole="Inspection" ToRole="Commission" />
+          <NavigationProperty Name="QuestionList" Relationship="ParkInspectModel.FK_QuestionList_Inspection" FromRole="Inspection" ToRole="QuestionList" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -562,6 +581,9 @@
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Assignment_Id" Type="Int32" />
           <NavigationProperty Name="QuestionItem" Relationship="Self.FK_QuestionItem_QuestionList" FromRole="QuestionList" ToRole="QuestionItem" />
+          <Property Name="InspectionId" Type="Int32" />
+          <Property Name="InspectionGuid" Type="Guid" />
+          <NavigationProperty Name="Inspection" Relationship="ParkInspectModel.FK_QuestionList_Inspection" FromRole="QuestionList" ToRole="Inspection" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -833,7 +855,25 @@
             <End Role="QuestionList" EntitySet="QuestionList" />
             <End Role="QuestionItem" EntitySet="QuestionItem" />
           </AssociationSet>
+          <AssociationSet Name="FK_QuestionList_Inspection" Association="ParkInspectModel.FK_QuestionList_Inspection">
+            <End Role="Inspection" EntitySet="Inspection" />
+            <End Role="QuestionList" EntitySet="QuestionList" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_QuestionList_Inspection">
+          <End Type="ParkInspectModel.Inspection" Role="Inspection" Multiplicity="0..1" />
+          <End Type="ParkInspectModel.QuestionList" Role="QuestionList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Inspection">
+              <PropertyRef Name="Id" />
+              <PropertyRef Name="Guid" />
+            </Principal>
+            <Dependent Role="QuestionList">
+              <PropertyRef Name="InspectionId" />
+              <PropertyRef Name="InspectionGuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -964,10 +1004,11 @@
           <EntitySetMapping Name="QuestionList">
             <EntityTypeMapping TypeName="ParkInspectModel.QuestionList">
               <MappingFragment StoreEntitySet="QuestionList">
+                <ScalarProperty Name="InspectionGuid" ColumnName="InspectionGuid" />
+                <ScalarProperty Name="InspectionId" ColumnName="InspectionId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Assignment_Id" ColumnName="Assignment_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

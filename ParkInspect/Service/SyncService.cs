@@ -13,6 +13,15 @@ namespace ParkInspect.Service
     class SyncService : ISyncService
     {
         private string dbPath;
+        private string remoteConnString;
+        private string localConnString;
+
+        public SyncService()
+        {
+            remoteConnString = @"Data Source=avans.database.windows.net;Initial catalog=ParkInspect;Persist security info=True;user Id=beheer;Password=ParkInspect1";
+            localConnString = @"Data Source=DESKTOP-3GSF6QQ\SQLEXPRESS; Initial Catalog=ParkInspectEMB; Integrated Security=True";
+        }
+
         public SqlCeConnection InitializeDatabase()
         {
             string connectionString = CreateDatabase();
@@ -44,13 +53,23 @@ namespace ParkInspect.Service
             return connectionString;
         }
 
+        public string getRemoteConnString()
+        {
+            return remoteConnString;
+        }
+
+        public string getLocalConnString()
+        {
+            return localConnString;
+        }
+
         public void CreateTable(SqlCeConnection conn)
         {
             using (SqlCeCommand comm = new SqlCeCommand())
             {
                 comm.Connection = conn;
                 comm.CommandType = CommandType.Text;
-                comm.CommandText = "CREATE TABLE medewerker ( globalID uniqueidentifier primary key, PersonID int , [LastName] nvarchar(255) ,  [FirstName] nvarchar(255))";
+                comm.CommandText = "CREATE TABLE Inspection( Id INT primary key,Guid uniqueidentifier NOT NULL, CommissionId int NOT NULL,CommissionGuid uniqueidentifier NOT NULL, DateTimeStart datetime NOT NULL, DateTimeEnd datetime, DateCancelled datetime)";
                 comm.ExecuteNonQuery();
             }
         }

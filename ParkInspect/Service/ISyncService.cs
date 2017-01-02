@@ -9,5 +9,7 @@ namespace ParkInspect.Service
         string CreateDatabase();
         void CreateTable(SqlCeConnection conn);
         bool CheckForInternetConnection();
+        string getRemoteConnString();
+        string getLocalConnString();
     }
 }
