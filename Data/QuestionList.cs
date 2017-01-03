@@ -24,8 +24,11 @@ namespace Data
         public System.Guid Guid { get; set; }
         public string Description { get; set; }
         public Nullable<int> Assignment_Id { get; set; }
+        public Nullable<int> InspectionId { get; set; }
+        public Nullable<System.Guid> InspectionGuid { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<QuestionItem> QuestionItem { get; set; }
+        public virtual Inspection Inspection { get; set; }
     }
 }

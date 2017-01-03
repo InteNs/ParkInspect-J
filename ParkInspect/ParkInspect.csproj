@@ -82,6 +82,26 @@
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.Synchronization, Version=2.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\x86\Microsoft.Synchronization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.Server, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.SqlServer, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.SqlServerCe, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
       <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
       <Private>True</Private>
@@ -94,6 +114,10 @@
     <Reference Include="System.Activities" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SQL Server Compact Edition\v3.5\Desktop\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -171,6 +195,8 @@
     <Compile Include="Repository\Interface\IQuestionListRepository.cs" />
     <Compile Include="Repository\Interface\IRegionRepository.cs" />
     <Compile Include="Service\AuthService.cs" />
+    <Compile Include="Service\ISyncService.cs" />
+    <Compile Include="Service\SyncService.cs" />
     <Compile Include="Service\IAuthService.cs" />
     <Compile Include="Service\IRouterService.cs" />
     <Compile Include="ViewModel\AddInspectionViewModel.cs" />
@@ -190,6 +216,7 @@
     <Compile Include="ViewModel\QuestionListsviewModel.cs" />
     <Compile Include="ViewModel\QuestionListViewModel.cs" />
     <Compile Include="ViewModel\PieChartViewModel.cs" />
+    <Compile Include="ViewModel\SyncViewModel.cs" />
     <Compile Include="ViewModel\TimeLineItemViewModel.cs" />
     <Compile Include="ViewModel\TimeLineViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
