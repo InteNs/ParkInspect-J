@@ -52,7 +52,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();
 
-            SimpleIoc.Default.Register<ManagementRapportenViewModel>();
+            SimpleIoc.Default.Register<ManagementReportsViewModel>();
             SimpleIoc.Default.Register<AuthenticationViewModel>();
            
             SimpleIoc.Default.Register<QuestionsViewModel>();
@@ -82,7 +82,7 @@ namespace ParkInspect.ViewModel
         public AddCustomerViewModel AddCustomer => NewInstance<AddCustomerViewModel>(ref _addCustomerKey);
         public EditCustomerViewModel EditCustomer => NewInstance<EditCustomerViewModel>(ref _editCustomerKey);
 
-        public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
+        public ManagementReportsViewModel Management => ServiceLocator.Current.GetInstance<ManagementReportsViewModel>();
         public QuestionsViewModel Questions => ServiceLocator.Current.GetInstance<QuestionsViewModel>();
         public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
         public QuestionListsviewModel QuestionLists => ServiceLocator.Current.GetInstance<QuestionListsviewModel>();
