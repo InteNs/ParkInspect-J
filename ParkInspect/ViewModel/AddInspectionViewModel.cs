@@ -21,16 +21,17 @@ namespace ParkInspect.ViewModel
         
         public InspectionViewModel Inspection { get; set; }
         public ICommand AddInspectionCommand { get; set; }
+        public ObservableCollection<CommissionViewModel> CommissionList { get; private set; }
         private string errorMessage;
 
-        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, /*CommissionViewModel cvm, */IRouterService router) : base(router)
+        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IRouterService router) : base(router)
         {
             Inspection = new InspectionViewModel();
             Inspection.StartTime = DateTime.Now;
             Inspection.EndTime = DateTime.Now;
-            Inspection.cvm = /*cvm*/new CommissionViewModel();
             _inspectionRepository = inspectionRepository;
             AddInspectionCommand = new RelayCommand(AddInspection, CanAddInspection);
+            CommissionList = new ObservableCollection<CommissionViewModel>(commissionRepository.GetAll());
         }
 
         private bool ValidateInput()
@@ -43,6 +44,11 @@ namespace ParkInspect.ViewModel
             if (Inspection.EndTime.DayOfYear != Inspection.StartTime.DayOfYear || Inspection.EndTime.Year != Inspection.StartTime.Year)
             {
                 errorMessage = "De start en eindtijd moeten op dezelfde dag plaatsvinden.";
+                return false;
+            }
+            if(Inspection.cvm == null)
+            {
+                errorMessage = "Selecteer eerst een opdracht.";
                 return false;
             }
             return true;

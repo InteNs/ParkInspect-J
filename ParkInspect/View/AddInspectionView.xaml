@@ -7,6 +7,7 @@
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
+             Foreground="Black"
              DataContext="{Binding AddInspection, Source={StaticResource Locator}}">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -25,8 +26,10 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
+                
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
@@ -34,9 +37,9 @@
 
             <Grid Grid.RowSpan="2" Grid.Column="1" Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
-                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="0.75*" />
+                    <RowDefinition Height="0.75*" />
+                    <RowDefinition Height="0.75*" />
                 </Grid.RowDefinitions>
 
                 <StackPanel>
@@ -50,8 +53,9 @@
                 </StackPanel>
 
             </Grid>
-
-            <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">
+            <ComboBox Grid.Column="1" Grid.Row="2" Height="40" SelectedItem="{Binding Path=Inspection.cvm}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info"/>
+            
+            <StackPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">
                 <Button Content="Inspectie Toevoegen" Width="200" Command="{Binding AddInspectionCommand}"></Button>
             </StackPanel>
 

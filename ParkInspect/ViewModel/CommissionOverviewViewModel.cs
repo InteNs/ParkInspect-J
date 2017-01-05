@@ -20,7 +20,7 @@ namespace ParkInspect.ViewModel
             get { return _selectedCommission; }
             set { _selectedCommission = value; RaisePropertyChanged(); }
         }
-        public ICommand AddCommissionCommand { get; set; }
+        
         
         public CommissionOverviewViewModel(ICommissionRepository commissionRepository, IEmployeeRepository employeeRepository, IRouterService router) : base(router)
         {
