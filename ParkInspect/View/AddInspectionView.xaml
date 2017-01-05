@@ -41,18 +41,18 @@
 
                 <StackPanel>
                     <Label Content="Start Moment" FontSize="17.5" />
-                    <xctk:DateTimePicker Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}"/>
+                    <xctk:DateTimePicker Value="{Binding Inspection.StartTime}" Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}"/>
                 </StackPanel>
 
                 <StackPanel Grid.Row="2">
                     <Label Content="Eind Moment" FontSize="17.5" />
-                    <xctk:DateTimePicker Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}" />
+                    <xctk:DateTimePicker Value="{Binding Inspection.EndTime}" Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}" />
                 </StackPanel>
 
             </Grid>
 
             <StackPanel Grid.Column="1" Grid.Row="2" VerticalAlignment="Center">
-                <Button Content="Inspectie Toevoegen" Width="200"></Button>
+                <Button Content="Inspectie Toevoegen" Width="200" Command="{Binding AddInspectionCommand}"></Button>
             </StackPanel>
 
         </Grid>
