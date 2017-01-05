@@ -20,7 +20,7 @@ using Microsoft.Synchronization;
 
 namespace ParkInspect.ViewModel
 {
-    public class SyncViewModel:MainViewModel
+    public class SyncViewModel : MainViewModel
     {
         private ISyncService _syncService;
         public ICommand DoSyncCommand { get; set; }
@@ -35,7 +35,7 @@ namespace ParkInspect.ViewModel
         {
             if (_syncService.CheckForInternetConnection())
             {
-               // _syncService.InitializeDatabase();
+                // _syncService.InitializeDatabase();
 
                 ProvisionServer();
                 ProvisionClient();
@@ -60,10 +60,10 @@ namespace ParkInspect.ViewModel
                 // set the direction of sync session to Upload and Download
                 syncOrchestrator.Direction = SyncDirectionOrder.UploadAndDownload;
 
-                
+
                 // subscribe for errors that occur when applying changes to the client
                 ((SqlSyncProvider)syncOrchestrator.LocalProvider).ApplyChangeFailed += new EventHandler<DbApplyChangeFailedEventArgs>(Program_ApplyChangeFailed);
-                
+
                 // execute the synchronization process
                 SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 

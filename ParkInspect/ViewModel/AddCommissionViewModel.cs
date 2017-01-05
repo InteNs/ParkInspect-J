@@ -12,6 +12,7 @@ namespace ParkInspect.ViewModel
     {
         private CustomerViewModel _selectedCustomer;
         private readonly ICommissionRepository _commissionRepository;
+        private string errorMessage;
 
         public CustomerViewModel SelectedCustomer
         {
@@ -21,6 +22,7 @@ namespace ParkInspect.ViewModel
                 _selectedCustomer = value;
                 base.RaisePropertyChanged();
             }
+            
         }
 
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
@@ -47,21 +49,35 @@ namespace ParkInspect.ViewModel
             int FrequencyInt;
             string pattern = "^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$";
             Regex regex = new Regex(pattern);
-            if (!int.TryParse(StreetNumber, out streetNumberInt) || !int.TryParse(Frequency, out FrequencyInt))
+      
+
+            //check if all fields are filled in
+            if (Commission.Customer == null || Commission.Region == null || Commission.ZipCode == null ||
+                Commission.Description == null)
             {
+                errorMessage = "Niet alle velden zijn ingevuld";
                 return false;
+                
+            }
+
+            if (!int.TryParse(StreetNumber, out streetNumberInt))
+            {
+                errorMessage = "Vul een getal in bij straatnummer";
+                return false;
+
+            }
+            if (!int.TryParse(Frequency, out FrequencyInt))
+            {
+                errorMessage = "Vul een getal in bij frequentie";
+                return false;
+
             }
 
             if (!Regex.Match(Commission.ZipCode, pattern).Success)
             {
+                errorMessage = "De postcode is niet correct ingevuld";
                 return false;
-            }
 
-            //check if all fields are filled in
-            if (Commission.Customer == null || Commission.Region == null || streetNumberInt <= 0 || Commission.ZipCode == null ||
-                FrequencyInt <= 0 || Commission.Description == null)
-            {
-                return false;
             }
             return true;
         }
@@ -94,7 +110,7 @@ namespace ParkInspect.ViewModel
         {
             //TODO: Validation error
             var dialog = new MetroDialogService();
-            dialog.ShowMessage("Error", "De waarden zijn niet correct ingevuld");
+            dialog.ShowMessage("Error", errorMessage);
 
 
         }
