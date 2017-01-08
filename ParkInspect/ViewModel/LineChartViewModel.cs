@@ -80,7 +80,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date == dt)));
+                                _inspections.Count(ins => ins.StartTime == dt)));
                         }
                     }
                 }
@@ -102,7 +102,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddDays(7))));
+                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddDays(7))));
                         }
                     }
                 }
@@ -124,7 +124,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddMonths(1))));
+                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddMonths(1))));
                         }
                     }
                 }
@@ -146,7 +146,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddYears(1))));
+                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddYears(1))));
                         }
                     }
                 }
@@ -159,13 +159,13 @@ namespace ParkInspect.ViewModel
 
                 foreach (InspectionViewModel ivm in _inspections)
                 {
-                    if (ivm.date < start)
+                    if (ivm.StartTime < start)
                     {
-                        start = ivm.date;
+                        start = ivm.StartTime;
                     }
-                    if (ivm.date > end)
+                    if (ivm.StartTime > end)
                     {
-                        end = ivm.date;
+                        end = ivm.StartTime;
                     }
                 }
 
@@ -187,7 +187,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date == dt)));
+                                _inspections.Count(ins => ins.StartTime == dt)));
                         }
                     }
                 }
@@ -213,7 +213,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddDays(7))));
+                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddDays(7))));
                         }
                     }
                 }
@@ -241,7 +241,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddMonths(1))));
+                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddMonths(1))));
                         }
                     }
                 }
@@ -266,7 +266,7 @@ namespace ParkInspect.ViewModel
                         if (_inspections.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.date >= dt && ins.date < dt.AddYears(1))));
+                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddYears(1))));
                         }
                     }
                 }

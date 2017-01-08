@@ -116,11 +116,11 @@
         </DataGrid>
         <Grid Grid.Row="1"
           Grid.Column="1">
-            <Button Command="{Binding PreviousWeekCommand}" Content="Previous"></Button>
+            <Button Command="{Binding PreviousWeekCommand}" Content="Vorige"></Button>
         </Grid>
         <Grid Grid.Row="1"
           Grid.Column="2">
-        <Button Command="{Binding NextWeekCommand}" Content="Next"></Button>
+        <Button Command="{Binding NextWeekCommand}" Content="Volgende"></Button>
     </Grid>
 
     </Grid>

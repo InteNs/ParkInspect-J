@@ -84,7 +84,7 @@ namespace ParkInspect.ViewModel
             }
             if (startTime != null && endTime != null)
             {
-                _questionItems.RemoveAll(qi => qi.questionList.inspection.date < startTime || qi.questionList.inspection.date > endTime);
+                _questionItems.RemoveAll(qi => qi.questionList.inspection.StartTime < startTime || qi.questionList.inspection.StartTime > endTime);
             
             }
             if (question != null)

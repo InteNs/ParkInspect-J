@@ -14,8 +14,8 @@ namespace ParkInspect.Factory
             _diagrams = new Dictionary<string, IDiagram>
             {
                 ["Lijndiagram"] = new LineChart(),
-                ["Kaart"] = new Kaart(),
-                ["Cirkeldiagram"] = new Cirkeldiagram(),
+                ["Kaart"] = new MapChart(),
+                ["Cirkeldiagram"] = new PieChart(),
                 ["Staafdiagram"] = new Staafdiagram()
             };
 

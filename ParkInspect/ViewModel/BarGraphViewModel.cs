@@ -33,7 +33,7 @@ namespace ParkInspect.ViewModel
 
             if (startTime != null && endTime != null)
             {
-                _inspections.RemoveAll(ins => ins.date < startTime || ins.date > endTime);
+                _inspections.RemoveAll(ins => ins.StartTime < startTime || ins.StartTime > endTime);
                
 
             }

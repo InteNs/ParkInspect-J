@@ -11,9 +11,9 @@ using ParkInspect.Repository.Interface;
 
 namespace ParkInspect.ViewModel
 {
-    public class ManagementRapportenViewModel : MainViewModel
+    public class ManagementReportsViewModel : MainViewModel
     {
-        private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
+        private bool _date, _customer, _commission, _location, _inspector, _manager, _function, _answer, _status;
         private string _selectedOption;
         private DateTime? _endDate;
         private IGraphViewModel _currentGraph;
@@ -88,7 +88,7 @@ namespace ParkInspect.ViewModel
         public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
         public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
 
-        public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
+        public ManagementReportsViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
             IEmployeeRepository emp, IQuestionListRepository ques, IInspectionsRepository insp)
         {
             _inspectionRepository = insp;
@@ -222,13 +222,13 @@ namespace ParkInspect.ViewModel
         private void SetVisibilities()
         {
             Date = false;
-            Klant = false;
-            Opdracht = false;
-            Locatie = false;
-            Inspecteur = false;
+            Customer = false;
+            Commission = false;
+            Location = false;
+            Inspector = false;
             Manager = false;
-            Functie = false;
-            Antwoord = false;
+            Function = false;
+            Answer = false;
             Status = false;
             if (SelectedOption == null) return;
             foreach (var s in SelectedDiagram.Options[SelectedOption])
@@ -238,25 +238,25 @@ namespace ParkInspect.ViewModel
                         Date = true;
                         break;
                     case Filter.Klant:
-                        Klant = true;
+                        Customer = true;
                         break;
                     case Filter.Opdracht:
-                        Opdracht = true;
+                        Commission = true;
                         break;
                     case Filter.Locatie:
-                        Locatie = true;
+                        Location = true;
                         break;
                     case Filter.Vraag:
-                        Antwoord = true;
+                        Answer = true;
                         break;
                     case Filter.Inspecteur:
-                        Inspecteur = true;
+                        Inspector = true;
                         break;
                     case Filter.Manager:
                         Manager = true;
                         break;
                     case Filter.Functie:
-                        Functie = true;
+                        Function = true;
                         break;
                     case Filter.Status:
                         Status = true;
@@ -288,42 +288,42 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public bool Klant
+        public bool Customer
         {
-            get { return _klant; }
+            get { return _customer; }
             set
             {
-                _klant = value;
+                _customer = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Opdracht
+        public bool Commission
         {
-            get { return _opdracht; }
+            get { return _commission; }
             set
             {
-                _opdracht = value;
+                _commission = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Locatie
+        public bool Location
         {
-            get { return _locatie; }
+            get { return _location; }
             set
             {
-                _locatie = value;
+                _location = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Inspecteur
+        public bool Inspector
         {
-            get { return _inspecteur; }
+            get { return _inspector; }
             set
             {
-                _inspecteur = value;
+                _inspector = value;
                 RaisePropertyChanged();
             }
         }
@@ -338,22 +338,22 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public bool Functie
+        public bool Function
         {
-            get { return _functie; }
+            get { return _function; }
             set
             {
-                _functie = value;
+                _function = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Antwoord
+        public bool Answer
         {
-            get { return _antwoord; }
+            get { return _answer; }
             set
             {
-                _antwoord = value;
+                _answer = value;
                 RaisePropertyChanged();
             }
         }
