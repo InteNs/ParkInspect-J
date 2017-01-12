@@ -1,0 +1,47 @@
+﻿@model IEnumerable<ParkInspectPortal.Models.InspectionViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Inspectie rapporten</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Van
+        </th>
+        <th>
+            Tot
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DateTimeStart)
+            </td>
+            <td>
+                @if (item.DateTimeEnd == null)
+                {
+                    @Html.Display("Heden")
+                }
+                else
+                {
+                    @Html.DisplayFor(modelItem => item.DateTimeEnd)
+                }
+            </td>
+            <td><a class="btn btn-primary" href="/Home/Download/@item.Guid">Download rapport</a></td>
+        </tr>
+    }
+
+</table>
