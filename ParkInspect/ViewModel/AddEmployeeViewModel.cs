@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
+using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
 {
@@ -62,6 +63,9 @@ namespace ParkInspect.ViewModel
         private void ShowValidationError()
         {
             //TODO: Validation error
+            var dialog = new MetroDialogService();
+            dialog.ShowMessage("Probleem opgetreden",
+                            "Niet alle gegevens zijn juist ingevuld.");
         }
     }
 }
