@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ParkInspect.ViewModel
@@ -28,7 +29,7 @@ namespace ParkInspect.ViewModel
                 { AddError("Name", "Naam mag geen cijfers bevatten"); }
                 else
                 { RemoveError("Name"); }
-                
+
                 RaisePropertyChanged();
             }
         }
@@ -42,6 +43,10 @@ namespace ParkInspect.ViewModel
 
                 if (string.IsNullOrWhiteSpace(_zipCode))
                 { AddError("ZipCode", "Postcode is verplicht"); }
+                else if (!Regex.IsMatch(_zipCode, "^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$"))
+                {
+                    AddError("ZipCode", "Postcode bevat 4 cijfers en 2 letters");
+                }
                 else
                 { RemoveError("ZipCode"); }
 
@@ -76,6 +81,8 @@ namespace ParkInspect.ViewModel
                 { AddError("PhoneNumber", "Telefoonnummer is verplicht"); }
                 else if (_phoneNumber.Any(char.IsLetter))
                 { AddError("Telefoonnummer", "Telefoonnummer kan geen letters bevatten"); }
+                else if (_phoneNumber.Length != 10)
+                { AddError("PhoneNumber", "Ongeldig nummer"); }
                 else
                 { RemoveError("PhoneNumber"); }
 
@@ -93,7 +100,7 @@ namespace ParkInspect.ViewModel
 
                 if (string.IsNullOrWhiteSpace(_email))
                 { AddError("Email", "Email is verplicht"); }
-                else if(!_email.Contains("@"))
+                else if (!Regex.IsMatch(_email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
                 {
                     AddError("Email", "Dit is geen geldige email");
                 }
