@@ -80,9 +80,7 @@ namespace ParkInspect.ViewModel
                 if (string.IsNullOrWhiteSpace(_phoneNumber))
                 { AddError("PhoneNumber", "Telefoonnummer is verplicht"); }
                 else if (_phoneNumber.Any(char.IsLetter))
-                { AddError("Telefoonnummer", "Telefoonnummer kan geen letters bevatten"); }
-                else if (_phoneNumber.Length != 10)
-                { AddError("PhoneNumber", "Ongeldig nummer"); }
+                { AddError("PhoneNumber", "Telefoonnummer kan geen letters bevatten"); }
                 else
                 { RemoveError("PhoneNumber"); }
 

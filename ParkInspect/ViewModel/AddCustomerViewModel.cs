@@ -41,13 +41,10 @@ namespace ParkInspect.ViewModel
         {
             //check if all fields are filled in
             if (Customer.Function == null || Customer.Name == null || Customer.ZipCode == null ||
-                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null)
+                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null || !Customer.IsValid)
             {
                 return false;
             }
-
-            //Name can not contain a number
-            // return !Customer.Name.Any(char.IsDigit);
             return true;
         }
 
