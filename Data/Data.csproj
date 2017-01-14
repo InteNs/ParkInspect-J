@@ -63,10 +63,14 @@
     <Compile Include="Employee.cs">
       <DependentUpon>ParkInspectEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="extension.cs" />
     <Compile Include="Function.cs">
       <DependentUpon>ParkInspectEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Inspection.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inspection_tracking.cs">
       <DependentUpon>ParkInspectEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Location.cs">
@@ -101,6 +105,15 @@
       <DependentUpon>ParkInspectEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Region.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="schema_info.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="scope_config.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="scope_info.cs">
       <DependentUpon>ParkInspectEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Workday.cs">
