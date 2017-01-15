@@ -34,18 +34,7 @@
                 <DataGridTextColumn Width="*" Header="Description"
                                     Binding="{Binding QuestionDescription}" />
                 <DataGridTextColumn Width="50" Header="Version" Binding="{Binding QuestionVersion}" />
-                <DataGridTemplateColumn>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
-                                <Button FontSize="10" Width="50" Padding="1" CommandParameter="{Binding}"
-                                        Command="{ Binding DataContext.RemoveQuestionCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">
-                                    Remove
-                                </Button>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

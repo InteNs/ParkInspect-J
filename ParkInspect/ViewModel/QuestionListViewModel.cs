@@ -35,6 +35,7 @@ namespace ParkInspect.ViewModel
         }
 
         public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
+        public InspectionViewModel inspection { get; set; }
 
         public QuestionListViewModel(IEnumerable<QuestionItemViewModel> questions)
         {
