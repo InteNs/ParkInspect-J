@@ -22,10 +22,10 @@
             <RowDefinition Height="0.005*"/>
         </Grid.RowDefinitions>
         <DataGrid GridLinesVisibility="None"
-       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedQuestionList, Mode=TwoWay}" Grid.Column="1" Grid.Row="1">
+       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding QuestionLists, Mode=TwoWay}" SelectedItem="{Binding SelectedQuestionList, Mode=TwoWay}" Grid.Column="1" Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Id" Binding="{Binding id}" Width="0.2*" />
-                <DataGridTextColumn Header="Description" Binding="{Binding description}" Width="*" />
+                <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="0.2*" />
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
         <Button FontSize="10" Grid.Column="1" Grid.Row="3" Command="{Binding RouteCommand}" CommandParameter="question-main">QuestionItems</Button>

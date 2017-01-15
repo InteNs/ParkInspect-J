@@ -175,6 +175,7 @@
     <Compile Include="Service\IAuthService.cs" />
     <Compile Include="Service\IRouterService.cs" />
     <Compile Include="ViewModel\AddInspectionViewModel.cs" />
+    <Compile Include="ViewModel\AddQuestionViewModel.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\BarGraphViewModel.cs" />
     <Compile Include="ViewModel\EditCustomerViewModel.cs" />
@@ -222,6 +223,9 @@
     </Compile>
     <Compile Include="View\AddInspectionView.xaml.cs">
       <DependentUpon>AddInspectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddQuestionView.xaml.cs">
+      <DependentUpon>AddQuestionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AnswerQuestionView.xaml.cs">
       <DependentUpon>AnswerQuestionView.xaml</DependentUpon>
@@ -285,6 +289,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AddInspectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddQuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

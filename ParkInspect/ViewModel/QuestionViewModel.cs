@@ -10,25 +10,12 @@ namespace ParkInspect.ViewModel
         public QuestionType QuestionType { get; set; }
 
 
-        public QuestionViewModel Update()
+        public void Update(QuestionViewModel newQuestion)
         {
-            return null;
-        }
-        public QuestionViewModel Duplicate()
-        {
-            return null;
-        }
-        public void Reload()
-        {
-
-        }
-        public void Create()
-        {
-
-        }
-        public void Disable()
-        {
-
+            Id = newQuestion.Id;
+            Version = newQuestion.Version;
+            Description = newQuestion.Description;
+            QuestionType = newQuestion.QuestionType;
         }
     }
 }
