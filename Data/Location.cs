@@ -22,7 +22,7 @@ namespace Data
         }
     
         public int Id { get; set; }
-        public int StreetNumber { get; set; }
+        public string StreetNumber { get; set; }
         public string ZipCode { get; set; }
         public System.Guid Guid { get; set; }
         public int RegionId { get; set; }

@@ -160,6 +160,14 @@
                 </Viewbox>
                 <ComboBox SelectedValue="{Binding Customer.Function, Mode=TwoWay}" ItemsSource="{Binding FunctionList}" />
             </DockPanel>
+            <DockPanel
+                Grid.Row="13"
+                Grid.Column="1">
+                <Viewbox>
+                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "/>
+                </Viewbox>
+                <ComboBox SelectedValue="{Binding Customer.Region, Mode=TwoWay}" ItemsSource="{Binding RegionList}" />
+            </DockPanel>
 
 
             <Grid

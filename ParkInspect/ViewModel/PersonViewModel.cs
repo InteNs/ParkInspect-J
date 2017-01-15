@@ -14,6 +14,7 @@ namespace ParkInspect.ViewModel
         private string _zipCode;
         private string _streetNumber;
         private string _phoneNumber;
+        private string _region;
         private string _email;
 
         public string Name
@@ -44,6 +45,22 @@ namespace ParkInspect.ViewModel
                 { AddError("ZipCode", "Postcode is verplicht"); }
                 else
                 { RemoveError("ZipCode"); }
+
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Region
+        {
+            get { return _region; }
+            set
+            {
+                _region = value;
+
+                if (string.IsNullOrWhiteSpace(_region))
+                { AddError("Region", "Postcode is verplicht"); }
+                else
+                { RemoveError("Region"); }
 
                 RaisePropertyChanged();
             }

@@ -18,15 +18,17 @@ namespace ParkInspect.ViewModel
         
 
         public ObservableCollection<string> FunctionList { get; set; }
+        public ObservableCollection<string> RegionList { get; set; }
         public CustomerViewModel Customer { get; set; }
         public ICommand AddCustomerCommand { get; set; }
         
 
-        public AddCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm) : base(router)
+        public AddCustomerViewModel(ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router, CustomersViewModel cvm) : base(router)
         {
             _customerRepository = customerRepository;
             Customer = new CustomerViewModel();
             FunctionList = customerRepository.GetFunctions();
+            RegionList = regionRepository.GetAll();
             AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
         }
 
