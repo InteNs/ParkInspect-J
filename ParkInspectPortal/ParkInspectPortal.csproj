@@ -221,72 +221,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Entities\Answer.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Commission.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Customer.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Employee.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Function.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Inspection.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Inspection_tracking.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Location.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ParkInspectEntities.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParkInspectEntities.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ParkInspectEntities.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\ParkInspectEntities.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ParkInspectEntities.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Person.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Question.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\QuestionItem.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\QuestionList.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Region.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\schema_info.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\scope_config.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\scope_info.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Entities\Workday.cs">
-      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -302,16 +236,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Entities\ParkInspectEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ParkInspectEntities.edmx</DependentUpon>
-      <LastGenOutput>ParkInspectEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Entities\ParkInspectEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ParkInspectEntities.edmx</DependentUpon>
-      <LastGenOutput>ParkInspectEntities.cs</LastGenOutput>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -320,13 +244,6 @@
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <EntityDeploy Include="Entities\ParkInspectEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ParkInspectEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Entities\ParkInspectEntities.edmx.diagram">
-      <DependentUpon>ParkInspectEntities.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -393,6 +310,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{dbd837f9-810f-4078-be35-5e4b53d10879}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
