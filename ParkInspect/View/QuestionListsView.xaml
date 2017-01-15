@@ -17,21 +17,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="0.035*"/>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="0.005*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.005*"/>
         </Grid.RowDefinitions>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Templates}"
-                  SelectedItem="{Binding SelectedTemplate, Mode=TwoWay}" Grid.Column="1" Grid.Row="1">
+        <DataGrid GridLinesVisibility="None"
+       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedQuestionList, Mode=TwoWay}" Grid.Column="1" Grid.Row="1">
             <DataGrid.Columns>
-                <DataGridTextColumn Width="80" IsReadOnly="True" Header="Id" Binding="{Binding Id}" />
-                <DataGridTextColumn Width="*" Header="Description" Binding="{Binding Description, Mode=TwoWay}" />
-                <DataGridTemplateColumn Width="50">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Button FontSize="10" Command="{ Binding DataContext.OpenQuestionListCommand, RelativeSource={RelativeSource AncestorType=DataGrid}}">QuestionItems</Button>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Id" Binding="{Binding id}" Width="0.2*" />
+                <DataGridTextColumn Header="Description" Binding="{Binding description}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
+        <Button FontSize="10" Grid.Column="1" Grid.Row="3" Command="{Binding RouteCommand}" CommandParameter="question-main">QuestionItems</Button>
     </Grid>
 </UserControl>

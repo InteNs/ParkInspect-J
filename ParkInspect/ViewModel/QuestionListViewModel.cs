@@ -11,14 +11,30 @@ namespace ParkInspect.ViewModel
 {
     public class QuestionListViewModel : MainViewModel
     {
+        private int id;
+        private string description;
+
+        public int Id
+        {
+            get { return id; }
+            set
+            {
+                id = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Description
+        {
+            get { return description; }
+            set
+            {
+                description = value;
+                RaisePropertyChanged();
+            }
+        }
+
         public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
-
-        public QuestionViewModel QuestionToAdd { get; set; }
-
-        public ObservableCollection<QuestionViewModel> Questions { get; set; }
-        public QuestionItemViewModel SelectedQuestionItem { get; set; }
-        public ICommand RemoveQuestionCommand { get; set; }
-        public ICommand AddQuestionCommand { get; set; }
 
         public QuestionListViewModel(IEnumerable<QuestionItemViewModel> questions)
         {
