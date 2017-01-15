@@ -177,13 +177,13 @@ namespace ParkInspect.ViewModel
                             // Tijdsperiode 
                             // Medewerker
                             // Status van Opdrachten
-                            Map.AssigmentsPerLocation();
+                            Map.AssigmentsPerLocation(StartDate, EndDate, SelectedInspector);
                             break;
                         case "Aantal inspecties per locatie":
                             // Tijdsperiode 
                             // Medewerker
                             // Vraag & Antwoord
-                            Map.InspectionsPerLocation();
+                            Map.InspectionsPerLocation(StartDate, EndDate, SelectedQuestion, SelectedAnswer);
                             break;
                         case "Aantal inspecteurs per locatie":
                             Map.InspectorsPerLocation();

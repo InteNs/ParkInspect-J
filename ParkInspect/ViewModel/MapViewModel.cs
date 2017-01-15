@@ -48,14 +48,14 @@ namespace ParkInspect.ViewModel
 
         // Assigment per location
         // TODO: Remove plotted information before plotting new ones.
-        public void AssigmentsPerLocation()
+        public void AssigmentsPerLocation(DateTime? StartDate, DateTime? EndDate, EmployeeViewModel SelectedInspector = null)
         {
             // if (Points.Count != 0) { Points.Clear(); };
             
         }
 
         // Inspections per locations
-        public void InspectionsPerLocation()
+        public void InspectionsPerLocation(DateTime? StartDate, DateTime? EndDate, QuestionItemViewModel SelectedQuestion, string SelectedAnswer)
         {
             //if (Points.Count < 1) { Points.Clear(); };
 
