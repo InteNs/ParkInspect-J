@@ -21,6 +21,10 @@
             set
             {
                 _function = value;
+                if (string.IsNullOrWhiteSpace(_function))
+                { AddError("Function", "Functie is verplicht"); }
+                else
+                { RemoveError("Function"); }
                 RaisePropertyChanged();
             }
         }

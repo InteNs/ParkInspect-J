@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace ParkInspect.DiagramModels
 {
-    public class Cirkeldiagram : IDiagram
+    public class PieChart : IDiagram
     {
         public string Name { get; set; }
         public Dictionary<string, List<Filter>> Options { get; set; }
 
-        public Cirkeldiagram()
+        public PieChart()
         {
             Name = "Cirkeldiagram";
             Options = new Dictionary<string, List<Filter>>

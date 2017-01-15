@@ -6,7 +6,7 @@ namespace ParkInspect.ViewModel
 {
     public class MainViewModel : ViewModelBase
     {
-        protected IRouterService RouterService { get; set; }
+        protected internal IRouterService RouterService { get; set; }
 
         public ICommand RouteCommand { get; set; }
 

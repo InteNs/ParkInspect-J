@@ -6,13 +6,17 @@
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
+             Foreground="Black"
              DataContext="{Binding Inspections, Source={StaticResource Locator}}">
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis" />
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="3*" />
-        </Grid.RowDefinitions> 
-        
+        </Grid.RowDefinitions>
+
         <Grid Grid.Row="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="0.5*" />
@@ -22,7 +26,7 @@
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.1*" />
@@ -34,11 +38,11 @@
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="0.1*" />
                 </Grid.ColumnDefinitions>
-                
+
                 <WrapPanel Grid.Column="1" Grid.Row="1">
-                    <Button Content="Rapporteer Selectie" Width="250" />
+                    <Button Content="Rapporteer Selectie" Width="250" Visibility="{Binding Path=IsManager, Converter={StaticResource BoolToVis}}" />
                 </WrapPanel>
-                
+
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="0">
@@ -62,19 +66,20 @@
                         <ColumnDefinition Width="1*" />
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding RouteCommand}" CommandParameter="inspections-add">
+                    <Button Grid.Column="0" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Command="{Binding RouteCommand}" CommandParameter="inspections-add" Visibility="{Binding Path=IsInspecteur, Converter={StaticResource BoolToVis}}">
                         <Viewbox >
                             <ContentControl Content="+"/>
                         </Viewbox>
                     </Button>
 
-                    <ComboBox Grid.Column="2" SelectedItem="{Binding Path=SelectedCommission}" ItemsSource="{Binding Path=CommissionList}" />
+                    <ComboBox Grid.Column="2" SelectedItem="{Binding Path=SelectedCommission}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info"/>
 
                     <Border Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="DimGray">
                         <Viewbox>
                             <Label Content="{Binding SelectedCommission.Region}" />
                         </Viewbox>
                     </Border>
+                    <Button x:Name="button" Command="{Binding RouteCommand}" CommandParameter="inspections-add" Content="Toevoegen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="91" />
 
                 </Grid>
 
@@ -91,9 +96,9 @@
                     <ColumnDefinition Width="5*" />
                     <ColumnDefinition Width="0.2*" />
                 </Grid.ColumnDefinitions>
-                
+
                 <TextBox Text="{Binding SelectedCommission.Description}" Foreground="Black" IsReadOnly="True" Grid.Column="1" Grid.Row="1" />
-                
+
             </Grid>
 
 
@@ -104,7 +109,7 @@
                 <ColumnDefinition Width="0.3*" />
                 <ColumnDefinition Width="1*" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="0.5*" />
@@ -123,11 +128,6 @@
                             <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}"/>
                         </HierarchicalDataTemplate>
                     </ListBox.ItemTemplate>
-                    <ListBox.ContextMenu>
-                        <ContextMenu>
-                            <MenuItem Header="Inspecteur Koppelen" Click="AddInspecteur_Click"/>
-                        </ContextMenu>
-                    </ListBox.ContextMenu>
                 </ListBox>
             </Grid>
 
@@ -141,11 +141,11 @@
                     <ColumnDefinition Width="10*" />
                     <ColumnDefinition Width="0.15*" />
                 </Grid.ColumnDefinitions>
-                
+
                 <local:TimeLineView />
 
             </Grid>
-            
+
         </Grid>
     </Grid>
 </UserControl>

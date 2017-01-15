@@ -84,9 +84,15 @@ namespace ParkInspect.View
 
         private void MapItemTouchDown(object sender, TouchEventArgs e)
         {
-            var mapItem = (MapItem)sender;
+            var mapItem = (MapItem) sender;
             mapItem.IsSelected = !mapItem.IsSelected;
             e.Handled = true;
+        }
+        
+        private void DatePicked_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            throw new NotImplementedException();
+            
         }
     }
 }

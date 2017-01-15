@@ -87,9 +87,12 @@
             <Grid Grid.Row="5"
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
-                <DataGrid GridLinesVisibility="None" 
+                <DataGrid GridLinesVisibility="None"
        FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" SelectedItem="{Binding SelectedEmployee, Mode=TwoWay}" >
-                    <DataGrid.ItemsSource>
+                        <DataGrid.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding RouteCommand}" CommandParameter="employees-edit" />
+                        </DataGrid.InputBindings>
+                        <DataGrid.ItemsSource>
                         <MultiBinding Converter="{StaticResource Converter}">
                             <Binding Path="Employees"></Binding>
                             <Binding ElementName="Search" Path="Text"/>

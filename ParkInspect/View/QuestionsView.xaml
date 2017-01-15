@@ -4,10 +4,87 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParkInspect.View"
+             xmlns:viewModel="clr-namespace:ParkInspect.ViewModel"
+             xmlns:service="clr-namespace:ParkInspect.Service"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             Foreground="Black"
              DataContext="{Binding Questions, Source={StaticResource Locator}}">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.01*" />
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.01*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.01*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.01*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1"
+              Grid.Column="1"
+                Grid.ColumnSpan="2"
+              >
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="116*" />
+                <ColumnDefinition Width="4" />
+                <ColumnDefinition Width="115*" />
+                <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="116*" />
+                <ColumnDefinition Width="386*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.15*" />
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="1*" />
+                <RowDefinition Height="0.01*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.01*" />
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="1"
+          Grid.Column="1">
+                <Button Content="Annuleren" Command="{Binding RouteCommand}" CommandParameter="" />
+            </Grid>
+
+            <Grid Grid.Row="1"
+          Grid.Column="3">
+                <Button Content="Start" Command="{Binding RouteCommand }" CommandParameter="questionnaire-start"/>
+            </Grid>
+            <Grid Grid.Row="1"
+          Grid.Column="5"/>
+
+            <Grid Grid.Row="5"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="6">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="56*"/>
+                    <ColumnDefinition Width="237*"/>
+                </Grid.ColumnDefinitions>
+
+
+                <DataGrid GridLinesVisibility="None" FontSize="15" AutoGenerateColumns="False"
+                          IsReadOnly="True" Grid.ColumnSpan="2" ItemsSource="{Binding SelectedQuestionList}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Nr" Binding="{Binding Id}" Width="0.2*" />
+                        <DataGridTextColumn Header="Type" Width="*" Binding="{Binding QuestionType}" />
+                        <DataGridTextColumn Header="Vraag" Binding="{Binding Description}"  Width="*" />
+                        <DataGridTextColumn Header="Antwoord" Binding="{Binding Answer}" Width="*" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+
+
     </Grid>
 </UserControl>

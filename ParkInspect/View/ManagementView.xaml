@@ -202,12 +202,12 @@
             <oxy:PlotView Model="{Binding CurrentGraph.KPIModel}"/>
         </GroupBox>
 
-        <mapControl:Map x:Name="map" ZoomLevel="8" MinZoomLevel="7" MaxZoomLevel="17" Center="{Binding MapCenter}"
+        <mapControl:Map x:Name="map" ZoomLevel="{Binding Map.ZoomLevel}" MinZoomLevel="7" MaxZoomLevel="17" Center="{Binding Map.MapCenter}"
                  TileLayer="{StaticResource OpenStreetMap}"
                  MouseLeftButtonDown="MapMouseLeftButtonDown" MouseRightButtonDown="MapMouseRightButtonDown"
                  MouseMove="MapMouseMove" MouseLeave= "MapMouseLeave"
                  ManipulationInertiaStarting="MapManipulationInertiaStarting" Margin="10,9,10,10" Grid.Column="1">
-            <mapControl:MapItemsControl ItemsSource="{Binding Points}"
+            <mapControl:MapItemsControl ItemsSource="{Binding Map.Points}"
                                  ItemContainerStyle="{StaticResource PointItemStyle}"
                                  IsSynchronizedWithCurrentItem="True"
                                  SelectionMode="Extended"/>

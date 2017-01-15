@@ -41,10 +41,11 @@
             </Viewbox>
         </Grid>
 
+
+
         <Grid Grid.Row="3"
               Grid.Column="1"
-                Grid.ColumnSpan="4"
-              >
+                Grid.ColumnSpan="4">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*" />
@@ -78,8 +79,17 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Klant: " />
                 </Viewbox>
-                <ComboBox  SelectedItem="{Binding Commission.Customer, Mode=TwoWay}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name"/>
+                <ComboBox SelectedItem="{Binding Commission.Customer, Mode=TwoWay}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name"/>
+                
+
             </DockPanel>
+            
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Button HorizontalAlignment="Right" Content="+" Command="{Binding RouteCommand}" CommandParameter="customers-add" Width="62" ></Button>
+            </Grid>
+            
+            
+            
             
             <DockPanel Grid.Row="3"
                         Grid.Column="1"
@@ -96,7 +106,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: " />
                 </Viewbox>
-                <TextBox Text="{Binding Commission.StreetNumber, Mode=TwoWay}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding StreetNumber, Mode=TwoWay}" HorizontalContentAlignment="Center" TextChanged="TextBox_TextChanged" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -114,7 +124,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Frequentie: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Commission.Frequency, Mode=TwoWay}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Frequency, Mode=TwoWay}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="11"

@@ -12,9 +12,9 @@ using MapPoint = ParkInspect.Maps.MapPoint;
 
 namespace ParkInspect.ViewModel
 {
-    public class ManagementRapportenViewModel : MainViewModel
+    public class ManagementReportsViewModel : MainViewModel
     {
-        private bool _date, _klant, _opdracht, _locatie, _inspecteur, _manager, _functie, _antwoord, _status;
+        private bool _date, _customer, _commission, _location, _inspector, _manager, _function, _answer, _status;
         private string _selectedOption;
         private DateTime? _endDate;
         private IGraphViewModel _currentGraph;
@@ -24,10 +24,11 @@ namespace ParkInspect.ViewModel
         private readonly ICustomerRepository _customerRepository;
         private readonly IRegionRepository _regionRepository;
         private readonly IQuestionListRepository _questionListRepository;
-        private Location _mapCenter;
+        private readonly IInspectionsRepository _inspectionRepository;
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
         public LineChartViewModel LineChart { get; set; }
+        public MapViewModel Map { get; set; }
         public CustomerViewModel SelectedCustomer { get; set; }
         public EmployeeViewModel SelectedInspector { get; set; }
         public EmployeeViewModel SelectedManager { get; set; }
@@ -49,15 +50,16 @@ namespace ParkInspect.ViewModel
         public IEnumerable<string> Locations { get; set; }
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public ObservableCollection<CommissionViewModel> Commissions { get; set; }
+        public ObservableCollection<InspectionViewModel> Inspections { get; set; }
         public ObservableCollection<QuestionItemViewModel> Questions { get; set; }
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
         public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
-        public ObservableCollection<MapPoint> Points { get; set; }
 
-        public ManagementRapportenViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
-            IEmployeeRepository emp, IQuestionListRepository ques)
+        public ManagementReportsViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
+            IEmployeeRepository emp, IQuestionListRepository ques, IInspectionsRepository insp)
         {
+            _inspectionRepository = insp;
             _commissionRepository = repo;
             _employeeRepository = emp;
             _customerRepository = cust;
@@ -70,11 +72,7 @@ namespace ParkInspect.ViewModel
             Locations  = _regionRepository.GetAll();
             Questions = _questionListRepository.GetAllQuestionItems();
             Statuses = _commissionRepository.GetStatuses();
-
-            LocationService = new GoogleLocationService();
-
-            var avans = LocationService.GetLatLongFromAddress("Onderwijsboulevard 215, 5223 DE");
-            _mapCenter = new Location(avans.Latitude, avans.Longitude);
+            Inspections = _inspectionRepository.GetAll();
 
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
@@ -97,10 +95,12 @@ namespace ParkInspect.ViewModel
                             PieChart = new PieChartViewModel(Employees, Functions, SelectedRegion);
                             break;
                         case "Verdeling van de status van de opdrachten":
-                            PieChart = new PieChartViewModel(Commissions, _commissionRepository.GetStatuses(), StartDate, EndDate, SelectedCustomer);
+                            PieChart = new PieChartViewModel(Commissions, _commissionRepository.GetStatuses(), StartDate,
+                                EndDate, SelectedCustomer);
                             break;
                         case "Verdeling van de verschillende antwoorden dat is gegeven op een specifieke vraag":
-                            PieChart = new PieChartViewModel(Questions, SelectedCommission, SelectedRegion, StartDate, EndDate, SelectedQuestion);
+                            PieChart = new PieChartViewModel(Questions, Commissions, SelectedCommission, SelectedRegion,
+                                StartDate, EndDate, SelectedQuestion);
                             break;
                     }
                     CurrentGraph = PieChart;
@@ -110,14 +110,20 @@ namespace ParkInspect.ViewModel
                     switch (SelectedOption)
                     {
                         case "Aantal inspecties per inspecteur":
+                            BarGraph = new BarGraphViewModel(Inspections, Commissions, Customers, Employees, StartDate,
+                                EndDate, SelectedQuestion, SelectedCommission, SelectedCustomer, "inspecteur");
                             break;
                         case "Aantal inspecties per klant":
+                            BarGraph = new BarGraphViewModel(Inspections, Commissions, Customers, Employees, StartDate,
+                                EndDate, SelectedQuestion, SelectedCommission, SelectedCustomer, "klant");
                             break;
                         case "Aantal opdrachten per manager":
-                            BarGraph = new BarGraphViewModel(Commissions, Managers, StartDate, EndDate, SelectedStatus, SelectedManager);
+                            BarGraph = new BarGraphViewModel(Commissions, Inspectors, StartDate, EndDate, SelectedStatus,
+                                SelectedCustomer);
                             break;
                         case "Aantal opdrachten per klant":
-                            BarGraph = new BarGraphViewModel(Commissions, Customers, StartDate, EndDate, SelectedStatus, SelectedCustomer);
+                            BarGraph = new BarGraphViewModel(Commissions, Customers, StartDate, EndDate, SelectedStatus,
+                                SelectedCustomer);
                             break;
                     }
                     CurrentGraph = BarGraph;
@@ -127,12 +133,20 @@ namespace ParkInspect.ViewModel
                     switch (SelectedOption)
                     {
                         case "Aantal inspecties die zijn uitgevoerd per dag":
+                            LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate,
+                                SelectedCommission, SelectedCustomer, SelectedQuestion, "dag");
                             break;
                         case "Aantal inspecties die zijn uitgevoerd per week":
+                            LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate,
+                                SelectedCommission, SelectedCustomer, SelectedQuestion, "week");
                             break;
                         case "Aantal inspecties die zijn uitgevoerd per maand":
+                            LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate,
+                                SelectedCommission, SelectedCustomer, SelectedQuestion, "maand");
                             break;
                         case "Aantal inspecties die zijn uitgevoerd per jaar":
+                            LineChart = new LineChartViewModel(Commissions, Inspections, StartDate, EndDate,
+                                SelectedCommission, SelectedCustomer, SelectedQuestion, "jaar");
                             break;
                         case "Aantal opdrachten die zijn aangemaakt/afgerond per week":
                             LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "week");
@@ -144,25 +158,38 @@ namespace ParkInspect.ViewModel
                             LineChart = new LineChartViewModel(Commissions, StartDate, EndDate, SelectedCustomer, "jaar");
                             break;
                         case "Aantal werknemers die zijn aangenomen/ontslagen per maand":
-                            LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "maand");
+                            LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction,
+                                SelectedRegion, "maand");
                             break;
                         case "Aantal werknemers die zijn aangenomen/ontslagen per jaar":
-                            LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction, SelectedRegion, "jaar");
+                            LineChart = new LineChartViewModel(Employees, StartDate, EndDate, SelectedFunction,
+                                SelectedRegion, "jaar");
                             break;
                     }
                     CurrentGraph = LineChart;
                     break;
 
                 case "Kaart":
+                    Map = new MapViewModel(Commissions, Inspections, Inspectors, Customers);
                     switch (SelectedOption)
                     {
                         case "Aantal opdrachten per locatie":
+                            // Tijdsperiode 
+                            // Medewerker
+                            // Status van Opdrachten
+                            Map.AssigmentsPerLocation();
                             break;
                         case "Aantal inspecties per locatie":
+                            // Tijdsperiode 
+                            // Medewerker
+                            // Vraag & Antwoord
+                            Map.InspectionsPerLocation();
                             break;
                         case "Aantal inspecteurs per locatie":
+                            Map.InspectorsPerLocation();
                             break;
                         case "Aantal klanten per locatie":
+                            Map.CustomersPerLocation();
                             break;
                     }
                     break;
@@ -173,13 +200,13 @@ namespace ParkInspect.ViewModel
         private void SetVisibilities()
         {
             Date = false;
-            Klant = false;
-            Opdracht = false;
-            Locatie = false;
-            Inspecteur = false;
+            Customer = false;
+            Commission = false;
+            Location = false;
+            Inspector = false;
             Manager = false;
-            Functie = false;
-            Antwoord = false;
+            Function = false;
+            Answer = false;
             Status = false;
             if (SelectedOption == null) return;
             foreach (var s in SelectedDiagram.Options[SelectedOption])
@@ -189,25 +216,25 @@ namespace ParkInspect.ViewModel
                         Date = true;
                         break;
                     case Filter.Klant:
-                        Klant = true;
+                        Customer = true;
                         break;
                     case Filter.Opdracht:
-                        Opdracht = true;
+                        Commission = true;
                         break;
                     case Filter.Locatie:
-                        Locatie = true;
+                        Location = true;
                         break;
                     case Filter.Vraag:
-                        Antwoord = true;
+                        Answer = true;
                         break;
                     case Filter.Inspecteur:
-                        Inspecteur = true;
+                        Inspector = true;
                         break;
                     case Filter.Manager:
                         Manager = true;
                         break;
                     case Filter.Functie:
-                        Functie = true;
+                        Function = true;
                         break;
                     case Filter.Status:
                         Status = true;
@@ -217,8 +244,7 @@ namespace ParkInspect.ViewModel
         }
 
         // Helper Classes
-
-
+        
         public string SelectedOption
         {
             get { return _selectedOption; }
@@ -239,42 +265,42 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public bool Klant
+        public bool Customer
         {
-            get { return _klant; }
+            get { return _customer; }
             set
             {
-                _klant = value;
+                _customer = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Opdracht
+        public bool Commission
         {
-            get { return _opdracht; }
+            get { return _commission; }
             set
             {
-                _opdracht = value;
+                _commission = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Locatie
+        public bool Location
         {
-            get { return _locatie; }
+            get { return _location; }
             set
             {
-                _locatie = value;
+                _location = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Inspecteur
+        public bool Inspector
         {
-            get { return _inspecteur; }
+            get { return _inspector; }
             set
             {
-                _inspecteur = value;
+                _inspector = value;
                 RaisePropertyChanged();
             }
         }
@@ -289,22 +315,22 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public bool Functie
+        public bool Function
         {
-            get { return _functie; }
+            get { return _function; }
             set
             {
-                _functie = value;
+                _function = value;
                 RaisePropertyChanged();
             }
         }
 
-        public bool Antwoord
+        public bool Answer
         {
-            get { return _antwoord; }
+            get { return _answer; }
             set
             {
-                _antwoord = value;
+                _answer = value;
                 RaisePropertyChanged();
             }
         }
@@ -368,16 +394,6 @@ namespace ParkInspect.ViewModel
         {
             get { return _currentGraph; }
             set { _currentGraph = value; RaisePropertyChanged(); }
-        }
-
-        public Location MapCenter
-        {
-            get { return _mapCenter; }
-            set
-            {
-                _mapCenter = value;
-                RaisePropertyChanged("MapCenter");
-            }
         }
     }
 }
