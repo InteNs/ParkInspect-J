@@ -24,8 +24,6 @@
                                 <Border BorderBrush="Red" 
                                 BorderThickness="2"/>
                             </AdornedElementPlaceholder>
-                            <TextBlock FontSize="20" 
-                            Foreground="Red">!</TextBlock>
                         </DockPanel>
                     </ControlTemplate>
                 </Setter.Value>
@@ -110,7 +108,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Name, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center"/>
+                <TextBox Text="{Binding Path=Customer.Name, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
             </DockPanel>
 
             <DockPanel Grid.Row="3"
@@ -119,7 +117,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.ZipCode, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" />
+                <TextBox Text="{Binding Path=Customer.ZipCode, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18"  />
             </DockPanel>
 
             <DockPanel Grid.Row="5"
@@ -128,7 +126,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.StreetNumber, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" />
+                <TextBox Text="{Binding Path=Customer.StreetNumber, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18"  />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -137,7 +135,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" />
+                <TextBox Text="{Binding Path=Customer.PhoneNumber, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18"  />
             </DockPanel>
 
             <DockPanel Grid.Row="9"
@@ -146,7 +144,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Customer.Email, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" />
+                <TextBox Text="{Binding Path=Customer.Email, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18"  />
             </DockPanel>
 
             <DockPanel
