@@ -58,7 +58,7 @@ namespace ParkInspect.ViewModel
            
             SimpleIoc.Default.Register<QuestionsViewModel>();
             SimpleIoc.Default.Register<QuestionListsviewModel>();
-            SimpleIoc.Default.Register<QuestionListViewModel>();
+            SimpleIoc.Default.Register<QuestionListViewViewModel>();
             SimpleIoc.Default.Register<TemplatesViewModel>();
             SimpleIoc.Default.Register<InspectionsViewModel>();
             SimpleIoc.Default.Register<AddInspectionViewModel>();
@@ -66,7 +66,6 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<EmployeeInspectionsViewModel>();
 
             SimpleIoc.Default.Register<QuestionControlMainViewModel>();
-            SimpleIoc.Default.Register<QuestionListViewModel>();
             SimpleIoc.Default.Register<AddQuestionViewModel>();
 
             SimpleIoc.Default.Register<SyncViewModel>();
@@ -91,7 +90,7 @@ namespace ParkInspect.ViewModel
         public QuestionsViewModel Questions => ServiceLocator.Current.GetInstance<QuestionsViewModel>();
         public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
         public QuestionListsviewModel QuestionLists => ServiceLocator.Current.GetInstance<QuestionListsviewModel>();
-        public QuestionListViewModel QuestionList => ServiceLocator.Current.GetInstance<QuestionListViewModel>();
+        public QuestionListViewViewModel QuestionList => ServiceLocator.Current.GetInstance<QuestionListViewViewModel>();
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => ServiceLocator.Current.GetInstance<AddCommissionViewModel>();

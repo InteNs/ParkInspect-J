@@ -100,7 +100,7 @@
                         Grid.Column="1"
                         >
                 <Viewbox>
-                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Omschrijving: " />
+                    <Label Style="{StaticResource DefaultLabelStyle}" FontSize="20" Content="Omschrijving: " />
                 </Viewbox>
             </DockPanel>
 
@@ -108,7 +108,7 @@
                         Grid.Column="1"
                         >
                 <Viewbox>
-                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Vraag type: " />
+                    <Label Style="{StaticResource DefaultLabelStyle}" FontSize="20" Content="Vraag type: " />
                 </Viewbox>
             </DockPanel>
             <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Path=Question.Description, Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" />

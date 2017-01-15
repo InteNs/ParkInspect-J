@@ -28,6 +28,6 @@
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button FontSize="10" Grid.Column="1" Grid.Row="3" Command="{Binding RouteCommand}" CommandParameter="question-list">QuestionItems</Button>
+        <Button FontSize="10" Grid.Column="1" Grid.Row="3" Command="{Binding EditQuestionCommand}">QuestionItems</Button>
     </Grid>
 </UserControl>

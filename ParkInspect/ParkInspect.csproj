@@ -220,6 +220,7 @@
     <Compile Include="ViewModel\QuestionListsviewModel.cs" />
     <Compile Include="ViewModel\QuestionListViewModel.cs" />
     <Compile Include="ViewModel\PieChartViewModel.cs" />
+    <Compile Include="ViewModel\QuestionListViewViewModel.cs" />
     <Compile Include="ViewModel\SyncViewModel.cs" />
     <Compile Include="ViewModel\TimeLineItemViewModel.cs" />
     <Compile Include="ViewModel\TimeLineViewModel.cs" />

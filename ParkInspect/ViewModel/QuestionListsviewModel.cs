@@ -21,15 +21,21 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedQuestionList = value;
+                EditQuestionCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged();
             }
         }
-
+        public RelayCommand EditQuestionCommand { get; set; }
         public QuestionListsviewModel(IQuestionListRepository repo, IRouterService router) : base(router)
         {
             QuestionLists = repo.GetAll();
+            EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-list"), CanEditquestionList);
             SelectedQuestionList = QuestionLists[0];
-            
+        }
+
+        private bool CanEditquestionList()
+        {
+            return SelectedQuestionList != null;
         }
     }
 }
