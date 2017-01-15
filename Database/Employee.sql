@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Employee]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[Password] VARCHAR(MAX),
 	[Region] int NOT NULL,

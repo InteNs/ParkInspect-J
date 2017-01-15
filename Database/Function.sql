@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Function]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[Name] varchar(MAX) NOT NULL
 
