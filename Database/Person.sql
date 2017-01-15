@@ -5,7 +5,7 @@
 	[Name] varchar(MAX),
 	[LocationId] int NOT NULL,
 	[LocationGuid] uniqueidentifier NOT NULL,
-	[PhoneNumber] int,
+	[PhoneNumber] VARCHAR(50),
 	[Email] varchar(20)
 
 	CONSTRAINT [PK_Person] PRIMARY KEY CLUSTERED

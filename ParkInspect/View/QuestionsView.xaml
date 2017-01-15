@@ -54,7 +54,7 @@
 
             <Grid Grid.Row="1"
           Grid.Column="1">
-                <Button Content="Cancel" Command="{Binding RouteCommand}" CommandParameter="" />
+                <Button Content="Annuleren" Command="{Binding RouteCommand}" CommandParameter="" />
             </Grid>
 
             <Grid Grid.Row="1"

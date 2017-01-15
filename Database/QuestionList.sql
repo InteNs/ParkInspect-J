@@ -1,8 +1,12 @@
 ﻿CREATE TABLE [dbo].[QuestionList]
 (
-	[Id] INT NOT NULL IDENTITY , 
+	[Id] INT NOT NULL , 
 	[Guid] uniqueidentifier NOT NULL,
     [Description] VARCHAR(MAX) NOT NULL, 
-    [Assignment_Id] int NULL , 
-    CONSTRAINT [PK_QuestionList] PRIMARY KEY ([Id])
+    [InspectionId] int NULL , 
+    [InspectionGuid] uniqueidentifier NULL,
+
+	CONSTRAINT [PK_QuestionList] PRIMARY KEY ([Id]),
+	
+	CONSTRAINT [FK_QuestionList_Inspection] FOREIGN KEY (InspectionId, InspectionGuid) REFERENCES Inspection (Id, Guid)
 )

@@ -31,12 +31,16 @@ namespace Data
         public virtual DbSet<Employee> Employee { get; set; }
         public virtual DbSet<Function> Function { get; set; }
         public virtual DbSet<Inspection> Inspection { get; set; }
+        public virtual DbSet<Inspection_tracking> Inspection_tracking { get; set; }
         public virtual DbSet<Location> Location { get; set; }
         public virtual DbSet<Person> Person { get; set; }
         public virtual DbSet<Question> Question { get; set; }
         public virtual DbSet<QuestionItem> QuestionItem { get; set; }
         public virtual DbSet<QuestionList> QuestionList { get; set; }
         public virtual DbSet<Region> Region { get; set; }
+        public virtual DbSet<schema_info> schema_info { get; set; }
+        public virtual DbSet<scope_config> scope_config { get; set; }
+        public virtual DbSet<scope_info> scope_info { get; set; }
         public virtual DbSet<Workday> Workday { get; set; }
     }
 }

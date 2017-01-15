@@ -25,7 +25,7 @@ namespace ParkInspect
             {
                 ["Aantal inspecties per inspecteur"] = list1,
                 ["Aantal inspecties per klant"] = list1,
-                ["Aantal opdrachten per manager"] = list2,
+                ["Aantal opdrachten per inspecteur"] = list2,
                 ["Aantal opdrachten per klant"] = list2
             };
         }

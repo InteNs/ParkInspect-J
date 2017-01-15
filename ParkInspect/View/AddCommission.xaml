@@ -106,7 +106,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: " />
                 </Viewbox>
-                <TextBox Text="{Binding Commission.StreetNumber, Mode=TwoWay}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding StreetNumber, Mode=TwoWay}" HorizontalContentAlignment="Center" TextChanged="TextBox_TextChanged" />
             </DockPanel>
 
             <DockPanel Grid.Row="7"
@@ -124,7 +124,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Frequentie: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=Commission.Frequency, Mode=TwoWay}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=Frequency, Mode=TwoWay}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel Grid.Row="11"

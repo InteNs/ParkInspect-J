@@ -16,6 +16,9 @@
         </Style>
 
         <Style x:Key="tbError" TargetType="{x:Type TextBox}">
+            <Setter Property="Width" Value="230"></Setter>
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
                     <ControlTemplate x:Name="TextErrorTemplate">
@@ -24,14 +27,12 @@
                                 <Border BorderBrush="Red" 
                                 BorderThickness="2"/>
                             </AdornedElementPlaceholder>
+                            <TextBlock FontSize="20" 
+                            Foreground="Red">!</TextBlock>
                         </DockPanel>
                     </ControlTemplate>
                 </Setter.Value>
-
-                
-
             </Setter>
-            
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" 
                 Value="True">
@@ -45,6 +46,9 @@
 
 
         <Style x:Key="cbError" TargetType="{x:Type ComboBox}">
+            <Setter Property="Width" Value="230"></Setter>
+            <Setter Property="FontSize" Value="25"></Setter>
+            <Setter Property="Padding" Value="0"></Setter>
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
                     <ControlTemplate x:Name="TextErrorTemplate">
@@ -54,7 +58,7 @@
                                 BorderThickness="2"/>
                             </AdornedElementPlaceholder>
                             <TextBlock FontSize="20" 
-                            Foreground="Red"> !</TextBlock>
+                            Foreground="Red">!</TextBlock>
                         </DockPanel>
                     </ControlTemplate>
                 </Setter.Value>
