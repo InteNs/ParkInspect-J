@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
+using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
 {
@@ -36,7 +37,9 @@ namespace ParkInspect.ViewModel
             //TODO: Check if all fields have the right content
 
             if (Employee.Function == null || Employee.Name == null || Employee.ZipCode == null ||
-                Employee.StreetNumber == null || Employee.PhoneNumber == null || Employee.Email == null || Employee.Region == null || Employee.Function == null)
+                  Employee.StreetNumber == null || Employee.PhoneNumber == null || Employee.Email == null || Employee.Region == null || Employee.Function == null)
+            { return false; }
+            if(!Employee.IsValid )
             {
                 return false;
             }
@@ -62,6 +65,9 @@ namespace ParkInspect.ViewModel
         private void ShowValidationError()
         {
             //TODO: Validation error
+            var dialog = new MetroDialogService();
+            dialog.ShowMessage("Probleem opgetreden",
+                            "Niet alle gegevens zijn juist ingevuld.");
         }
     }
 }

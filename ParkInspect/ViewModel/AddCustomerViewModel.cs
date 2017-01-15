@@ -9,6 +9,7 @@ using System.ComponentModel;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
 {
@@ -42,13 +43,10 @@ namespace ParkInspect.ViewModel
         {
             //check if all fields are filled in
             if (Customer.Function == null || Customer.Name == null || Customer.ZipCode == null ||
-                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null)
+                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null || !Customer.IsValid)
             {
                 return false;
             }
-
-            //Name can not contain a number
-            // return !Customer.Name.Any(char.IsDigit);
             return true;
         }
 
@@ -63,14 +61,16 @@ namespace ParkInspect.ViewModel
             }
             else
             {
-                MessageBox.Show(ShowValidationError());
+                ShowValidationError();
             }
         }
 
-        private string ShowValidationError()
+        private void ShowValidationError()
         {
             //TODO: Validation error
-            return "Error, de velden zijn niet juist ingevuld.";
+            var dialog = new MetroDialogService();
+            dialog.ShowMessage("Probleem opgetreden",
+                            "Niet alle gegevens zijn juist ingevuld.");
         }
 
        
