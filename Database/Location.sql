@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Location]
 (
 	[Id] INT NOT NULL,
-	[StreetNumber] INT NOT NULL,
+	[StreetNumber] VARCHAR(50) NOT NULL,
 	[ZipCode] varchar(6) NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[RegionId] int NOT NULL,

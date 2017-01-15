@@ -12,34 +12,23 @@ using System.Collections.Generic;
 
 namespace ParkInspect.ViewModel
 {
-    public class AddCustomerViewModel : MainViewModel, INotifyDataErrorInfo
+    public class AddCustomerViewModel : MainViewModel
     {
         private readonly ICustomerRepository _customerRepository;
-
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+        
 
         public ObservableCollection<string> FunctionList { get; set; }
+        public ObservableCollection<string> RegionList { get; set; }
         public CustomerViewModel Customer { get; set; }
         public ICommand AddCustomerCommand { get; set; }
-        Dictionary<string, List<string>> propErrors;
-        public bool HasErrors
-        {
-            get
-            {
-                    var propErrorsCount = propErrors.Values.FirstOrDefault(r => r.Count > 0);
-                    if (propErrorsCount != null)
-                        return true;
-                    else
-                        return false;
-            }
-        }
+        
 
-        public AddCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm) : base(router)
+        public AddCustomerViewModel(ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router, CustomersViewModel cvm) : base(router)
         {
             _customerRepository = customerRepository;
             Customer = new CustomerViewModel();
             FunctionList = customerRepository.GetFunctions();
-            propErrors = new Dictionary<string, List<string>>();
+            RegionList = regionRepository.GetAll();
             AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
         }
 
@@ -59,7 +48,8 @@ namespace ParkInspect.ViewModel
             }
 
             //Name can not contain a number
-            return !Customer.Name.Any(char.IsDigit);
+            // return !Customer.Name.Any(char.IsDigit);
+            return true;
         }
 
         private void AddCustomer()
@@ -83,16 +73,6 @@ namespace ParkInspect.ViewModel
             return "Error, de velden zijn niet juist ingevuld.";
         }
 
-        public IEnumerable GetErrors(string propertyName)
-        {
-            List<string> errors = new List<string>();
-            if (propertyName != null)
-            {
-                propErrors.TryGetValue(propertyName, out errors);
-                return errors;
-            }
-            else
-                return null;
-        }
+       
     }
 }

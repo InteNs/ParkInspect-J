@@ -27,5 +27,7 @@ namespace ParkInspect.ViewModel
         private QuestionType questionType;
         public QuestionType QuestionType => Question.QuestionType;
 
+        public QuestionListViewModel questionList { get; set; }
+
     }
 }
