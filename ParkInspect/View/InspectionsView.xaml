@@ -39,9 +39,7 @@
                     <ColumnDefinition Width="0.1*" />
                 </Grid.ColumnDefinitions>
 
-                <WrapPanel Grid.Column="1" Grid.Row="1">
-                    <Button Content="Rapporteer Selectie" Width="250" Visibility="{Binding Path=IsManager, Converter={StaticResource BoolToVis}}" />
-                </WrapPanel>
+                
 
             </Grid>
 
@@ -72,14 +70,14 @@
                         </Viewbox>
                     </Button>
 
-                    <ComboBox Grid.Column="2" SelectedItem="{Binding Path=SelectedCommission}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info"/>
+                    <ComboBox Grid.Column="2" SelectedItem="{Binding Path=SelectedCommission}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info" Grid.ColumnSpan="2" Margin="10,10,3,7"/>
 
                     <Border Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="DimGray">
                         <Viewbox>
                             <Label Content="{Binding SelectedCommission.Region}" />
                         </Viewbox>
                     </Border>
-                    <Button x:Name="button" Command="{Binding RouteCommand}" CommandParameter="inspections-add" Content="Toevoegen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="45" Width="91" />
+                    <Button x:Name="button" Command="{Binding RouteCommand}" CommandParameter="inspections-add" Content="Toevoegen" HorizontalAlignment="Left" VerticalAlignment="Top" Height="44" Width="104" Grid.ColumnSpan="2" />
 
                 </Grid>
 
