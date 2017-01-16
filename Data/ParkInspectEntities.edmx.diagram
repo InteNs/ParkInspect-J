@@ -5,33 +5,37 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="61aea0d1dffe449e98f60fd46770a11a" Name="Diagram1" ZoomLevel="64">
-        <EntityTypeShape EntityType="ParkInspectModel.Answer" Width="1.5" PointX="3.625" PointY="0.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Commission" Width="1.5" PointX="9.75" PointY="7.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Customer" Width="1.5" PointX="7.5" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Employee" Width="1.5" PointX="10.5" PointY="12.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Function" Width="1.5" PointX="8.25" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Inspection" Width="1.5" PointX="12" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Location" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Person" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Question" Width="1.5" PointX="3.5" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.QuestionItem" Width="1.5" PointX="7.875" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.QuestionList" Width="1.5" PointX="11.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Region" Width="1.5" PointX="0.75" PointY="6.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="ParkInspectModel.Workday" Width="1.5" PointX="12.75" PointY="13.5" IsExpanded="true" />
-        <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_Answer" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Commission_Customer" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Commission_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Commission_Location" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Inspection_Commission" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Customer_Person" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Employee_Function" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Employee_Person" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Workday_Employee" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Location_Region" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_Person_Location" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_Question" ManuallyRouted="false" />
-        <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_QuestionList" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ParkInspectModel.Answer" Width="1.5" PointX="14.25" PointY="11.5" />
+        <EntityTypeShape EntityType="ParkInspectModel.Commission" Width="1.5" PointX="9.75" PointY="6.875" />
+        <EntityTypeShape EntityType="ParkInspectModel.Customer" Width="1.5" PointX="7.5" PointY="10.375" />
+        <EntityTypeShape EntityType="ParkInspectModel.Employee" Width="1.5" PointX="7.5" PointY="5.125" />
+        <EntityTypeShape EntityType="ParkInspectModel.Function" Width="1.5" PointX="5.25" PointY="2.125" />
+        <EntityTypeShape EntityType="ParkInspectModel.Inspection" Width="1.5" PointX="12" PointY="7.5" />
+        <EntityTypeShape EntityType="ParkInspectModel.Inspection_tracking" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ParkInspectModel.Location" Width="1.5" PointX="3" PointY="5.625" />
+        <EntityTypeShape EntityType="ParkInspectModel.Person" Width="1.5" PointX="5.25" PointY="5.5" />
+        <EntityTypeShape EntityType="ParkInspectModel.Question" Width="1.5" PointX="14.25" PointY="4.5" />
+        <EntityTypeShape EntityType="ParkInspectModel.QuestionItem" Width="1.5" PointX="16.5" PointY="7.625" />
+        <EntityTypeShape EntityType="ParkInspectModel.QuestionList" Width="1.5" PointX="14.25" PointY="7.75" />
+        <EntityTypeShape EntityType="ParkInspectModel.Region" Width="1.5" PointX="0.75" PointY="6.125" />
+        <EntityTypeShape EntityType="ParkInspectModel.schema_info" Width="1.5" PointX="0.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ParkInspectModel.scope_config" Width="1.5" PointX="2.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ParkInspectModel.scope_info" Width="1.5" PointX="4.75" PointY="9.75" />
+        <EntityTypeShape EntityType="ParkInspectModel.Workday" Width="1.5" PointX="9.75" PointY="2.875" />
+        <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_Answer" />
+        <AssociationConnector Association="ParkInspectModel.FK_Commission_Customer" />
+        <AssociationConnector Association="ParkInspectModel.FK_Commission_Employee" />
+        <AssociationConnector Association="ParkInspectModel.FK_Commission_Location" />
+        <AssociationConnector Association="ParkInspectModel.FK_Inspection_Commission" />
+        <AssociationConnector Association="ParkInspectModel.FK_Customer_Person" />
+        <AssociationConnector Association="ParkInspectModel.FK_Employee_Function" />
+        <AssociationConnector Association="ParkInspectModel.FK_Employee_Person" />
+        <AssociationConnector Association="ParkInspectModel.FK_Workday_Employee" />
         <AssociationConnector Association="ParkInspectModel.FK_QuestionList_Inspection" />
+        <AssociationConnector Association="ParkInspectModel.FK_Location_Region" />
+        <AssociationConnector Association="ParkInspectModel.FK_Person_Location" />
+        <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_Question" />
+        <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_QuestionList" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

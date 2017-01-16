@@ -26,7 +26,7 @@ namespace Data
         public string Name { get; set; }
         public int LocationId { get; set; }
         public System.Guid LocationGuid { get; set; }
-        public Nullable<int> PhoneNumber { get; set; }
+        public string PhoneNumber { get; set; }
         public string Email { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

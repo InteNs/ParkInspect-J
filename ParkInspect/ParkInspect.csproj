@@ -187,6 +187,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\DatetimeToTimestringConverter.cs" />
     <Compile Include="Converter\NameToBrushConverter.cs" />
     <Compile Include="Enumeration\Function.cs" />
     <Compile Include="Factory\DiagramFactory.cs" />
@@ -210,6 +211,7 @@
     <Compile Include="Repository\Dummy\DummyQuestionRepository.cs" />
     <Compile Include="Repository\Dummy\DummyRegionRepository.cs" />
     <Compile Include="Repository\Dummy\DummyTemplateRepository.cs" />
+    <Compile Include="Repository\Entity\EntityCustomerRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interface\ICommissionRepository.cs" />
