@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Customer]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[PersonId] int NOT NULL,
 	[PersonGuid] uniqueidentifier NOT NULL

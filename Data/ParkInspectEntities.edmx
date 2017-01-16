@@ -78,13 +78,33 @@
           <Property Name="DateTimeEnd" Type="datetime" />
           <Property Name="DateCancelled" Type="date" />
         </EntityType>
+        <EntityType Name="Inspection_tracking">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Guid" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="update_scope_local_id" Type="int" />
+          <Property Name="scope_update_peer_key" Type="int" />
+          <Property Name="scope_update_peer_timestamp" Type="bigint" />
+          <Property Name="local_update_peer_key" Type="int" Nullable="false" />
+          <Property Name="local_update_peer_timestamp" Type="bigint" Nullable="false" />
+          <Property Name="create_scope_local_id" Type="int" />
+          <Property Name="scope_create_peer_key" Type="int" />
+          <Property Name="scope_create_peer_timestamp" Type="bigint" />
+          <Property Name="local_create_peer_key" Type="int" Nullable="false" />
+          <Property Name="local_create_peer_timestamp" Type="bigint" Nullable="false" />
+          <Property Name="sync_row_is_tombstone" Type="int" Nullable="false" />
+          <Property Name="last_change_datetime" Type="datetime" />
+        </EntityType>
         <EntityType Name="Location">
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
           <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="StreetNumber" Type="int" Nullable="false" />
+          <Property Name="StreetNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RegionId" Type="int" Nullable="false" />
@@ -100,7 +120,7 @@
           <Property Name="Name" Type="varchar(max)" />
           <Property Name="LocationId" Type="int" Nullable="false" />
           <Property Name="LocationGuid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PhoneNumber" Type="int" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
           <Property Name="Email" Type="varchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Question">
@@ -130,7 +150,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="InspectionId" Type="int" />
@@ -144,6 +164,37 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RegionName" Type="varchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="schema_info">
+          <Key>
+            <PropertyRef Name="schema_major_version" />
+            <PropertyRef Name="schema_minor_version" />
+          </Key>
+          <Property Name="schema_major_version" Type="int" Nullable="false" />
+          <Property Name="schema_minor_version" Type="int" Nullable="false" />
+          <Property Name="schema_extended_info" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="scope_config">
+          <Key>
+            <PropertyRef Name="config_id" />
+          </Key>
+          <Property Name="config_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="config_data" Type="xml" Nullable="false" />
+          <Property Name="scope_status" Type="char" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="scope_info">
+          <Key>
+            <PropertyRef Name="sync_scope_name" />
+          </Key>
+          <Property Name="scope_local_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="scope_id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="sync_scope_name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="scope_sync_knowledge" Type="varbinary(max)" />
+          <Property Name="scope_tombstone_cleanup_knowledge" Type="varbinary(max)" />
+          <Property Name="scope_timestamp" Type="timestamp" StoreGeneratedPattern="Computed" />
+          <Property Name="scope_config_id" Type="uniqueidentifier" />
+          <Property Name="scope_restore_count" Type="int" Nullable="false" />
+          <Property Name="scope_user_comment" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="Workday">
           <Key>
@@ -359,12 +410,16 @@
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Function" EntityType="Self.Function" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Inspection" EntityType="Self.Inspection" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Inspection_tracking" EntityType="Self.Inspection_tracking" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Location" EntityType="Self.Location" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionItem" EntityType="Self.QuestionItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionList" EntityType="Self.QuestionList" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="schema_info" EntityType="Self.schema_info" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="scope_config" EntityType="Self.scope_config" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="scope_info" EntityType="Self.scope_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Workday" EntityType="Self.Workday" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Commission_Customer" Association="Self.FK_Commission_Customer">
             <End Role="Customer" EntitySet="Customer" />
@@ -427,14 +482,89 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ParkInspectModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ParkInspectEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Answer" EntityType="ParkInspectModel.Answer" />
+          <EntitySet Name="Commission" EntityType="ParkInspectModel.Commission" />
+          <EntitySet Name="Customer" EntityType="ParkInspectModel.Customer" />
+          <EntitySet Name="Employee" EntityType="ParkInspectModel.Employee" />
+          <EntitySet Name="Function" EntityType="ParkInspectModel.Function" />
+          <EntitySet Name="Inspection" EntityType="ParkInspectModel.Inspection" />
+          <EntitySet Name="Inspection_tracking" EntityType="ParkInspectModel.Inspection_tracking" />
+          <EntitySet Name="Location" EntityType="ParkInspectModel.Location" />
+          <EntitySet Name="Person" EntityType="ParkInspectModel.Person" />
+          <EntitySet Name="Question" EntityType="ParkInspectModel.Question" />
+          <EntitySet Name="QuestionItem" EntityType="ParkInspectModel.QuestionItem" />
+          <EntitySet Name="QuestionList" EntityType="ParkInspectModel.QuestionList" />
+          <EntitySet Name="Region" EntityType="ParkInspectModel.Region" />
+          <EntitySet Name="schema_info" EntityType="ParkInspectModel.schema_info" />
+          <EntitySet Name="scope_config" EntityType="ParkInspectModel.scope_config" />
+          <EntitySet Name="scope_info" EntityType="ParkInspectModel.scope_info" />
+          <EntitySet Name="Workday" EntityType="ParkInspectModel.Workday" />
+          <AssociationSet Name="FK_QuestionItem_Answer" Association="ParkInspectModel.FK_QuestionItem_Answer">
+            <End Role="Answer" EntitySet="Answer" />
+            <End Role="QuestionItem" EntitySet="QuestionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commission_Customer" Association="ParkInspectModel.FK_Commission_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commission_Employee" Association="ParkInspectModel.FK_Commission_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Commission_Location" Association="ParkInspectModel.FK_Commission_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Commission" EntitySet="Commission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Inspection_Commission" Association="ParkInspectModel.FK_Inspection_Commission">
+            <End Role="Commission" EntitySet="Commission" />
+            <End Role="Inspection" EntitySet="Inspection" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Customer_Person" Association="ParkInspectModel.FK_Customer_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Customer" EntitySet="Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Function" Association="ParkInspectModel.FK_Employee_Function">
+            <End Role="Function" EntitySet="Function" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Employee_Person" Association="ParkInspectModel.FK_Employee_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="Employee" EntitySet="Employee" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Workday_Employee" Association="ParkInspectModel.FK_Workday_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="Workday" EntitySet="Workday" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionList_Inspection" Association="ParkInspectModel.FK_QuestionList_Inspection">
+            <End Role="Inspection" EntitySet="Inspection" />
+            <End Role="QuestionList" EntitySet="QuestionList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Location_Region" Association="ParkInspectModel.FK_Location_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="Location" EntitySet="Location" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_Location" Association="ParkInspectModel.FK_Person_Location">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionItem_Question" Association="ParkInspectModel.FK_QuestionItem_Question">
+            <End Role="Question" EntitySet="Question" />
+            <End Role="QuestionItem" EntitySet="QuestionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_QuestionItem_QuestionList" Association="ParkInspectModel.FK_QuestionItem_QuestionList">
+            <End Role="QuestionList" EntitySet="QuestionList" />
+            <End Role="QuestionItem" EntitySet="QuestionItem" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Answer">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Value" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="QuestionItem" Relationship="Self.FK_QuestionItem_Answer" FromRole="Answer" ToRole="QuestionItem" />
+          <Property Name="Value" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="QuestionItem" Relationship="ParkInspectModel.FK_QuestionItem_Answer" FromRole="Answer" ToRole="QuestionItem" />
         </EntityType>
         <EntityType Name="Commission">
           <Key>
@@ -452,10 +582,10 @@
           <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DateCompleted" Type="DateTime" Precision="0" />
           <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Commission_Customer" FromRole="Commission" ToRole="Customer" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Commission_Employee" FromRole="Commission" ToRole="Employee" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_Commission_Location" FromRole="Commission" ToRole="Location" />
-          <NavigationProperty Name="Inspection" Relationship="Self.FK_Inspection_Commission" FromRole="Commission" ToRole="Inspection" />
+          <NavigationProperty Name="Customer" Relationship="ParkInspectModel.FK_Commission_Customer" FromRole="Commission" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Commission_Employee" FromRole="Commission" ToRole="Employee" />
+          <NavigationProperty Name="Location" Relationship="ParkInspectModel.FK_Commission_Location" FromRole="Commission" ToRole="Location" />
+          <NavigationProperty Name="Inspection" Relationship="ParkInspectModel.FK_Inspection_Commission" FromRole="Commission" ToRole="Inspection" />
         </EntityType>
         <EntityType Name="Customer">
           <Key>
@@ -466,8 +596,8 @@
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Int32" Nullable="false" />
           <Property Name="PersonGuid" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Commission" Relationship="Self.FK_Commission_Customer" FromRole="Customer" ToRole="Commission" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Customer_Person" FromRole="Customer" ToRole="Person" />
+          <NavigationProperty Name="Commission" Relationship="ParkInspectModel.FK_Commission_Customer" FromRole="Customer" ToRole="Commission" />
+          <NavigationProperty Name="Person" Relationship="ParkInspectModel.FK_Customer_Person" FromRole="Customer" ToRole="Person" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -484,10 +614,10 @@
           <Property Name="PersonGuid" Type="Guid" Nullable="false" />
           <Property Name="DateHired" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="DateFired" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Commission" Relationship="Self.FK_Commission_Employee" FromRole="Employee" ToRole="Commission" />
-          <NavigationProperty Name="Function" Relationship="Self.FK_Employee_Function" FromRole="Employee" ToRole="Function" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Employee_Person" FromRole="Employee" ToRole="Person" />
-          <NavigationProperty Name="Workday" Relationship="Self.FK_Workday_Employee" FromRole="Employee" ToRole="Workday" />
+          <NavigationProperty Name="Commission" Relationship="ParkInspectModel.FK_Commission_Employee" FromRole="Employee" ToRole="Commission" />
+          <NavigationProperty Name="Function" Relationship="ParkInspectModel.FK_Employee_Function" FromRole="Employee" ToRole="Function" />
+          <NavigationProperty Name="Person" Relationship="ParkInspectModel.FK_Employee_Person" FromRole="Employee" ToRole="Person" />
+          <NavigationProperty Name="Workday" Relationship="ParkInspectModel.FK_Workday_Employee" FromRole="Employee" ToRole="Workday" />
         </EntityType>
         <EntityType Name="Function">
           <Key>
@@ -496,8 +626,8 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Function" FromRole="Function" ToRole="Employee" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Employee_Function" FromRole="Function" ToRole="Employee" />
         </EntityType>
         <EntityType Name="Inspection">
           <Key>
@@ -511,8 +641,28 @@
           <Property Name="DateTimeStart" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DateTimeEnd" Type="DateTime" Precision="3" />
           <Property Name="DateCancelled" Type="DateTime" Precision="0" />
-          <NavigationProperty Name="Commission" Relationship="Self.FK_Inspection_Commission" FromRole="Inspection" ToRole="Commission" />
+          <NavigationProperty Name="Commission" Relationship="ParkInspectModel.FK_Inspection_Commission" FromRole="Inspection" ToRole="Commission" />
           <NavigationProperty Name="QuestionList" Relationship="ParkInspectModel.FK_QuestionList_Inspection" FromRole="Inspection" ToRole="QuestionList" />
+        </EntityType>
+        <EntityType Name="Inspection_tracking">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Guid" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="update_scope_local_id" Type="Int32" />
+          <Property Name="scope_update_peer_key" Type="Int32" />
+          <Property Name="scope_update_peer_timestamp" Type="Int64" />
+          <Property Name="local_update_peer_key" Type="Int32" Nullable="false" />
+          <Property Name="local_update_peer_timestamp" Type="Int64" Nullable="false" />
+          <Property Name="create_scope_local_id" Type="Int32" />
+          <Property Name="scope_create_peer_key" Type="Int32" />
+          <Property Name="scope_create_peer_timestamp" Type="Int64" />
+          <Property Name="local_create_peer_key" Type="Int32" Nullable="false" />
+          <Property Name="local_create_peer_timestamp" Type="Int64" Nullable="false" />
+          <Property Name="sync_row_is_tombstone" Type="Int32" Nullable="false" />
+          <Property Name="last_change_datetime" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Location">
           <Key>
@@ -520,14 +670,14 @@
             <PropertyRef Name="Guid" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="StreetNumber" Type="Int32" Nullable="false" />
-          <Property Name="ZipCode" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="StreetNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="RegionId" Type="Int32" Nullable="false" />
           <Property Name="RegionGuid" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Commission" Relationship="Self.FK_Commission_Location" FromRole="Location" ToRole="Commission" />
-          <NavigationProperty Name="Region" Relationship="Self.FK_Location_Region" FromRole="Location" ToRole="Region" />
-          <NavigationProperty Name="Person" Relationship="Self.FK_Person_Location" FromRole="Location" ToRole="Person" />
+          <NavigationProperty Name="Commission" Relationship="ParkInspectModel.FK_Commission_Location" FromRole="Location" ToRole="Commission" />
+          <NavigationProperty Name="Region" Relationship="ParkInspectModel.FK_Location_Region" FromRole="Location" ToRole="Region" />
+          <NavigationProperty Name="Person" Relationship="ParkInspectModel.FK_Person_Location" FromRole="Location" ToRole="Person" />
         </EntityType>
         <EntityType Name="Person">
           <Key>
@@ -539,11 +689,11 @@
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LocationId" Type="Int32" Nullable="false" />
           <Property Name="LocationGuid" Type="Guid" Nullable="false" />
-          <Property Name="PhoneNumber" Type="Int32" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Customer" Relationship="Self.FK_Customer_Person" FromRole="Person" ToRole="Customer" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Person" FromRole="Person" ToRole="Employee" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_Person_Location" FromRole="Person" ToRole="Location" />
+          <NavigationProperty Name="Customer" Relationship="ParkInspectModel.FK_Customer_Person" FromRole="Person" ToRole="Customer" />
+          <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Employee_Person" FromRole="Person" ToRole="Employee" />
+          <NavigationProperty Name="Location" Relationship="ParkInspectModel.FK_Person_Location" FromRole="Person" ToRole="Location" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -553,9 +703,9 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Version" Type="Int32" Nullable="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="QuestionItem" Relationship="Self.FK_QuestionItem_Question" FromRole="Question" ToRole="QuestionItem" />
+          <NavigationProperty Name="QuestionItem" Relationship="ParkInspectModel.FK_QuestionItem_Question" FromRole="Question" ToRole="QuestionItem" />
         </EntityType>
         <EntityType Name="QuestionItem">
           <Key>
@@ -568,22 +718,21 @@
           <Property Name="QuestionVersion" Type="Int32" Nullable="false" />
           <Property Name="QuestionListId" Type="Int32" Nullable="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Answer" Relationship="Self.FK_QuestionItem_Answer" FromRole="QuestionItem" ToRole="Answer" />
-          <NavigationProperty Name="Question" Relationship="Self.FK_QuestionItem_Question" FromRole="QuestionItem" ToRole="Question" />
-          <NavigationProperty Name="QuestionList" Relationship="Self.FK_QuestionItem_QuestionList" FromRole="QuestionItem" ToRole="QuestionList" />
+          <NavigationProperty Name="Answer" Relationship="ParkInspectModel.FK_QuestionItem_Answer" FromRole="QuestionItem" ToRole="Answer" />
+          <NavigationProperty Name="Question" Relationship="ParkInspectModel.FK_QuestionItem_Question" FromRole="QuestionItem" ToRole="Question" />
+          <NavigationProperty Name="QuestionList" Relationship="ParkInspectModel.FK_QuestionItem_QuestionList" FromRole="QuestionItem" ToRole="QuestionList" />
         </EntityType>
         <EntityType Name="QuestionList">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Assignment_Id" Type="Int32" />
-          <NavigationProperty Name="QuestionItem" Relationship="Self.FK_QuestionItem_QuestionList" FromRole="QuestionList" ToRole="QuestionItem" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="InspectionId" Type="Int32" />
           <Property Name="InspectionGuid" Type="Guid" />
           <NavigationProperty Name="Inspection" Relationship="ParkInspectModel.FK_QuestionList_Inspection" FromRole="QuestionList" ToRole="Inspection" />
+          <NavigationProperty Name="QuestionItem" Relationship="ParkInspectModel.FK_QuestionItem_QuestionList" FromRole="QuestionList" ToRole="QuestionItem" />
         </EntityType>
         <EntityType Name="Region">
           <Key>
@@ -592,8 +741,39 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
-          <Property Name="RegionName" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Location" Relationship="Self.FK_Location_Region" FromRole="Region" ToRole="Location" />
+          <Property Name="RegionName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Location" Relationship="ParkInspectModel.FK_Location_Region" FromRole="Region" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="schema_info">
+          <Key>
+            <PropertyRef Name="schema_major_version" />
+            <PropertyRef Name="schema_minor_version" />
+          </Key>
+          <Property Name="schema_major_version" Type="Int32" Nullable="false" />
+          <Property Name="schema_minor_version" Type="Int32" Nullable="false" />
+          <Property Name="schema_extended_info" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="scope_config">
+          <Key>
+            <PropertyRef Name="config_id" />
+          </Key>
+          <Property Name="config_id" Type="Guid" Nullable="false" />
+          <Property Name="config_data" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="scope_status" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="scope_info">
+          <Key>
+            <PropertyRef Name="sync_scope_name" />
+          </Key>
+          <Property Name="scope_local_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="scope_id" Type="Guid" Nullable="false" />
+          <Property Name="sync_scope_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="scope_sync_knowledge" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="scope_tombstone_cleanup_knowledge" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="scope_timestamp" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <Property Name="scope_config_id" Type="Guid" />
+          <Property Name="scope_restore_count" Type="Int32" Nullable="false" />
+          <Property Name="scope_user_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Workday">
           <Key>
@@ -607,11 +787,11 @@
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="StartTime" Type="Time" Precision="7" />
           <Property Name="StopTime" Type="Time" Precision="7" />
-          <NavigationProperty Name="Employee" Relationship="Self.FK_Workday_Employee" FromRole="Workday" ToRole="Employee" />
+          <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Workday_Employee" FromRole="Workday" ToRole="Employee" />
         </EntityType>
         <Association Name="FK_QuestionItem_Answer">
-          <End Role="Answer" Type="Self.Answer" Multiplicity="0..1" />
-          <End Role="QuestionItem" Type="Self.QuestionItem" Multiplicity="*" />
+          <End Type="ParkInspectModel.Answer" Role="Answer" Multiplicity="0..1" />
+          <End Type="ParkInspectModel.QuestionItem" Role="QuestionItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Answer">
               <PropertyRef Name="Id" />
@@ -622,8 +802,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Commission_Customer">
-          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
-          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <End Type="ParkInspectModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="ParkInspectModel.Commission" Role="Commission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Customer">
               <PropertyRef Name="Id" />
@@ -636,8 +816,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Commission_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <End Type="ParkInspectModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ParkInspectModel.Commission" Role="Commission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="Id" />
@@ -650,8 +830,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Commission_Location">
-          <End Role="Location" Type="Self.Location" Multiplicity="0..1" />
-          <End Role="Commission" Type="Self.Commission" Multiplicity="*" />
+          <End Type="ParkInspectModel.Location" Role="Location" Multiplicity="0..1" />
+          <End Type="ParkInspectModel.Commission" Role="Commission" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Location">
               <PropertyRef Name="Id" />
@@ -664,8 +844,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Inspection_Commission">
-          <End Role="Commission" Type="Self.Commission" Multiplicity="1" />
-          <End Role="Inspection" Type="Self.Inspection" Multiplicity="*" />
+          <End Type="ParkInspectModel.Commission" Role="Commission" Multiplicity="1" />
+          <End Type="ParkInspectModel.Inspection" Role="Inspection" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Commission">
               <PropertyRef Name="Id" />
@@ -678,8 +858,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Customer_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
-          <End Role="Customer" Type="Self.Customer" Multiplicity="*" />
+          <End Type="ParkInspectModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="ParkInspectModel.Customer" Role="Customer" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="Id" />
@@ -692,8 +872,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Function">
-          <End Role="Function" Type="Self.Function" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Type="ParkInspectModel.Function" Role="Function" Multiplicity="1" />
+          <End Type="ParkInspectModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Function">
               <PropertyRef Name="Id" />
@@ -706,8 +886,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Employee_Person">
-          <End Role="Person" Type="Self.Person" Multiplicity="1" />
-          <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+          <End Type="ParkInspectModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="ParkInspectModel.Employee" Role="Employee" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Person">
               <PropertyRef Name="Id" />
@@ -720,8 +900,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Workday_Employee">
-          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
-          <End Role="Workday" Type="Self.Workday" Multiplicity="*" />
+          <End Type="ParkInspectModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="ParkInspectModel.Workday" Role="Workday" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Employee">
               <PropertyRef Name="Id" />
@@ -733,133 +913,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Location_Region">
-          <End Role="Region" Type="Self.Region" Multiplicity="1" />
-          <End Role="Location" Type="Self.Location" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Region">
-              <PropertyRef Name="Id" />
-              <PropertyRef Name="Guid" />
-            </Principal>
-            <Dependent Role="Location">
-              <PropertyRef Name="RegionId" />
-              <PropertyRef Name="RegionGuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Person_Location">
-          <End Role="Location" Type="Self.Location" Multiplicity="1" />
-          <End Role="Person" Type="Self.Person" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Location">
-              <PropertyRef Name="Id" />
-              <PropertyRef Name="Guid" />
-            </Principal>
-            <Dependent Role="Person">
-              <PropertyRef Name="LocationId" />
-              <PropertyRef Name="LocationGuid" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_QuestionItem_Question">
-          <End Role="Question" Type="Self.Question" Multiplicity="1" />
-          <End Role="QuestionItem" Type="Self.QuestionItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Question">
-              <PropertyRef Name="Id" />
-              <PropertyRef Name="Version" />
-            </Principal>
-            <Dependent Role="QuestionItem">
-              <PropertyRef Name="QuestionId" />
-              <PropertyRef Name="QuestionVersion" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_QuestionItem_QuestionList">
-          <End Role="QuestionList" Type="Self.QuestionList" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="QuestionItem" Type="Self.QuestionItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="QuestionList">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="QuestionItem">
-              <PropertyRef Name="QuestionListId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="ParkInspectEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Answer" EntityType="Self.Answer" />
-          <EntitySet Name="Commission" EntityType="Self.Commission" />
-          <EntitySet Name="Customer" EntityType="Self.Customer" />
-          <EntitySet Name="Employee" EntityType="Self.Employee" />
-          <EntitySet Name="Function" EntityType="Self.Function" />
-          <EntitySet Name="Inspection" EntityType="Self.Inspection" />
-          <EntitySet Name="Location" EntityType="Self.Location" />
-          <EntitySet Name="Person" EntityType="Self.Person" />
-          <EntitySet Name="Question" EntityType="Self.Question" />
-          <EntitySet Name="QuestionItem" EntityType="Self.QuestionItem" />
-          <EntitySet Name="QuestionList" EntityType="Self.QuestionList" />
-          <EntitySet Name="Region" EntityType="Self.Region" />
-          <EntitySet Name="Workday" EntityType="Self.Workday" />
-          <AssociationSet Name="FK_QuestionItem_Answer" Association="Self.FK_QuestionItem_Answer">
-            <End Role="Answer" EntitySet="Answer" />
-            <End Role="QuestionItem" EntitySet="QuestionItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Commission_Customer" Association="Self.FK_Commission_Customer">
-            <End Role="Customer" EntitySet="Customer" />
-            <End Role="Commission" EntitySet="Commission" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Commission_Employee" Association="Self.FK_Commission_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Commission" EntitySet="Commission" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Commission_Location" Association="Self.FK_Commission_Location">
-            <End Role="Location" EntitySet="Location" />
-            <End Role="Commission" EntitySet="Commission" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Inspection_Commission" Association="Self.FK_Inspection_Commission">
-            <End Role="Commission" EntitySet="Commission" />
-            <End Role="Inspection" EntitySet="Inspection" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Customer_Person" Association="Self.FK_Customer_Person">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Customer" EntitySet="Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Function" Association="Self.FK_Employee_Function">
-            <End Role="Function" EntitySet="Function" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Employee_Person" Association="Self.FK_Employee_Person">
-            <End Role="Person" EntitySet="Person" />
-            <End Role="Employee" EntitySet="Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Workday_Employee" Association="Self.FK_Workday_Employee">
-            <End Role="Employee" EntitySet="Employee" />
-            <End Role="Workday" EntitySet="Workday" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Location_Region" Association="Self.FK_Location_Region">
-            <End Role="Region" EntitySet="Region" />
-            <End Role="Location" EntitySet="Location" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Person_Location" Association="Self.FK_Person_Location">
-            <End Role="Location" EntitySet="Location" />
-            <End Role="Person" EntitySet="Person" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionItem_Question" Association="Self.FK_QuestionItem_Question">
-            <End Role="Question" EntitySet="Question" />
-            <End Role="QuestionItem" EntitySet="QuestionItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionItem_QuestionList" Association="Self.FK_QuestionItem_QuestionList">
-            <End Role="QuestionList" EntitySet="QuestionList" />
-            <End Role="QuestionItem" EntitySet="QuestionItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_QuestionList_Inspection" Association="ParkInspectModel.FK_QuestionList_Inspection">
-            <End Role="Inspection" EntitySet="Inspection" />
-            <End Role="QuestionList" EntitySet="QuestionList" />
-          </AssociationSet>
-        </EntityContainer>
         <Association Name="FK_QuestionList_Inspection">
           <End Type="ParkInspectModel.Inspection" Role="Inspection" Multiplicity="0..1" />
           <End Type="ParkInspectModel.QuestionList" Role="QuestionList" Multiplicity="*" />
@@ -874,7 +927,63 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        <Association Name="FK_Location_Region">
+          <End Type="ParkInspectModel.Region" Role="Region" Multiplicity="1" />
+          <End Type="ParkInspectModel.Location" Role="Location" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="Id" />
+              <PropertyRef Name="Guid" />
+            </Principal>
+            <Dependent Role="Location">
+              <PropertyRef Name="RegionId" />
+              <PropertyRef Name="RegionGuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_Location">
+          <End Type="ParkInspectModel.Location" Role="Location" Multiplicity="1" />
+          <End Type="ParkInspectModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="Id" />
+              <PropertyRef Name="Guid" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="LocationId" />
+              <PropertyRef Name="LocationGuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionItem_Question">
+          <End Type="ParkInspectModel.Question" Role="Question" Multiplicity="1" />
+          <End Type="ParkInspectModel.QuestionItem" Role="QuestionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Question">
+              <PropertyRef Name="Id" />
+              <PropertyRef Name="Version" />
+            </Principal>
+            <Dependent Role="QuestionItem">
+              <PropertyRef Name="QuestionId" />
+              <PropertyRef Name="QuestionVersion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_QuestionItem_QuestionList">
+          <End Type="ParkInspectModel.QuestionList" Role="QuestionList" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ParkInspectModel.QuestionItem" Role="QuestionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="QuestionItem">
+              <PropertyRef Name="QuestionListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -883,121 +992,141 @@
           <EntitySetMapping Name="Answer">
             <EntityTypeMapping TypeName="ParkInspectModel.Answer">
               <MappingFragment StoreEntitySet="Answer">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Commission">
             <EntityTypeMapping TypeName="ParkInspectModel.Commission">
               <MappingFragment StoreEntitySet="Commission">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="EmployeeGuid" ColumnName="EmployeeGuid" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="CustomerGuid" ColumnName="CustomerGuid" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="LocationGuid" ColumnName="LocationGuid" />
-                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
-                <ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="DateCompleted" ColumnName="DateCompleted" />
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
+                <ScalarProperty Name="LocationGuid" ColumnName="LocationGuid" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="CustomerGuid" ColumnName="CustomerGuid" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="EmployeeGuid" ColumnName="EmployeeGuid" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Customer">
             <EntityTypeMapping TypeName="ParkInspectModel.Customer">
               <MappingFragment StoreEntitySet="Customer">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="PersonGuid" ColumnName="PersonGuid" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Employee">
             <EntityTypeMapping TypeName="ParkInspectModel.Employee">
               <MappingFragment StoreEntitySet="Employee">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
-                <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
-                <ScalarProperty Name="FunctionGuid" ColumnName="FunctionGuid" />
-                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
-                <ScalarProperty Name="PersonGuid" ColumnName="PersonGuid" />
-                <ScalarProperty Name="DateHired" ColumnName="DateHired" />
                 <ScalarProperty Name="DateFired" ColumnName="DateFired" />
+                <ScalarProperty Name="DateHired" ColumnName="DateHired" />
+                <ScalarProperty Name="PersonGuid" ColumnName="PersonGuid" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+                <ScalarProperty Name="FunctionGuid" ColumnName="FunctionGuid" />
+                <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
+                <ScalarProperty Name="Region" ColumnName="Region" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Function">
             <EntityTypeMapping TypeName="ParkInspectModel.Function">
               <MappingFragment StoreEntitySet="Function">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Inspection">
             <EntityTypeMapping TypeName="ParkInspectModel.Inspection">
               <MappingFragment StoreEntitySet="Inspection">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="CommissionId" ColumnName="CommissionId" />
-                <ScalarProperty Name="CommissionGuid" ColumnName="CommissionGuid" />
-                <ScalarProperty Name="DateTimeStart" ColumnName="DateTimeStart" />
-                <ScalarProperty Name="DateTimeEnd" ColumnName="DateTimeEnd" />
                 <ScalarProperty Name="DateCancelled" ColumnName="DateCancelled" />
+                <ScalarProperty Name="DateTimeEnd" ColumnName="DateTimeEnd" />
+                <ScalarProperty Name="DateTimeStart" ColumnName="DateTimeStart" />
+                <ScalarProperty Name="CommissionGuid" ColumnName="CommissionGuid" />
+                <ScalarProperty Name="CommissionId" ColumnName="CommissionId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Inspection_tracking">
+            <EntityTypeMapping TypeName="ParkInspectModel.Inspection_tracking">
+              <MappingFragment StoreEntitySet="Inspection_tracking">
+                <ScalarProperty Name="last_change_datetime" ColumnName="last_change_datetime" />
+                <ScalarProperty Name="sync_row_is_tombstone" ColumnName="sync_row_is_tombstone" />
+                <ScalarProperty Name="local_create_peer_timestamp" ColumnName="local_create_peer_timestamp" />
+                <ScalarProperty Name="local_create_peer_key" ColumnName="local_create_peer_key" />
+                <ScalarProperty Name="scope_create_peer_timestamp" ColumnName="scope_create_peer_timestamp" />
+                <ScalarProperty Name="scope_create_peer_key" ColumnName="scope_create_peer_key" />
+                <ScalarProperty Name="create_scope_local_id" ColumnName="create_scope_local_id" />
+                <ScalarProperty Name="local_update_peer_timestamp" ColumnName="local_update_peer_timestamp" />
+                <ScalarProperty Name="local_update_peer_key" ColumnName="local_update_peer_key" />
+                <ScalarProperty Name="scope_update_peer_timestamp" ColumnName="scope_update_peer_timestamp" />
+                <ScalarProperty Name="scope_update_peer_key" ColumnName="scope_update_peer_key" />
+                <ScalarProperty Name="update_scope_local_id" ColumnName="update_scope_local_id" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Location">
             <EntityTypeMapping TypeName="ParkInspectModel.Location">
               <MappingFragment StoreEntitySet="Location">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
-                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
                 <ScalarProperty Name="RegionGuid" ColumnName="RegionGuid" />
+                <ScalarProperty Name="RegionId" ColumnName="RegionId" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="StreetNumber" ColumnName="StreetNumber" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Person">
             <EntityTypeMapping TypeName="ParkInspectModel.Person">
               <MappingFragment StoreEntitySet="Person">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
-                <ScalarProperty Name="LocationGuid" ColumnName="LocationGuid" />
-                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="LocationGuid" ColumnName="LocationGuid" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Question">
             <EntityTypeMapping TypeName="ParkInspectModel.Question">
               <MappingFragment StoreEntitySet="Question">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="QuestionItem">
             <EntityTypeMapping TypeName="ParkInspectModel.QuestionItem">
               <MappingFragment StoreEntitySet="QuestionItem">
-                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
-                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
-                <ScalarProperty Name="QuestionVersion" ColumnName="QuestionVersion" />
-                <ScalarProperty Name="QuestionListId" ColumnName="QuestionListId" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="QuestionListId" ColumnName="QuestionListId" />
+                <ScalarProperty Name="QuestionVersion" ColumnName="QuestionVersion" />
+                <ScalarProperty Name="QuestionId" ColumnName="QuestionId" />
+                <ScalarProperty Name="AnswerId" ColumnName="AnswerId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1006,30 +1135,63 @@
               <MappingFragment StoreEntitySet="QuestionList">
                 <ScalarProperty Name="InspectionGuid" ColumnName="InspectionGuid" />
                 <ScalarProperty Name="InspectionId" ColumnName="InspectionId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Region">
             <EntityTypeMapping TypeName="ParkInspectModel.Region">
               <MappingFragment StoreEntitySet="Region">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="schema_info">
+            <EntityTypeMapping TypeName="ParkInspectModel.schema_info">
+              <MappingFragment StoreEntitySet="schema_info">
+                <ScalarProperty Name="schema_extended_info" ColumnName="schema_extended_info" />
+                <ScalarProperty Name="schema_minor_version" ColumnName="schema_minor_version" />
+                <ScalarProperty Name="schema_major_version" ColumnName="schema_major_version" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="scope_config">
+            <EntityTypeMapping TypeName="ParkInspectModel.scope_config">
+              <MappingFragment StoreEntitySet="scope_config">
+                <ScalarProperty Name="scope_status" ColumnName="scope_status" />
+                <ScalarProperty Name="config_data" ColumnName="config_data" />
+                <ScalarProperty Name="config_id" ColumnName="config_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="scope_info">
+            <EntityTypeMapping TypeName="ParkInspectModel.scope_info">
+              <MappingFragment StoreEntitySet="scope_info">
+                <ScalarProperty Name="scope_user_comment" ColumnName="scope_user_comment" />
+                <ScalarProperty Name="scope_restore_count" ColumnName="scope_restore_count" />
+                <ScalarProperty Name="scope_config_id" ColumnName="scope_config_id" />
+                <ScalarProperty Name="scope_timestamp" ColumnName="scope_timestamp" />
+                <ScalarProperty Name="scope_tombstone_cleanup_knowledge" ColumnName="scope_tombstone_cleanup_knowledge" />
+                <ScalarProperty Name="scope_sync_knowledge" ColumnName="scope_sync_knowledge" />
+                <ScalarProperty Name="sync_scope_name" ColumnName="sync_scope_name" />
+                <ScalarProperty Name="scope_id" ColumnName="scope_id" />
+                <ScalarProperty Name="scope_local_id" ColumnName="scope_local_id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Workday">
             <EntityTypeMapping TypeName="ParkInspectModel.Workday">
               <MappingFragment StoreEntitySet="Workday">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
-                <ScalarProperty Name="EmployeeGuid" ColumnName="EmployeeGuid" />
-                <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="StopTime" ColumnName="StopTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="EmployeeGuid" ColumnName="EmployeeGuid" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
