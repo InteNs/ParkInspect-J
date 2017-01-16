@@ -25,7 +25,7 @@ end
 begin /*Functions*/
 SET IDENTITY_INSERT [Function] ON;
 insert into [Function] ([Id], [Guid], [Name]) values (1, NEWID(), 'Manager');
-insert into [Function] ([Id], [Guid], [Name]) values (1, NEWID(), 'Inspecteur');
+insert into [Function] ([Id], [Guid], [Name]) values (2, NEWID(), 'Inspecteur');
 SET IDENTITY_INSERT [Function] OFF;
 end
 
@@ -2739,11 +2739,11 @@ SET IDENTITY_INSERT [Location] ON
 insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select 301, NEWID(), 1181HW, '143', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Holland';
 SET IDENTITY_INSERT [Location] OFF
 SET IDENTITY_INSERT [Person] ON
-insert into [Person] ([Id], [Guid], [Name], [LocationId], [LocationGuid], [PhoneNumber], [Email]) select 301, NEWID(), 'Zenzi Demirel', [Id], [Guid], '06-17211616', 'ZenziDemirel@armyspy.com' from [Location] where [ZipCode] = '1181HW';
+insert into [Person] ([Id], [Guid], [Name], [LocationId], [LocationGuid], [PhoneNumber], [Email]) select 301, NEWID(), 'Zenzi Demirel', [Id], [Guid], '06-17211616', 'admin' from [Location] where [ZipCode] = '1181HW';
 SET IDENTITY_INSERT [Person] OFF
 SET IDENTITY_INSERT [Employee] ON
-insert into [Employee] ([Id], [Guid], [DateHired], [DateFired], [PersonId], [PersonGuid], [FunctionId], [FunctionGuid]) 
-select 301, NEWID(), '1/4/2012', NULL, [p].[Id], [p].[Guid], [f].[Id], [f].[Guid] from [Person] [p] join [Function] [f] on [f].[Name] = 'Manager' where [p].[Id] = 301;
+insert into [Employee] ([Id], [Guid], [DateHired], [DateFired], [PersonId], [PersonGuid], [FunctionId], [FunctionGuid], [Password]) 
+select 301, NEWID(), '1/4/2012', NULL, [p].[Id], [p].[Guid], [f].[Id], [f].[Guid], 'password' from [Person] [p] join [Function] [f] on [f].[Name] = 'Manager' where [p].[Id] = 301;
 SET IDENTITY_INSERT [Employee] OFF
 
 
@@ -2751,11 +2751,11 @@ SET IDENTITY_INSERT [Location] ON
 insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select 302, NEWID(), '1012PH', '156', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Holland';
 SET IDENTITY_INSERT [Location] OFF
 SET IDENTITY_INSERT [Person] ON
-insert into [Person] ([Id], [Guid], [Name], [LocationId], [LocationGuid], [PhoneNumber], [Email]) select 302, NEWID(), 'Mari Corvers', [Id], [Guid], '06-35658251', 'MariCorvers@teleworm.us' from [Location] where [ZipCode] = '1012PH';
+insert into [Person] ([Id], [Guid], [Name], [LocationId], [LocationGuid], [PhoneNumber], [Email]) select 302, NEWID(), 'Mari Corvers', [Id], [Guid], '06-35658251', 'henk' from [Location] where [ZipCode] = '1012PH';
 SET IDENTITY_INSERT [Person] OFF
 SET IDENTITY_INSERT [Employee] ON
-insert into [Employee] ([Id], [Guid], [DateHired], [DateFired], [PersonId], [PersonGuid], [FunctionId], [FunctionGuid]) 
-select 302, NEWID(), '6/3/2016', NULL, [p].[Id], [p].[Guid], [f].[Id], [f].[Guid] from [Person] [p] join [Function] [f] on [f].[Name] = 'Inspecteur' where [p].[Id] = 302;
+insert into [Employee] ([Id], [Guid], [DateHired], [DateFired], [PersonId], [PersonGuid], [FunctionId], [FunctionGuid], [Password]) 
+select 302, NEWID(), '6/3/2016', NULL, [p].[Id], [p].[Guid], [f].[Id], [f].[Guid], 'kees' from [Person] [p] join [Function] [f] on [f].[Name] = 'Inspecteur' where [p].[Id] = 302;
 SET IDENTITY_INSERT [Employee] OFF
 
 
@@ -3334,3 +3334,6 @@ insert into [Employee] ([Id], [Guid], [DateHired], [DateFired], [PersonId], [Per
 select 350, NEWID(), '10/21/1999', '9/18/2004', [p].[Id], [p].[Guid], [f].[Id], [f].[Guid] from [Person] [p] join [Function] [f] on [f].[Name] = 'Manager' where [p].[Id] = 350;
 SET IDENTITY_INSERT [Employee] OFF
 end
+
+ALTER DATABASE ParkInspect
+SET ALLOW_SNAPSHOT_ISOLATION ON

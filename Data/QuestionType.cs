@@ -12,24 +12,19 @@ namespace Data
     using System;
     using System.Collections.Generic;
     
-    public partial class Question
+    public partial class QuestionType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Question()
+        public QuestionType()
         {
-            this.QuestionItem = new HashSet<QuestionItem>();
+            this.Question = new HashSet<Question>();
         }
     
         public int Id { get; set; }
-        public int Version { get; set; }
         public System.Guid Guid { get; set; }
-        public string Description { get; set; }
-        public bool IsActive { get; set; }
-        public int QuestionTypeId { get; set; }
-        public System.Guid QuestionTypeGuid { get; set; }
+        public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<QuestionItem> QuestionItem { get; set; }
-        public virtual QuestionType QuestionType { get; set; }
+        public virtual ICollection<Question> Question { get; set; }
     }
 }
