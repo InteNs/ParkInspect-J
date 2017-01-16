@@ -24,7 +24,6 @@ namespace Data
         public int Id { get; set; }
         public System.Guid Guid { get; set; }
         public string Password { get; set; }
-        public int Region { get; set; }
         public int FunctionId { get; set; }
         public System.Guid FunctionGuid { get; set; }
         public int PersonId { get; set; }

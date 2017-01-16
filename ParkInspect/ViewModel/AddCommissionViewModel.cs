@@ -4,7 +4,6 @@ using System.Windows.Input;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 using ParkInspect.Helper;
-using System.Text.RegularExpressions;
 
 namespace ParkInspect.ViewModel
 {
@@ -12,15 +11,11 @@ namespace ParkInspect.ViewModel
     {
         private readonly ICommissionRepository _commissionRepository;
         private string errorMessage;
-        
-
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public CommissionViewModel Commission { get; set; }
         public ICommand AddCommissionCommand { get; set; }
         public ObservableCollection<string> Regions { get; set; }
-        public string StreetNumber { get; set; }
-        public string Frequency { get; set; }
 
         public AddCommissionViewModel(ICommissionRepository commissionRepository, IEmployeeRepository employeeRepository, ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
         {
@@ -43,41 +38,31 @@ namespace ParkInspect.ViewModel
         private bool ValidateInput()
         {
             //TODO: Check if all fields have the right content
-            int streetNumberInt;
-            int FrequencyInt;
-            string pattern = "^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$";
-            Regex regex = new Regex(pattern);
-      
+            /*   int streetNumberInt;
+               int FrequencyInt;
+               string pattern = "^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$";
+               Regex regex = new Regex(pattern);
+               if (!int.TryParse(StreetNumber, out streetNumberInt) || !int.TryParse(Frequency, out FrequencyInt))
+               {
+                   return false;
+               }
 
+               if (!Regex.Match(Commission.ZipCode, pattern).Success)
+               {
+                   return false;
+               }
+               */
             //check if all fields are filled in
-            if (Commission.Customer == null || Commission.Region == null || Commission.ZipCode == null ||
-                Commission.Description == null || Commission.Employee == null)
-            {
-                errorMessage = "Niet alle velden zijn ingevuld";
-                return false;
-                
-            }
 
-            if (!int.TryParse(StreetNumber, out streetNumberInt))
+            if (Commission.Customer == null || Commission.Region == null || string.IsNullOrWhiteSpace(Commission.StreetNumber.ToString()) || Commission.ZipCode == null ||
+                string.IsNullOrWhiteSpace(Commission.Frequency.ToString()) || Commission.Description == null || !Commission.IsValid || Commission.Employee == null)
             {
-                errorMessage = "Vul een getal in bij straatnummer";
-                return false;
-
-            }
-            if (!int.TryParse(Frequency, out FrequencyInt))
-            {
-                errorMessage = "Vul een getal in bij frequentie";
-                return false;
-
-            }
-
-            if (!Regex.Match(Commission.ZipCode, pattern).Success)
-            {
-                errorMessage = "De postcode is niet correct ingevuld";
                 return false;
 
             }
             return true;
+
+
         }
 
         private void AddCommission()
@@ -85,8 +70,6 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 Commission.Status = "Nieuw";
-                Commission.StreetNumber = int.Parse(StreetNumber);
-                Commission.Frequency = int.Parse(Frequency);
                 if (_commissionRepository.Add(Commission))
                 {
 
@@ -108,7 +91,7 @@ namespace ParkInspect.ViewModel
         {
             //TODO: Validation error
             var dialog = new MetroDialogService();
-            dialog.ShowMessage("Error", errorMessage);
+            dialog.ShowMessage("Error", "De waarden zijn niet correct ingevuld");
 
 
         }
