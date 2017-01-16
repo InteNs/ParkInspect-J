@@ -4,7 +4,6 @@ using System.Windows.Input;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 using ParkInspect.Helper;
-using System.Text.RegularExpressions;
 
 namespace ParkInspect.ViewModel
 {
@@ -22,13 +21,10 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged();
             }
         }
-
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public CommissionViewModel Commission { get; set; }
         public ICommand AddCommissionCommand { get; set; }
         public ObservableCollection<string> Regions { get; set; }
-        public string StreetNumber { get; set; }
-        public string Frequency { get; set; }
 
         public AddCommissionViewModel(ICommissionRepository commissionRepository, ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
         {
@@ -43,27 +39,29 @@ namespace ParkInspect.ViewModel
         private bool ValidateInput()
         {
             //TODO: Check if all fields have the right content
-            int streetNumberInt;
-            int FrequencyInt;
-            string pattern = "^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$";
-            Regex regex = new Regex(pattern);
-            if (!int.TryParse(StreetNumber, out streetNumberInt) || !int.TryParse(Frequency, out FrequencyInt))
-            {
-                return false;
-            }
+            /*   int streetNumberInt;
+               int FrequencyInt;
+               string pattern = "^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$";
+               Regex regex = new Regex(pattern);
+               if (!int.TryParse(StreetNumber, out streetNumberInt) || !int.TryParse(Frequency, out FrequencyInt))
+               {
+                   return false;
+               }
 
-            if (!Regex.Match(Commission.ZipCode, pattern).Success)
-            {
-                return false;
-            }
-
+               if (!Regex.Match(Commission.ZipCode, pattern).Success)
+               {
+                   return false;
+               }
+               */
             //check if all fields are filled in
-            if (Commission.Customer == null || Commission.Region == null || streetNumberInt <= 0 || Commission.ZipCode == null ||
-                FrequencyInt <= 0 || Commission.Description == null)
+            if (Commission.Customer == null || Commission.Region == null || string.IsNullOrWhiteSpace(Commission.StreetNumber.ToString()) || Commission.ZipCode == null ||
+                string.IsNullOrWhiteSpace(Commission.Frequency.ToString()) || Commission.Description == null || !Commission.IsValid)
             {
                 return false;
             }
             return true;
+
+
         }
 
         private void AddCommission()
@@ -71,8 +69,6 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 Commission.Status = "Nieuw";
-                Commission.StreetNumber = int.Parse(StreetNumber);
-                Commission.Frequency = int.Parse(Frequency);
                 if (_commissionRepository.Add(Commission))
                 {
 
