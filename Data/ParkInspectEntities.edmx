@@ -35,7 +35,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="int" Nullable="false" />
           <Property Name="PersonGuid" Type="uniqueidentifier" Nullable="false" />
@@ -45,10 +45,9 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Password" Type="varchar(max)" />
-          <Property Name="Region" Type="int" Nullable="false" />
           <Property Name="FunctionId" Type="int" Nullable="false" />
           <Property Name="FunctionGuid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="int" Nullable="false" />
@@ -61,7 +60,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -103,7 +102,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StreetNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
@@ -115,13 +114,13 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" />
           <Property Name="LocationId" Type="int" Nullable="false" />
           <Property Name="LocationGuid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="20" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -161,7 +160,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RegionName" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -592,7 +591,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Int32" Nullable="false" />
           <Property Name="PersonGuid" Type="Guid" Nullable="false" />
@@ -604,10 +603,9 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Region" Type="Int32" Nullable="false" />
           <Property Name="FunctionId" Type="Int32" Nullable="false" />
           <Property Name="FunctionGuid" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Int32" Nullable="false" />
@@ -624,7 +622,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Employee_Function" FromRole="Function" ToRole="Employee" />
@@ -669,7 +667,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StreetNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
@@ -684,13 +682,13 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LocationId" Type="Int32" Nullable="false" />
           <Property Name="LocationGuid" Type="Guid" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customer" Relationship="ParkInspectModel.FK_Customer_Person" FromRole="Person" ToRole="Customer" />
           <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Employee_Person" FromRole="Person" ToRole="Employee" />
           <NavigationProperty Name="Location" Relationship="ParkInspectModel.FK_Person_Location" FromRole="Person" ToRole="Location" />
@@ -739,7 +737,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="RegionName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Location" Relationship="ParkInspectModel.FK_Location_Region" FromRole="Region" ToRole="Location" />
@@ -1034,7 +1032,6 @@
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="FunctionGuid" ColumnName="FunctionGuid" />
                 <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
