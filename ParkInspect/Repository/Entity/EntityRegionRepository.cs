@@ -33,6 +33,7 @@ namespace ParkInspect.Repository.Entity
 
         public ObservableCollection<string> GetAll()
         {
+            _regions.Clear();
             _context.Region.ToList().ForEach(r => _regions.Add(r.RegionName));
             return _regions;
         }
