@@ -8,13 +8,14 @@ using Data;
 using ParkInspectPortal.Helpers;
 using ParkInspectPortal.Models;
 using ParkInspectPortal.Repositories;
-
+using System.Windows;
 
 namespace ParkInspectPortal.Controllers
 {
     public class HomeController : Controller
     {
         private IInspectionRepo _inspectionRepo;
+
         public HomeController(IInspectionRepo inspectionRepo)
         {
             _inspectionRepo = inspectionRepo;
@@ -24,16 +25,25 @@ namespace ParkInspectPortal.Controllers
         {
             return View(_inspectionRepo.GetInspections());
         }
-
-        public ActionResult Download(Guid Guid)
+        [HttpGet]
+        public ActionResult Download(string Guid)
         {
-            // TODO: Map data with AutoMapper from repo or DB
-            List<QuestionListViewModel> pdfvm = _inspectionRepo.GetQuestionList(Guid);
+            List<QuestionListViewModel> pdfvm =new List<QuestionListViewModel>();
+
+            try
+            {
+                Guid _guid = new Guid(Guid);               
+                pdfvm = _inspectionRepo.GetQuestionList(_guid);
+            }
+            catch (Exception)
+            {
+                
+            }
 
             if (pdfvm == null)
             {
                 ViewBag.Error = "Fout tijdens genereren van PDF!";
-                return View("Index");
+                return View("Index", _inspectionRepo.GetInspections());
 
             }
 
@@ -42,20 +52,6 @@ namespace ParkInspectPortal.Controllers
                 pdfBuilder.AddHtml(pdfvm, pdfBuilder.MapPath("/Views/_templates/PDF/Inspectie.cshtml"));
                 return File(pdfBuilder.GetPdfStream(), "application/pdf");
             }
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
         }
     }
 }
