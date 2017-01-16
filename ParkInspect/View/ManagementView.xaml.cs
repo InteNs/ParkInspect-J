@@ -66,10 +66,10 @@ namespace ParkInspect.View
                 lonHemisphere = 'W';
             }
 
-            MouseLocation.Text = string.Format(CultureInfo.InvariantCulture,
-                "{0}  {1:00} {2:00.000}\n{3} {4:000} {5:00.000}",
-                latHemisphere, latitude / 60000, (double)(latitude % 60000) / 1000d,
-                lonHemisphere, longitude / 60000, (double)(longitude % 60000) / 1000d);
+            // MouseLocation.Text = string.Format(CultureInfo.InvariantCulture,
+            //     "{0}  {1:00} {2:00.000}\n{3} {4:000} {5:00.000}",
+            // latHemisphere, latitude / 60000, (double)(latitude % 60000) / 1000d,
+            // lonHemisphere, longitude / 60000, (double)(longitude % 60000) / 1000d);
         }
 
         private void MapMouseLeave(object sender, MouseEventArgs e)
