@@ -69,10 +69,29 @@ namespace ParkInspect.ViewModel
         }
 
         // Customers per location
+        // TODO: Per Regio
         public void CustomersPerLocation()
         {
             //if (Points.Count < 1) { Points.Clear(); };
+            Dictionary<string, int> counter = new Dictionary<string, int>();
+            foreach (var customer in Customers)
+            {
+                var latLong = Location.GetLatLongFromAddress(customer.ZipCode);
+                var region = Location.GetRegionFromLatLong(latLong.Latitude, latLong.Longitude);
+                if (counter.ContainsKey(Location.GetRegionFromLatLong(latLong.Latitude, latLong.Longitude).Name))
+                {
+                    counter[Location.GetRegionFromLatLong(latLong.Latitude, latLong.Longitude).Name]++;
+                }
+                else
+                {
+                    counter.Add(Location.GetRegionFromLatLong(latLong.Latitude, latLong.Longitude).Name, 1);
+                }
+            }
 
+            foreach (var regios in counter)
+            {
+                Console.Out.NewLine = regios.Key;
+            }
         }
     }
 }
