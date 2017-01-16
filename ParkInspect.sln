@@ -9,6 +9,8 @@ Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Database", "Database\Databa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Data", "Data\Data.csproj", "{DBD837F9-810F-4078-BE35-5E4B53D10879}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParkInspectPortal", "ParkInspectPortal\ParkInspectPortal.csproj", "{50CA62ED-A306-4EDA-A5D8-7BB009D66B37}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{DBD837F9-810F-4078-BE35-5E4B53D10879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DBD837F9-810F-4078-BE35-5E4B53D10879}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DBD837F9-810F-4078-BE35-5E4B53D10879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50CA62ED-A306-4EDA-A5D8-7BB009D66B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50CA62ED-A306-4EDA-A5D8-7BB009D66B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50CA62ED-A306-4EDA-A5D8-7BB009D66B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50CA62ED-A306-4EDA-A5D8-7BB009D66B37}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ParkInspectPortal.Models.InspectionViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Inspectie rapporten</h2>
+
+@if (ViewBag.Error != "")
+{
+    Html.Raw(ViewBag.Error);
+}
+@if (Model != null)
+{
+    if (Model.Count() > 0)
+    {
+        <table class="table">
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Van
+                </th>
+                <th>
+                    Tot
+                </th>
+                <th>
+                    Acties
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTimeStart)
+                    </td>
+                    <td>
+                        @if (item.DateTimeEnd == null)
+                        {
+                            @Html.Display("Heden")
+                        }
+                        else
+                        {
+                            @Html.DisplayFor(modelItem => item.DateTimeEnd)
+                        }
+                    </td>
+                    <td><a class="btn btn-primary" href="/Home/Download/?Guid=@item.Guid"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download rapport</a></td>
+                    &nbsp;
+                    <td><button class="btn btn-primary" onclick="copyValue(@item.Guid)" ><i class="fa fa-link" aria-hidden="true"></i> Kopieer downloadlink</button></td>
+                </tr>
+            }
+
+        </table>
+    }
+    else
+    {
+         @Html.Raw("<br><h5 style=\"font-style: italic;\">Er zijn geen raporten beschikbaar!</h5>");
+    }
+}
+else
+{
+    @Html.Raw("<br><h5 style=\"font-style: italic;\">Er zijn geen raporten beschikbaar!</h5>")
+    ;
+}
+
+<script>
+    function copyValue(g) {
+        window.prompt("Kopieer: Ctrl+C, Enter", window.location.host + "/Home/Download/?Guid=" + g);
+    }
+</script>
