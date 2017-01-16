@@ -8,9 +8,9 @@ using Data;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repository.Dummy
+namespace ParkInspect.Repository.Entity
 {
-    public class DummyAuthenticationRepository : IAuthenticationRepository
+    public class EntityAuthenticationRepository : IAuthenticationRepository
     {
         public AuthenticationViewModel Login(string username="", string password="")
         {

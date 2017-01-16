@@ -217,7 +217,7 @@
     <Compile Include="Repository\Interface\ICommissionRepository.cs" />
     <Compile Include="Repository\Interface\IInspectionsRepository.cs" />
     <Compile Include="Repository\Interface\ILocationRepository.cs" />
-    <Compile Include="Repository\Dummy\DummyAuthenticationRepository.cs" />
+    <Compile Include="Repository\Entity\EntityAuthenticationRepository.cs" />
     <Compile Include="Repository\Interface\IAuthenticationRepository.cs" />
     <Compile Include="Repository\Interface\IQuestionListRepository.cs" />
     <Compile Include="Repository\Interface\IRegionRepository.cs" />
