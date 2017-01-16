@@ -7,36 +7,35 @@ using Data;
 
 using ParkInspectPortal.Helpers;
 using ParkInspectPortal.Models;
+using ParkInspectPortal.Repositories;
 
 
 namespace ParkInspectPortal.Controllers
 {
     public class HomeController : Controller
     {
+        private IInspectionRepo _inspectionRepo;
+        public HomeController(IInspectionRepo inspectionRepo)
+        {
+            _inspectionRepo = inspectionRepo;
+        }
+
         public ActionResult Index()
         {
-            // TODO: get all inspections from DB
-            List<InspectionViewModel> Inspections = new List<InspectionViewModel>();
-            using (var ctx = new ParkInspectEntities())
-            {
-                var inspections = ctx.Inspection.ToList();
-                foreach(var item in inspections)
-                    Inspections.Add(new InspectionViewModel()
-                    {
-                        DateTimeEnd = item.DateTimeEnd,
-                        DateTimeStart = item.DateTimeStart,
-                        Guid = item.Guid,
-                        Id= item.Id,
-                    });
-            }
-
-                return View(Inspections);
+            return View(_inspectionRepo.GetInspections());
         }
 
         public ActionResult Download(Guid Guid)
         {
             // TODO: Map data with AutoMapper from repo or DB
-            var pdfvm = new InspectionPDFViewModel();
+            List<QuestionListViewModel> pdfvm = _inspectionRepo.GetQuestionList(Guid);
+
+            if (pdfvm == null)
+            {
+                ViewBag.Error = "Fout tijdens genereren van PDF!";
+                return View("Index");
+
+            }
 
             using (var pdfBuilder = new PDFBuilder())
             {

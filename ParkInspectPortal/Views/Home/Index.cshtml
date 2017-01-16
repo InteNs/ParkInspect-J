@@ -6,7 +6,10 @@
 
 <h2>Inspectie rapporten</h2>
 
-
+@if (!String.IsNullOrWhiteSpace(ViewBag.Error))
+{
+    Html.Raw(ViewBag.Error);
+}
 <table class="table">
     <tr>
         <th>
