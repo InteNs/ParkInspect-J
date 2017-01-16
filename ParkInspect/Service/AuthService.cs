@@ -20,7 +20,6 @@ namespace ParkInspect.Service
         public ICommand LogInCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
         public string UserName { get; set; }
-        private EmployeeViewModel employee;
         private IAuthenticationRepository _repo;
         private IEmployeeRepository _employeeRepository;
         public  AuthenticationViewModel User { get; set; }
@@ -31,27 +30,19 @@ namespace ParkInspect.Service
             _repo = repo;
             _router = router;
             _employeeRepository = employeeRepository;
-            User = new AuthenticationViewModel();
             LogInCommand = new RelayCommand<PasswordBox>(Login);
             LogOutCommand = new RelayCommand(Logout);
-            repo.FillUserFile();
         }
 
         public void Login(PasswordBox password)
         {
-            string[] user = _repo.Login(UserName, password.Password);
+            User = _repo.Login(UserName, password.Password);
             var dialog = new MetroDialogService();
-            if (user != null)
+            if (User != null)
             {
-                User.UserId = Convert.ToInt32(user[2]);
-                User.EmployeeId = Convert.ToInt32(user[3]);
-                User.Username = user[0];
-
-                employee = _employeeRepository.GetAll().Where(e => e.Id == User.EmployeeId).FirstOrDefault();
-
                 var dashboardName = "";
 
-                switch (CurrentFunction().ToLower())
+                switch (User.Function.ToLower())
                 {
                     case "inspecteur":
                         dashboardName = "dashboard-inspecteur";
@@ -94,12 +85,12 @@ namespace ParkInspect.Service
 
         public string CurrentFunction()
         {
-            return employee.Function;
+            return User.Function;
         }
 
         public EmployeeViewModel CurrentEmployee()
         {
-            return employee;
+            return _employeeRepository.GetAll().Where(q => q.Id == User.EmployeeId).FirstOrDefault();
         }
     }
 }
