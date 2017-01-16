@@ -25,7 +25,7 @@ namespace ParkInspect.Repository.Dummy
                     Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"},
                     Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"},
                     ZipCode = "8473LD",
-                    StreetNumber = 42,
+                  //  StreetNumber = 42,
                     DateCreated = new DateTime(2016, 11, 17, 19, 57, 0),
                     Description = "description 1", Region = "Limburg", Status = "Nieuw"
                 },
@@ -36,7 +36,7 @@ namespace ParkInspect.Repository.Dummy
                     Customer = new CustomerViewModel() {Id = 2, Name = "Pim Westervoort"},
                     Employee = new EmployeeViewModel() {Id = 2, Name = "Edward van Lieshout"},
                     ZipCode = "8473LD",
-                    StreetNumber = 42,
+                   // StreetNumber = 42,
                     DateCreated = new DateTime(2016, 11, 17, 19, 57, 0),
                     DateCompleted = new DateTime(2016, 11, 30),
                     Description = "description 2", Region = "Limburg", Status = "Klaar"

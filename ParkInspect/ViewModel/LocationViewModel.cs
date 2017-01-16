@@ -3,7 +3,7 @@
     public class LocationViewModel : MainViewModel
     {
         private string _zipCode;
-        private int _streetNumber;
+        private string _streetNumber;
         private string _region;
 
         public string ZipCode
@@ -12,7 +12,7 @@
             set { _zipCode = value; RaisePropertyChanged(); }
         }
 
-        public int StreetNumber
+        public string StreetNumber
         {
             get { return _streetNumber; }
             set { _streetNumber = value; RaisePropertyChanged(); }
