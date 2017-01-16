@@ -14,9 +14,9 @@ namespace ParkInspect.Converter
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             string input = value as string;
-            if (input.Contains("Opdracht"))
+            if (input.Contains("Inspectie"))
             {
-                int colourvalue = int.Parse(input.Substring(9)) % 10;
+                int colourvalue = int.Parse(input.Split(' ')[0]) % 10;
                 return new SolidColorBrush(Color.FromArgb((byte)(50 + colourvalue * 20), 0, (byte)(colourvalue * 25), 240));
             }
             switch (input)
