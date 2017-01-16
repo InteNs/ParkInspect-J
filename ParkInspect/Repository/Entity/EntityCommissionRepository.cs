@@ -7,6 +7,8 @@ using Data;
 using System.Threading.Tasks;
 using ParkInspect.ViewModel;
 using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
 
 namespace ParkInspect.Repository.Entity
 {
@@ -36,7 +38,7 @@ namespace ParkInspect.Repository.Entity
             var dateCreated = _context.Commission.FirstOrDefault(d => d.DateCreated == item.DateCreated);
             var dateCompleted = _context.Commission.FirstOrDefault(d => d.DateCompleted == item.DateCompleted);
 
-            var commission = new Commission { Customer = customer, Employee = employee, Guid = Guid.NewGuid() };
+            var commission = new Commission { Customer = customer, Employee = employee, Location = location, DateCreated = dateCreated.DateCreated, DateCompleted = dateCompleted.DateCompleted, Guid = Guid.NewGuid() };
 
             _context.Commission.Add(commission);
             _commissions.Add(item);
@@ -46,13 +48,18 @@ namespace ParkInspect.Repository.Entity
 
         public bool Delete(CommissionViewModel item)
         {
-            throw new NotImplementedException();
+            var commission = _context.Commission.Attach(new Commission { Id = item.Id });
+            if (commission == null) return false;
+            _context.Commission.Remove(commission);
+            _context.SaveChanges();
+            _commissions.Remove(item);
+            return true;
         }
 
         public ObservableCollection<CommissionViewModel> GetAll()
         {
             _commissions.Clear();
-            _context.Commission.Include("Commission").ToList().
+            _context.Commission.Include("Commission").Include("Commission.Location").Include("Commission.Employee").Include("Commission.Customer").ToList().
                 ForEach(c => _commissions.Add(new CommissionViewModel
                 {
                     Id = c.Id,
@@ -71,12 +78,24 @@ namespace ParkInspect.Repository.Entity
 
         public ObservableCollection<string> GetStatuses()
         {
-            throw new NotImplementedException();
+            return new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
         }
 
         public bool Update(CommissionViewModel item)
         {
-            throw new NotImplementedException();
+            //var commission = _context.Commission.Attach(new Commission { Id = item.Id });
+            //var person = _context.Person.Attach(new Person { Email = item.Email, Name = item.Name });
+            var commission = _context.Commission.Include("Commission").Include("Commission.Location").ToList();
+            if (commission == null) return false;
+            _context.Location.AddOrUpdate(new Location { StreetNumber = item.StreetNumber, ZipCode = item.ZipCode });
+            _context.Entry(commission).State = EntityState.Modified;
+            //_context.Entry(person).State = EntityState.Modified;
+            _context.SaveChanges();
+
+            var index = _commissions.IndexOf(item);
+            _commissions.RemoveAt(index);
+            _commissions.Insert(index, item);
+            return true;
         }
     }
 }
