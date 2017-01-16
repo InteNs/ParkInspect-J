@@ -93,7 +93,7 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
 
-                <view:TimeLineView />
+                <view:TimeLineView Loaded="TimeLineView_Loaded" />
 
             </Grid>
         </Grid>

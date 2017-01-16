@@ -24,5 +24,10 @@ namespace ParkInspect.View
         {
             InitializeComponent();
         }
+
+        private void TimeLineView_Loaded(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -5,18 +5,19 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
+using System.Diagnostics;
 
 namespace ParkInspect.ViewModel
 {
     public class TimeLineViewModel : MainViewModel
     {
         private List<DateTime> week;
-        private ICommissionRepository _icr;
+        private IInspectionsRepository _iir;
         private IEmployeeRepository _ier;
         private TimeLineItemViewModel _selectedTimeLineItem;
-        public TimeLineViewModel(IRouterService router, ICommissionRepository icr, IEmployeeRepository ier) : base(router)
+        public TimeLineViewModel(IRouterService router, IInspectionsRepository iir, IEmployeeRepository ier) : base(router)
         {
-            _icr = icr;
+            _iir = iir;
             _ier = ier;
             week = new List<DateTime>();
             DateTime dateCounter = DateTime.Now;
@@ -26,13 +27,16 @@ namespace ParkInspect.ViewModel
                 dateCounter = dateCounter.AddDays(-1);
             }
             week.Add(dateCounter);
-            dateCounter = DateTime.Now.AddDays(1);
-            while (dateCounter.DayOfWeek != DayOfWeek.Sunday)
+            if(DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
             {
+                dateCounter = DateTime.Now.AddDays(1);
+                while (dateCounter.DayOfWeek != DayOfWeek.Sunday)
+                {
+                    week.Add(dateCounter);
+                    dateCounter = dateCounter.AddDays(1);
+                }
                 week.Add(dateCounter);
-                dateCounter = dateCounter.AddDays(1);
             }
-            week.Add(dateCounter);
             week.Sort();
             Monday = week[0].ToShortDateString();
             Tuesday = week[1].ToShortDateString();
@@ -74,16 +78,27 @@ namespace ParkInspect.ViewModel
                 foreach(DateTime day in week)
                 {
                     string status = "Beschikbaar";
-                    foreach(CommissionViewModel cvm in _icr.GetAll())
+                    int inspectionsAmount = 0;
+                    
+                    foreach (InspectionViewModel ivm in _iir.GetAll())
                     {
-                        if(cvm.Employee.Equals(evm) && cvm.DateCreated < day && cvm.DateCompleted > day)
+                        if (ivm.cvm.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
                         {
-                            status = "Opdracht " + cvm.Id;
+                            tlivm.Inspections.Add(ivm);
+                            inspectionsAmount++;
                         }
                     }
                     if (day.DayOfWeek.Equals(DayOfWeek.Saturday) || day.DayOfWeek.Equals(DayOfWeek.Sunday))
                     {
                         status = "Weekend";
+                    }
+                    if (inspectionsAmount == 1)
+                    {
+                        status = "1 Inspectie";
+                    }
+                    if(inspectionsAmount > 1)
+                    {
+                        status = inspectionsAmount + " Inspecties";
                     }
                     switch (day.DayOfWeek)
                     {
@@ -109,6 +124,7 @@ namespace ParkInspect.ViewModel
                             tlivm.Sunday = status;
                             break;
                     }
+
                 }
                 TimeLineItems.Add(tlivm);
             }
