@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Security.Cryptography;
 using System.Text;
+using Data;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
 
@@ -10,71 +12,38 @@ namespace ParkInspect.Repository.Dummy
 {
     public class DummyAuthenticationRepository : IAuthenticationRepository
     {
-        private string loginFile;
-
-        public DummyAuthenticationRepository()
+        public AuthenticationViewModel Login(string username="", string password="")
         {
-            loginFile = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), @"Login.data");
+            AuthenticationViewModel loggedInUser;
 
-        }
-
-        public void FillUserFile()
-        {
-            if (!File.Exists(loginFile))
-                File.Create(loginFile).Close();
-            
-            using (StreamWriter file = new StreamWriter(loginFile, true))
+            using (var ctx = new ParkInspectEntities())
             {
-                file.WriteLine("admin;"+HashString("password")+";1;1;manager");
-                file.WriteLine("henk;" + HashString("kees") + ";2;2;inspecteur");
-                file.WriteLine("Dikke;" + HashString("teur") + ";3;3;directeur");
-                file.Close();
-            }
+                Employee user =
+                    ctx.Employee.Where(q => q.Person.Email == username && q.Password == password).FirstOrDefault();
 
-        }
+                if (user == null)
+                    return null;
 
-        public string[] Login(string username, string password)
-        {
-            string line = "";
-            StreamReader file = new StreamReader(loginFile);
-            while ((line = file.ReadLine()) != null)
-            {
-                string[] data = line.Split(';');
-                if (data[0] == username && data[1] == HashString(password))
+                loggedInUser = new AuthenticationViewModel()
                 {
-                    file.Close();
-                    return data;
-                }
+                    Username = user.Person.Email,
+                    EmployeeId = user.Id,
+                    Function = user.Function.Name
+                };
             }
 
-            file.Close();
+            return loggedInUser;
 
-            return null;
         }
 
         public void Logout(AuthenticationViewModel user)
         {
-            user.UserId = 0;
-            user.EmployeeId = 0;
-            user.Username = "";
+            user = null;
         }
 
         public bool IsLoggedIn(AuthenticationViewModel user)
         {
-            return (user.Username != "" && user.UserId != 0);
-        }
-
-        private string HashString(string content)
-        {
-
-            HashAlgorithm algorithm = SHA256.Create();
-            
-            StringBuilder sb = new StringBuilder();
-            foreach (byte b in algorithm.ComputeHash(Encoding.UTF8.GetBytes(content)))
-                sb.Append(b.ToString("X2"));
-
-            return sb.ToString();
-
+            return (user.Username != "" && user.EmployeeId != 0);
         }
 
         private bool HasInternet()
