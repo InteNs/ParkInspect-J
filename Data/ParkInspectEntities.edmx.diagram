@@ -36,6 +36,8 @@
         <AssociationConnector Association="ParkInspectModel.FK_Person_Location" />
         <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_Question" />
         <AssociationConnector Association="ParkInspectModel.FK_QuestionItem_QuestionList" />
+        <EntityTypeShape EntityType="ParkInspectModel.QuestionType" Width="1.5" PointX="12" PointY="6.375" />
+        <AssociationConnector Association="ParkInspectModel.FK_Question_QuestionType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
