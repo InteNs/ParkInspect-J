@@ -3,6 +3,7 @@ using ParkInspect.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
 
@@ -68,7 +69,7 @@ namespace ParkInspect.ViewModel
         public void UpdateTimeLineItems()
         {
             TimeLineItems.Clear();
-            foreach (EmployeeViewModel evm in _ier.GetAll())
+            foreach (EmployeeViewModel evm in _ier.GetAll().Where(e => e.Function == "inspecteur"))
             {
                 TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
                 foreach(DateTime day in week)
