@@ -10,33 +10,31 @@ namespace ParkInspect.ViewModel
 {
     public class AddCommissionViewModel : MainViewModel
     {
-        private CustomerViewModel _selectedCustomer;
         private readonly ICommissionRepository _commissionRepository;
         private string errorMessage;
-
-        public CustomerViewModel SelectedCustomer
-        {
-            get { return _selectedCustomer; }
-            set
-            {
-                _selectedCustomer = value;
-                base.RaisePropertyChanged();
-            }
-            
-        }
+        
 
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
+        public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public CommissionViewModel Commission { get; set; }
         public ICommand AddCommissionCommand { get; set; }
         public ObservableCollection<string> Regions { get; set; }
         public string StreetNumber { get; set; }
         public string Frequency { get; set; }
 
-        public AddCommissionViewModel(ICommissionRepository commissionRepository, ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
+        public AddCommissionViewModel(ICommissionRepository commissionRepository, IEmployeeRepository employeeRepository, ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
         {
             _commissionRepository = commissionRepository;
             Commission = new CommissionViewModel();
             Customers = customerRepository.GetAll();
+            Employees = new ObservableCollection<EmployeeViewModel>();
+            foreach(EmployeeViewModel evm in employeeRepository.GetAll())
+            {
+                if(evm.DismissalDate == null)
+                {
+                    Employees.Add(evm);
+                }
+            }
             Regions = regionRepository.GetAll();
 
             AddCommissionCommand = new RelayCommand(AddCommission, CanAddCommission);
@@ -53,7 +51,7 @@ namespace ParkInspect.ViewModel
 
             //check if all fields are filled in
             if (Commission.Customer == null || Commission.Region == null || Commission.ZipCode == null ||
-                Commission.Description == null)
+                Commission.Description == null || Commission.Employee == null)
             {
                 errorMessage = "Niet alle velden zijn ingevuld";
                 return false;

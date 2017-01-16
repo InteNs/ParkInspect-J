@@ -7,22 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Documents;
 
 namespace ParkInspect.Converter
 {
-    public class FilterCustomerConverter : IMultiValueConverter
+    public class FilterTimeLineItemConverter : IMultiValueConverter
     {
+
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            var subjects = (ObservableCollection<CustomerViewModel>)values[0];
+            var subjects = (ObservableCollection<TimeLineItemViewModel>)values[0];
             var query = values[1]?.ToString() ?? "";
-            return subjects.Where(e => e.Name.ToLower().Contains(query.ToLower()) || e.Email.ToLower().Contains(query.ToLower()) || e.ZipCode.ToLower().Contains(query.ToLower()) || e.StreetNumber.ToLower().Contains(query.ToLower()) || e.PhoneNumber.ToLower().Contains(query.ToLower()) || e.Id.ToString().ToLower().Contains(query.ToLower())).ToList();
+
+            return subjects.Where(t => t.Employee.DismissalDate == null && (t.Employee.Name.ToLower().Contains(query.ToLower()) || t.Employee.Function.ToLower().Contains(query.ToLower()) || t.Employee.Email.ToLower().Contains(query.ToLower()) || t.Employee.Region.ToLower().Contains(query.ToLower()) || t.Employee.Id.ToString().ToLower().Contains(query.ToLower()))).ToList();
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }
+        
     }
 }

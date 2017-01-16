@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:converter="clr-namespace:ParkInspect.Converter"
+             xmlns:service="clr-namespace:ParkInspect.Service"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
@@ -10,6 +11,7 @@
              DataContext="{Binding TimeLine,Source={StaticResource Locator}}">
     <UserControl.Resources>
         <converter:NameToBrushConverter x:Key="TextToBrushConverter" />
+        <converter:FilterTimeLineItemConverter x:Key="Filter" />
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -29,7 +31,14 @@
         
         <DataGrid GridLinesVisibility="None"
                           Background="White" Foreground="Black" FontSize="12" AutoGenerateColumns="False" MouseDoubleClick="DataGrid_MouseDoubleClick"
-                          IsReadOnly="True" ItemsSource="{Binding TimeLineItems, Mode=TwoWay}" Grid.ColumnSpan="3" Grid.Row="3">
+                          IsReadOnly="True" Grid.ColumnSpan="3" Grid.Row="3">
+            <DataGrid.ItemsSource>
+                <MultiBinding Converter="{StaticResource Filter}">
+                    <Binding Path="TimeLineItems"/>
+                    <Binding ElementName="Search" Path="Text"/>
+                    <Binding Path="TimeLineItems.Count"/>
+                </MultiBinding>
+            </DataGrid.ItemsSource>
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="0.1*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
                 <DataGridTextColumn Header="Inspecteur" Binding="{Binding Employee.Name}" Width="0.5*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
@@ -122,6 +131,15 @@
           Grid.Column="2">
         <Button Command="{Binding NextWeekCommand}" Content="Volgende"></Button>
     </Grid>
+        <Grid Grid.Row="1" Grid.Column="0">
+            <AdornerDecorator>
+                <TextBox Name="Search" Text="{Binding None, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
+                    <service:WatermarkService.Watermark>
+                        <TextBlock>Zoeken...</TextBlock>
+                    </service:WatermarkService.Watermark>
+                </TextBox>
+            </AdornerDecorator>
+        </Grid>
 
     </Grid>
     
