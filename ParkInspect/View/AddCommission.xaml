@@ -160,7 +160,14 @@
                 </Viewbox>
                 <TextBox Text="{Binding Commission.Description, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
             </DockPanel>
-            
+            <DockPanel Grid.Row="13"
+                        Grid.Column="1"
+                        >
+                <Viewbox>
+                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Medewerker "></Label>
+                </Viewbox>
+                <ComboBox SelectedItem="{Binding Commission.Employee, Mode=TwoWay}" ItemsSource="{Binding Employees}" DisplayMemberPath="Name" HorizontalContentAlignment="Center" />
+            </DockPanel>
             <Grid
                 Grid.Row="15"
                 Grid.Column="1">

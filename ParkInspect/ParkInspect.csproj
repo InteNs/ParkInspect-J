@@ -191,6 +191,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Converter\DatetimeToTimestringConverter.cs" />
+    <Compile Include="Converter\FilterTimeLineItemConverter.cs" />
     <Compile Include="Converter\NameToBrushConverter.cs" />
     <Compile Include="Enumeration\Function.cs" />
     <Compile Include="Factory\DiagramFactory.cs" />
