@@ -59,7 +59,7 @@ namespace ParkInspect.Repository.Entity
         public ObservableCollection<CommissionViewModel> GetAll()
         {
             _commissions.Clear();
-            _context.Commission.Include("Commission").Include("Commission.Location").Include("Commission.Employee").Include("Commission.Customer").ToList().
+            _context.Commission.Include("Commission.Location").Include("Commission.Employee").Include("Commission.Customer").ToList().
                 ForEach(c => _commissions.Add(new CommissionViewModel
                 {
                     Id = c.Id,
@@ -85,7 +85,14 @@ namespace ParkInspect.Repository.Entity
         {
             //var commission = _context.Commission.Attach(new Commission { Id = item.Id });
             //var person = _context.Person.Attach(new Person { Email = item.Email, Name = item.Name });
-            var commission = _context.Commission.Include("Commission").Include("Commission.Location").ToList();
+            var commission = _context.Commission.Include("Commission").Include("Commission.Location").FirstOrDefault(c => c.Id == item.Id);
+            commission.Id = item.Id;
+            commission.Description = item.Description;
+            commission.DateCompleted = item.DateCompleted;
+            commission.CustomerId = item.Customer.Id;
+            commission.EmployeeId = item.Employee.Id;
+            commission.Location.Region = item.;
+
             if (commission == null) return false;
             _context.Location.AddOrUpdate(new Location { StreetNumber = item.StreetNumber, ZipCode = item.ZipCode });
             _context.Entry(commission).State = EntityState.Modified;
