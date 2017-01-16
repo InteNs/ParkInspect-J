@@ -35,40 +35,50 @@ namespace ParkInspect.ViewModel
         {
             if (_syncService.CheckForInternetConnection())
             {
-                // _syncService.InitializeDatabase();
+                try
+                {
 
-                ProvisionServer();
-                ProvisionClient();
+                    // _syncService.InitializeDatabase();
 
-                // create a connection to the SyncCompactDB database
-                SqlConnection clientConn = new SqlConnection(_syncService.getLocalConnString());
+                    ProvisionServer();
+                    ProvisionClient();
 
-                // create a connection to the SyncDB server database
-                SqlConnection serverConn = new SqlConnection(_syncService.getRemoteConnString());
+                    // create a connection to the SyncCompactDB database
+                    SqlConnection clientConn = new SqlConnection(_syncService.getLocalConnString());
 
-                // create the sync orhcestrator
-                Microsoft.Synchronization.SyncOrchestrator syncOrchestrator = new SyncOrchestrator();
+                    // create a connection to the SyncDB server database
+                    SqlConnection serverConn = new SqlConnection(_syncService.getRemoteConnString());
 
-                // set local provider of orchestrator to a CE sync provider associated with the 
-                // ProductsScope in the SyncCompactDB compact client database
-                syncOrchestrator.LocalProvider = new SqlSyncProvider("ParkInspectScope", clientConn);
+                    // create the sync orhcestrator
+                    Microsoft.Synchronization.SyncOrchestrator syncOrchestrator = new SyncOrchestrator();
 
-                // set the remote provider of orchestrator to a server sync provider associated with
-                // the ProductsScope in the SyncDB server database
-                syncOrchestrator.RemoteProvider = new SqlSyncProvider("ParkInspectScope", serverConn);
+                    // set local provider of orchestrator to a CE sync provider associated with the 
+                    // ProductsScope in the SyncCompactDB compact client database
+                    syncOrchestrator.LocalProvider = new SqlSyncProvider("ParkInspectScope", clientConn);
 
-                // set the direction of sync session to Upload and Download
-                syncOrchestrator.Direction = SyncDirectionOrder.UploadAndDownload;
+                    // set the remote provider of orchestrator to a server sync provider associated with
+                    // the ProductsScope in the SyncDB server database
+                    syncOrchestrator.RemoteProvider = new SqlSyncProvider("ParkInspectScope", serverConn);
+
+                    // set the direction of sync session to Upload and Download
+                    syncOrchestrator.Direction = SyncDirectionOrder.UploadAndDownload;
 
 
-                // subscribe for errors that occur when applying changes to the client
-                ((SqlSyncProvider)syncOrchestrator.LocalProvider).ApplyChangeFailed += new EventHandler<DbApplyChangeFailedEventArgs>(Program_ApplyChangeFailed);
+                    // subscribe for errors that occur when applying changes to the client
+                    ((SqlSyncProvider)syncOrchestrator.LocalProvider).ApplyChangeFailed += new EventHandler<DbApplyChangeFailedEventArgs>(Program_ApplyChangeFailed);
 
-                // execute the synchronization process
-                SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
+                    // execute the synchronization process
+                    SyncOperationStatistics syncStats = syncOrchestrator.Synchronize();
 
-                MessageBox.Show("Synchronisatie voltooid!");
-
+                    MessageBox.Show("Synchronisatie voltooid!");
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show(
+                        "Er is een fout opgetreden in de sync configuratie! Neem contact op met uw systeembeheerder.",
+                        "Fatale fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
             }
             else
