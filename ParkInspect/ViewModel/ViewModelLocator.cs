@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 using ParkInspect.Repositories;
 using ParkInspect.Repository.Dummy;
+using ParkInspect.Repository.Entity;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
@@ -29,7 +30,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
             SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
             SimpleIoc.Default.Register<IRegionRepository, DummyRegionRepository>();
-            SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();
+            SimpleIoc.Default.Register<ICustomerRepository, EntityCustomerRepository>();
             SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
             SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
             SimpleIoc.Default.Register<IQuestionListRepository, DummyQuestionListRepository>();
@@ -52,7 +53,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();
 
-            SimpleIoc.Default.Register<ManagementRapportenViewModel>();
+            SimpleIoc.Default.Register<ManagementReportsViewModel>();
             SimpleIoc.Default.Register<AuthenticationViewModel>();
            
             SimpleIoc.Default.Register<QuestionsViewModel>();
@@ -82,7 +83,7 @@ namespace ParkInspect.ViewModel
         public AddCustomerViewModel AddCustomer => NewInstance<AddCustomerViewModel>(ref _addCustomerKey);
         public EditCustomerViewModel EditCustomer => NewInstance<EditCustomerViewModel>(ref _editCustomerKey);
 
-        public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
+        public ManagementReportsViewModel Management => ServiceLocator.Current.GetInstance<ManagementReportsViewModel>();
         public QuestionsViewModel Questions => ServiceLocator.Current.GetInstance<QuestionsViewModel>();
         public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
         public QuestionListsviewModel QuestionLists => ServiceLocator.Current.GetInstance<QuestionListsviewModel>();

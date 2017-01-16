@@ -20,6 +20,7 @@ namespace ParkInspect.ViewModel
                 _selectedCustomer = value;
                 base.RaisePropertyChanged();
             }
+            
         }
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public CommissionViewModel Commission { get; set; }
@@ -58,6 +59,7 @@ namespace ParkInspect.ViewModel
                 string.IsNullOrWhiteSpace(Commission.Frequency.ToString()) || Commission.Description == null || !Commission.IsValid)
             {
                 return false;
+
             }
             return true;
 

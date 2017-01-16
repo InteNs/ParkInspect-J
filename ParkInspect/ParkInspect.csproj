@@ -166,13 +166,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\DatetimeToTimestringConverter.cs" />
     <Compile Include="Converter\NameToBrushConverter.cs" />
     <Compile Include="Enumeration\Function.cs" />
     <Compile Include="Factory\DiagramFactory.cs" />
-    <Compile Include="DiagramModels\Cirkeldiagram.cs" />
+    <Compile Include="DiagramModels\PieChart.cs" />
     <Compile Include="DiagramModels\LineChart.cs" />
-    <Compile Include="DiagramModels\Kaart.cs" />
-    <Compile Include="DiagramModels\Staafdiagram.cs" />
+    <Compile Include="DiagramModels\MapChart.cs" />
+    <Compile Include="DiagramModels\BarGraph.cs" />
     <Compile Include="DiagramModels\IDiagram.cs" />
     <Compile Include="Converter\FilterEmployeeConverter.cs" />
     <Compile Include="Helper\MetroDialogService.cs" />
@@ -185,6 +186,7 @@
     <Compile Include="Repository\Dummy\DummyQuestionRepository.cs" />
     <Compile Include="Repository\Dummy\DummyRegionRepository.cs" />
     <Compile Include="Repository\Dummy\DummyTemplateRepository.cs" />
+    <Compile Include="Repository\Entity\EntityCustomerRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interface\ICommissionRepository.cs" />
@@ -209,7 +211,7 @@
     <Compile Include="ViewModel\InspectionViewModel.cs" />
     <Compile Include="ViewModel\LineChartViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
-    <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
+    <Compile Include="ViewModel\ManagementReportsViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\QuestionItemViewModel.cs" />

@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Region]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[RegionName] varchar(MAX) NOT NULL
 

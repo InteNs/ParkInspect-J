@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ParkInspect.ViewModel
@@ -14,6 +15,7 @@ namespace ParkInspect.ViewModel
         private string _zipCode;
         private string _streetNumber;
         private string _phoneNumber;
+        private string _region;
         private string _email;
 
         public string Name
@@ -28,7 +30,7 @@ namespace ParkInspect.ViewModel
                 { AddError("Name", "Naam mag geen cijfers bevatten"); }
                 else
                 { RemoveError("Name"); }
-                
+
                 RaisePropertyChanged();
             }
         }
@@ -42,8 +44,28 @@ namespace ParkInspect.ViewModel
 
                 if (string.IsNullOrWhiteSpace(_zipCode))
                 { AddError("ZipCode", "Postcode is verplicht"); }
+                else if (!Regex.IsMatch(_zipCode, "^[1-9][0-9]{3}\\s?[a-zA-Z]{2}$"))
+                {
+                    AddError("ZipCode", "Postcode bevat 4 cijfers en 2 letters");
+                }
                 else
                 { RemoveError("ZipCode"); }
+
+                RaisePropertyChanged();
+            }
+        }
+
+        public string Region
+        {
+            get { return _region; }
+            set
+            {
+                _region = value;
+
+                if (string.IsNullOrWhiteSpace(_region))
+                { AddError("Region", "Postcode is verplicht"); }
+                else
+                { RemoveError("Region"); }
 
                 RaisePropertyChanged();
             }
@@ -75,7 +97,7 @@ namespace ParkInspect.ViewModel
                 if (string.IsNullOrWhiteSpace(_phoneNumber))
                 { AddError("PhoneNumber", "Telefoonnummer is verplicht"); }
                 else if (_phoneNumber.Any(char.IsLetter))
-                { AddError("Telefoonnummer", "Telefoonnummer kan geen letters bevatten"); }
+                { AddError("PhoneNumber", "Telefoonnummer kan geen letters bevatten"); }
                 else
                 { RemoveError("PhoneNumber"); }
 
@@ -93,7 +115,7 @@ namespace ParkInspect.ViewModel
 
                 if (string.IsNullOrWhiteSpace(_email))
                 { AddError("Email", "Email is verplicht"); }
-                else if(!_email.Contains("@"))
+                else if (!Regex.IsMatch(_email, @"\A(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)\Z", RegexOptions.IgnoreCase))
                 {
                     AddError("Email", "Dit is geen geldige email");
                 }

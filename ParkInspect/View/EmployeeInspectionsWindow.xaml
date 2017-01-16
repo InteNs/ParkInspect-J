@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:converter="clr-namespace:ParkInspect.Converter"
         ShowIconOnTitleBar="True"
         GlowBrush="{DynamicResource AccentColorBrush}"
                    BorderThickness="1"
@@ -13,6 +14,9 @@
         Width="500" Height="500"
         DataContext="{Binding EmployeeInspections, Source={StaticResource Locator}}"
         Background="White">
+    <controls:MetroWindow.Resources>
+        <converter:DatetimeToTimestringConverter x:Key="datetimetotimeconverter" />
+    </controls:MetroWindow.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.11*" />
@@ -52,11 +56,11 @@
             <Button Grid.Row="0" Grid.Column="2" Command="{Binding NextDayCommand}" Content="Volgende"></Button>
 
             <DataGrid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" GridLinesVisibility="None" 
-       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" >
+       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding Inspections}">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Start tijd" Binding="{Binding Id}" Width="*" />
-                    <DataGridTextColumn Header="Eind tijd" Binding="{Binding Name}" Width="*" />
-                    <DataGridTextColumn Header="Opdrachtgever" Binding="{Binding Function}" Width="*" />
+                    <DataGridTextColumn Header="Start tijd" Binding="{Binding StartTime, Converter={StaticResource datetimetotimeconverter}}" Width="*" />
+                    <DataGridTextColumn Header="Eind tijd" Binding="{Binding EndTime, Converter={StaticResource datetimetotimeconverter}}" Width="*" />
+                    <DataGridTextColumn Header="Opdrachtgever" Binding="{Binding cvm.Customer.Name}" Width="*" />
                 </DataGrid.Columns>
             </DataGrid>
         </Grid>

@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
+using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
 {
@@ -22,6 +23,7 @@ namespace ParkInspect.ViewModel
                 base.RaisePropertyChanged();
             }
         }
+        
 
         public bool IsManager
         {
