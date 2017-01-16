@@ -17,6 +17,8 @@
             <ColumnDefinition Width="0.035*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.035*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -27,14 +29,15 @@
             <RowDefinition Height="0.035*"/>
         </Grid.RowDefinitions>
         <DataGrid CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  AutoGenerateColumns="False" ItemsSource="{Binding Questions}" VerticalScrollBarVisibility="Visible"
-                  SelectedItem="{Binding SelectedQuestion, Mode=TwoWay, NotifyOnSourceUpdated=True}" Grid.Column="1" Grid.Row="1">
+                  SelectedItem="{Binding SelectedQuestion, Mode=TwoWay, NotifyOnSourceUpdated=True}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn IsReadOnly="true" Width="0.1*" Header="#" Binding="{Binding Id}" />
-                <DataGridTextColumn Width="*" Header="Description" Binding="{Binding Description, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" />
+                <DataGridTextColumn IsReadOnly="True" Width="*" Header="Description" Binding="{Binding Description}" />
                 <DataGridTextColumn IsReadOnly="True" Width="0.1*" Header="Version" Binding="{Binding Version}" />
             </DataGrid.Columns>
         </DataGrid>
 
         <Button Foreground="White" FontSize="20"  Command="{Binding RouteCommand}" CommandParameter="question-add" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" > New Question</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding DuplicateQuestionCommand}" CommandParameter="question-add" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" >Duplicate Question</Button>
     </Grid>
 </UserControl>

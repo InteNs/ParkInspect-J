@@ -12,7 +12,9 @@
             <ColumnDefinition Width="0.035*" />
             <ColumnDefinition Width="0.60*" />
             <ColumnDefinition Width="0.035*" />
-            <ColumnDefinition Width="0.30*" />
+            <ColumnDefinition Width="0.20*" />
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="0.20*" />
             <ColumnDefinition Width="0.035*" />
         </Grid.ColumnDefinitions>
 
@@ -20,15 +22,16 @@
             <RowDefinition Height="0.035*"/>
             <RowDefinition Height="0.80*" />
             <RowDefinition Height="0.035*"/>
-            <RowDefinition Height="0.20*"/>
+            <RowDefinition Height="0.10*"/>
             <RowDefinition Height="0.035*"/>
         </Grid.RowDefinitions>
-        <ComboBox ItemsSource="{Binding Path=Questions}" DisplayMemberPath="Description" SelectedItem="{Binding QuestionToAdd, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" MinHeight="50"/>
-        <Button Command="{Binding AddQuestionCommand}" Grid.Column="3" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Height="50" FontSize="9">Add Question</Button>
+        <ComboBox SelectedValue="{Binding Path=QuestionToAdd}" ItemsSource="{Binding Path=Questions}" DisplayMemberPath="Description" Grid.Column="1" Grid.Row="3"  Foreground="Black"/>
+        <Button Command="{Binding AddQuestionCommand}" Grid.Column="3" Grid.Row="3"  FontSize="9">Add Question</Button>
+        <Button Command="{Binding DeleteQuestionCommand}" Grid.Column="5" Grid.Row="3"  FontSize="9">Delete selected Question</Button>
         <DataGrid CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Stretch"
                   HorizontalAlignment="Stretch" AutoGenerateColumns="False" ItemsSource="{Binding QuestionItems}" SelectedItem="{Binding SelectedQuestionItem, Mode=TwoWay}"
                   VerticalScrollBarVisibility="Visible" IsReadOnly="True"
-                  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3">
+                  Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Width="50" Header="#" Binding="{Binding QuestionId}" />
                 <DataGridTextColumn Width="*" Header="Description"
