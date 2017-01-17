@@ -40,26 +40,6 @@ namespace ParkInspect.Repository.Entity
                     ZipCode = e.Person.Location.ZipCode,
                     PhoneNumber = e.Person.PhoneNumber
                 }));
-            //TODO:remove comments
-            /*if (_employees.Count > 0)
-            {
-                return _employees;
-            }*/
-
-            _employees.Add(new EmployeeViewModel()
-            {
-                Id = 1,
-                StreetNumber = "1",
-                EmploymentDate = DateTime.Now,
-                DismissalDate = null,
-                Region = "Limboland",
-                Function = "manager",
-                Email = "admin@parkinspect.nl",
-                Name = "admin",
-                ZipCode = "121212",
-                PhoneNumber = "0900090909"
-            });
-
             return _employees;
         }
 
