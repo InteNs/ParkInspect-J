@@ -13,6 +13,7 @@ namespace ParkInspect.ViewModel
     public class QuestionListViewModel : MainViewModel
     {
         public int Id { get; set; }
+        public string Description { get; set; }
         public InspectionViewModel inspection { get; set; }
         public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
         private QuestionItemViewModel currentQuestion;

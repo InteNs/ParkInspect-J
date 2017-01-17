@@ -6,6 +6,7 @@ using ParkInspect.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,14 +18,27 @@ namespace ParkInspect.ViewModel
     public class AddInspectionViewModel : MainViewModel
     {
         private readonly IInspectionsRepository _inspectionRepository;
-        
-        
+        private QuestionListViewModel selectedQuestionList;
+
         public InspectionViewModel Inspection { get; set; }
         public ICommand AddInspectionCommand { get; set; }
         public ObservableCollection<CommissionViewModel> CommissionList { get; private set; }
+        public ObservableCollection<QuestionListViewModel> QuestionLists { get; private set; }
+        public QuestionListViewModel SelectedQuestionList
+        {
+            get
+            {
+                return selectedQuestionList;
+            }
+            set
+            {
+                selectedQuestionList = value;
+                RaisePropertyChanged();
+            }
+        }
         private string errorMessage;
 
-        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IAuthService auth, IRouterService router) : base(router)
+        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router) : base(router)
         {
             Inspection = new InspectionViewModel();
             Inspection.StartTime = DateTime.Now;
@@ -32,13 +46,14 @@ namespace ParkInspect.ViewModel
             _inspectionRepository = inspectionRepository;
             AddInspectionCommand = new RelayCommand(AddInspection, CanAddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
-            foreach(CommissionViewModel cvm in commissionRepository.GetAll())
-            {
-                if(cvm.Employee.Id == auth.CurrentEmployee().Id)
-                {
-                    CommissionList.Add(cvm);
-                }
-            }
+            QuestionLists = questionListRepository.GetAll();
+            //foreach (CommissionViewModel cvm in commissionRepository.GetAll())
+            //{
+            //    if (cvm.Employee.Id == auth.CurrentEmployee().Id)
+            //    {
+            //        CommissionList.Add(cvm);
+            //    }
+            //}
         }
 
         private bool ValidateInput()
