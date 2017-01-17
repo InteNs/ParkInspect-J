@@ -46,11 +46,11 @@
             </Grid.ColumnDefinitions>
 
 
-                <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="employees-list" Content="Inspectie uitvoeren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
+                <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="questionnaire-start" Content="Inspectie uitvoeren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
                 <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="inspections-list" Content="Inspectie inplannen" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-                <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="templates-list" Content="Templatescherm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
+                <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="question-lists" Content="Templatescherm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
         </Grid>
 
