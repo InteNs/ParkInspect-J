@@ -34,11 +34,8 @@ namespace ParkInspect.Repository.Entity
 
             var customer = _context.Customer.FirstOrDefault(c => c.Id == item.Customer.Id);
             var employee = _context.Employee.FirstOrDefault(e => e.Id == item.Employee.Id);
-            var description = _context.Commission.FirstOrDefault(d => d.Description == item.Description);
-            var dateCreated = _context.Commission.FirstOrDefault(d => d.DateCreated == item.DateCreated);
-            var dateCompleted = _context.Commission.FirstOrDefault(d => d.DateCompleted == item.DateCompleted);
 
-            var commission = new Commission { Customer = customer, Employee = employee, Location = location, DateCreated = dateCreated.DateCreated, DateCompleted = dateCompleted.DateCompleted, Guid = Guid.NewGuid() };
+            var commission = new Commission { Customer = customer, Employee = employee, Location = location, DateCreated = item.DateCreated, DateCompleted = item.DateCompleted, Guid = Guid.NewGuid() };
 
             _context.Commission.Add(commission);
             _commissions.Add(item);
@@ -59,7 +56,7 @@ namespace ParkInspect.Repository.Entity
         public ObservableCollection<CommissionViewModel> GetAll()
         {
             _commissions.Clear();
-            _context.Commission.Include("Commission.Location").Include("Commission.Location").Include("Commission.Employee").Include("Commission.Customer").ToList().
+            _context.Commission.Include("Location").Include("Location.Region").Include("Employee").Include("Customer").Include("Customer.Person").Include("Customer.Person.Location").Include("Employee.Person").Include("Employee.Person.Location").ToList().
                 ForEach(c => _commissions.Add(new CommissionViewModel
                 {
                     Id = c.Id,
@@ -68,9 +65,25 @@ namespace ParkInspect.Repository.Entity
                     DateCreated = c.DateCreated,
                     DateCompleted = c.DateCompleted,
                     Description = c.Description,
-                    //Employee = 
-                    //Customer = 
-
+                    Region = c.Location.Region.RegionName,
+                    Customer = new CustomerViewModel
+                        {
+                        Email = c.Customer.Person.Email,
+                        Name = c.Customer.Person.Name,
+                        Id = c.Customer.Id,
+                        PhoneNumber = c.Customer.Person.PhoneNumber,
+                        StreetNumber = c.Customer.Person.Location.StreetNumber,
+                        ZipCode = c.Customer.Person.Location.ZipCode
+                        },
+                    Employee = new EmployeeViewModel()
+                    {
+                        Email = c.Employee.Person.Email,
+                        Name = c.Employee.Person.Name,
+                        Id = c.Employee.Id,
+                        PhoneNumber = c.Employee.Person.PhoneNumber,
+                        StreetNumber = c.Employee.Person.Location.StreetNumber,
+                        ZipCode = c.Employee.Person.Location.ZipCode
+                    }
                 }));
             return _commissions;
            
@@ -85,7 +98,8 @@ namespace ParkInspect.Repository.Entity
         {
             //var commission = _context.Commission.Attach(new Commission { Id = item.Id });
             //var person = _context.Person.Attach(new Person { Email = item.Email, Name = item.Name });
-            var commission = _context.Commission.Include("Commission.Location").Include("Commission.Location.Region").Include("Commission.Employee").Include("Commission.Customer").FirstOrDefault(c => c.Id == item.Id);
+            var commission = _context.Commission.Include("Location").Include("Location.Region").Include("Employee").Include("Customer").FirstOrDefault(c => c.Id == item.Id);
+            if (commission == null) return false;
             commission.Id = item.Id;
             commission.Description = item.Description;
             commission.DateCompleted = item.DateCompleted;
@@ -93,10 +107,9 @@ namespace ParkInspect.Repository.Entity
             commission.EmployeeId = item.Employee.Id;
             commission.Location.Region.RegionName = item.Region;
 
-            if (commission == null) return false;
+            
             _context.Location.AddOrUpdate(new Location { StreetNumber = item.StreetNumber, ZipCode = item.ZipCode });
             _context.Entry(commission).State = EntityState.Modified;
-            //_context.Entry(person).State = EntityState.Modified;
             _context.SaveChanges();
 
             var index = _commissions.IndexOf(item);
