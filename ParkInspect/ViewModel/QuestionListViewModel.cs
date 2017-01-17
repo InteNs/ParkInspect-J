@@ -41,5 +41,9 @@ namespace ParkInspect.ViewModel
         {
            QuestionItems = new ObservableCollection<QuestionItemViewModel>(questions);
         }
+        public QuestionListViewModel()
+        {
+            QuestionItems = new ObservableCollection<QuestionItemViewModel>();
+        }
     }
 }

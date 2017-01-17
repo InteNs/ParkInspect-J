@@ -206,6 +206,7 @@
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\BarGraphViewModel.cs" />
     <Compile Include="ViewModel\EditCustomerViewModel.cs" />
+    <Compile Include="ViewModel\EditQuestionListViewModel.cs" />
     <Compile Include="ViewModel\EditQuestionViewModel.cs" />
     <Compile Include="ViewModel\EmployeeInspectionsViewModel.cs" />
     <Compile Include="ViewModel\IGraphViewModel.cs" />
@@ -281,6 +282,9 @@
     <Compile Include="View\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditQuestionListView.xaml.cs">
+      <DependentUpon>EditQuestionListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EditQuestionView.xaml.cs">
       <DependentUpon>EditQuestionView.xaml</DependentUpon>
     </Compile>
@@ -346,6 +350,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditQuestionListView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

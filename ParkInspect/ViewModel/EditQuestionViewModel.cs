@@ -41,7 +41,7 @@ namespace ParkInspect.ViewModel
             }
             else
             {
-                new MetroDialogService().ShowMessage("Error", "Input is invalid.");
+                new MetroDialogService().ShowMessage("Error", ShowValidationError());
             }
         }
 

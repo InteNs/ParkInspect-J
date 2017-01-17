@@ -12,22 +12,31 @@
             <ColumnDefinition Width="0.035*" />
             <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.035*" />
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="0.005*"/>
+            <RowDefinition Height="0.2*"/>
+            <RowDefinition Height="0.005*"/>
             <RowDefinition Height="1*" />
             <RowDefinition Height="0.005*"/>
             <RowDefinition Height="0.2*"/>
             <RowDefinition Height="0.005*"/>
         </Grid.RowDefinitions>
         <DataGrid GridLinesVisibility="None"
-       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding QuestionLists, Mode=TwoWay}" SelectedItem="{Binding SelectedQuestionList, Mode=TwoWay}" Grid.Column="1" Grid.Row="1">
+       FontSize="15" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding QuestionLists, Mode=TwoWay}" SelectedItem="{Binding SelectedQuestionList, Mode=TwoWay}" Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="5">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding Id}" Width="0.2*" />
                 <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button FontSize="10" Grid.Column="1" Grid.Row="3" Command="{Binding EditQuestionCommand}">Vragen</Button>
+        <Button FontSize="10" Grid.Column="1" Grid.Row="5" Command="{Binding EditQuestionCommand}" Grid.ColumnSpan="5">Vragen</Button>
+        <Button FontSize="10" Grid.Column="1" Grid.Row="1" Command="{Binding NewQuestionCommand}">Nieuwe vragenlijst</Button>
+        <Button FontSize="10" Grid.Column="3" Grid.Row="1" Command="{Binding EditQuestionListCommand}">Pas vragenlijst aan</Button>
+        <Button FontSize="10" Grid.Column="5" Grid.Row="1" Command="{Binding DisableQuestionCommand}">Verwijder vragenlijst</Button>
     </Grid>
 </UserControl>

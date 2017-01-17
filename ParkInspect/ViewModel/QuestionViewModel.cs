@@ -46,9 +46,5 @@ namespace ParkInspect.ViewModel
             return newQuestion;
         }
 
-        public void Disable()
-        {
-            isActive = false;
-        }
     }
 }

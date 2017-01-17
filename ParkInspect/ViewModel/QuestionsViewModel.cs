@@ -41,7 +41,6 @@ namespace ParkInspect.ViewModel
 
         private void DisableQuestion()
         {
-            SelectedQuestion.Disable();
             _repository.Delete(SelectedQuestion);
             Questions.Remove(SelectedQuestion);
         }
