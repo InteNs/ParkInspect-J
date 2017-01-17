@@ -90,7 +90,13 @@ namespace ParkInspect.ViewModel
                 if (_inspectionRepository.Add(Inspection))
                 {
                     Inspection.Id = _inspectionRepository.GetAll().ToList().First(ins => ins.cvm.Id == Inspection.cvm.Id && ins.StartTime == Inspection.StartTime).Id;
-                    SelectedQuestionList.inspection = Inspection;
+                    QuestionListViewModel ql = new QuestionListViewModel(SelectedQuestionList.QuestionItems);
+                    foreach(QuestionItemViewModel qivm in ql.QuestionItems)
+                    {
+                        qivm.Answer = null;
+                    }
+                    ql.Description = SelectedQuestionList.Description;
+                    ql.inspection = Inspection;
                     _questionListRepository.Add(SelectedQuestionList);
                     RouterService.SetPreviousView();
                 }
