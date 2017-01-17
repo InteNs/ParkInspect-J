@@ -7,6 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using IniParser;
+using IniParser.Model;
 
 namespace ParkInspect.Service
 {
@@ -18,8 +21,20 @@ namespace ParkInspect.Service
 
         public SyncService()
         {
+            var parser = new FileIniDataParser();
+            IniData data = new IniData();
+            try
+            {
+                data = parser.ReadFile(AppDomain.CurrentDomain.BaseDirectory + "config.ini");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Geen configuratie bestand (config.ini) aanwezig of bestand is corrupt!","Fatale fout",MessageBoxButton.OK,MessageBoxImage.Error);
+                return;
+            }
+            
             remoteConnString = @"Data Source=avans.database.windows.net;Initial catalog=ParkInspect;Persist security info=True;user Id=beheer;Password=ParkInspect1";
-            localConnString = @"Data Source=DESKTOP-3GSF6QQ\SQLEXPRESS; Initial Catalog=ParkInspectEMB; Integrated Security=True";
+            localConnString = String.Format(@"Data Source={1}; Initial Catalog={0}; Integrated Security=True",data["Database"]["Name"], data["Database"]["Server"]);
         }
 
         public SqlCeConnection InitializeDatabase()

@@ -3,7 +3,6 @@
 	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[Password] VARCHAR(MAX),
-	[Region] int NOT NULL,
 	[FunctionId] int NOT NULL,
 	[FunctionGuid] uniqueidentifier NOT NULL,
 	[PersonId] int NOT NULL,
@@ -16,7 +15,6 @@
 		Id,
 		Guid
 	)
-
 	CONSTRAINT [FK_Employee_Person] FOREIGN KEY (PersonId, PersonGuid) REFERENCES Person (Id, Guid)
 	CONSTRAINT [FK_Employee_Function] FOREIGN KEY (FunctionId, FunctionGuid) REFERENCES "Function" (Id, Guid) 
 )
