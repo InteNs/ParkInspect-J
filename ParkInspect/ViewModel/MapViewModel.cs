@@ -48,61 +48,30 @@ namespace ParkInspect.ViewModel
             Customers = customers.ToList();
         }
 
+        #region filters
+
         // Assigment per location
-        // TODO check startDate, endDate and selectedInspector for a datasource.
         public void AssigmentsPerLocation(DateTime? startDate, DateTime? endDate, EmployeeViewModel selectedInspector = null)
         {
             if (Points.Count < 1) { Points.Clear(); }
-
             var source = new List<CommissionViewModel>();
-
-            if (startDate == null && endDate == null && selectedInspector == null)
-            {
-                // Default behaviour, no filters.
-                source.AddRange(Commissions.AsEnumerable());
-            }
-
+            source.AddRange(Commissions.AsEnumerable());
             if (startDate != null)
             {
-                if (source.Count < 1)
+                source.RemoveAll(o => o.DateCreated >= startDate.Value);
+                if (endDate != null)
                 {
-                    source.AddRange(Commissions.Where(o => o.DateCreated >= startDate && o.DateCompleted <= endDate));
-                }
-                else
-                {
-                    for (var i = 0; i < Commissions.Count; i++)
-                    {
-                        if (Commissions[i].DateCreated >= startDate && Commissions[i].DateCompleted <= endDate)
-                        {
-                            source.Add(Commissions[i]);
-                        }
-                        i++;
-                    }
+                    source.RemoveAll(o => o.DateCreated <= endDate.Value);
                 }
             }
 
             if (selectedInspector != null)
             {
-                if (source.Count < 1)
-                {
-                    source.AddRange(Commissions.Where(o => o.Employee.Id == selectedInspector.Id));
-                }
-                else
-                {
-                    for (var i = 0; i < Commissions.Count; i++)
-                    {
-                        if (Commissions[i].Employee.Id == selectedInspector.Id)
-                        {
-                            source.Add(Commissions[i]);
-                        }
-                        i++;
-                    }
-                }
+                source.RemoveAll(o => o.Employee.Id != selectedInspector.Id);
             }
 
             foreach (var item in source)
             {
-                Console.WriteLine(item.Id);
                 var loc = Location.GetLatLongFromAddress(item.ZipCode);
                 if (loc != null)
                 {
@@ -114,8 +83,7 @@ namespace ParkInspect.ViewModel
                     Points.Add(setPoint);
                 }
             }
-            
-            // source.Clear();
+            source.Clear();
         }
         
         // Inspections per locations
@@ -123,10 +91,39 @@ namespace ParkInspect.ViewModel
         {
             if (Points.Count < 1) { Points.Clear(); }
 
+            var source = new List<CommissionViewModel>();
 
+            source.AddRange(Commissions.AsEnumerable());
+
+            if (startDate != null)
+            {
+                source.RemoveAll(o => o.DateCreated >= startDate.Value);
+                if (endDate != null)
+                {
+                    source.RemoveAll(o => o.DateCreated <= endDate.Value);
+                }
+            }
+
+            if (selectedQuestion != null)
+            {
+                source.RemoveAll(o => o.Id != selectedQuestion.questionList.inspection.cvm.Id && selectedQuestion.Answer == selectedAnswer);
+            }
+
+            foreach (var item in source)
+            {
+                var loc = Location.GetLatLongFromAddress(item.ZipCode);
+                if (loc != null)
+                {
+                    var setPoint = new MapPoint
+                    {
+                        Description = item.Customer.Name,
+                        Location = new Location(loc.Latitude, loc.Longitude)
+                    };
+                    Points.Add(setPoint);
+                }
+            }
         }
 
-        #region filters
         // Inspectors per location
         public void InspectorsPerLocation()
         {
