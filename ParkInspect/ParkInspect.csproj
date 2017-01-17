@@ -222,8 +222,10 @@
     <Compile Include="Repository\Entity\EntityRegionRepository.cs" />
     <Compile Include="Repository\Interface\IQuestionsRepository.cs" />
     <Compile Include="Repository\Entity\EntityEmployeesRepository.cs" />
+    <Compile Include="Repository\Entity\EntityQuestionListRepository.cs" />
     <Compile Include="Repository\Entity\EntityQuestionRepository.cs" />
     <Compile Include="Repository\Entity\EntityInspectionsRepository.cs" />
+    <Compile Include="Repository\Entity\EntityTemplateRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interface\ICommissionRepository.cs" />

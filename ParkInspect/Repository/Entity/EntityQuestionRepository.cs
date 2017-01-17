@@ -59,7 +59,7 @@ namespace ParkInspect.Repository.Entity
                 break;
             }
             if (questionType == null) return false;
-            var question = new Question() { QuestionTypeId = questionType.Id,Description = item.Description,Version = 1};
+            var question = new Question() { QuestionTypeId = questionType.Id,Description = item.Description,Version = 1,IsActive = true};
             _context.Question.Add(question);
             _questions.Add(item);
             _context.SaveChanges();
