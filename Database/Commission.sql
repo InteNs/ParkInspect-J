@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Commission]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[EmployeeId] int NOT NULL,
 	[EmployeeGuid] uniqueidentifier NOT NULL,

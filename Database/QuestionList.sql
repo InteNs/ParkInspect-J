@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[QuestionList]
 (
-	[Id] INT NOT NULL , 
+	[Id] INT IDENTITY NOT NULL , 
 	[Guid] uniqueidentifier NOT NULL,
     [Description] VARCHAR(MAX) NOT NULL, 
     [InspectionId] int NULL , 
