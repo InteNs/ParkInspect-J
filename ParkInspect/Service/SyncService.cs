@@ -30,7 +30,7 @@ namespace ParkInspect.Service
             }
             catch (Exception)
             {
-                new MetroDialogService().ShowMessage("Geen configuratie bestand (config.ini) aanwezig of bestand is corrupt!", "Fatale fout");
+                new MetroDialogService().ShowMessage("Fatale fout", "Geen configuratie bestand (config.ini) aanwezig of bestand is corrupt!");
                 return;
             }
             
