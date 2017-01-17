@@ -67,6 +67,7 @@ namespace ParkInspect.ViewModel
 
             SimpleIoc.Default.Register<QuestionControlMainViewModel>();
             SimpleIoc.Default.Register<AddQuestionViewModel>();
+            SimpleIoc.Default.Register<EditQuestionViewModel>();
 
             SimpleIoc.Default.Register<SyncViewModel>();
         }
@@ -101,6 +102,8 @@ namespace ParkInspect.ViewModel
         public EmployeeInspectionsViewModel EmployeeInspections => NewInstance<EmployeeInspectionsViewModel>(ref _addEmployeeInspectionsKey);
         public QuestionControlMainViewModel QuestionMain => ServiceLocator.Current.GetInstance<QuestionControlMainViewModel>();
         public AddQuestionViewModel AddQuestion => ServiceLocator.Current.GetInstance<AddQuestionViewModel>();
+        public EditQuestionViewModel EditQuestion => ServiceLocator.Current.GetInstance<EditQuestionViewModel>();
+        
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

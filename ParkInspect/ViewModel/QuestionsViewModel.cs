@@ -11,7 +11,7 @@ namespace ParkInspect.ViewModel
     {
         public ObservableCollection<QuestionViewModel> Questions { get; set; }
         public QuestionViewModel SelectedQuestion { get; set; }
-        public ICommand UpdateQuestionCommand { get; set; }
+        public ICommand EditQuestionCommand { get; set; }
         public ICommand DuplicateQuestionCommand { get; set; }
         public ICommand DisableQuestionCommand { get; set; }
 
@@ -19,8 +19,9 @@ namespace ParkInspect.ViewModel
         {
             Questions = repo.GetAll();
 
-            DuplicateQuestionCommand = new RelayCommand(() => DuplicateQuestion(), isSelected);
-            DisableQuestionCommand = new RelayCommand(DisableQuestion);
+            DuplicateQuestionCommand = new RelayCommand(() => DuplicateQuestion(), isLastSelected);
+            DisableQuestionCommand = new RelayCommand(() => DisableQuestion(), isSelected);
+            EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-edit"), isLastSelected);
         }
 
 
@@ -46,19 +47,27 @@ namespace ParkInspect.ViewModel
             if (newQuestion == null) return;
             Questions.Add(newQuestion);
         }
-        private bool isSelected()
+        private bool isLastSelected()
         {
-            foreach (QuestionViewModel q in Questions)
+            if (SelectedQuestion != null)
             {
-                if(q.Id == SelectedQuestion.Id)
+                foreach (QuestionViewModel q in Questions)
                 {
-                    if(SelectedQuestion.Version < q.Version)
+                    if (q.Id == SelectedQuestion.Id)
                     {
-                        return false;
+                        if (SelectedQuestion.Version < q.Version)
+                        {
+                            return false;
+                        }
                     }
                 }
             }
             return SelectedQuestion != null;
         }
+        private bool isSelected()
+        {
+            return SelectedQuestion != null;
+        }
+        
     }
 }

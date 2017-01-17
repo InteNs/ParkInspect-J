@@ -67,7 +67,8 @@ namespace ParkInspect.Service
                 { "question-main", typeof(QuestionControlMainView) },
                 { "question-lists", typeof(QuestionListsView) },
                 { "question-add", typeof(AddQuestionView) },
-                { "question-list", typeof(QuestionListView) }
+                { "question-list", typeof(QuestionListView) },
+                { "question-edit", typeof(EditQuestionView) }
             };
             _previousViews = new Stack<UserControl>();
         }
