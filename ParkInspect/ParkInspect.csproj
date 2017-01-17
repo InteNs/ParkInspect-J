@@ -186,6 +186,7 @@
     <Compile Include="Repository\Dummy\DummyRegionRepository.cs" />
     <Compile Include="Repository\Dummy\DummyTemplateRepository.cs" />
     <Compile Include="Repository\Entity\EntityCustomerRepository.cs" />
+    <Compile Include="Repository\Entity\EntityInspectionsRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interface\ICommissionRepository.cs" />

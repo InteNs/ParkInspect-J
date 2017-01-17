@@ -12,9 +12,9 @@ namespace ParkInspect.Repository.Dummy
         {
             _locations = new ObservableCollection<LocationViewModel>
             {
-                new LocationViewModel {Region = "Utrecht", StreetNumber = 32, ZipCode = "3453MC" },
-                new LocationViewModel {Region = "Brabant", StreetNumber = 23, ZipCode = "9365KF" },
-                new LocationViewModel {Region = "Limburg", StreetNumber = 87, ZipCode = "0274PW" }
+                new LocationViewModel {Region = "Utrecht", StreetNumber = "32", ZipCode = "3453MC" },
+                new LocationViewModel {Region = "Brabant", StreetNumber = "23", ZipCode = "9365KF" },
+                new LocationViewModel {Region = "Limburg", StreetNumber = "87", ZipCode = "0274PW" }
             };
         }
         public ObservableCollection<LocationViewModel> GetAll()

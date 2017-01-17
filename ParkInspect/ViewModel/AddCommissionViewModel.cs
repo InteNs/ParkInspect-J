@@ -87,7 +87,7 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 Commission.Status = "Nieuw";
-                Commission.StreetNumber = int.Parse(StreetNumber);
+                //Commission.StreetNumber = int.Parse(StreetNumber);
                 Commission.Frequency = int.Parse(Frequency);
                 if (_commissionRepository.Add(Commission))
                 {
