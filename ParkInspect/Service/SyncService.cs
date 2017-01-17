@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using IniParser;
 using IniParser.Model;
+using ParkInspect.Helper;
 
 namespace ParkInspect.Service
 {
@@ -29,7 +30,7 @@ namespace ParkInspect.Service
             }
             catch (Exception)
             {
-                MessageBox.Show("Geen configuratie bestand (config.ini) aanwezig of bestand is corrupt!","Fatale fout",MessageBoxButton.OK,MessageBoxImage.Error);
+                new MetroDialogService().ShowMessage("Geen configuratie bestand (config.ini) aanwezig of bestand is corrupt!", "Fatale fout");
                 return;
             }
             
