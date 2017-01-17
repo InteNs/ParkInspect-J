@@ -35,7 +35,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="int" Nullable="false" />
           <Property Name="PersonGuid" Type="uniqueidentifier" Nullable="false" />
@@ -45,10 +45,9 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Password" Type="varchar(max)" />
-          <Property Name="Region" Type="int" Nullable="false" />
           <Property Name="FunctionId" Type="int" Nullable="false" />
           <Property Name="FunctionGuid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PersonId" Type="int" Nullable="false" />
@@ -61,7 +60,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -103,7 +102,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="StreetNumber" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ZipCode" Type="varchar" MaxLength="6" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
@@ -115,13 +114,13 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Name" Type="varchar(max)" />
           <Property Name="LocationId" Type="int" Nullable="false" />
           <Property Name="LocationGuid" Type="uniqueidentifier" Nullable="false" />
-          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
-          <Property Name="Email" Type="varchar" MaxLength="20" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="20" />
+          <Property Name="Email" Type="varchar(max)" />
         </EntityType>
         <EntityType Name="Question">
           <Key>
@@ -131,6 +130,8 @@
           <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="Version" Type="int" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="QuestionTypeId" Type="int" Nullable="false" />
+          <Property Name="QuestionTypeGuid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
@@ -156,12 +157,21 @@
           <Property Name="InspectionId" Type="int" />
           <Property Name="InspectionGuid" Type="uniqueidentifier" />
         </EntityType>
+        <EntityType Name="QuestionType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Guid" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="varchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Region">
           <Key>
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="RegionName" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -335,6 +345,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Question_QuestionType">
+          <End Role="QuestionType" Type="Self.QuestionType" Multiplicity="1" />
+          <End Role="Question" Type="Self.Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionType">
+              <PropertyRef Name="Id" />
+              <PropertyRef Name="Guid" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="QuestionTypeId" />
+              <PropertyRef Name="QuestionTypeGuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_QuestionItem_Answer">
           <End Role="Answer" Type="Self.Answer" Multiplicity="0..1" />
           <End Role="QuestionItem" Type="Self.QuestionItem" Multiplicity="*" />
@@ -416,6 +440,7 @@
           <EntitySet Name="Question" EntityType="Self.Question" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionItem" EntityType="Self.QuestionItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="QuestionList" EntityType="Self.QuestionList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="QuestionType" EntityType="Self.QuestionType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="schema_info" EntityType="Self.schema_info" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="scope_config" EntityType="Self.scope_config" Schema="dbo" store:Type="Tables" />
@@ -456,6 +481,10 @@
           <AssociationSet Name="FK_Person_Location" Association="Self.FK_Person_Location">
             <End Role="Location" EntitySet="Location" />
             <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Question_QuestionType" Association="Self.FK_Question_QuestionType">
+            <End Role="QuestionType" EntitySet="QuestionType" />
+            <End Role="Question" EntitySet="Question" />
           </AssociationSet>
           <AssociationSet Name="FK_QuestionItem_Answer" Association="Self.FK_QuestionItem_Answer">
             <End Role="Answer" EntitySet="Answer" />
@@ -556,6 +585,11 @@
             <End Role="QuestionList" EntitySet="QuestionList" />
             <End Role="QuestionItem" EntitySet="QuestionItem" />
           </AssociationSet>
+          <EntitySet Name="QuestionType" EntityType="ParkInspectModel.QuestionType" />
+          <AssociationSet Name="FK_Question_QuestionType" Association="ParkInspectModel.FK_Question_QuestionType">
+            <End Role="QuestionType" EntitySet="QuestionType" />
+            <End Role="Question" EntitySet="Question" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Answer">
           <Key>
@@ -592,7 +626,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Int32" Nullable="false" />
           <Property Name="PersonGuid" Type="Guid" Nullable="false" />
@@ -604,10 +638,9 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="Region" Type="Int32" Nullable="false" />
           <Property Name="FunctionId" Type="Int32" Nullable="false" />
           <Property Name="FunctionGuid" Type="Guid" Nullable="false" />
           <Property Name="PersonId" Type="Int32" Nullable="false" />
@@ -624,7 +657,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Employee_Function" FromRole="Function" ToRole="Employee" />
@@ -669,7 +702,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="StreetNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ZipCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
@@ -684,13 +717,13 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="LocationId" Type="Int32" Nullable="false" />
           <Property Name="LocationGuid" Type="Guid" Nullable="false" />
-          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Email" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Customer" Relationship="ParkInspectModel.FK_Customer_Person" FromRole="Person" ToRole="Customer" />
           <NavigationProperty Name="Employee" Relationship="ParkInspectModel.FK_Employee_Person" FromRole="Person" ToRole="Employee" />
           <NavigationProperty Name="Location" Relationship="ParkInspectModel.FK_Person_Location" FromRole="Person" ToRole="Location" />
@@ -706,6 +739,9 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="QuestionItem" Relationship="ParkInspectModel.FK_QuestionItem_Question" FromRole="Question" ToRole="QuestionItem" />
+          <Property Name="QuestionTypeId" Type="Int32" Nullable="false" />
+          <Property Name="QuestionTypeGuid" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="QuestionType" Relationship="ParkInspectModel.FK_Question_QuestionType" FromRole="Question" ToRole="QuestionType" />
         </EntityType>
         <EntityType Name="QuestionItem">
           <Key>
@@ -739,7 +775,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Guid" Type="Guid" Nullable="false" />
           <Property Name="RegionName" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Location" Relationship="ParkInspectModel.FK_Location_Region" FromRole="Region" ToRole="Location" />
@@ -983,6 +1019,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="QuestionType">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="Guid" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Question" Relationship="ParkInspectModel.FK_Question_QuestionType" FromRole="QuestionType" ToRole="Question" />
+        </EntityType>
+        <Association Name="FK_Question_QuestionType">
+          <End Type="ParkInspectModel.QuestionType" Role="QuestionType" Multiplicity="1" />
+          <End Type="ParkInspectModel.Question" Role="Question" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="QuestionType">
+              <PropertyRef Name="Id" />
+              <PropertyRef Name="Guid" />
+            </Principal>
+            <Dependent Role="Question">
+              <PropertyRef Name="QuestionTypeId" />
+              <PropertyRef Name="QuestionTypeGuid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1034,7 +1094,6 @@
                 <ScalarProperty Name="PersonId" ColumnName="PersonId" />
                 <ScalarProperty Name="FunctionGuid" ColumnName="FunctionGuid" />
                 <ScalarProperty Name="FunctionId" ColumnName="FunctionId" />
-                <ScalarProperty Name="Region" ColumnName="Region" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
@@ -1111,6 +1170,8 @@
           <EntitySetMapping Name="Question">
             <EntityTypeMapping TypeName="ParkInspectModel.Question">
               <MappingFragment StoreEntitySet="Question">
+                <ScalarProperty Name="QuestionTypeGuid" ColumnName="QuestionTypeGuid" />
+                <ScalarProperty Name="QuestionTypeId" ColumnName="QuestionTypeId" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
@@ -1191,6 +1252,15 @@
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="EmployeeGuid" ColumnName="EmployeeGuid" />
                 <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="QuestionType">
+            <EntityTypeMapping TypeName="ParkInspectModel.QuestionType">
+              <MappingFragment StoreEntitySet="QuestionType">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

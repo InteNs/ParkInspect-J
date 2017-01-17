@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,11 +16,12 @@ namespace ParkInspect.ViewModel
         private string friday;
         private string saturday;
         private string sunday;
-        
+        private ObservableCollection<InspectionViewModel> inspections;
 
         public TimeLineItemViewModel(EmployeeViewModel evm)
         {
             Employee = evm;
+            inspections = new ObservableCollection<InspectionViewModel>();
         }
 
         public EmployeeViewModel Employee { get; set; }
@@ -57,6 +59,12 @@ namespace ParkInspect.ViewModel
         {
             get { return sunday; }
             set { sunday = value; RaisePropertyChanged(); }
+        }
+
+        public ObservableCollection<InspectionViewModel> Inspections
+        {
+            get { return inspections; }
+            set { inspections = value; RaisePropertyChanged(); }
         }
     }
 }

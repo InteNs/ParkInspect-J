@@ -57,7 +57,7 @@ namespace ParkInspect.ViewModel
             }
             
             InspectionList = inspectionsRepository.GetAll();
-            CommissionList = new ObservableCollection<CommissionViewModel>(commissionRepository.GetAll());
+            CommissionList = commissionRepository.GetAll();
         }
     }
 }

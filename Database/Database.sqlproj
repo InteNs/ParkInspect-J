@@ -73,6 +73,7 @@
     <Build Include="QuestionList.sql" />
     <Build Include="Region.sql" />
     <Build Include="Workday.sql" />
+    <Build Include="QuestionType.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Database.publish.xml" />

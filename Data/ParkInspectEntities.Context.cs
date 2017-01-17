@@ -42,5 +42,6 @@ namespace Data
         public virtual DbSet<scope_config> scope_config { get; set; }
         public virtual DbSet<scope_info> scope_info { get; set; }
         public virtual DbSet<Workday> Workday { get; set; }
+        public virtual DbSet<QuestionType> QuestionType { get; set; }
     }
 }
