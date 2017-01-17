@@ -54,6 +54,31 @@ namespace ParkInspect.Repositories
                 _currentQuestions.Add(questionViewModel);
             }
         }
+        public DummyQuestionRepository()
+        {
+            _questions = new ObservableCollection<QuestionViewModel>();
+            _questions.Add(new QuestionViewModel
+            {
+                Id = 1,
+                Version = 4,
+                Description = "Is de parkeerplaats vol?",
+                QuestionType = QuestionType.Open
+            });
+            _questions.Add(new QuestionViewModel
+            {
+                Id = 2,
+                Version = 1,
+                Description = "Hoeveel auto's staan op de parkeerplaats?",
+                QuestionType = QuestionType.Count
+            });
+            _questions.Add(new QuestionViewModel
+            {
+                Id = 3,
+                Version = 2,
+                Description = "Welk merk auto is het meest aanwezig?",
+                QuestionType = QuestionType.Open
+            });
+        }
 
         private void RefreshQuestions()
         {

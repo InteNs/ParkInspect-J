@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace ParkInspect.ViewModel
 {
@@ -9,7 +10,6 @@ namespace ParkInspect.ViewModel
         private DateTime _dateCreated;
         private DateTime? _dateCompleted;
         private string _description;
-        private string _customerName;
         private string _status;
         private CustomerViewModel _customer;
         private EmployeeViewModel _employee;
@@ -29,7 +29,22 @@ namespace ParkInspect.ViewModel
         public int Frequency
         {
             get { return _frequency; }
-            set { _frequency = value; RaisePropertyChanged(); }
+            set
+            {
+                _frequency = value;
+                if (string.IsNullOrWhiteSpace(_frequency.ToString()))
+                {
+                    AddError("Frequency", "Frequentie is verplicht");
+                }
+                else if (_frequency.ToString().Any(char.IsLetter))
+                {
+                    AddError("Frequency", "Frequentie kan geen letters bevatten");
+                }
+                else
+                {
+                    RemoveError("Frequency");
+                }
+            }
         }
 
         public EmployeeViewModel Employee
@@ -53,7 +68,17 @@ namespace ParkInspect.ViewModel
         public string Description
         {
             get { return _description; }
-            set { _description = value; RaisePropertyChanged(); }
+            set {
+                _description = value;
+                if (string.IsNullOrWhiteSpace(_description.ToString()))
+                {
+                    AddError("Description", "Beschrijving is verplicht");
+                }
+                else
+                {
+                    RemoveError("Description");
+                }
+            }
         }
         
 
