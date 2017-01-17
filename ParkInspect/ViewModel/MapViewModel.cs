@@ -102,6 +102,7 @@ namespace ParkInspect.ViewModel
 
             foreach (var item in source)
             {
+                Console.WriteLine(item.Id);
                 var loc = Location.GetLatLongFromAddress(item.ZipCode);
                 if (loc != null)
                 {
@@ -113,10 +114,10 @@ namespace ParkInspect.ViewModel
                     Points.Add(setPoint);
                 }
             }
-
-            source.Clear();
+            
+            // source.Clear();
         }
-
+        
         // Inspections per locations
         public void InspectionsPerLocation(DateTime? startDate, DateTime? endDate, QuestionItemViewModel selectedQuestion, string selectedAnswer)
         {

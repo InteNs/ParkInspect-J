@@ -14,7 +14,7 @@ namespace ParkInspect.View
     {
         public ManagementView()
         {
-            TileImageLoader.Cache = new MapControl.Caching.FileDbCache(TileImageLoader.DefaultCacheName, TileImageLoader.DefaultCacheFolder);
+            // TileImageLoader.Cache = new MapControl.Caching.FileDbCache(TileImageLoader.DefaultCacheName, TileImageLoader.DefaultCacheFolder);
             InitializeComponent();
         }
         private void ComboBox_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
