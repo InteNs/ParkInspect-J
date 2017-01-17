@@ -49,9 +49,9 @@
                             @Html.DisplayFor(modelItem => item.DateTimeEnd)
                         }
                     </td>
-                    <td><a class="btn btn-primary" href="/Home/Download/?Guid=@item.Guid"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download rapport</a></td>
+                    <td><a class="btn btn-primary" href="/Home/Download/?Guid=@item.Guid"><i class="fa fa-cloud-download" aria-hidden="true"></i> Download rapport</a>
                     &nbsp;
-                    <td><button class="btn btn-primary" onclick="copyValue(@item.Guid)" ><i class="fa fa-link" aria-hidden="true"></i> Kopieer downloadlink</button></td>
+                    <button class="btn btn-primary" onclick="copyValue('@item.Guid')" ><i class="fa fa-link" aria-hidden="true"></i> Kopieer downloadlink</button></td>
                 </tr>
             }
 
