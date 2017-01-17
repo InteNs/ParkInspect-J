@@ -18,6 +18,7 @@ namespace ParkInspect.ViewModel
     public class AddInspectionViewModel : MainViewModel
     {
         private readonly IInspectionsRepository _inspectionRepository;
+        private readonly IQuestionListRepository _questionListRepository;
         private QuestionListViewModel selectedQuestionList;
 
         public InspectionViewModel Inspection { get; set; }
@@ -44,16 +45,17 @@ namespace ParkInspect.ViewModel
             Inspection.StartTime = DateTime.Now;
             Inspection.EndTime = DateTime.Now;
             _inspectionRepository = inspectionRepository;
+            _questionListRepository = questionListRepository;
             AddInspectionCommand = new RelayCommand(AddInspection, CanAddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
             QuestionLists = questionListRepository.GetAll();
-            //foreach (CommissionViewModel cvm in commissionRepository.GetAll())
-            //{
-            //    if (cvm.Employee.Id == auth.CurrentEmployee().Id)
-            //    {
-            //        CommissionList.Add(cvm);
-            //    }
-            //}
+            foreach (CommissionViewModel cvm in commissionRepository.GetAll())
+            {
+                if (cvm.Employee.Id == auth.CurrentEmployee().Id)
+                {
+                    CommissionList.Add(cvm);
+                }
+            }
         }
 
         private bool ValidateInput()
@@ -73,6 +75,11 @@ namespace ParkInspect.ViewModel
                 errorMessage = "Selecteer eerst een opdracht.";
                 return false;
             }
+            if (SelectedQuestionList == null)
+            {
+                errorMessage = "Selecteer eerst een vragenlijst.";
+                return false;
+            }
             return true;
         }
 
@@ -82,6 +89,9 @@ namespace ParkInspect.ViewModel
             {
                 if (_inspectionRepository.Add(Inspection))
                 {
+                    Inspection.Id = _inspectionRepository.GetAll().ToList().First(ins => ins.cvm.Id == Inspection.cvm.Id && ins.StartTime == Inspection.StartTime).Id;
+                    SelectedQuestionList.inspection = Inspection;
+                    _questionListRepository.Add(SelectedQuestionList);
                     RouterService.SetPreviousView();
                 }
             }
