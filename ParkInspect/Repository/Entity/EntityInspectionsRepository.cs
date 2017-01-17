@@ -28,7 +28,7 @@ namespace ParkInspect.Repository.Entity
         {
             var commission = _context.Commission.FirstOrDefault(c => c.Id == item.cvm.Id);
 
-            var i = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, Commission = commission };
+            var i = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, CommissionId = commission.Id, CommissionGuid= commission.Guid, DateTimeEnd = null, DateCancelled=null };
 
             _context.Inspection.Add(i);
             _inspections.Add(item);
