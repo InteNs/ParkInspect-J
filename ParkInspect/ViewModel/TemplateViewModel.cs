@@ -6,6 +6,7 @@ namespace ParkInspect.ViewModel
     public class TemplateViewModel : MainViewModel
     {
         public string Description { get; set; }
+        public int Id { get; set; }
 
         public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
 
