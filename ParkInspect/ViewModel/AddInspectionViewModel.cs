@@ -24,14 +24,21 @@ namespace ParkInspect.ViewModel
         public ObservableCollection<CommissionViewModel> CommissionList { get; private set; }
         private string errorMessage;
 
-        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IRouterService router) : base(router)
+        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IAuthService auth, IRouterService router) : base(router)
         {
             Inspection = new InspectionViewModel();
             Inspection.StartTime = DateTime.Now;
             Inspection.EndTime = DateTime.Now;
             _inspectionRepository = inspectionRepository;
             AddInspectionCommand = new RelayCommand(AddInspection, CanAddInspection);
-            CommissionList = new ObservableCollection<CommissionViewModel>(commissionRepository.GetAll());
+            CommissionList = new ObservableCollection<CommissionViewModel>();
+            foreach(CommissionViewModel cvm in commissionRepository.GetAll())
+            {
+                if(cvm.Employee.Id == auth.CurrentEmployee().Id)
+                {
+                    CommissionList.Add(cvm);
+                }
+            }
         }
 
         private bool ValidateInput()

@@ -74,17 +74,7 @@
 
 
 
-            <Grid Grid.Row="3"
-                  Grid.Column="1"
-                  Grid.ColumnSpan="6">
-                <AdornerDecorator>
-                    <TextBox  Text="{Binding Input, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" TextAlignment="Center">
-                        <service:WatermarkService.Watermark>
-                            <TextBlock>Zoeken...</TextBlock>
-                        </service:WatermarkService.Watermark>
-                    </TextBox>
-                </AdornerDecorator>
-            </Grid>
+            
 
             <Grid Grid.Row="1"
           Grid.Column="5"/>
@@ -93,7 +83,7 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="6">
 
-                <view:TimeLineView />
+                <view:TimeLineView/>
 
             </Grid>
         </Grid>

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
 
 namespace ParkInspect.ViewModel
 {
@@ -17,6 +19,7 @@ namespace ParkInspect.ViewModel
         public ICommand NextDayCommand { get; set; }
         public ICommand PreviousDayCommand { get; set; }
         public TimeLineItemViewModel TimeLineItem { get; private set; }
+        public ObservableCollection<InspectionViewModel> Inspections { get; set; }
 
         public string SelectedDay
         {
@@ -27,6 +30,7 @@ namespace ParkInspect.ViewModel
         public EmployeeInspectionsViewModel(TimeLineViewModel timeLineViewModel)
         {
             TimeLineItem = timeLineViewModel.SelectedTimeLineItem;
+            Inspections = new ObservableCollection<InspectionViewModel>();
             _daysOfTheWeek = new Dictionary<string, string>()
             {
                 {"Maandag",timeLineViewModel.Monday },
@@ -52,6 +56,8 @@ namespace ParkInspect.ViewModel
                 if (_dayCounter < 7)
                 {
                     this.SetDayString(_daysOfTheWeek.Keys.ElementAt(_dayCounter), _daysOfTheWeek.Values.ElementAt(_dayCounter));
+                    DateTime today = new DateTime(int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[2]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[1]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[0]));
+                    Inspections = new ObservableCollection<InspectionViewModel>(TimeLineItem.Inspections.Where(i => i.StartTime.DayOfWeek.Equals(today.DayOfWeek)));
                     break;
                 }
                 else
@@ -59,6 +65,7 @@ namespace ParkInspect.ViewModel
                     _dayCounter = 0;
                 }
             }
+            RaisePropertyChanged("");
         }
 
         private void PreviousDay()
@@ -69,6 +76,8 @@ namespace ParkInspect.ViewModel
                 if (_dayCounter >= 0)
                 {
                     this.SetDayString(_daysOfTheWeek.Keys.ElementAt(_dayCounter), _daysOfTheWeek.Values.ElementAt(_dayCounter));
+                    DateTime today = new DateTime(int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[2]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[1]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[0]));
+                    Inspections = new ObservableCollection<InspectionViewModel>(TimeLineItem.Inspections.Where(i => i.StartTime.DayOfWeek.Equals(today.DayOfWeek)));
                     break;
                 }
                 else
@@ -76,6 +85,7 @@ namespace ParkInspect.ViewModel
                     _dayCounter = 6;
                 }
             }
+            RaisePropertyChanged("");
         }
 
         private void SetDayString(string day, string date)

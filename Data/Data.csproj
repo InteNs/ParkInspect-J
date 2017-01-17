@@ -104,6 +104,9 @@
     <Compile Include="QuestionList.cs">
       <DependentUpon>ParkInspectEntities.tt</DependentUpon>
     </Compile>
+    <Compile Include="QuestionType.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Region.cs">
       <DependentUpon>ParkInspectEntities.tt</DependentUpon>
     </Compile>
