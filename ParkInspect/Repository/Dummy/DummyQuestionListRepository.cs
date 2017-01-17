@@ -74,9 +74,7 @@ namespace ParkInspect.Repository.Dummy
                     }
                 )
             };
-            _questionLists[0].Id = 1;
-            _questionLists[0].Description = "The first questionlist";
-
+            _questionLists[0].Description = "Een paar vraagjes enzo.";
         }
 
         public ObservableCollection<QuestionListViewModel> GetAll()

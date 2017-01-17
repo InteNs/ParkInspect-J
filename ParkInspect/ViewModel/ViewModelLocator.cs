@@ -92,7 +92,7 @@ namespace ParkInspect.ViewModel
         public QuestionsViewModel Questions => ServiceLocator.Current.GetInstance<QuestionsViewModel>();
         public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
         public QuestionListsviewModel QuestionLists => ServiceLocator.Current.GetInstance<QuestionListsviewModel>();
-        public QuestionListItemsViewModel QuestionList => ServiceLocator.Current.GetInstance<QuestionListItemsViewModel>();
+        public QuestionListItemsViewModel QuestionList => NewInstance<QuestionListItemsViewModel>(ref _questionListItemsKey);
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
         public AddCommissionViewModel AddCommission => ServiceLocator.Current.GetInstance<AddCommissionViewModel>();
@@ -119,6 +119,7 @@ namespace ParkInspect.ViewModel
         private string _addQuestionKey = "1";
         private string _editQuestionKey = "1";
         private string _editQuestionListKey = "1";
+        private string _questionListItemsKey = "1";
 
         private static T NewInstance<T>(ref string key) where T : class
         {
