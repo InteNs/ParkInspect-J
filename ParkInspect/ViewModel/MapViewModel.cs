@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -48,20 +49,83 @@ namespace ParkInspect.ViewModel
         }
 
         // Assigment per location
-        // TODO: Remove plotted information before plotting new ones.
-        public void AssigmentsPerLocation(DateTime? StartDate, DateTime? EndDate, EmployeeViewModel SelectedInspector = null)
+        // TODO check startDate, endDate and selectedInspector for a datasource.
+        public void AssigmentsPerLocation(DateTime? startDate, DateTime? endDate, EmployeeViewModel selectedInspector = null)
         {
             if (Points.Count < 1) { Points.Clear(); }
 
+            var source = new List<CommissionViewModel>();
+
+            if (startDate == null && endDate == null && selectedInspector == null)
+            {
+                // Default behaviour, no filters.
+                source.AddRange(Commissions.AsEnumerable());
+            }
+
+            if (startDate != null)
+            {
+                if (source.Count < 1)
+                {
+                    source.AddRange(Commissions.Where(o => o.DateCreated >= startDate && o.DateCompleted <= endDate));
+                }
+                else
+                {
+                    for (var i = 0; i < Commissions.Count; i++)
+                    {
+                        if (Commissions[i].DateCreated >= startDate && Commissions[i].DateCompleted <= endDate)
+                        {
+                            source.Add(Commissions[i]);
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            if (selectedInspector != null)
+            {
+                if (source.Count < 1)
+                {
+                    source.AddRange(Commissions.Where(o => o.Employee.Id == selectedInspector.Id));
+                }
+                else
+                {
+                    for (var i = 0; i < Commissions.Count; i++)
+                    {
+                        if (Commissions[i].Employee.Id == selectedInspector.Id)
+                        {
+                            source.Add(Commissions[i]);
+                        }
+                        i++;
+                    }
+                }
+            }
+
+            foreach (var item in source)
+            {
+                var loc = Location.GetLatLongFromAddress(item.ZipCode);
+                if (loc != null)
+                {
+                    var setPoint = new MapPoint
+                    {
+                        Description = item.Customer.Name,
+                        Location = new Location(loc.Latitude, loc.Longitude)
+                    };
+                    Points.Add(setPoint);
+                }
+            }
+
+            source.Clear();
         }
 
         // Inspections per locations
-        public void InspectionsPerLocation(DateTime? StartDate, DateTime? EndDate, QuestionItemViewModel SelectedQuestion, string SelectedAnswer)
+        public void InspectionsPerLocation(DateTime? startDate, DateTime? endDate, QuestionItemViewModel selectedQuestion, string selectedAnswer)
         {
             if (Points.Count < 1) { Points.Clear(); }
 
+
         }
 
+        #region filters
         // Inspectors per location
         public void InspectorsPerLocation()
         {
@@ -142,8 +206,6 @@ namespace ParkInspect.ViewModel
                         break;
                 }
             }
-
-            ZoomLevel = 8;
         }
 
         // Customers per location
@@ -226,8 +288,9 @@ namespace ParkInspect.ViewModel
                         break;
                 }
             }
-
-            ZoomLevel = 8;
         }
+
+        #endregion
+
     }
 }
