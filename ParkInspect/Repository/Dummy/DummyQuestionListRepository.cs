@@ -74,6 +74,7 @@ namespace ParkInspect.Repository.Dummy
                     }
                 )
             };
+            _questionLists[0].Description = "Een paar vraagjes enzo.";
         }
 
         public ObservableCollection<QuestionListViewModel> GetAll()

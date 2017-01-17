@@ -118,7 +118,7 @@
                 <TextBlock Grid.Row="0" Text="Einddatum" Grid.Column="2"/>
                 <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" />
             </Grid>
-            <Grid Visibility="{Binding Locatie, Converter={StaticResource Converter}, Mode=TwoWay}">
+            <Grid Visibility="{Binding Location, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
@@ -128,7 +128,7 @@
                 <TextBlock Grid.Column="1" Text="Locatie:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxLocatie, Path=IsChecked}" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedRegion}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
-            <Grid Visibility="{Binding Inspecteur, Converter={StaticResource Converter}, Mode=TwoWay}">
+            <Grid Visibility="{Binding Inspector, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
@@ -148,7 +148,7 @@
                 <TextBlock Grid.Column="1" Text="Manager:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxManager, Path=IsChecked}" ItemsSource="{Binding Managers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedManager}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
-            <Grid Visibility="{Binding Klant, Converter={StaticResource Converter}, Mode=TwoWay}">
+            <Grid Visibility="{Binding Customer, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
@@ -158,7 +158,7 @@
                 <TextBlock Grid.Column="1" Text="Klant:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxKlant, Path=IsChecked}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCustomer}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
-            <Grid Visibility="{Binding Opdracht, Converter={StaticResource Converter}, Mode=TwoWay}">
+            <Grid Visibility="{Binding Commission, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
@@ -168,7 +168,7 @@
                 <TextBlock Grid.Column="1" Text="Opdracht:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxOpdracht, Path=IsChecked}" ItemsSource="{Binding Commissions}" DisplayMemberPath="Description" SelectedItem="{Binding SelectedCommission}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
-            <Grid Visibility="{Binding Functie, Converter={StaticResource Converter}, Mode=TwoWay}">
+            <Grid Visibility="{Binding Function, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="*" />
@@ -188,7 +188,7 @@
                 <TextBlock Grid.Column="1" Text="Status:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}" ItemsSource="{Binding Statuses}"  SelectedValue="{Binding SelectedStatus}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
-            <Grid Visibility="{Binding Antwoord, Converter={StaticResource Converter}, Mode=TwoWay}">
+            <Grid Visibility="{Binding Answer, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
                     <ColumnDefinition Width="110" />

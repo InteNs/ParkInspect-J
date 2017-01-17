@@ -242,6 +242,7 @@
     <Compile Include="Repository\Dummy\DummyRegionRepository.cs" />
     <Compile Include="Repository\Dummy\DummyTemplateRepository.cs" />
     <Compile Include="Repository\Entity\EntityCustomerRepository.cs" />
+    <Compile Include="Repository\Interface\IQuestionsRepository.cs" />
     <Compile Include="Repository\Interface\IBaseRepository.cs" />
     <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
     <Compile Include="Repository\Interface\ICommissionRepository.cs" />
@@ -257,9 +258,12 @@
     <Compile Include="Service\IAuthService.cs" />
     <Compile Include="Service\IRouterService.cs" />
     <Compile Include="ViewModel\AddInspectionViewModel.cs" />
+    <Compile Include="ViewModel\AddQuestionViewModel.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
     <Compile Include="ViewModel\BarGraphViewModel.cs" />
     <Compile Include="ViewModel\EditCustomerViewModel.cs" />
+    <Compile Include="ViewModel\EditQuestionListViewModel.cs" />
+    <Compile Include="ViewModel\EditQuestionViewModel.cs" />
     <Compile Include="ViewModel\EmployeeInspectionsViewModel.cs" />
     <Compile Include="ViewModel\IGraphViewModel.cs" />
     <Compile Include="ViewModel\InspectionsViewModel.cs" />
@@ -269,11 +273,13 @@
     <Compile Include="ViewModel\ManagementReportsViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
     <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\QuestionControlMainViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
     <Compile Include="ViewModel\QuestionItemViewModel.cs" />
     <Compile Include="ViewModel\QuestionListsviewModel.cs" />
     <Compile Include="ViewModel\QuestionListViewModel.cs" />
     <Compile Include="ViewModel\PieChartViewModel.cs" />
+    <Compile Include="ViewModel\QuestionListItemsViewModel.cs" />
     <Compile Include="ViewModel\SyncViewModel.cs" />
     <Compile Include="ViewModel\TimeLineItemViewModel.cs" />
     <Compile Include="ViewModel\TimeLineViewModel.cs" />
@@ -306,6 +312,9 @@
     <Compile Include="View\AddInspectionView.xaml.cs">
       <DependentUpon>AddInspectionView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AddQuestionView.xaml.cs">
+      <DependentUpon>AddQuestionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\AnswerQuestionView.xaml.cs">
       <DependentUpon>AnswerQuestionView.xaml</DependentUpon>
     </Compile>
@@ -330,6 +339,12 @@
     <Compile Include="View\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditQuestionListView.xaml.cs">
+      <DependentUpon>EditQuestionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditQuestionView.xaml.cs">
+      <DependentUpon>EditQuestionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
@@ -345,6 +360,12 @@
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\QuestionListsView.xaml.cs">
+      <DependentUpon>QuestionListsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuestionListView.xaml.cs">
+      <DependentUpon>QuestionListView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\QuestionsView.xaml.cs">
       <DependentUpon>QuestionsView.xaml</DependentUpon>
     </Compile>
@@ -354,11 +375,18 @@
     <Compile Include="View\TimeLineView.xaml.cs">
       <DependentUpon>TimeLineView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\QuestionControlMainView.xaml.cs">
+      <DependentUpon>QuestionControlMainView.xaml</DependentUpon>
+    </Compile>
     <Page Include="View\AddEmployeeView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="View\AddInspectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AddQuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -379,6 +407,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\EditEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditQuestionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditQuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -434,15 +470,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\QuestionsView.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="View\QuestionListsView.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QuestionListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QuestionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\TemplatesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TimeLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuestionControlMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
