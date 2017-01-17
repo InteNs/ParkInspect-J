@@ -1,9 +1,12 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using ParkInspect.Enumeration;
+using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,17 +16,20 @@ namespace ParkInspect.ViewModel
 {
     public class EditQuestionViewModel : MainViewModel
     {
+        public ObservableCollection<QuestionType> questionType { get; set; }
         public QuestionViewModel Question { get; set; }
         public RelayCommand EditQuestionCommand { get; set; }
         private readonly IQuestionRepository _questionsRepository;
         public EditQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel qvm) : base(router)
         {
+            questionType = new ObservableCollection<QuestionType>();
+            questionType.Add(QuestionType.Boolean);
+            questionType.Add(QuestionType.Count);
+            questionType.Add(QuestionType.Open);
             _questionsRepository = repo;
             Question = qvm.SelectedQuestion;
-
             EditQuestionCommand = new RelayCommand(Editquestion, CanEditquestion);
         }
-
         private void Editquestion()
         {
             if (this.ValidateInput())
@@ -35,7 +41,7 @@ namespace ParkInspect.ViewModel
             }
             else
             {
-                MessageBox.Show(ShowValidationError());
+                new MetroDialogService().ShowMessage("Error", "Input is invalid.");
             }
         }
 

@@ -32,7 +32,6 @@ namespace ParkInspect.ViewModel
         {
             var newQuestion = new QuestionViewModel();
             newQuestion.Description = Description;
-            newQuestion.Id = Id;
             newQuestion.Version = Version;
             newQuestion.QuestionType = QuestionType;
             newQuestion.isActive = true;
@@ -43,9 +42,7 @@ namespace ParkInspect.ViewModel
         {
             var newQuestion = new QuestionViewModel();
             newQuestion.Description = Description;
-            newQuestion.Id = Id;
-            newQuestion.Version = Version + 1;
-
+            newQuestion.Version = 1;
             return newQuestion;
         }
 

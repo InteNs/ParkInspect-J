@@ -111,7 +111,7 @@
                 <Label Style="{StaticResource DefaultLabelStyle}" VerticalAlignment="Center" FontSize="20" Content="Vraag type: " />
             </DockPanel>
             <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Path=Question.Description, Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" />
-            <TextBox Grid.Column="3" Grid.Row="3" Text="{Binding Path=Question.QuestionType, Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" />
+            <ComboBox Grid.Column="3" Grid.Row="3" SelectedItem="{Binding Question.QuestionType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding questionType}" Foreground="Black"/>
 
 
             <Grid

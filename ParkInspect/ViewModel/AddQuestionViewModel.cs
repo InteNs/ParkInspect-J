@@ -1,8 +1,10 @@
 ﻿using GalaSoft.MvvmLight.Command;
+using ParkInspect.Enumeration;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,17 +15,23 @@ namespace ParkInspect.ViewModel
     public class AddQuestionViewModel : MainViewModel
     {
         private readonly IQuestionRepository _questionRepository;
+        public ObservableCollection<QuestionType> questionType { get; set; }
         public QuestionViewModel Question { get; set; }
+        public QuestionsViewModel Questions { get; set; }
         public ICommand AddQuestionCommand { get; set; }
-        public AddQuestionViewModel(IQuestionRepository repo, IRouterService router) : base(router)
+        public AddQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel qvm) : base(router)
         {
-            _questionRepository = repo;
             Question = new QuestionViewModel();
-
-            AddQuestionCommand = new RelayCommand(AddEmployee, CanAddEmployee);
+            questionType = new ObservableCollection<QuestionType>();
+            questionType.Add(QuestionType.Boolean);
+            questionType.Add(QuestionType.Count);
+            questionType.Add(QuestionType.Open);
+            _questionRepository = repo;
+            Questions = qvm;
+            AddQuestionCommand = new RelayCommand(AddQuestion, CanAddQuestion);
         }
 
-        private bool CanAddEmployee()
+        private bool CanAddQuestion()
         {
             //TODO: check if all fields are filled in
             return true;
@@ -35,13 +43,23 @@ namespace ParkInspect.ViewModel
             return true;
         }
 
-        private void AddEmployee()
+        private void AddQuestion()
         {
             if (ValidateInput())
             {
+                int i = 0;
+                Question.Version = 1;
+                foreach (QuestionViewModel q in Questions.Questions)
+                {
+                    if (i < q.Id)
+                    {
+                        i = q.Id;
+                    }
+                }
+                i++;
+                Question.Id = i;
                 if (_questionRepository.Add(Question))
                 {
-                    Question.Version = 1;
                     RouterService.SetPreviousView();
                 }
             }

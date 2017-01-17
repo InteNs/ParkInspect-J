@@ -9,33 +9,40 @@ namespace ParkInspect.ViewModel
 {
     public class QuestionsViewModel : MainViewModel
     {
+        private QuestionViewModel _SelectedQuestion;
+        IQuestionRepository _repository;
         public ObservableCollection<QuestionViewModel> Questions { get; set; }
-        public QuestionViewModel SelectedQuestion { get; set; }
-        public ICommand EditQuestionCommand { get; set; }
+        public QuestionViewModel SelectedQuestion
+        {
+            get { return _SelectedQuestion; }
+            set
+            {
+                _SelectedQuestion = value;
+                EditQuestionCommand.RaiseCanExecuteChanged();
+                RaisePropertyChanged();
+            }
+        }
+
+
+        public RelayCommand EditQuestionCommand { get; set; }
         public ICommand DuplicateQuestionCommand { get; set; }
         public ICommand DisableQuestionCommand { get; set; }
 
         public QuestionsViewModel(IQuestionRepository repo, IRouterService router) : base(router)
         {
+            _repository = repo;
             Questions = repo.GetAll();
 
-            DuplicateQuestionCommand = new RelayCommand(() => DuplicateQuestion(), isLastSelected);
+            DuplicateQuestionCommand = new RelayCommand(() => DuplicateQuestion(), isSelected);
             DisableQuestionCommand = new RelayCommand(() => DisableQuestion(), isSelected);
-            EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-edit"), isLastSelected);
+            EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-edit"), isSelected);
         }
 
-
-        private void UpdateQuestion(QuestionViewModel q)
-        {
-            var newQuestion = q.Update();
-            if (newQuestion == null) return;
-            Questions.Add(newQuestion);
-            Questions.Remove(q);
-        }
 
         private void DisableQuestion()
         {
             SelectedQuestion.Disable();
+            _repository.Delete(SelectedQuestion);
             Questions.Remove(SelectedQuestion);
         }
 
@@ -44,26 +51,20 @@ namespace ParkInspect.ViewModel
         private void DuplicateQuestion()
         {
             var newQuestion = SelectedQuestion.Duplicate();
+            int i = 0;
+            foreach (QuestionViewModel q in Questions)
+            {
+                if (i < q.Id)
+                {
+                    i = q.Id;
+                }
+            }
+            i++;
+            newQuestion.Id = i;
             if (newQuestion == null) return;
             Questions.Add(newQuestion);
         }
-        private bool isLastSelected()
-        {
-            if (SelectedQuestion != null)
-            {
-                foreach (QuestionViewModel q in Questions)
-                {
-                    if (q.Id == SelectedQuestion.Id)
-                    {
-                        if (SelectedQuestion.Version < q.Version)
-                        {
-                            return false;
-                        }
-                    }
-                }
-            }
-            return SelectedQuestion != null;
-        }
+        
         private bool isSelected()
         {
             return SelectedQuestion != null;

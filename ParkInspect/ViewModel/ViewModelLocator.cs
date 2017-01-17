@@ -101,9 +101,8 @@ namespace ParkInspect.ViewModel
         public SyncViewModel Synchronisation => ServiceLocator.Current.GetInstance<SyncViewModel>();
         public EmployeeInspectionsViewModel EmployeeInspections => NewInstance<EmployeeInspectionsViewModel>(ref _addEmployeeInspectionsKey);
         public QuestionControlMainViewModel QuestionMain => ServiceLocator.Current.GetInstance<QuestionControlMainViewModel>();
-        public AddQuestionViewModel AddQuestion => ServiceLocator.Current.GetInstance<AddQuestionViewModel>();
-        public EditQuestionViewModel EditQuestion => ServiceLocator.Current.GetInstance<EditQuestionViewModel>();
-        
+        public AddQuestionViewModel AddQuestion => NewInstance<AddQuestionViewModel>(ref _addQuestionKey);
+        public EditQuestionViewModel EditQuestion => NewInstance<EditQuestionViewModel>(ref _editQuestionKey);
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
@@ -115,6 +114,8 @@ namespace ParkInspect.ViewModel
         private string _editCustomerKey = "1";
         private string _addInspectionKey = "1";
         private string _addEmployeeInspectionsKey = "1";
+        private string _addQuestionKey = "1";
+        private string _editQuestionKey = "1";
 
         private static T NewInstance<T>(ref string key) where T : class
         {

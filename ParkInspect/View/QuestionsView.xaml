@@ -41,9 +41,9 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Foreground="White" FontSize="20"  Command="{Binding RouteCommand}" CommandParameter="question-add" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" > New Question</Button>
-        <Button Foreground="White" FontSize="20"  Command="{Binding DuplicateQuestionCommand}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" >Duplicate Question</Button>
-        <Button Foreground="White" FontSize="20"  Command="{Binding EditQuestionCommand}" CommandParameter="question-edit" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center" >Edit Question</Button>
-        <Button Foreground="White" FontSize="20"  Command="{Binding DisableQuestionCommand}" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center" >Disable Question</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding RouteCommand}" CommandParameter="question-add" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" > Nieuwe vraag</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding DuplicateQuestionCommand}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" >Dupliceer vraag</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding EditQuestionCommand}" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center" >Vraag aanpassen</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding DisableQuestionCommand}" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center" >Vraag verwijderen</Button>
     </Grid>
 </UserControl>
