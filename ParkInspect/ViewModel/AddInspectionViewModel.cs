@@ -6,6 +6,7 @@ using ParkInspect.Service;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -17,24 +18,40 @@ namespace ParkInspect.ViewModel
     public class AddInspectionViewModel : MainViewModel
     {
         private readonly IInspectionsRepository _inspectionRepository;
-        
-        
+        private readonly IQuestionListRepository _questionListRepository;
+        private QuestionListViewModel selectedQuestionList;
+
         public InspectionViewModel Inspection { get; set; }
         public ICommand AddInspectionCommand { get; set; }
         public ObservableCollection<CommissionViewModel> CommissionList { get; private set; }
+        public ObservableCollection<QuestionListViewModel> QuestionLists { get; private set; }
+        public QuestionListViewModel SelectedQuestionList
+        {
+            get
+            {
+                return selectedQuestionList;
+            }
+            set
+            {
+                selectedQuestionList = value;
+                RaisePropertyChanged();
+            }
+        }
         private string errorMessage;
 
-        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IAuthService auth, IRouterService router) : base(router)
+        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router) : base(router)
         {
             Inspection = new InspectionViewModel();
             Inspection.StartTime = DateTime.Now;
             Inspection.EndTime = DateTime.Now;
             _inspectionRepository = inspectionRepository;
+            _questionListRepository = questionListRepository;
             AddInspectionCommand = new RelayCommand(AddInspection, CanAddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
-            foreach(CommissionViewModel cvm in commissionRepository.GetAll())
+            QuestionLists = questionListRepository.GetAll();
+            foreach (CommissionViewModel cvm in commissionRepository.GetAll())
             {
-                if(cvm.Employee.Id == auth.CurrentEmployee().Id)
+                if (cvm.Employee.Id == auth.CurrentEmployee().Id)
                 {
                     CommissionList.Add(cvm);
                 }
@@ -58,6 +75,11 @@ namespace ParkInspect.ViewModel
                 errorMessage = "Selecteer eerst een opdracht.";
                 return false;
             }
+            if (SelectedQuestionList == null)
+            {
+                errorMessage = "Selecteer eerst een vragenlijst.";
+                return false;
+            }
             return true;
         }
 
@@ -67,6 +89,15 @@ namespace ParkInspect.ViewModel
             {
                 if (_inspectionRepository.Add(Inspection))
                 {
+                    Inspection.Id = _inspectionRepository.GetAll().ToList().First(ins => ins.cvm.Id == Inspection.cvm.Id && ins.StartTime == Inspection.StartTime).Id;
+                    QuestionListViewModel ql = new QuestionListViewModel(SelectedQuestionList.QuestionItems);
+                    foreach(QuestionItemViewModel qivm in ql.QuestionItems)
+                    {
+                        qivm.Answer = null;
+                    }
+                    ql.Description = SelectedQuestionList.Description;
+                    ql.inspection = Inspection;
+                    _questionListRepository.Add(SelectedQuestionList);
                     RouterService.SetPreviousView();
                 }
             }
