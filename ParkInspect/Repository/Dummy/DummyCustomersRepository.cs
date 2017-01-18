@@ -43,7 +43,6 @@ namespace ParkInspect.Repository.Dummy
                 PhoneNumber = "06-tooawesomeforyou",
                 StreetNumber = "1",
                 Email = "pim.westervoort@gmail.com",
-                Function = "Klant"
             });
             _customers.Add(new CustomerViewModel
             {
@@ -53,7 +52,6 @@ namespace ParkInspect.Repository.Dummy
                 PhoneNumber = "06-tooawesomeforyou",
                 StreetNumber = "1",
                 Email = "pim.westermoord@gmail.com",
-                Function = "Klant"
             });
             _customers.Add(new CustomerViewModel
             {
@@ -63,7 +61,6 @@ namespace ParkInspect.Repository.Dummy
                 PhoneNumber = "06-tooawesomeforyou",
                 StreetNumber = "1",
                 Email = "pim.westerman@gmail.com",
-                Function = "Klant"
             });
             _customers.Add(new CustomerViewModel
             {
@@ -73,7 +70,6 @@ namespace ParkInspect.Repository.Dummy
                 PhoneNumber = "06-tooawesomeforyou",
                 StreetNumber = "1",
                 Email = "pim.westerpoort@gmail.com",
-                Function = "Klant"
             });
             _customers.Add(new CustomerViewModel
             {
@@ -83,7 +79,6 @@ namespace ParkInspect.Repository.Dummy
                 PhoneNumber = "06-tooawesomeforyou",
                 StreetNumber = "1",
                 Email = "pim.westernoord@gmail.com",
-                Function = "Klant"
             });
         }
     }

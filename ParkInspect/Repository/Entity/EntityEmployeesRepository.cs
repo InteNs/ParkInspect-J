@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using Data;
 using ParkInspect.Repository.Interface;
@@ -13,6 +16,7 @@ namespace ParkInspect.Repository.Entity
     {
         private readonly ParkInspectEntities _context;
         private readonly ObservableCollection<EmployeeViewModel> _employees;
+        private bool AddedThisSession = false;
 
         public EntityEmployeesRepository(ParkInspectEntities context)
         {
@@ -68,11 +72,19 @@ namespace ParkInspect.Repository.Entity
             int id = found.Id;
             item.Id = id;
             _employees.Add(item);
+            AddedThisSession = true;
             return true;
         }
 
         public bool Delete(EmployeeViewModel item)
         {
+            if (AddedThisSession)
+            {
+                var context = ((IObjectContextAdapter)_context).ObjectContext;
+                var refreshableObjects = _context.ChangeTracker.Entries().Select(c => c.Entity).ToList();
+                context.Refresh(RefreshMode.StoreWins, refreshableObjects);
+            }
+
             var employee = _context.Employee.Include("Person").Include("Person.Location").Include("Person.Location.Region").Include("Function").FirstOrDefault(e => e.Id == item.Id);
             if (employee == null) return false;
             employee.DateFired = DateTime.Now;

@@ -10,8 +10,8 @@ namespace ParkInspect.ViewModel
     public class AddCustomerViewModel : MainViewModel
     {
         private readonly ICustomerRepository _customerRepository;
+        
 
-        public ObservableCollection<string> FunctionList { get; set; }
         public ObservableCollection<string> RegionList { get; set; }
         public CustomerViewModel Customer { get; set; }
         public ICommand AddCustomerCommand { get; set; }
@@ -20,7 +20,6 @@ namespace ParkInspect.ViewModel
         {
             _customerRepository = customerRepository;
             Customer = new CustomerViewModel();
-            FunctionList = customerRepository.GetFunctions();
             RegionList = regionRepository.GetAll();
             AddCustomerCommand = new RelayCommand(AddCustomer);
         }
@@ -28,7 +27,12 @@ namespace ParkInspect.ViewModel
         private bool ValidateInput()
         {
             //check if all fields are filled in
-            return Customer.Function != null && Customer.Name != null && Customer.ZipCode != null && Customer.StreetNumber != null && Customer.PhoneNumber != null && Customer.Email != null && Customer.IsValid;
+            if (Customer.Name == null || Customer.ZipCode == null ||
+                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null || !Customer.IsValid)
+            {
+                return false;
+            }
+            return true;
         }
 
         private void AddCustomer()
