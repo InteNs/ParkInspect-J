@@ -40,6 +40,7 @@ namespace ParkInspect.Service
             var dialog = new MetroDialogService();
             if (User != null)
             {
+                CurrentEmployee(User);
                 var dashboardName = "";
 
                 switch (User.Function.ToLower())
@@ -83,14 +84,20 @@ namespace ParkInspect.Service
         }
 
 
-        public string CurrentFunction()
+        public string CurrentFunction(AuthenticationViewModel _user)
         {
-            return User.Function;
+            if (_user == null)
+                return "";
+
+            return _user.Function;
         }
 
-        public EmployeeViewModel CurrentEmployee()
+        public EmployeeViewModel CurrentEmployee(AuthenticationViewModel _user)
         {
-            return _employeeRepository.GetAll().Where(q => q.Id == User.EmployeeId).FirstOrDefault();
+            if (_user == null)
+                return null;
+            var employee  = _employeeRepository.GetAll().Where(q => q.Id == _user.EmployeeId).FirstOrDefault();
+            return employee;
         }
     }
 }
