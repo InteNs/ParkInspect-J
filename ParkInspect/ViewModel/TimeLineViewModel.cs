@@ -73,7 +73,8 @@ namespace ParkInspect.ViewModel
         public void UpdateTimeLineItems()
         {
             TimeLineItems.Clear();
-            foreach (EmployeeViewModel evm in _ier.GetAll().Where(e => e.Function == "inspecteur"))
+            ObservableCollection<InspectionViewModel> inspectionslist = _iir.GetAll();
+            foreach (EmployeeViewModel evm in _ier.GetAll().Where(e => e.Function.ToLower() == "inspecteur"))
             {
                 TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
                 foreach(DateTime day in week)
@@ -81,7 +82,7 @@ namespace ParkInspect.ViewModel
                     string status = "Beschikbaar";
                     int inspectionsAmount = 0;
                     
-                    foreach (InspectionViewModel ivm in _iir.GetAll())
+                    foreach (InspectionViewModel ivm in inspectionslist)
                     {
                         if (ivm.cvm.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
                         {

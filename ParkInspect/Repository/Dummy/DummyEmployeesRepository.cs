@@ -60,6 +60,24 @@ namespace ParkInspect.Repository.Dummy
                     Function = "Directeur",
                     Email = "mattie@msn.com",
                     EmploymentDate = new DateTime(2015, 07, 28)
+                },
+                new EmployeeViewModel
+                {
+                    Id = 301,
+                    Name = "Admin",
+                    Region = "Limburg",
+                    Function = "Directeur",
+                    Email = "mattie@msn.com",
+                    EmploymentDate = new DateTime(2015, 07, 28)
+                },
+                new EmployeeViewModel
+                {
+                    Id = 302,
+                    Name = "Henk",
+                    Region = "Limburg",
+                    Function = "Inspecteur",
+                    Email = "mattie@msn.com",
+                    EmploymentDate = new DateTime(2015, 07, 28)
                 }
             };
 

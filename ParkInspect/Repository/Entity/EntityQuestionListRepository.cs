@@ -14,12 +14,14 @@ namespace ParkInspect.Repository.Entity
     public class EntityQuestionListRepository : IQuestionListRepository
     {
         private readonly ObservableCollection<QuestionListViewModel> _questionLists;
+        private readonly ObservableCollection<QuestionItemViewModel> _questionItems;
         private readonly ParkInspectEntities _context;
 
         public EntityQuestionListRepository(ParkInspectEntities context)
         {
             _context = context;
             _questionLists = new ObservableCollection<QuestionListViewModel>();
+            _questionItems = new ObservableCollection<QuestionItemViewModel>();
         }
 
         public ObservableCollection<QuestionListViewModel> GetAll()
@@ -65,20 +67,48 @@ namespace ParkInspect.Repository.Entity
 
         private QuestionType TypeForString(string s)
         {
-            var qEnum = 0;
-            Enum.TryParse(s, true, out qEnum);
-            return (QuestionType)qEnum;
-
+            if (s.Equals("Count"))
+            {
+                return QuestionType.Count;
+            }
+            else if (s.Equals("Boolean"))
+            {
+                return QuestionType.Boolean;
+            }
+            else
+            {
+                return QuestionType.Open;
+            }
         }
 
         public bool Add(QuestionListViewModel item)
         {
-            throw new NotImplementedException();
+            var questionList = new QuestionList() { Description = item.Description };
+            _context.QuestionList.Add(questionList);
+            _questionLists.Add(item);
+            _context.SaveChanges();
+            return true;
         }
 
         public bool Delete(QuestionListViewModel item)
         {
-            throw new NotImplementedException();
+            QuestionList questionlist = new QuestionList();
+            foreach(QuestionList q in _context.QuestionList)
+            {
+                if(q.Id == item.Id)
+                {
+                    questionlist = q;
+                    break;
+                }
+            }
+            if (questionlist != null)
+            {
+                _context.QuestionList.Remove(questionlist);
+                _questionLists.Remove(item);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public bool Update(QuestionListViewModel item)
@@ -88,7 +118,9 @@ namespace ParkInspect.Repository.Entity
 
         public ObservableCollection<QuestionItemViewModel> GetAllQuestionItems()
         {
-            throw new NotImplementedException();
+            _questionItems.Clear();
+            _questionLists.SelectMany(l => l.QuestionItems).ToList().ForEach(i => _questionItems.Add(i));
+            return _questionItems;
         }
 
         public bool AddItem(QuestionListViewModel list, QuestionItemViewModel item)
