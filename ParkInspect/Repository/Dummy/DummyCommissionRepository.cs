@@ -21,7 +21,6 @@ namespace ParkInspect.Repository.Dummy
                 new CommissionViewModel
                 {
                     Id = 1,
-                    Frequency = 1,
                     Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"},
                     Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"},
                     ZipCode = "8473LD",
@@ -32,7 +31,6 @@ namespace ParkInspect.Repository.Dummy
                 new CommissionViewModel
                 {
                     Id = 2,
-                    Frequency = 1,
                     Customer = new CustomerViewModel() {Id = 2, Name = "Pim Westervoort"},
                     Employee = new EmployeeViewModel() {Id = 2, Name = "Edward van Lieshout"},
                     ZipCode = "8473LD",
