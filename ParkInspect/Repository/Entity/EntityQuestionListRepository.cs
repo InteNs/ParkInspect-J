@@ -14,12 +14,14 @@ namespace ParkInspect.Repository.Entity
     public class EntityQuestionListRepository : IQuestionListRepository
     {
         private readonly ObservableCollection<QuestionListViewModel> _questionLists;
+        private readonly ObservableCollection<QuestionItemViewModel> _questionItems;
         private readonly ParkInspectEntities _context;
 
         public EntityQuestionListRepository(ParkInspectEntities context)
         {
             _context = context;
             _questionLists = new ObservableCollection<QuestionListViewModel>();
+            _questionItems = new ObservableCollection<QuestionItemViewModel>();
         }
 
         public ObservableCollection<QuestionListViewModel> GetAll()
@@ -88,7 +90,9 @@ namespace ParkInspect.Repository.Entity
 
         public ObservableCollection<QuestionItemViewModel> GetAllQuestionItems()
         {
-            throw new NotImplementedException();
+            _questionItems.Clear();
+            _questionLists.SelectMany(l => l.QuestionItems).ToList().ForEach(i => _questionItems.Add(i));
+            return _questionItems;
         }
 
         public bool AddItem(QuestionListViewModel list, QuestionItemViewModel item)
