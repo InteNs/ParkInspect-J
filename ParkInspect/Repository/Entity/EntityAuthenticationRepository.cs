@@ -36,9 +36,12 @@ namespace ParkInspect.Repository.Entity
 
         }
 
-        public void Logout(AuthenticationViewModel user)
+        public AuthenticationViewModel Logout(AuthenticationViewModel user)
         {
-            user = null;
+            user.EmployeeId = 0;
+            user.Function = "";
+            user.Username = "";
+            return user;
         }
 
         public bool IsLoggedIn(AuthenticationViewModel user)

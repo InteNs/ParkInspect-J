@@ -11,7 +11,7 @@ namespace ParkInspect.Repository.Interface
     {
         
         AuthenticationViewModel Login(string username, string password);
-        void Logout(AuthenticationViewModel user);
+        AuthenticationViewModel Logout(AuthenticationViewModel user);
         bool IsLoggedIn(AuthenticationViewModel user);
     }
 }

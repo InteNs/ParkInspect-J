@@ -77,9 +77,11 @@ namespace ParkInspect.Service
             
         }
 
-        public bool IsLoggedIn()
+        public bool IsLoggedIn(AuthenticationViewModel _user)
         {
-            return _repo.IsLoggedIn(User);
+            if (_user == null)
+                return false;
+            return _repo.IsLoggedIn(_user);
         }
 
 
@@ -96,6 +98,12 @@ namespace ParkInspect.Service
                 return null;
             var employee = _employeeRepository.GetAll().Where(q => q.Id == _user.EmployeeId).FirstOrDefault();
             return employee;
+        }
+
+        public AuthenticationViewModel getLoggedInUser()
+        {
+            if (!IsLoggedIn(User)) return null;
+            return User;
         }
     }
 }
