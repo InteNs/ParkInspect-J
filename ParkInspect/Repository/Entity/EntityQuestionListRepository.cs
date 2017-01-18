@@ -67,10 +67,18 @@ namespace ParkInspect.Repository.Entity
 
         private QuestionType TypeForString(string s)
         {
-            QuestionType qEnum;
-            Enum.TryParse(s, true, out qEnum);
-            return (QuestionType)qEnum;
-
+            if (s.Equals("Count"))
+            {
+                return QuestionType.Count;
+            }
+            else if (s.Equals("Boolean"))
+            {
+                return QuestionType.Boolean;
+            }
+            else
+            {
+                return QuestionType.Open;
+            }
         }
 
         public bool Add(QuestionListViewModel item)
