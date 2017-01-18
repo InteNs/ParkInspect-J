@@ -59,15 +59,68 @@ namespace ParkInspect.Repository.Entity
             {
                 return _inspections;
             }
-            _context.Inspection.ToList()
-                .ForEach(i => _inspections.Add(new InspectionViewModel
+
+            // CommissionViewModel cvm = new CommissionViewModel();
+
+            /*  _context.Inspection.Include("Commission").ToList()
+                  .ForEach(i => _inspections.Add(new InspectionViewModel
+                  {
+                      Id = i.Id,
+                      Name = i.Commission.Customer.Person.Name,
+                      StartTime = i.DateTimeStart,
+                      EndTime = Convert.ToDateTime(i.DateTimeEnd),
+                      cvm = new CommissionViewModel()
+
+                  }));*/
+
+            var inspections = _context.Inspection.Include("Commission").ToList();
+
+            foreach (var i in inspections)
+            {
+                _inspections.Add(new InspectionViewModel()
                 {
                     Id = i.Id,
-                    Name = i.Commission.Description, 
+                    Name = i.Commission.Customer.Person.Name,
                     StartTime = i.DateTimeStart,
-                    EndTime = Convert.ToDateTime(i.DateTimeEnd)
-                }));
 
+                    EndTime = Convert.ToDateTime(i.DateTimeEnd),
+                    cvm = new CommissionViewModel()
+                    {
+                        Id = i.Commission.Id,
+                        Description = i.Commission.Description,
+                        StreetNumber = i.Commission.Location.StreetNumber,
+                        ZipCode = i.Commission.Location.ZipCode,
+                        Region = i.Commission.Location.Region.RegionName,
+                        DateCreated = i.Commission.DateCreated,
+                        DateCompleted = i.Commission.DateCompleted,
+                        //Frequency = i.Commission.Frequency,
+                        //Status= i.Commission.Status   
+                        Customer = new CustomerViewModel()
+                        {
+                            Id = i.Commission.CustomerId,
+                            Name = "Inspectie : "+ i.Commission.Description,
+                            Email = i.Commission.Customer.Person.Email,
+                            PhoneNumber = i.Commission.Customer.Person.PhoneNumber,
+                            StreetNumber = i.Commission.Customer.Person.Location.StreetNumber,
+                            ZipCode = i.Commission.Customer.Person.Location.ZipCode,
+                            Region = i.Commission.Customer.Person.Location.Region.RegionName,
+                        },
+                        Employee = new EmployeeViewModel()
+                        {
+                            Id = i.Commission.EmployeeId,
+                            Name = i.Commission.Employee.Person.Name,
+                            Email = i.Commission.Employee.Person.Email,
+                            PhoneNumber = i.Commission.Employee.Person.PhoneNumber,
+                            StreetNumber = i.Commission.Employee.Person.Location.StreetNumber,
+                            ZipCode = i.Commission.Employee.Person.Location.ZipCode,
+                            Region = i.Commission.Employee.Person.Location.Region.RegionName,
+                            Function = i.Commission.Employee.Function.Name
+                        },
+                    }
+                });
+            }
+
+            int j = 0;
             return _inspections;
         }
 
