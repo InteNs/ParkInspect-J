@@ -56,8 +56,43 @@ namespace ParkInspect.Repository.Entity
         public ObservableCollection<CommissionViewModel> GetAll()
         {
             _commissions.Clear();
-            _context.Commission.Include("Location").Include("Location.Region").Include("Employee").Include("Customer").Include("Customer.Person").Include("Customer.Person.Location").Include("Employee.Person").Include("Employee.Person.Location").ToList().
-                ForEach(c => _commissions.Add(new CommissionViewModel
+            /* _context.Commission.Include("Location").Include("Location.Region").Include("Employee").Include("Customer").Include("Customer.Person").Include("Customer.Person.Location").Include("Employee.Person").Include("Employee.Person.Location").ToList().
+                 ForEach(c => _commissions.Add(new CommissionViewModel
+                 {
+                     Id = c.Id,
+                     ZipCode = c.Location.ZipCode,
+                     StreetNumber = c.Location.StreetNumber,
+                     DateCreated = c.DateCreated,
+                     DateCompleted = c.DateCompleted,
+                     Description = c.Description,
+                     Region = c.Location.Region.RegionName,
+                     Customer = new CustomerViewModel
+                         {
+                         Email = c.Customer.Person.Email,
+                         Name = c.Customer.Person.Name,
+                         Id = c.Customer.Id,
+                         PhoneNumber = c.Customer.Person.PhoneNumber,
+                         StreetNumber = c.Customer.Person.Location.StreetNumber,
+                         ZipCode = c.Customer.Person.Location.ZipCode
+                         },
+                     Employee = new EmployeeViewModel()
+                     {
+                         Email = c.Employee.Person.Email,
+                         Name = c.Employee.Person.Name,
+                         Id = c.Employee.Id,
+                         PhoneNumber = c.Employee.Person.PhoneNumber,
+                         StreetNumber = c.Employee.Person.Location.StreetNumber,
+                         ZipCode = c.Employee.Person.Location.ZipCode
+                     }
+                 }));*/
+
+
+
+            var commission = _context.Commission.Include("Location").Include("Location.Region").Include("Employee").Include("Customer").Include("Customer.Person").Include("Customer.Person.Location").Include("Employee.Person").Include("Employee.Person.Location").ToList();
+
+            foreach (var c in commission)
+            {
+                _commissions.Add(new CommissionViewModel()
                 {
                     Id = c.Id,
                     ZipCode = c.Location.ZipCode,
@@ -67,14 +102,14 @@ namespace ParkInspect.Repository.Entity
                     Description = c.Description,
                     Region = c.Location.Region.RegionName,
                     Customer = new CustomerViewModel
-                        {
+                    {
                         Email = c.Customer.Person.Email,
                         Name = c.Customer.Person.Name,
                         Id = c.Customer.Id,
                         PhoneNumber = c.Customer.Person.PhoneNumber,
                         StreetNumber = c.Customer.Person.Location.StreetNumber,
                         ZipCode = c.Customer.Person.Location.ZipCode
-                        },
+                    },
                     Employee = new EmployeeViewModel()
                     {
                         Email = c.Employee.Person.Email,
@@ -84,7 +119,9 @@ namespace ParkInspect.Repository.Entity
                         StreetNumber = c.Employee.Person.Location.StreetNumber,
                         ZipCode = c.Employee.Person.Location.ZipCode
                     }
-                }));
+                });
+            }
+            
             return _commissions;
            
         }
