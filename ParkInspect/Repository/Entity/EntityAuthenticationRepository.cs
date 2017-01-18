@@ -5,6 +5,7 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using Data;
+using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
 
@@ -15,11 +16,10 @@ namespace ParkInspect.Repository.Entity
         public AuthenticationViewModel Login(string username="", string password="")
         {
             AuthenticationViewModel loggedInUser;
-
             using (var ctx = new ParkInspectEntities())
             {
                 Employee user =
-                    ctx.Employee.Where(q => q.Person.Email == username && q.Password == password).FirstOrDefault();
+                    ctx.Employee.FirstOrDefault(q => q.Person.Email == username && q.Password == password);
 
                 if (user == null)
                     return null;
@@ -44,24 +44,6 @@ namespace ParkInspect.Repository.Entity
         public bool IsLoggedIn(AuthenticationViewModel user)
         {
             return (user.Username != "" && user.EmployeeId != 0);
-        }
-
-        private bool HasInternet()
-        {
-            try
-            {
-                using (var client = new WebClient())
-                {
-                    using (var stream = client.OpenRead("http://www.google.com"))
-                    {
-                        return true;
-                    }
-                }
-            }
-            catch
-            {
-                return false;
-            }
         }
     }
 }
