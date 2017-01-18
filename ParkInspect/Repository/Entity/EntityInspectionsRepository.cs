@@ -27,12 +27,11 @@ namespace ParkInspect.Repository.Entity
         public bool Add(InspectionViewModel item)
         {
             var commission = _context.Commission.FirstOrDefault(c => c.Id == item.cvm.Id);
-
-            var i = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, CommissionId = commission.Id, CommissionGuid= commission.Guid, DateTimeEnd = null, DateCancelled=null };
+            var i = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, Commission = commission, DateTimeEnd = null, DateCancelled=null, };
 
             _context.Inspection.Add(i);
-            _inspections.Add(item);
             _context.SaveChanges();
+            _inspections.Add(item);
             return true;
         }
 
@@ -60,27 +59,17 @@ namespace ParkInspect.Repository.Entity
                 return _inspections;
             }
 
-            // CommissionViewModel cvm = new CommissionViewModel();
 
-            /*  _context.Inspection.Include("Commission").ToList()
-                  .ForEach(i => _inspections.Add(new InspectionViewModel
-                  {
-                      Id = i.Id,
-                      Name = i.Commission.Customer.Person.Name,
-                      StartTime = i.DateTimeStart,
-                      EndTime = Convert.ToDateTime(i.DateTimeEnd),
-                      cvm = new CommissionViewModel()
-
-                  }));*/
-
-            var inspections = _context.Inspection.Include("Commission").ToList();
+            var inspections = _context.Inspection.Include("Commission").
+                Include("Commission.Employee").
+                Include("Commission.Customer").ToList();
 
             foreach (var i in inspections)
             {
                 _inspections.Add(new InspectionViewModel()
                 {
                     Id = i.Id,
-                    Name = i.Commission.Customer.Person.Name,
+                    Name = "Inspectie : " + i.Commission.Description,
                     StartTime = i.DateTimeStart,
 
                     EndTime = Convert.ToDateTime(i.DateTimeEnd),
@@ -98,7 +87,7 @@ namespace ParkInspect.Repository.Entity
                         Customer = new CustomerViewModel()
                         {
                             Id = i.Commission.CustomerId,
-                            Name = "Inspectie : "+ i.Commission.Description,
+                            Name = i.Commission.Customer.Person.Name,
                             Email = i.Commission.Customer.Person.Email,
                             PhoneNumber = i.Commission.Customer.Person.PhoneNumber,
                             StreetNumber = i.Commission.Customer.Person.Location.StreetNumber,
@@ -119,8 +108,7 @@ namespace ParkInspect.Repository.Entity
                     }
                 });
             }
-
-            int j = 0;
+            
             return _inspections;
         }
 
