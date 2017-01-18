@@ -65,8 +65,7 @@ namespace ParkInspect.Repository.Entity
                     Id = i.Id,
                     Name = i.Commission.Description, 
                     StartTime = i.DateTimeStart,
-                    EndTime = Convert.ToDateTime(i.DateTimeEnd),
-                    
+                    EndTime = Convert.ToDateTime(i.DateTimeEnd)
                 }));
 
             return _inspections;
@@ -75,9 +74,10 @@ namespace ParkInspect.Repository.Entity
         public bool Update(InspectionViewModel item)
         {
             var inspections = _context.Inspection.FirstOrDefault(i => i.Id == item.Id);
+            if (inspections == null) return false;
             inspections.DateTimeStart = item.StartTime;
             inspections.DateTimeEnd = item.EndTime;
-            if (inspections == null) return false;
+            
             _context.Entry(inspections).State = EntityState.Modified;
             _context.SaveChanges();
 

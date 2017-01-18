@@ -7,43 +7,68 @@ using System.Threading.Tasks;
 using Data;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
+using QuestionType = ParkInspect.Enumeration.QuestionType;
 
 namespace ParkInspect.Repository.Entity
 {
     public class EntityQuestionListRepository : IQuestionListRepository
     {
-        private ObservableCollection<QuestionListViewModel> _questionLists;
-        private readonly ObservableCollection<QuestionItemViewModel> _questionItems;
+        private readonly ObservableCollection<QuestionListViewModel> _questionLists;
         private readonly ParkInspectEntities _context;
 
         public EntityQuestionListRepository(ParkInspectEntities context)
         {
             _context = context;
+            _questionLists = new ObservableCollection<QuestionListViewModel>();
         }
 
         public ObservableCollection<QuestionListViewModel> GetAll()
         {
-            var questionlist = _context.QuestionList.Include("QuestionItem")
-                .Include("QuestionItem.Answer")
-                .Include("QuestionItem.Question")
-                .Include("QuestionItem.Question.QuestionType")
+            var questionlist = _context.QuestionList
+                .Include("Inspection")
+                .Include("Inspection.Commission")
+                .Include("QuestionItems")
+                .Include("QuestionItems.Answer")
+                .Include("QuestionItems.Question")
+                .Include("QuestionItems.Question.QuestionType")
                 .ToList();
 
-            foreach (var list in questionlist)
+            questionlist.ForEach(ql =>
             {
-                List<QuestionItemViewModel> itemList = new List<QuestionItemViewModel>();
-                foreach (var item in list.QuestionItem.ToList())
+                var inspection = ql.InspectionId.HasValue ? new InspectionViewModel()
                 {
-                    itemList.Add(new QuestionItemViewModel()
+                    Id = ql.Inspection.Id,
+                    cvm = new CommissionViewModel {Id = ql.Inspection.Commission.Id}
+                } : null;
+                _questionLists.Add(new QuestionListViewModel
+                {
+                    Description = ql.Description,
+                    Id = ql.Id,
+                    inspection = inspection,
+                    QuestionItems = new ObservableCollection<QuestionItemViewModel>(ql.QuestionItem.Select(qi => new QuestionItemViewModel
                     {
-                        
-                    });
-                }
-                var qlist = new QuestionListViewModel(itemList);
-            }
-            _questionLists = new ObservableCollection<QuestionListViewModel>();
+                        Answer = qi.Answer.Value,
+                        Question = new QuestionViewModel
+                        {
+                            Description = qi.Question.Description,
+                            Id = qi.Question.Id,
+                            isActive = qi.Question.IsActive,
+                            QuestionType = TypeForString(qi.Question.QuestionType.Name),
+                            Version = qi.Question.Version
+                        }
+                    }))
+                });
+            });
 
             return _questionLists;
+        }
+
+        private QuestionType TypeForString(string s)
+        {
+            var qEnum = 0;
+            Enum.TryParse(s, true, out qEnum);
+            return (QuestionType)qEnum;
+
         }
 
         public bool Add(QuestionListViewModel item)
