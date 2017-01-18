@@ -32,6 +32,7 @@ namespace ParkInspect.Repository.Entity
                     Id = c.Id,
                     PhoneNumber = c.Person.PhoneNumber,
                     StreetNumber = c.Person.Location.StreetNumber,
+                    Region = c.Person.Location.Region.RegionName,
                     ZipCode = c.Person.Location.ZipCode
                 }));
 
