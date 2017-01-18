@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,7 +9,7 @@ namespace ParkInspect.View
     /// <summary>
     /// Interaction logic for ManagementView.xaml
     /// </summary>
-    public partial class ManagementView : UserControl
+    public partial class ManagementView
     {
         public ManagementView()
         {
@@ -91,8 +90,8 @@ namespace ParkInspect.View
         
         private void DatePicked_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
-            
         }
     }
 }

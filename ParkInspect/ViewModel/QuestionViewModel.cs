@@ -1,6 +1,4 @@
-﻿using System.Data.Entity;
-using System.Linq;
-using ParkInspect.Enumeration;
+﻿using ParkInspect.Enumeration;
 
 namespace ParkInspect.ViewModel
 {
@@ -9,23 +7,15 @@ namespace ParkInspect.ViewModel
         public int Id { get; set; }
         public int Version { get; set; }
         public string Description { get; set; }
-        public bool isActive { get; set; }
+        public bool IsActive { get; set; }
         public QuestionType QuestionType { get; set; }
-
-
 
         public QuestionViewModel Update()
         {
-            if (isActive)
-            {
-                var newQuestion = Create();
-                newQuestion.Id++;
-                return newQuestion;
-            }
-            else
-            {
-                return Create();
-            }
+            if (!IsActive) return Create();
+            var newQuestion = Create();
+            newQuestion.Id++;
+            return newQuestion;
         }
 
         public QuestionViewModel Create()
@@ -34,17 +24,18 @@ namespace ParkInspect.ViewModel
             newQuestion.Description = Description;
             newQuestion.Version = Version;
             newQuestion.QuestionType = QuestionType;
-            newQuestion.isActive = true;
+            newQuestion.IsActive = true;
             return newQuestion;
         }
 
         public QuestionViewModel Duplicate()
         {
-            var newQuestion = new QuestionViewModel();
-            newQuestion.Description = Description;
-            newQuestion.Version = 1;
+            var newQuestion = new QuestionViewModel
+            {
+                Description = Description,
+                Version = 1
+            };
             return newQuestion;
         }
-
     }
 }

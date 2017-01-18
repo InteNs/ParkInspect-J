@@ -6,13 +6,12 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
-using System.Diagnostics;
 
 namespace ParkInspect.ViewModel
 {
     public class TimeLineViewModel : MainViewModel
     {
-        private List<DateTime> week;
+        private List<DateTime> _week;
         private IInspectionsRepository _iir;
         private IEmployeeRepository _ier;
         private TimeLineItemViewModel _selectedTimeLineItem;
@@ -20,32 +19,32 @@ namespace ParkInspect.ViewModel
         {
             _iir = iir;
             _ier = ier;
-            week = new List<DateTime>();
+            _week = new List<DateTime>();
             DateTime dateCounter = DateTime.Now;
             while (dateCounter.DayOfWeek != DayOfWeek.Monday)
             {
-                week.Add(dateCounter);
+                _week.Add(dateCounter);
                 dateCounter = dateCounter.AddDays(-1);
             }
-            week.Add(dateCounter);
+            _week.Add(dateCounter);
             if(DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
             {
                 dateCounter = DateTime.Now.AddDays(1);
                 while (dateCounter.DayOfWeek != DayOfWeek.Sunday)
                 {
-                    week.Add(dateCounter);
+                    _week.Add(dateCounter);
                     dateCounter = dateCounter.AddDays(1);
                 }
-                week.Add(dateCounter);
+                _week.Add(dateCounter);
             }
-            week.Sort();
-            Monday = week[0].ToShortDateString();
-            Tuesday = week[1].ToShortDateString();
-            Wednesday = week[2].ToShortDateString();
-            Thursday = week[3].ToShortDateString();
-            Friday = week[4].ToShortDateString();
-            Saturday = week[5].ToShortDateString();
-            Sunday = week[6].ToShortDateString();
+            _week.Sort();
+            Monday = _week[0].ToShortDateString();
+            Tuesday = _week[1].ToShortDateString();
+            Wednesday = _week[2].ToShortDateString();
+            Thursday = _week[3].ToShortDateString();
+            Friday = _week[4].ToShortDateString();
+            Saturday = _week[5].ToShortDateString();
+            Sunday = _week[6].ToShortDateString();
 
             TimeLineItems = new ObservableCollection<TimeLineItemViewModel>();
             UpdateTimeLineItems();
@@ -77,14 +76,14 @@ namespace ParkInspect.ViewModel
             foreach (EmployeeViewModel evm in _ier.GetAll().Where(e => e.Function.ToLower() == "inspecteur"))
             {
                 TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
-                foreach(DateTime day in week)
+                foreach(DateTime day in _week)
                 {
                     string status = "Beschikbaar";
                     int inspectionsAmount = 0;
                     
                     foreach (InspectionViewModel ivm in inspectionslist)
                     {
-                        if (ivm.cvm.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
+                        if (ivm.CommissionViewModel.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
                         {
                             tlivm.Inspections.Add(ivm);
                             inspectionsAmount++;
@@ -126,7 +125,6 @@ namespace ParkInspect.ViewModel
                             tlivm.Sunday = status;
                             break;
                     }
-
                 }
                 TimeLineItems.Add(tlivm);
             }
@@ -136,15 +134,15 @@ namespace ParkInspect.ViewModel
         {
             for(int i = 0; i<7; i++)
             {
-                week[i] = week[i].AddDays(7);
+                _week[i] = _week[i].AddDays(7);
             }
-            Monday = week[0].ToShortDateString();
-            Tuesday = week[1].ToShortDateString();
-            Wednesday = week[2].ToShortDateString();
-            Thursday = week[3].ToShortDateString();
-            Friday = week[4].ToShortDateString();
-            Saturday = week[5].ToShortDateString();
-            Sunday = week[6].ToShortDateString();
+            Monday = _week[0].ToShortDateString();
+            Tuesday = _week[1].ToShortDateString();
+            Wednesday = _week[2].ToShortDateString();
+            Thursday = _week[3].ToShortDateString();
+            Friday = _week[4].ToShortDateString();
+            Saturday = _week[5].ToShortDateString();
+            Sunday = _week[6].ToShortDateString();
             UpdateTimeLineItems();
             RaisePropertyChanged("");
         }
@@ -153,15 +151,15 @@ namespace ParkInspect.ViewModel
         {
             for (int i = 0; i < 7; i++)
             {
-                week[i] = week[i].AddDays(-7);
+                _week[i] = _week[i].AddDays(-7);
             }
-            Monday = week[0].ToShortDateString();
-            Tuesday = week[1].ToShortDateString();
-            Wednesday = week[2].ToShortDateString();
-            Thursday = week[3].ToShortDateString();
-            Friday = week[4].ToShortDateString();
-            Saturday = week[5].ToShortDateString();
-            Sunday = week[6].ToShortDateString();
+            Monday = _week[0].ToShortDateString();
+            Tuesday = _week[1].ToShortDateString();
+            Wednesday = _week[2].ToShortDateString();
+            Thursday = _week[3].ToShortDateString();
+            Friday = _week[4].ToShortDateString();
+            Saturday = _week[5].ToShortDateString();
+            Sunday = _week[6].ToShortDateString();
             UpdateTimeLineItems();
             RaisePropertyChanged("");
         }

@@ -39,11 +39,6 @@
                                 <VisualStateGroup x:Name="SelectionStates">
                                     <VisualState x:Name="Unselected"/>
                                     <VisualState x:Name="Selected">
-                                        <!--
-                                        <Storyboard>
-                                            <DoubleAnimation Storyboard.TargetName="selectedPath" Storyboard.TargetProperty="Opacity" To="0.7" Duration="0:0:0.1"/>
-                                        </Storyboard>
-                                        -->
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
@@ -68,13 +63,6 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            <Style.Triggers>
-                <!--
-                <Trigger Property="IsSelected" Value="True">
-                    <Setter Property="Panel.ZIndex" Value="1"/>
-                </Trigger>
-                -->
-            </Style.Triggers>
         </Style>
     </UserControl.Resources>
 
@@ -86,6 +74,7 @@
         <TextBlock x:Name="MouseLocation" Margin="5" VerticalAlignment="Bottom" FontFamily="Segoe UI Mono"/>
         <StackPanel>
             <Grid>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
@@ -101,7 +90,9 @@
                 <TextBlock Text="Inhoud:" Grid.Row="1" Grid.Column="1"/>
                 <ComboBox Grid.Row="2" Grid.Column="1" ItemsSource="{Binding Options}" SelectedValue="{Binding SelectedOption}" />
             </Grid>
+
             <TextBlock Text="Filters:"/>
+
             <Grid Visibility="{Binding Date, Converter={StaticResource Converter}}">
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -118,6 +109,7 @@
                 <TextBlock Grid.Row="0" Text="Einddatum" Grid.Column="2"/>
                 <DatePicker Grid.Row="1" Grid.Column="2" SelectedDate="{Binding EndDate, Mode=TwoWay}" IsEnabled="{Binding ElementName=CheckBoxDatum, Path=IsChecked}" />
             </Grid>
+
             <Grid Visibility="{Binding Location, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -128,6 +120,7 @@
                 <TextBlock Grid.Column="1" Text="Locatie:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxLocatie, Path=IsChecked}" ItemsSource="{Binding Locations}" SelectedItem="{Binding SelectedRegion}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Grid Visibility="{Binding Inspector, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -138,6 +131,7 @@
                 <TextBlock Grid.Column="1" Text="Inspecteur:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxInspecteur, Path=IsChecked}" ItemsSource="{Binding Inspectors}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedInspector}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Grid Visibility="{Binding Manager, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -148,6 +142,7 @@
                 <TextBlock Grid.Column="1" Text="Manager:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxManager, Path=IsChecked}" ItemsSource="{Binding Managers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedManager}" IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Grid Visibility="{Binding Customer, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -158,6 +153,7 @@
                 <TextBlock Grid.Column="1" Text="Klant:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxKlant, Path=IsChecked}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name" SelectedItem="{Binding SelectedCustomer}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Grid Visibility="{Binding Commission, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -168,6 +164,7 @@
                 <TextBlock Grid.Column="1" Text="Opdracht:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxOpdracht, Path=IsChecked}" ItemsSource="{Binding Commissions}" DisplayMemberPath="Description" SelectedItem="{Binding SelectedCommission}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Grid Visibility="{Binding Function, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -178,6 +175,7 @@
                 <TextBlock Grid.Column="1" Text="Functie:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxFunctie, Path=IsChecked}" ItemsSource="{Binding Functions}" SelectedItem="{Binding SelectedFunction}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Grid Visibility="{Binding Status, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -188,6 +186,7 @@
                 <TextBlock Grid.Column="1" Text="Status:"/>
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxStatus, Path=IsChecked}" ItemsSource="{Binding Statuses}"  SelectedValue="{Binding SelectedStatus}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Grid Visibility="{Binding Answer, Converter={StaticResource Converter}, Mode=TwoWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="30"/>
@@ -200,11 +199,15 @@
                 <ComboBox Grid.Column="2" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" ItemsSource="{Binding Questions}" DisplayMemberPath="QuestionDescription" SelectedValue="{Binding SelectedQuestion}"  IsEnabledChanged="ComboBox_OnIsEnabledChanged"/>
                 <TextBox Grid.Column="3" IsEnabled="{Binding ElementName=CheckBoxVraag, Path=IsChecked}" Text="{Binding SelectedAnswer}" IsEnabledChanged="TextBox_OnIsEnabledChanged"/>
             </Grid>
+
             <Button Content="Genereer diagram" Command="{Binding GenerateDiagramCommand}"  Width="150" HorizontalAlignment="Left"/>
+
         </StackPanel>
+
         <GridSplitter x:Name="GridSplitter" Grid.Column="1" HorizontalAlignment="Left" Height="370"  VerticalAlignment="Top" Width="5" />
+
         <GroupBox Header="Diagram" Grid.Column="0" Height="200" Margin="5,174,5,0">
-            <oxy:PlotView Model="{Binding CurrentGraph.KPIModel}"/>
+            <oxy:PlotView Model="{Binding CurrentGraph.KpiModel}"/>
         </GroupBox>
 
         <mapControl:Map x:Name="map" ZoomLevel="{Binding Map.ZoomLevel}" MinZoomLevel="7" MaxZoomLevel="17" Center="{Binding Map.MapCenter}"

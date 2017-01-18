@@ -23,13 +23,7 @@ namespace ParkInspect.ViewModel
             FunctionList = _employeeRepository.GetFunctions();
             RegionList = regionRepository.GetAll();
 
-            AddEmployeeCommand = new RelayCommand(AddEmployee, CanAddEmployee);
-        }
-
-        private bool CanAddEmployee()
-        {
-            //TODO: check if all fields are filled in
-            return true;
+            AddEmployeeCommand = new RelayCommand(AddEmployee);
         }
 
         private bool ValidateInput()
@@ -39,12 +33,7 @@ namespace ParkInspect.ViewModel
             if (Employee.Function == null || Employee.Name == null || Employee.ZipCode == null ||
                   Employee.StreetNumber == null || Employee.PhoneNumber == null || Employee.Email == null || Employee.Region == null || Employee.Function == null)
             { return false; }
-            if(!Employee.IsValid )
-            {
-                return false;
-            }
-
-            return true;
+            return Employee.IsValid;
         }
 
         private void AddEmployee()
@@ -66,8 +55,7 @@ namespace ParkInspect.ViewModel
         {
             //TODO: Validation error
             var dialog = new MetroDialogService();
-            dialog.ShowMessage("Probleem opgetreden",
-                            "Niet alle gegevens zijn juist ingevuld.");
+            dialog.ShowMessage("Probleem opgetreden", "Niet alle gegevens zijn juist ingevuld.");
         }
     }
 }

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
              Foreground="Black"
@@ -34,17 +33,13 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Klant Bewerken" />
             </Viewbox>
         </Grid>
 
-        <Grid Grid.Row="3"
-              Grid.Column="1"
-                Grid.ColumnSpan="4"
-              >
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" >
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*" />
@@ -72,67 +67,53 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
-            <DockPanel Grid.Row="1"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="1" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
                 <TextBox Text="{Binding Path=Customer.Name, Mode=TwoWay}" TextAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="3"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="3" Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
                 <TextBox Text="{Binding Path=Customer.ZipCode, Mode=TwoWay}" TextAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="5"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="5" Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
                 <TextBox Text="{Binding Path=Customer.StreetNumber, Mode=TwoWay}" TextAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="7"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="7" Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
                 <TextBox Text="{Binding Path=Customer.PhoneNumber, Mode=TwoWay}" TextAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="9"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="9" Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
                 <TextBox Text="{Binding Path=Customer.Email, Mode=TwoWay}" TextAlignment="Center" />
             </DockPanel>
 
-            <DockPanel
-                Grid.Row="11"
-                Grid.Column="1">
+            <DockPanel  Grid.Row="11" Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Functie: "/>
                 </Viewbox>
                 <ComboBox SelectedValue="{Binding Customer.Function, Mode=TwoWay}" ItemsSource="{Binding FunctionList}" />
             </DockPanel>
 
-
-            <Grid
-                Grid.Row="15"
-                Grid.Column="1">
+            <Grid Grid.Row="15" Grid.Column="1">
                 <Button Command="{Binding EditCustomerCommand}" Content="Klant Bewerken" Width="275" FontSize="17"/>
             </Grid>
 
         </Grid>
     </Grid>
 </UserControl>
+ 

@@ -4,7 +4,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
              Foreground="Black"
@@ -28,22 +27,19 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.RowSpan="1"
-          Grid.Column="5" Background="{DynamicResource PrimaryHueMidBrush}">
+        <Grid Grid.Row="1" Grid.Column="5" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
-                <Label  Foreground="White" FontSize="20" Content="Vragen beheer" />
+                <Label Foreground="White" FontSize="20" Content="Vragen beheer" />
             </Viewbox>
         </Grid>
 
-        <Grid Grid.Row="3" Grid.ColumnSpan="2"
-          Grid.Column="1">
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1">
             <Viewbox>
                 <controls:Tile  Foreground="White" FontSize="20" Content="Vragen" Command="{Binding RouteCommand }" CommandParameter="questions-list" />
             </Viewbox>
         </Grid>
 
-        <Grid Grid.Row="3" Grid.ColumnSpan="2"
-          Grid.Column="4">
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="4">
             <Viewbox>
                 <controls:Tile  Foreground="White" FontSize="20" Content="Lijsten" Command="{Binding RouteCommand }" CommandParameter="question-lists"/>
             </Viewbox>

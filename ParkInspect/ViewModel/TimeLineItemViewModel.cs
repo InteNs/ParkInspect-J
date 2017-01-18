@@ -1,70 +1,65 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.ObjectModel;
 
 namespace ParkInspect.ViewModel
 {
     public class TimeLineItemViewModel:MainViewModel
     {
-        private string monday;
-        private string tuesday;
-        private string wednesday;
-        private string thursday;
-        private string friday;
-        private string saturday;
-        private string sunday;
-        private ObservableCollection<InspectionViewModel> inspections;
+        private string _monday;
+        private string _tuesday;
+        private string _wednesday;
+        private string _thursday;
+        private string _friday;
+        private string _saturday;
+        private string _sunday;
+        private ObservableCollection<InspectionViewModel> _inspections;
 
         public TimeLineItemViewModel(EmployeeViewModel evm)
         {
             Employee = evm;
-            inspections = new ObservableCollection<InspectionViewModel>();
+            _inspections = new ObservableCollection<InspectionViewModel>();
         }
 
         public EmployeeViewModel Employee { get; set; }
         public string Monday
         {
-            get { return monday; }
-            set { monday = value; RaisePropertyChanged(); }
+            get { return _monday; }
+            set { _monday = value; RaisePropertyChanged(); }
         }
         public string Tuesday
         {
-            get { return tuesday; }
-            set { tuesday = value; RaisePropertyChanged(); }
+            get { return _tuesday; }
+            set { _tuesday = value; RaisePropertyChanged(); }
         }
         public string Wednesday
         {
-            get { return wednesday; }
-            set { wednesday = value; RaisePropertyChanged(); }
+            get { return _wednesday; }
+            set { _wednesday = value; RaisePropertyChanged(); }
         }
         public string Thursday
         {
-            get { return thursday; }
-            set { thursday = value; RaisePropertyChanged(); }
+            get { return _thursday; }
+            set { _thursday = value; RaisePropertyChanged(); }
         }
         public string Friday
         {
-            get { return friday; }
-            set { friday = value; RaisePropertyChanged(); }
+            get { return _friday; }
+            set { _friday = value; RaisePropertyChanged(); }
         }
         public string Saturday
         {
-            get { return saturday; }
-            set { saturday = value; RaisePropertyChanged(); }
+            get { return _saturday; }
+            set { _saturday = value; RaisePropertyChanged(); }
         }
         public string Sunday
         {
-            get { return sunday; }
-            set { sunday = value; RaisePropertyChanged(); }
+            get { return _sunday; }
+            set { _sunday = value; RaisePropertyChanged(); }
         }
 
         public ObservableCollection<InspectionViewModel> Inspections
         {
-            get { return inspections; }
-            set { inspections = value; RaisePropertyChanged(); }
+            get { return _inspections; }
+            set { _inspections = value; RaisePropertyChanged(); }
         }
     }
 }

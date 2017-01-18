@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParkInspect.View"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
              DataContext="{Binding EditEmployee,Source={StaticResource Locator}}"
@@ -11,9 +10,9 @@
 
     <UserControl.Resources>
         <Style x:Key="DefaultLabelStyle" TargetType="Label">
-            <Setter Property="Width" Value="230"></Setter>
-            <Setter Property="FontSize" Value="25"></Setter>
-            <Setter Property="Padding" Value="0"></Setter>
+            <Setter Property="Width" Value="230" />
+                <Setter Property="FontSize" Value="25"/>
+            <Setter Property="Padding" Value="0"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -35,19 +34,13 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Werknemer Bewerken"  />
             </Viewbox>
         </Grid>
 
-        <Grid Grid.Row="3"
-              Grid.Column="1"
-                Grid.ColumnSpan="4"
-              >
-
-
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*" />
                 <ColumnDefinition Width="*" />
@@ -74,72 +67,56 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
-            <DockPanel Grid.Row="1"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="1" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Naam: " />
                 </Viewbox>
                 <TextBox Text="{Binding Path=SelectedEmployee.Name}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="3"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="3" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Postcode: " />
                 </Viewbox>
                 <TextBox Text="{Binding Path=SelectedEmployee.ZipCode}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="5"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="5" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: "></Label>
                 </Viewbox>
                 <TextBox Text="{Binding Path=SelectedEmployee.StreetNumber}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="7"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="7" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Telefoonnummer: " ></Label>
                 </Viewbox>
                 <TextBox Text="{Binding Path=SelectedEmployee.PhoneNumber}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="9"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="9" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
                 <TextBox Text="{Binding Path=SelectedEmployee.Email}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
-            <DockPanel
-                Grid.Row="11"
-                Grid.Column="1">
+            <DockPanel  Grid.Row="11" Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "/>
                 </Viewbox>
                 <ComboBox SelectedItem="{Binding Path=SelectedEmployee.Region, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding RegionList}" />
             </DockPanel>
 
-            <DockPanel
-                Grid.Row="13"
-                Grid.Column="1">
+            <DockPanel  Grid.Row="13" Grid.Column="1">
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Functie: "/>
                 </Viewbox>
                 <ComboBox SelectedItem="{Binding SelectedEmployee.Function, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding FunctionList}" />
             </DockPanel>
 
-            <Grid
-                Grid.Row="15"
-                Grid.Column="1">
+            <Grid Grid.Row="15" Grid.Column="1">
                 <Button Command="{Binding EditEmployeeCommand}" Content="Werknemer Bewerken" Width="275" />
             </Grid>
 

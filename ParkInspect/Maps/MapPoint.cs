@@ -10,20 +10,12 @@ namespace ParkInspect.Maps
         public string Description
         {
             get { return _description; }
-            set
-            {
-                _description = value;
-                RaisePropertyChanged("Name");
-            }
+            set { _description = value; RaisePropertyChanged("Name"); }
         }
         public Location Location
         {
             get { return _location; }
-            set
-            {
-                _location = value;
-                RaisePropertyChanged("Location");
-            }
+            set { _location = value; RaisePropertyChanged("Location"); }
         }
     }
 }

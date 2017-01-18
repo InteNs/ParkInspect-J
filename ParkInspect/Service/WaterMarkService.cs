@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Documents;
+using ParkInspect.Lib;
 
 namespace ParkInspect.Service
 {
@@ -20,14 +21,14 @@ namespace ParkInspect.Service
             "Watermark",
             typeof(object),
             typeof(WatermarkService),
-            new FrameworkPropertyMetadata((object)null, new PropertyChangedCallback(OnWatermarkChanged)));
+            new FrameworkPropertyMetadata(null, OnWatermarkChanged));
 
         #region Private Fields
 
         /// <summary>
         /// Dictionary of ItemsControls
         /// </summary>
-        private static readonly Dictionary<object, ItemsControl> itemsControls = new Dictionary<object, ItemsControl>();
+        private static readonly Dictionary<object, ItemsControl> ItemsControls = new Dictionary<object, ItemsControl>();
 
         #endregion
 
@@ -36,20 +37,14 @@ namespace ParkInspect.Service
         /// </summary>
         /// <param name="d"><see cref="DependencyObject"/> to get the property from</param>
         /// <returns>The value of the Watermark property</returns>
-        public static object GetWatermark(DependencyObject d)
-        {
-            return (object)d.GetValue(WatermarkProperty);
-        }
+        public static object GetWatermark(DependencyObject d) => d.GetValue(WatermarkProperty);
 
         /// <summary>
         /// Sets the Watermark property.  This dependency property indicates the watermark for the control.
         /// </summary>
         /// <param name="d"><see cref="DependencyObject"/> to set the property on</param>
         /// <param name="value">value of the property</param>
-        public static void SetWatermark(DependencyObject d, object value)
-        {
-            d.SetValue(WatermarkProperty, value);
-        }
+        public static void SetWatermark(DependencyObject d, object value) => d.SetValue(WatermarkProperty, value);
 
         /// <summary>
         /// Handles changes to the Watermark property.
@@ -67,18 +62,16 @@ namespace ParkInspect.Service
                 control.LostKeyboardFocus += Control_Loaded;
             }
 
-            if (d is ItemsControl && !(d is ComboBox))
-            {
-                ItemsControl i = (ItemsControl)d;
+            if (!(d is ItemsControl) || d is ComboBox) return;
+            ItemsControl i = (ItemsControl)d;
 
-                // for Items property  
-                i.ItemContainerGenerator.ItemsChanged += ItemsChanged;
-                itemsControls.Add(i.ItemContainerGenerator, i);
+            // for Items property  
+            i.ItemContainerGenerator.ItemsChanged += ItemsChanged;
+            ItemsControls.Add(i.ItemContainerGenerator, i);
 
-                // for ItemsSource property  
-                DependencyPropertyDescriptor prop = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
-                prop.AddValueChanged(i, ItemsSourceChanged);
-            }
+            // for ItemsSource property  
+            DependencyPropertyDescriptor prop = DependencyPropertyDescriptor.FromProperty(ItemsControl.ItemsSourceProperty, i.GetType());
+            prop.AddValueChanged(i, ItemsSourceChanged);
         }
 
         #region Event Handlers
@@ -144,16 +137,14 @@ namespace ParkInspect.Service
         private static void ItemsChanged(object sender, ItemsChangedEventArgs e)
         {
             ItemsControl control;
-            if (itemsControls.TryGetValue(sender, out control))
+            if (!ItemsControls.TryGetValue(sender, out control)) return;
+            if (ShouldShowWatermark(control))
             {
-                if (ShouldShowWatermark(control))
-                {
-                    ShowWatermark(control);
-                }
-                else
-                {
-                    RemoveWatermark(control);
-                }
+                ShowWatermark(control);
+            }
+            else
+            {
+                RemoveWatermark(control);
             }
         }
 
@@ -170,22 +161,17 @@ namespace ParkInspect.Service
             AdornerLayer layer = AdornerLayer.GetAdornerLayer(control);
 
             // layer could be null if control is no longer in the visual tree
-            if (layer != null)
+            Adorner[] adorners = layer?.GetAdorners(control);
+            if (adorners == null)
             {
-                Adorner[] adorners = layer.GetAdorners(control);
-                if (adorners == null)
-                {
-                    return;
-                }
+                return;
+            }
 
-                foreach (Adorner adorner in adorners)
-                {
-                    if (adorner is WatermarkAdorner)
-                    {
-                        adorner.Visibility = Visibility.Hidden;
-                        layer.Remove(adorner);
-                    }
-                }
+            foreach (Adorner adorner in adorners)
+            {
+                if (!(adorner is WatermarkAdorner)) continue;
+                adorner.Visibility = Visibility.Hidden;
+                layer.Remove(adorner);
             }
         }
 
@@ -198,10 +184,7 @@ namespace ParkInspect.Service
             AdornerLayer layer = AdornerLayer.GetAdornerLayer(control);
 
             // layer could be null if control is no longer in the visual tree
-            if (layer != null)
-            {
-                layer.Add(new WatermarkAdorner(control, GetWatermark(control)));
-            }
+            layer?.Add(new WatermarkAdorner(control, GetWatermark(control)));
         }
 
         /// <summary>
@@ -211,22 +194,16 @@ namespace ParkInspect.Service
         /// <returns>true if the watermark should be shown; false otherwise</returns>
         private static bool ShouldShowWatermark(Control c)
         {
-            if (c is ComboBox)
+            var box = c as ComboBox;
+            if (box != null)
             {
-                return (c as ComboBox).Text == string.Empty;
+                return box.Text == string.Empty;
             }
-            else if (c is TextBoxBase)
+            if (c is TextBoxBase)
             {
-                return (c as TextBox).Text == string.Empty;
+                return ((TextBox) c).Text == string.Empty;
             }
-            else if (c is ItemsControl)
-            {
-                return (c as ItemsControl).Items.Count == 0;
-            }
-            else
-            {
-                return false;
-            }
+            return (c as ItemsControl)?.Items.Count == 0;
         }
 
         #endregion

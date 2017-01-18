@@ -3,14 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace ParkInspect.ViewModel
 {
     public abstract class PersonViewModel : MainViewModel, INotifyDataErrorInfo
     {
+        //Best veel in set wat volgens mijn beter in een function past
+
         private string _name;
         private string _zipCode;
         private string _streetNumber;
@@ -163,8 +163,7 @@ namespace ParkInspect.ViewModel
         public void NotifyErrorsChanged(string propertyName)
         {
             // Notify
-            if (ErrorsChanged != null)
-                ErrorsChanged(this, new DataErrorsChangedEventArgs(propertyName));
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
         }
     }
 }

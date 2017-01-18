@@ -1,12 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ParkInspect.ViewModel
 {
@@ -45,32 +40,27 @@ namespace ParkInspect.ViewModel
             _qlvm = qvm.SelectedQuestionList;
             QuestionItems = qvm.SelectedQuestionList.QuestionItems;
             Questions = new ObservableCollection<QuestionViewModel>(questionRepo.GetAll());
-            AddQuestionCommand = new RelayCommand(() => addQuestion(), CanAddQuestion);
-            DeleteQuestionCommand = new RelayCommand(() => deleteQuestion(), canDeleteQuestion);
+            AddQuestionCommand = new RelayCommand(AddQuestion, CanAddQuestion);
+            DeleteQuestionCommand = new RelayCommand(DeleteQuestion, CanDeleteQuestion);
             if (Questions.Count > 0)
             {
                 QuestionToAdd = Questions[0];
             }
         }
 
-        private bool CanAddQuestion()
-        {
-            return QuestionToAdd != null;
-        }
-        private bool canDeleteQuestion()
-        {
-            return SelectedQuestionItem != null;
-        }
+        private bool CanAddQuestion() => QuestionToAdd != null;
 
-        private void addQuestion()
+        private bool CanDeleteQuestion() => SelectedQuestionItem != null;
+
+        private void AddQuestion()
         {
             QuestionItemViewModel qivm = new QuestionItemViewModel();
             qivm.Question = QuestionToAdd;
-            qivm.questionList = _qlvm;
+            qivm.QuestionList = _qlvm;
             QuestionItems.Add(qivm);
         }
 
-        private void deleteQuestion()
+        private void DeleteQuestion()
         {
             QuestionItems.Remove(SelectedQuestionItem);
             SelectedQuestionItem = null;

@@ -1,18 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using ParkInspect.ViewModel;
 
 namespace ParkInspect.View
@@ -20,7 +7,7 @@ namespace ParkInspect.View
     /// <summary>
     /// Interaction logic for TimeLineView.xaml
     /// </summary>
-    public partial class TimeLineView : UserControl
+    public partial class TimeLineView
     {
         public TimeLineView()
         {
@@ -29,6 +16,8 @@ namespace ParkInspect.View
 
         private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            //Waarom code-behind?
+
             var grid = sender as DataGrid;
 
             var timelineItem = (TimeLineItemViewModel) grid.SelectedValue;

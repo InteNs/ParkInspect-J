@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Data;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
@@ -71,37 +68,25 @@ namespace ParkInspect.Repository.Entity
         public bool Delete(QuestionViewModel item)
         {
             var question = _context.Question.Include("QuestionType").FirstOrDefault(q => q.Id == item.Id&&q.Version == item.Version);
-            if (question != null)
-            {
-                question.IsActive = false;
-                _context.Entry(question).State = EntityState.Modified;
-                _context.SaveChanges();
-                _questions.Remove(item);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (question == null) return false;
+            question.IsActive = false;
+            _context.Entry(question).State = EntityState.Modified;
+            _context.SaveChanges();
+            _questions.Remove(item);
+            return true;
         }
 
         public bool Update(QuestionViewModel item)
         {
             var question = _context.Question.Include("QuestionType").FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
-            if (question != null)
-            {
-                var questionCopy = new Question { Description = question.Description, Version = question.Version + 1, Guid = Guid.NewGuid(), Id = question.Id, IsActive = question.IsActive, QuestionTypeId = question.QuestionTypeId, QuestionTypeGuid = question.QuestionTypeGuid };
+            if (question == null) return false;
+            var questionCopy = new Question { Description = question.Description, Version = question.Version + 1, Guid = Guid.NewGuid(), Id = question.Id, IsActive = question.IsActive, QuestionTypeId = question.QuestionTypeId, QuestionTypeGuid = question.QuestionTypeGuid };
 
-                question.IsActive = false;
-                _context.Question.Add(questionCopy);
-                _context.SaveChanges();
-                item.Version++;
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            question.IsActive = false;
+            _context.Question.Add(questionCopy);
+            _context.SaveChanges();
+            item.Version++;
+            return true;
         }
 
         public ObservableCollection<QuestionViewModel> GetLatest()
@@ -113,7 +98,7 @@ namespace ParkInspect.Repository.Entity
         private void RefreshCurrentQuestions()
         {
             if (_currentQuestions == null) _currentQuestions = new ObservableCollection<QuestionViewModel>();
-            _currentQuestions.Clear();
+            _currentQuestions.Clear();            
 
             foreach (var questionViewModel in _questions.Where(q => !(from qq in _questions
                                                                       where qq.Id == q.Id && qq.Version > q.Version

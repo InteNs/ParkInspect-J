@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -228,7 +228,6 @@
     <Compile Include="Converter\FilterEmployeeConverter.cs" />
     <Compile Include="Helper\MetroDialogService.cs" />
     <Compile Include="Maps\MapBase.cs" />
-    <Compile Include="Helper\PDFBuilder.cs" />
     <Compile Include="Lib\WatermarkAdorner.cs" />
     <Compile Include="Maps\MapText.cs" />
     <Compile Include="Maps\MapPoint.cs" />

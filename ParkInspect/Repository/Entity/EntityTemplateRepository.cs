@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Data;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
@@ -34,8 +32,8 @@ namespace ParkInspect.Repository.Entity
                 List<QuestionItemViewModel> itemList = new List<QuestionItemViewModel>();
                 foreach (var item in questionlist.QuestionItem)
                 {
-                    var qEnum = 0;
-                    Enumeration.QuestionType.TryParse(item.Question.QuestionType.Name, true, out qEnum);
+                    int qEnum;
+                    Enum.TryParse(item.Question.QuestionType.Name, true, out qEnum);
                     itemList.Add(new QuestionItemViewModel()
                     {
                         Answer = item.Answer.Value,
@@ -59,6 +57,7 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(TemplateViewModel item)
         {
+            //Wat is het nut van de dbQuestionItems lijst?
             Collection<QuestionItem> dbQuestionItems = new Collection<QuestionItem>();
             foreach (var qItem in item.QuestionItems)
             {

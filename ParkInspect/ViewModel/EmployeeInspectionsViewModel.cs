@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 
 namespace ParkInspect.ViewModel
 {
@@ -18,7 +15,7 @@ namespace ParkInspect.ViewModel
 
         public ICommand NextDayCommand { get; set; }
         public ICommand PreviousDayCommand { get; set; }
-        public TimeLineItemViewModel TimeLineItem { get; private set; }
+        public TimeLineItemViewModel TimeLineItem { get; }
         public ObservableCollection<InspectionViewModel> Inspections { get; set; }
 
         public string SelectedDay
@@ -42,7 +39,7 @@ namespace ParkInspect.ViewModel
                 {"Zondag",timeLineViewModel.Sunday }
             };
             _dayCounter = 6;
-            this.NextDay();
+            NextDay();
 
             NextDayCommand = new RelayCommand(NextDay);
             PreviousDayCommand = new RelayCommand(PreviousDay);
@@ -55,15 +52,12 @@ namespace ParkInspect.ViewModel
             {
                 if (_dayCounter < 7)
                 {
-                    this.SetDayString(_daysOfTheWeek.Keys.ElementAt(_dayCounter), _daysOfTheWeek.Values.ElementAt(_dayCounter));
+                    SetDayString(_daysOfTheWeek.Keys.ElementAt(_dayCounter), _daysOfTheWeek.Values.ElementAt(_dayCounter));
                     DateTime today = new DateTime(int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[2]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[1]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[0]));
                     Inspections = new ObservableCollection<InspectionViewModel>(TimeLineItem.Inspections.Where(i => i.StartTime.DayOfWeek.Equals(today.DayOfWeek)));
                     break;
                 }
-                else
-                {
-                    _dayCounter = 0;
-                }
+                _dayCounter = 0;
             }
             RaisePropertyChanged("");
         }
@@ -75,15 +69,12 @@ namespace ParkInspect.ViewModel
             {
                 if (_dayCounter >= 0)
                 {
-                    this.SetDayString(_daysOfTheWeek.Keys.ElementAt(_dayCounter), _daysOfTheWeek.Values.ElementAt(_dayCounter));
+                    SetDayString(_daysOfTheWeek.Keys.ElementAt(_dayCounter), _daysOfTheWeek.Values.ElementAt(_dayCounter));
                     DateTime today = new DateTime(int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[2]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[1]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[0]));
                     Inspections = new ObservableCollection<InspectionViewModel>(TimeLineItem.Inspections.Where(i => i.StartTime.DayOfWeek.Equals(today.DayOfWeek)));
                     break;
                 }
-                else
-                {
-                    _dayCounter = 6;
-                }
+                _dayCounter = 6;
             }
             RaisePropertyChanged("");
         }

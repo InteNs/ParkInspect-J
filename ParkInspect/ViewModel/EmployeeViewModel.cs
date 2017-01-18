@@ -8,51 +8,24 @@ namespace ParkInspect.ViewModel
         private int _id;
         private DateTime _employmentDate;
         private DateTime? _dismissalDate;
-        private string _region;
         private string _function;
 
         public int Id
         {
             get { return _id; }
-            set
-            {
-                _id = value;
-                RaisePropertyChanged();
-            }
+            set { _id = value; RaisePropertyChanged(); }
         }
 
         public DateTime EmploymentDate
         {
             get { return _employmentDate; }
-            set
-            {
-                _employmentDate = value;
-                RaisePropertyChanged();
-            }
+            set { _employmentDate = value; RaisePropertyChanged(); }
         }
 
         public DateTime? DismissalDate
         {
             get { return _dismissalDate; }
-            set
-            {
-                _dismissalDate = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public string Region
-        {
-            get { return _region; }
-            set
-            {
-                _region = value;
-                if (string.IsNullOrWhiteSpace(_region))
-                { AddError("Region", "Regio is verplicht"); }
-                else
-                { RemoveError("Region"); }
-                RaisePropertyChanged();
-            }
+            set { _dismissalDate = value; RaisePropertyChanged(); }
         }
 
         public string Function

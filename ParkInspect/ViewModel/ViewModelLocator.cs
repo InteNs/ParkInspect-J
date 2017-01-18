@@ -2,7 +2,6 @@ using System;
 using Data;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using ParkInspect.Repositories;
 using ParkInspect.Repository.Dummy;
 using ParkInspect.Repository.Entity;
 using ParkInspect.Repository.Interface;

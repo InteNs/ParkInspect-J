@@ -1,26 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OxyPlot;
 using OxyPlot.Series;
 using OxyPlot.Axes;
-using System.Diagnostics;
 
 namespace ParkInspect.ViewModel
 {
     public class LineChartViewModel : MainViewModel, IGraphViewModel
     {
+        //Redelijk wat ongebruikte dingen in deze klasse
+        // ++ best wat nesting ook
 
         private readonly List<CommissionViewModel> _commissions;
         private readonly List<EmployeeViewModel> _employees;
         private readonly List<InspectionViewModel> _inspections;
         private List<DateTime> _timeRange;
-        private DateTime startTime;
-        private DateTime endTime;
+        private DateTime _startTime;
+        private DateTime _endTime;
 
-        public PlotModel KPIModel { get; set; }
+        public PlotModel KpiModel { get; set; }
 
         public LineChartViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<InspectionViewModel> inspections, DateTime? startTime, DateTime? endTime, CommissionViewModel comvm,
             CustomerViewModel cuvm, QuestionItemViewModel quest, string interval)
@@ -39,7 +38,7 @@ namespace ParkInspect.ViewModel
             {
                 foreach (CommissionViewModel covm in _commissions.Where(co => co.Id != comvm.Id))
                 {
-                    _inspections.RemoveAll(i => i.cvm.Id == comvm.Id);
+                    _inspections.RemoveAll(i => i.CommissionViewModel.Id == comvm.Id);
                 }
             }
 
@@ -48,13 +47,13 @@ namespace ParkInspect.ViewModel
 
                 foreach (CommissionViewModel cvm in _commissions.Where(co => co.Customer.Id != cuvm.Id))
                 {
-                    _inspections.RemoveAll(i => i.cvm.Id == cvm.Id);
+                    _inspections.RemoveAll(i => i.CommissionViewModel.Id == cvm.Id);
                 }
             }
 
             if (quest != null)
             {
-                _inspections.RemoveAll(i => quest.questionList.inspection.Id != i.Id);
+                _inspections.RemoveAll(i => quest.QuestionList.Inspection.Id != i.Id);
             }
 
             if (startTime != null && endTime != null)
@@ -274,7 +273,7 @@ namespace ParkInspect.ViewModel
 
 
             model.Series.Add(series1);
-            KPIModel = model;
+            KpiModel = model;
         }
 
         public LineChartViewModel(IEnumerable<CommissionViewModel> commissions, DateTime? startTime, DateTime? endTime,
@@ -475,7 +474,7 @@ namespace ParkInspect.ViewModel
             series2.Title = "Afgerond";
             model.Series.Add(series1);
             model.Series.Add(series2);
-            KPIModel = model;
+            KpiModel = model;
 
         }
 
@@ -634,7 +633,7 @@ namespace ParkInspect.ViewModel
             series2.Title = "Ontslagen";
             model.Series.Add(series1);
             model.Series.Add(series2);
-            KPIModel = model;
+            KpiModel = model;
         }
 
 

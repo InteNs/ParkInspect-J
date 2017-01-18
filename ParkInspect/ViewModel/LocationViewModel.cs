@@ -12,7 +12,6 @@ namespace ParkInspect.ViewModel
         private string _streetNumber;
         private string _region;
 
-
         public string ZipCode
         {
             get { return _zipCode; }
@@ -72,12 +71,7 @@ namespace ParkInspect.ViewModel
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
         // get errors by property
-        public IEnumerable GetErrors(string propertyName)
-        {
-            if (_errors.ContainsKey(propertyName))
-                return _errors[propertyName];
-            return null;
-        }
+        public IEnumerable GetErrors(string propertyName) =>  _errors.ContainsKey(propertyName) ? _errors[propertyName] : null;
 
         public bool HasErrors => _errors.Count > 0;
 
@@ -86,23 +80,17 @@ namespace ParkInspect.ViewModel
 
         public void AddError(string propertyName, string error)
         {
-            // Add error to list
-            _errors[propertyName] = new List<string>() { error };
+            _errors[propertyName] = new List<string> { error };
             NotifyErrorsChanged(propertyName);
         }
 
         public void RemoveError(string propertyName)
         {
-            // remove error
             if (_errors.ContainsKey(propertyName))
                 _errors.Remove(propertyName);
             NotifyErrorsChanged(propertyName);
         }
 
-        public void NotifyErrorsChanged(string propertyName)
-        {
-            // Notify
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
+        public void NotifyErrorsChanged(string propertyName) => ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
     }
 }

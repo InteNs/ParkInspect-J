@@ -39,8 +39,6 @@
                     <ColumnDefinition Width="0.1*" />
                 </Grid.ColumnDefinitions>
 
-                
-
             </Grid>
 
             <Grid Grid.Row="1" Grid.Column="0">
@@ -77,8 +75,6 @@
                             <Label Content="{Binding SelectedCommission.Region}" />
                         </Viewbox>
                     </Border>
-                    
-
                 </Grid>
 
             </Grid>
@@ -98,7 +94,6 @@
                 <TextBlock Text="{Binding SelectedCommission.Description}" Foreground="Black" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Right" TextWrapping="WrapWithOverflow"/>
 
             </Grid>
-
 
         </Grid>
 
