@@ -83,12 +83,32 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(QuestionListViewModel item)
         {
-            throw new NotImplementedException();
+            var questionList = new QuestionList() { Description = item.Description };
+            _context.QuestionList.Add(questionList);
+            _questionLists.Add(item);
+            _context.SaveChanges();
+            return true;
         }
 
         public bool Delete(QuestionListViewModel item)
         {
-            throw new NotImplementedException();
+            QuestionList questionlist = new QuestionList();
+            foreach(QuestionList q in _context.QuestionList)
+            {
+                if(q.Id == item.Id)
+                {
+                    questionlist = q;
+                    break;
+                }
+            }
+            if (questionlist != null)
+            {
+                _context.QuestionList.Remove(questionlist);
+                _questionLists.Remove(item);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
         }
 
         public bool Update(QuestionListViewModel item)
