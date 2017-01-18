@@ -55,8 +55,10 @@ namespace ParkInspect.Repository.Entity
             var c = new Customer {Person = person, Guid = Guid.NewGuid()};
 
             _context.Customer.Add(c);
-            _customers.Add(item);
             _context.SaveChanges();
+            var id = _context.Customer.Include("Person").Include("Person.Location").FirstOrDefault(cs => cs.Person.Name == item.Name && cs.Person.Location.StreetNumber == item.StreetNumber && cs.Person.Location.ZipCode == item.ZipCode).Id;
+            item.Id = id;
+            _customers.Add(item);
             return true;
         }
 
@@ -68,15 +70,13 @@ namespace ParkInspect.Repository.Entity
         public bool Update(CustomerViewModel item)
         {
             var customer = _context.Customer.Include("Person").Include("Person.Location").FirstOrDefault(c => c.Id == item.Id);
+            if (customer == null) return false;
             customer.Person.Name = item.Name;
             customer.Person.Location.ZipCode = item.ZipCode;
             customer.Person.PhoneNumber = item.PhoneNumber;
             customer.Person.Email = item.Email;
             customer.Person.Location.StreetNumber = item.StreetNumber;
-
-            if (customer == null) return false;
-            _context.Location.AddOrUpdate(new Location {StreetNumber = item.StreetNumber, ZipCode = item.ZipCode});
-            _context.Person.AddOrUpdate(new Person { Name = item.Name, PhoneNumber = item.PhoneNumber, Email =  item.Email});
+            customer.Person.Location.Region = _context.Region.FirstOrDefault(r => r.RegionName == item.Region);
             _context.Entry(customer).State = EntityState.Modified;
             _context.SaveChanges();
 

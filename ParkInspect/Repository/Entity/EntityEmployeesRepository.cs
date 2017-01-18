@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Text;
@@ -16,6 +18,7 @@ namespace ParkInspect.Repository.Entity
     {
         private readonly ParkInspectEntities _context;
         private readonly ObservableCollection<EmployeeViewModel> _employees;
+        private bool AddedThisSession = false;
 
         public EntityEmployeesRepository(ParkInspectEntities context)
         {
@@ -64,11 +67,19 @@ namespace ParkInspect.Repository.Entity
             var id = _context.Employee.Include("Person").Include("Person.Location").FirstOrDefault(em => em.Person.Name == item.Name&&em.Person.Location.StreetNumber == item.StreetNumber&&em.Person.Location.ZipCode == item.ZipCode).Id;
             item.Id = id;
             _employees.Add(item);
+            AddedThisSession = true;
             return true;
         }
 
         public bool Delete(EmployeeViewModel item)
         {
+            if (AddedThisSession)
+            {
+                var context = ((IObjectContextAdapter)_context).ObjectContext;
+                var refreshableObjects = _context.ChangeTracker.Entries().Select(c => c.Entity).ToList();
+                context.Refresh(RefreshMode.StoreWins, refreshableObjects);
+            }
+
             var employee = _context.Employee.Include("Person").Include("Person.Location").Include("Person.Location.Region").Include("Function").FirstOrDefault(e => e.Id == item.Id);
             employee.DateFired = DateTime.Now;
             if (employee == null) return false;

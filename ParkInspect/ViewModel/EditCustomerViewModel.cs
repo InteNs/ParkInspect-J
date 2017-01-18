@@ -11,7 +11,7 @@ namespace ParkInspect.ViewModel
 {
     public class EditCustomerViewModel : MainViewModel
     {
-        public ObservableCollection<string> FunctionList { get; set; }
+        public ObservableCollection<string> RegionList { get; set; }
 
         public CustomerViewModel Customer { get; set; }
 
@@ -19,11 +19,11 @@ namespace ParkInspect.ViewModel
 
         private readonly ICustomerRepository _customerRepository;
 
-        public EditCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm) : base(router)
+        public EditCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm,IRegionRepository regionRepository) : base(router)
         {
             _customerRepository = customerRepository;
             Customer = cvm.SelectedCustomer;
-            FunctionList = _customerRepository.GetFunctions();
+            RegionList = regionRepository.GetAll();
 
             EditCustomerCommand = new RelayCommand(EditCustomer, CanEditCustomer);
         }
@@ -31,7 +31,7 @@ namespace ParkInspect.ViewModel
         private bool ValidateInput()
         {
             //check if all fields are filled in
-            if (Customer.Function == null || Customer.Name == null || Customer.ZipCode == null ||
+            if (Customer.Region == null || Customer.Name == null || Customer.ZipCode == null ||
                 Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null)
             {
                 return false;
