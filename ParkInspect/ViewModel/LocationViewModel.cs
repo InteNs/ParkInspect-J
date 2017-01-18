@@ -9,7 +9,7 @@ namespace ParkInspect.ViewModel
     public class LocationViewModel : MainViewModel, INotifyDataErrorInfo
     {
         private string _zipCode;
-        private int _streetNumber;
+        private string _streetNumber;
         private string _region;
 
 
@@ -33,7 +33,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public int StreetNumber
+        public string StreetNumber
         {
             get { return _streetNumber; }
             set

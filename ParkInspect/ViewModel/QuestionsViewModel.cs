@@ -10,7 +10,7 @@ namespace ParkInspect.ViewModel
     public class QuestionsViewModel : MainViewModel
     {
         private QuestionViewModel _SelectedQuestion;
-        IQuestionRepository _repository;
+        private IQuestionRepository _repository;
         public ObservableCollection<QuestionViewModel> Questions { get; set; }
         public QuestionViewModel SelectedQuestion
         {
@@ -31,7 +31,7 @@ namespace ParkInspect.ViewModel
         public QuestionsViewModel(IQuestionRepository repo, IRouterService router) : base(router)
         {
             _repository = repo;
-            Questions = repo.GetAll();
+            Questions = repo.GetLatest();
 
             DuplicateQuestionCommand = new RelayCommand(() => DuplicateQuestion(), isSelected);
             DisableQuestionCommand = new RelayCommand(() => DisableQuestion(), isSelected);

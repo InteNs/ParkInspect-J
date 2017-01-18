@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Input;
+using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
@@ -57,7 +58,7 @@ namespace ParkInspect.ViewModel
             }
             else
             {
-                MessageBox.Show(ShowValidationError());
+                new MetroDialogService().ShowMessage(ShowValidationError(),"Validatie fout");
             }
         }
 

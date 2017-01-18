@@ -7,6 +7,7 @@ using ParkInspect.Service;
 using Microsoft.Synchronization.Data;
 using Microsoft.Synchronization.Data.SqlServer;
 using Microsoft.Synchronization;
+using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
 {
@@ -58,29 +59,27 @@ namespace ParkInspect.ViewModel
                     // execute the synchronization process
                     syncOrchestrator.Synchronize();
 
-                    MessageBox.Show("Synchronisatie voltooid!");
+                    new MetroDialogService().ShowMessage("Synchronisatie voltooid!", "De synchronisatie is succesvol voltooid.");
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show(
-                        "Er is een fout opgetreden in de sync configuratie! Neem contact op met uw systeembeheerder.",
-                        "Fatale fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new MetroDialogService().ShowMessage("Fatale fout", "Er is een fout opgetreden in de sync configuratie! Neem contact op met uw systeembeheerder.");
                 }
 
             }
             else
             {
-                MessageBox.Show("U dient met internet verbonden te zijn om te synchroniseren.");
+                new MetroDialogService().ShowMessage("Geen verbinding!", "U dient met internet verbonden te zijn om te synchroniseren.");
             }
         }
 
         private static void Program_ApplyChangeFailed(object sender, DbApplyChangeFailedEventArgs e)
         {
             // display conflict type
-            MessageBox.Show(e.Conflict.Type.ToString());
-
+            new MetroDialogService().ShowMessage("Conflict", e.Conflict.Type.ToString());
+            
             // display error message 
-            MessageBox.Show(e.Error.Message);
+            new MetroDialogService().ShowMessage("Error", e.Error.Message);
         }
 
         private void ProvisionServer()

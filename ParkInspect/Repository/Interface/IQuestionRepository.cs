@@ -5,6 +5,6 @@ namespace ParkInspect.Repository.Interface
 {
     public interface IQuestionRepository : IBaseRepository<QuestionViewModel>
     {
-        ObservableCollection<QuestionViewModel> GetLatest(QuestionListViewModel list);
+        ObservableCollection<QuestionViewModel> GetLatest();
     }
 }

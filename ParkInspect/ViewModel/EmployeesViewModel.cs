@@ -58,8 +58,7 @@ namespace ParkInspect.ViewModel
 
             if (dialog.IsAffirmative)
             {
-                SelectedEmployee.DismissalDate = DateTime.Now;
-                _employeeRepository.Update(SelectedEmployee);
+                _employeeRepository.Delete(SelectedEmployee);
             }
         }
     }

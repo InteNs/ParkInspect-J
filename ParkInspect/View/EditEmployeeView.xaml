@@ -116,7 +116,7 @@
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Email: "></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Path=SelectedEmployee}" HorizontalContentAlignment="Center" />
+                <TextBox Text="{Binding Path=SelectedEmployee.Email}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
             <DockPanel

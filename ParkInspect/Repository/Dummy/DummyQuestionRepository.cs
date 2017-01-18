@@ -17,7 +17,7 @@ namespace ParkInspect.Repositories
             return _questions;
         }
 
-        public ObservableCollection<QuestionViewModel> GetLatest(QuestionListViewModel list)
+        public ObservableCollection<QuestionViewModel> GetLatest()
         {
             RefreshCurrentQuestions();
             return _currentQuestions;
