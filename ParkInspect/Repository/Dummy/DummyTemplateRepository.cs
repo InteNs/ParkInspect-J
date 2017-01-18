@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using GalaSoft.MvvmLight.Messaging;
 using ParkInspect.Enumeration;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
@@ -43,10 +42,7 @@ namespace ParkInspect.Repository.Dummy
                     }) { Description = "template 1"}
             };
         }
-        public ObservableCollection<TemplateViewModel> GetAll()
-        {
-            return _templates;
-        }
+        public ObservableCollection<TemplateViewModel> GetAll() =>  _templates;
 
         public bool Add(TemplateViewModel item)
         {
@@ -54,10 +50,7 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(TemplateViewModel item)
-        {
-            return _templates.Remove(item);
-        }
+        public bool Delete(TemplateViewModel item) => _templates.Remove(item);
 
         public bool Update(TemplateViewModel item)
         {

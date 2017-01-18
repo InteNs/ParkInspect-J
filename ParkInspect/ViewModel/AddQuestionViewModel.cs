@@ -2,12 +2,7 @@
 using ParkInspect.Enumeration;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
@@ -15,26 +10,22 @@ namespace ParkInspect.ViewModel
     public class AddQuestionViewModel : MainViewModel
     {
         private readonly IQuestionRepository _questionRepository;
-        public ObservableCollection<QuestionType> questionType { get; set; }
+        public ObservableCollection<QuestionType> QuestionType { get; set; }
         public QuestionViewModel Question { get; set; }
         public QuestionsViewModel Questions { get; set; }
         public ICommand AddQuestionCommand { get; set; }
         public AddQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel qvm) : base(router)
         {
             Question = new QuestionViewModel();
-            questionType = new ObservableCollection<QuestionType>();
-            questionType.Add(QuestionType.Boolean);
-            questionType.Add(QuestionType.Count);
-            questionType.Add(QuestionType.Open);
+            QuestionType = new ObservableCollection<QuestionType>
+            {
+                Enumeration.QuestionType.Boolean,
+                Enumeration.QuestionType.Count,
+                Enumeration.QuestionType.Open
+            };
             _questionRepository = repo;
             Questions = qvm;
-            AddQuestionCommand = new RelayCommand(AddQuestion, CanAddQuestion);
-        }
-
-        private bool CanAddQuestion()
-        {
-            //TODO: check if all fields are filled in
-            return true;
+            AddQuestionCommand = new RelayCommand(AddQuestion);
         }
 
         private bool ValidateInput()

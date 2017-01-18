@@ -26,13 +26,7 @@ namespace ParkInspect.ViewModel
             FunctionList = _employeeRepository.GetFunctions();
             RegionList = regionRepository.GetAll();
 
-            EditEmployeeCommand = new RelayCommand(EditEmployee, CanEdit);
-        }
-
-        private bool CanEdit()
-        {
-            //TODO check content
-            return true;
+            EditEmployeeCommand = new RelayCommand(EditEmployee);
         }
 
         private void EditEmployee()

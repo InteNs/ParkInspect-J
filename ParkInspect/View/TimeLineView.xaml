@@ -32,6 +32,7 @@
         <DataGrid GridLinesVisibility="None"
                           Background="White" Foreground="Black" FontSize="12" AutoGenerateColumns="False" MouseDoubleClick="DataGrid_MouseDoubleClick"
                           IsReadOnly="True" Grid.ColumnSpan="3" Grid.Row="3">
+            
             <DataGrid.ItemsSource>
                 <MultiBinding Converter="{StaticResource Filter}">
                     <Binding Path="TimeLineItems"/>
@@ -39,10 +40,13 @@
                     <Binding Path="TimeLineItems.Count"/>
                 </MultiBinding>
             </DataGrid.ItemsSource>
+            
             <DataGrid.Columns>
+                
                 <DataGridTextColumn Header="ID" Binding="{Binding Employee.Id}" Width="0.1*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
                 <DataGridTextColumn Header="Inspecteur" Binding="{Binding Employee.Name}" Width="0.5*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
                 <DataGridTextColumn Header="Regio" Binding="{Binding Employee.Region}" Width="0.4*" CellStyle="{StaticResource tlStylec}" HeaderStyle="{StaticResource tlStylech}"/>
+                
                 <DataGridTextColumn Binding="{Binding Monday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{Binding DataContext.Monday,
@@ -54,6 +58,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                
                 <DataGridTextColumn Binding="{Binding Tuesday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{Binding DataContext.Tuesday,
@@ -65,6 +70,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                
                 <DataGridTextColumn Binding="{Binding Wednesday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{Binding DataContext.Wednesday,
@@ -76,6 +82,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                
                 <DataGridTextColumn Binding="{Binding Thursday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{Binding DataContext.Thursday,
@@ -87,6 +94,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                
                 <DataGridTextColumn Binding="{Binding Friday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{Binding DataContext.Friday,
@@ -98,6 +106,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                
                 <DataGridTextColumn Binding="{Binding Saturday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{Binding DataContext.Saturday,
@@ -109,6 +118,7 @@
                         </Style>
                     </DataGridTextColumn.CellStyle>
                 </DataGridTextColumn>
+                
                 <DataGridTextColumn Binding="{Binding Sunday}" Width="0.3*" HeaderStyle="{StaticResource tlStylech}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="{Binding DataContext.Sunday,
@@ -123,12 +133,10 @@
 
             </DataGrid.Columns>
         </DataGrid>
-        <Grid Grid.Row="1"
-          Grid.Column="1">
+        <Grid Grid.Row="1" Grid.Column="1">
             <Button Command="{Binding PreviousWeekCommand}" Content="Vorige"></Button>
         </Grid>
-        <Grid Grid.Row="1"
-          Grid.Column="2">
+        <Grid Grid.Row="1" Grid.Column="2">
         <Button Command="{Binding NextWeekCommand}" Content="Volgende"></Button>
     </Grid>
         <Grid Grid.Row="1" Grid.Column="0">

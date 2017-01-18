@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using GoogleMaps.LocationServices;
 using MapControl;
 using MapPoint = ParkInspect.Maps.MapPoint;
@@ -13,6 +10,8 @@ namespace ParkInspect.ViewModel
 {
     public class MapViewModel : MainViewModel
     {
+        //Best veel switch/case en nesting hiero
+
         // Collection of points within the map.
         public ObservableCollection<MapPoint> Points { get; set; }
 
@@ -20,18 +19,18 @@ namespace ParkInspect.ViewModel
         public Location MapCenter { get; set; }
 
         // Location Services based on Google. Online use only.
-        private GoogleLocationService Location { get; set; }
+        private GoogleLocationService Location { get; }
 
         // Data :D
-        private List<CommissionViewModel> Commissions { get; set; }
+        private List<CommissionViewModel> Commissions { get; }
         private List<InspectionViewModel> Inspections { get; set; }
-        private List<EmployeeViewModel> Employees { get; set; }
-        private List<CustomerViewModel> Customers { get; set; }
+        private List<EmployeeViewModel> Employees { get; }
+        private List<CustomerViewModel> Customers { get; }
 
         public int ZoomLevel { get; set; }
 
         // Constructor
-        public MapViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<InspectionViewModel> inspections, 
+        public MapViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<InspectionViewModel> inspections,
             IEnumerable<EmployeeViewModel> inspectors, IEnumerable<CustomerViewModel> customers)
         {
             // Set Location Translator and default address to Avans.
@@ -40,7 +39,7 @@ namespace ParkInspect.ViewModel
             MapCenter = new Location(avans.Latitude, avans.Longitude);
             ZoomLevel = 7;
             Points = new ObservableCollection<MapPoint>();
-            
+
             // Set Data Sources.
             Commissions = commissions.ToList();
             Inspections = inspections.ToList();
@@ -85,7 +84,7 @@ namespace ParkInspect.ViewModel
             }
             source.Clear();
         }
-        
+
         // Inspections per locations
         public void InspectionsPerLocation(DateTime? startDate, DateTime? endDate, QuestionItemViewModel selectedQuestion, string selectedAnswer)
         {
@@ -106,28 +105,26 @@ namespace ParkInspect.ViewModel
 
             if (selectedQuestion != null)
             {
-                source.RemoveAll(o => o.Id != selectedQuestion.questionList.inspection.cvm.Id && selectedQuestion.Answer == selectedAnswer);
+                source.RemoveAll(o => o.Id != selectedQuestion.QuestionList.Inspection.CommissionViewModel.Id && selectedQuestion.Answer == selectedAnswer);
             }
 
             foreach (var item in source)
             {
                 var loc = Location.GetLatLongFromAddress(item.ZipCode);
-                if (loc != null)
+                if (loc == null) continue;
+                var setPoint = new MapPoint
                 {
-                    var setPoint = new MapPoint
-                    {
-                        Description = item.Customer.Name,
-                        Location = new Location(loc.Latitude, loc.Longitude)
-                    };
-                    Points.Add(setPoint);
-                }
+                    Description = item.Customer.Name,
+                    Location = new Location(loc.Latitude, loc.Longitude)
+                };
+                Points.Add(setPoint);
             }
         }
 
         // Inspectors per location
         public void InspectorsPerLocation()
         {
-            if (Points.Count < 1) { Points.Clear(); };
+            if (Points.Count < 1) { Points.Clear(); }
             Dictionary<string, int> counter = new Dictionary<string, int>();
             foreach (var customer in Employees)
             {
@@ -146,7 +143,6 @@ namespace ParkInspect.ViewModel
                 switch (regios.Key)
                 {
                     case "Limburg":
-                        // De beste
                         var maastricht = Location.GetLatLongFromAddress("6211 KM");
                         var setMaastricht = new MapPoint
                         {
@@ -209,7 +205,7 @@ namespace ParkInspect.ViewModel
         // Customers per location
         public void CustomersPerLocation()
         {
-            if (Points.Count < 1) { Points.Clear(); };
+            if (Points.Count < 1) { Points.Clear(); }
             Dictionary<string, int> counter = new Dictionary<string, int>();
             foreach (var customer in Customers)
             {
@@ -228,7 +224,6 @@ namespace ParkInspect.ViewModel
                 switch (regios.Key)
                 {
                     case "Limburg":
-                        // De beste
                         var maastricht = Location.GetLatLongFromAddress("6211 KM");
                         var setMaastricht = new MapPoint
                         {
@@ -287,8 +282,6 @@ namespace ParkInspect.ViewModel
                 }
             }
         }
-
         #endregion
-
     }
 }

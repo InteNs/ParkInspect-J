@@ -1,8 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.Repositories;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Repository.Interface;
@@ -35,17 +31,14 @@ namespace ParkInspect.ViewModel
         {
             _repository = repo;
             QuestionLists = repo.GetAll();
-            DisableQuestionCommand = new RelayCommand(() => DisableQuestionList(), CanEditquestionList);
+            DisableQuestionCommand = new RelayCommand(DisableQuestionList, CanEditquestionList);
             EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-list"), CanEditquestionList);
             EditQuestionListCommand = new RelayCommand(() => RouterService.SetView("questionList-edit"), CanEditquestionList);
-            NewQuestionCommand = new RelayCommand(() => CreateQuestionList());
+            NewQuestionCommand = new RelayCommand(CreateQuestionList);
             SelectedQuestionList = QuestionLists[0];
         }
 
-        private bool CanEditquestionList()
-        {
-            return SelectedQuestionList != null;
-        }
+        private bool CanEditquestionList() => SelectedQuestionList != null; 
 
         private void DisableQuestionList()
         {
@@ -57,7 +50,6 @@ namespace ParkInspect.ViewModel
             QuestionListViewModel newList = new QuestionListViewModel();
             newList.Description = "nieuwe vragenlijst nr: " + newList.Id;
             _repository.Add(newList);
-
         }
     }
 }

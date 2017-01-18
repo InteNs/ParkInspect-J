@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using ParkInspect.Service;
@@ -24,6 +23,7 @@ namespace ParkInspect.ViewModel
 
         private void Sync()
         {
+            //Best veel nesting
             if (_syncService.CheckForInternetConnection())
             {
                 try
@@ -35,10 +35,10 @@ namespace ParkInspect.ViewModel
                     ProvisionClient();
 
                     // create a connection to the SyncCompactDB database
-                    var clientConn = new SqlConnection(_syncService.getLocalConnString());
+                    var clientConn = new SqlConnection(_syncService.GetLocalConnString());
 
                     // create a connection to the SyncDB server database
-                    var serverConn = new SqlConnection(_syncService.getRemoteConnString());
+                    var serverConn = new SqlConnection(_syncService.GetRemoteConnString());
 
                     // create the sync orhcestrator
                     var syncOrchestrator = new SyncOrchestrator
@@ -84,7 +84,7 @@ namespace ParkInspect.ViewModel
 
         private void ProvisionServer()
         {
-            var serverConn = new SqlConnection(_syncService.getRemoteConnString());
+            var serverConn = new SqlConnection(_syncService.GetRemoteConnString());
 
             // define a new scope named ParkInspectScope
             var scopeDesc = new DbSyncScopeDescription("ParkInspectScope");
@@ -120,10 +120,10 @@ namespace ParkInspect.ViewModel
         private void ProvisionClient()
         {
             // create a connection to the SyncCompactDB database
-            var clientConn = new SqlConnection(_syncService.getLocalConnString());
+            var clientConn = new SqlConnection(_syncService.GetLocalConnString());
 
             // create a connection to the SyncDB server database
-            var serverConn = new SqlConnection(_syncService.getRemoteConnString());
+            var serverConn = new SqlConnection(_syncService.GetRemoteConnString());
 
             // get the description of ProductsScope from the SyncDB server database
             var scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope("ParkInspectScope", serverConn);
@@ -133,8 +133,6 @@ namespace ParkInspect.ViewModel
             // starts the provisioning process
             if (!clientProvision.ScopeExists("ParkInspectScope"))
                 clientProvision.Apply();
-
         }
-
     }
 }

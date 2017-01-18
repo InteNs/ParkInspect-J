@@ -10,7 +10,7 @@ using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repository.Entity
 {
-    class EntityCustomerRepository : ICustomerRepository
+    public class EntityCustomerRepository : ICustomerRepository
     {
         private readonly ParkInspectEntities _context;
         private readonly ObservableCollection<CustomerViewModel> _customers;
@@ -64,6 +64,7 @@ namespace ParkInspect.Repository.Entity
 
         public bool Delete(CustomerViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
 
@@ -83,12 +84,10 @@ namespace ParkInspect.Repository.Entity
             var index = _customers.IndexOf(item);
             _customers.RemoveAt(index);
             _customers.Insert(index, item);
+
             return true;
         }
 
-        public ObservableCollection<string> GetFunctions()
-        {
-            return new ObservableCollection<string>(new List<string> {"klant"});
-        }
+        public ObservableCollection<string> GetFunctions() => new ObservableCollection<string>(new List<string> {"klant"});
     }
 }

@@ -9,15 +9,15 @@ namespace ParkInspect.ViewModel
 {
     public class QuestionsViewModel : MainViewModel
     {
-        private QuestionViewModel _SelectedQuestion;
+        private QuestionViewModel _selectedQuestion;
         private IQuestionRepository _repository;
         public ObservableCollection<QuestionViewModel> Questions { get; set; }
         public QuestionViewModel SelectedQuestion
         {
-            get { return _SelectedQuestion; }
+            get { return _selectedQuestion; }
             set
             {
-                _SelectedQuestion = value;
+                _selectedQuestion = value;
                 EditQuestionCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged();
             }
@@ -33,41 +33,27 @@ namespace ParkInspect.ViewModel
             _repository = repo;
             Questions = repo.GetLatest();
 
-            DuplicateQuestionCommand = new RelayCommand(() => DuplicateQuestion(), isSelected);
-            DisableQuestionCommand = new RelayCommand(() => DisableQuestion(), isSelected);
-            EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-edit"), isSelected);
+            DuplicateQuestionCommand = new RelayCommand(() => DuplicateQuestion(), IsSelected);
+            DisableQuestionCommand = new RelayCommand(() => DisableQuestion(), IsSelected);
+            EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-edit"), IsSelected);
         }
-
 
         private void DisableQuestion()
         {
             _repository.Delete(SelectedQuestion);
             Questions.Remove(SelectedQuestion);
         }
-
         
-
         private void DuplicateQuestion()
         {
             var newQuestion = SelectedQuestion.Duplicate();
-            int i = 0;
-            foreach (QuestionViewModel q in Questions)
-            {
-                if (i < q.Id)
-                {
-                    i = q.Id;
-                }
-            }
+            if (newQuestion == null) return;
+            int i = Questions.Select(q => q.Id).Concat(new[] {0}).Max();
             i++;
             newQuestion.Id = i;
-            if (newQuestion == null) return;
             Questions.Add(newQuestion);
         }
         
-        private bool isSelected()
-        {
-            return SelectedQuestion != null;
-        }
-        
+        private bool IsSelected() => SelectedQuestion != null;
     }
 }

@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParkInspect.View"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
@@ -26,7 +25,7 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
-                
+
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
@@ -47,7 +46,7 @@
                     <xctk:DateTimePicker Value="{Binding Inspection.StartTime}" Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2">
+                <StackPanel Grid.Row="1">
                     <Label Content="Eind Moment" FontSize="17.5" />
                     <xctk:DateTimePicker Value="{Binding Inspection.EndTime}" Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}" />
                 </StackPanel>
@@ -55,7 +54,7 @@
             </Grid>
             <StackPanel Grid.Column="1" Grid.Row="2">
                 <Label>Opdracht</Label>
-                <ComboBox Height="40" SelectedItem="{Binding Path=Inspection.cvm}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info"/>
+                <ComboBox Height="40" SelectedItem="{Binding Path=Inspection.CommissionViewModel}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.Row="3">
                 <Label>Vragenlijst</Label>

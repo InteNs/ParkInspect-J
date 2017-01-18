@@ -1,11 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security.Cryptography;
-using System.Text;
+﻿using System.Linq;
 using Data;
-using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
 
@@ -31,9 +25,7 @@ namespace ParkInspect.Repository.Entity
                     Function = user.Function.Name
                 };
             }
-
             return loggedInUser;
-
         }
 
         public AuthenticationViewModel Logout(AuthenticationViewModel user)
@@ -44,9 +36,6 @@ namespace ParkInspect.Repository.Entity
             return user;
         }
 
-        public bool IsLoggedIn(AuthenticationViewModel user)
-        {
-            return (user.Username != "" && user.EmployeeId != 0);
-        }
+        public bool IsLoggedIn(AuthenticationViewModel user) =>  user.Username != "" && user.EmployeeId != 0;
     }
 }

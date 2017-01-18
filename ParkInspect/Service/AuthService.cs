@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Windows.Controls;
-using System.Windows.Forms;
 using System.Windows.Input;
-using ParkInspect.Enumeration;
-using ParkInspect.Repositories;
 using ParkInspect.ViewModel;
 using GalaSoft.MvvmLight.Command;
 using ParkInspect.Repository.Interface;
@@ -15,15 +8,16 @@ using ParkInspect.Helper;
 
 namespace ParkInspect.Service
 {
-    class AuthService : IAuthService
+    public class AuthService : IAuthService
     {
+        private IAuthenticationRepository _repo;
+        private IEmployeeRepository _employeeRepository;
+        private IRouterService _router;
+
         public ICommand LogInCommand { get; set; }
         public ICommand LogOutCommand { get; set; }
         public string UserName { get; set; }
-        private IAuthenticationRepository _repo;
-        private IEmployeeRepository _employeeRepository;
         public  AuthenticationViewModel User { get; set; }
-        private IRouterService _router;
 
         public AuthService(IAuthenticationRepository repo, IRouterService router, IEmployeeRepository employeeRepository)
         {
@@ -74,36 +68,20 @@ namespace ParkInspect.Service
             _router.SetView("authentication");
             _router.ClearPreviousStack();
             _repo.Logout(User);
-            
         }
 
-        public bool IsLoggedIn(AuthenticationViewModel _user)
-        {
-            if (_user == null)
-                return false;
-            return _repo.IsLoggedIn(_user);
-        }
+        public bool IsLoggedIn(AuthenticationViewModel user) =>  user != null && _repo.IsLoggedIn(user);
 
+        public string CurrentFunction(AuthenticationViewModel user) =>  user == null ? "" : user.Function;
 
-        public string CurrentFunction(AuthenticationViewModel _user)
+        public EmployeeViewModel CurrentEmployee(AuthenticationViewModel user)
         {
-            if (_user == null)
-                return "";
-           return _user.Function;
-        }
-
-        public EmployeeViewModel CurrentEmployee(AuthenticationViewModel _user)
-        {
-            if (_user == null)
+            if (user == null)
                 return null;
-            var employee = _employeeRepository.GetAll().Where(q => q.Id == _user.EmployeeId).FirstOrDefault();
+            var employee = _employeeRepository.GetAll().FirstOrDefault(q => q.Id == user.EmployeeId);
             return employee;
         }
 
-        public AuthenticationViewModel getLoggedInUser()
-        {
-            if (!IsLoggedIn(User)) return null;
-            return User;
-        }
+        public AuthenticationViewModel GetLoggedInUser() => !IsLoggedIn(User) ? null : User;
     }
 }

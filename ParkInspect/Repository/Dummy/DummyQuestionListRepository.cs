@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using ParkInspect.Enumeration;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
-using System;
 
 namespace ParkInspect.Repository.Dummy
 {
@@ -24,7 +24,7 @@ namespace ParkInspect.Repository.Dummy
                         new QuestionItemViewModel
                         {
                             Answer = "45",
-                             questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() {Id = 1, StartTime = new DateTime(2016, 11, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
+                             QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 11, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
                             {
                                 Description = "Hoeveel autos staan er op de parkeerplaats?",
@@ -37,7 +37,7 @@ namespace ParkInspect.Repository.Dummy
                         new QuestionItemViewModel
                         {
                             Answer = "5",
-                             questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() {Id = 1, StartTime = new DateTime(2016, 5, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
+                             QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 5, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
                             {
                                 Description = "Hoeveel overtredingen zijn er?",
@@ -49,7 +49,7 @@ namespace ParkInspect.Repository.Dummy
                         new QuestionItemViewModel
                         {
                             Answer = "Ja",
-                             questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() {Id = 1, StartTime = new DateTime(2016, 7, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
+                             QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 7, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
                             {
                                 Description = "Is de parkeerplaats leeg?",
@@ -61,7 +61,7 @@ namespace ParkInspect.Repository.Dummy
                         new QuestionItemViewModel
                         {
                             Answer = "Alles is kapot.",
-                            questionList = new QuestionListViewModel(new List<QuestionItemViewModel>() { new QuestionItemViewModel()}) { Id = 1, inspection = new InspectionViewModel() {Id = 1, StartTime = new DateTime(2016, 3, 5), cvm = new CommissionViewModel() {Id = 1, Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"}} } },
+                            QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 3, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
                             Question = new QuestionViewModel
                             
                             {
@@ -77,10 +77,7 @@ namespace ParkInspect.Repository.Dummy
             _questionLists[0].Description = "Een paar vraagjes enzo.";
         }
 
-        public ObservableCollection<QuestionListViewModel> GetAll()
-        {
-            return _questionLists;
-        }
+        public ObservableCollection<QuestionListViewModel> GetAll() => _questionLists;
 
         public bool Add(QuestionListViewModel item)
         {
@@ -88,10 +85,7 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(QuestionListViewModel item)
-        {
-            return _questionLists.Remove(item);
-        }
+        public bool Delete(QuestionListViewModel item) => _questionLists.Remove(item);
 
         public bool Update(QuestionListViewModel item)
         {

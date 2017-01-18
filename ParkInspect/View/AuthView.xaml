@@ -3,8 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParkInspect.View"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
              Foreground="Black"
@@ -34,17 +32,13 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Inloggen" />
             </Viewbox>
         </Grid>
 
-        <Grid Grid.Row="3"
-              Grid.Column="1"
-                Grid.ColumnSpan="4"
-              >
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4" >
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.25*" />
@@ -63,20 +57,14 @@
                 <RowDefinition Height="0.8*"/>
             </Grid.RowDefinitions>
 
-            <DockPanel Grid.Row="1"
-                        Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                        >
+            <DockPanel Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Gebruikersnaam: " />
                 </Viewbox>
                 <TextBox FontSize="20" Text="{Binding UserName}" HorizontalContentAlignment="Center" />
             </DockPanel>
 
-            <DockPanel Grid.Row="3"
-                        Grid.Column="1"
-                       Grid.ColumnSpan="2"
-                        >
+            <DockPanel Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Wachtwoord: " />
                 </Viewbox>

@@ -5,11 +5,11 @@ namespace ParkInspect.Service
     public interface ISyncService
     {
         SqlCeConnection InitializeDatabase();
-        string getPath();
+        string GetPath();
         string CreateDatabase();
         void CreateTable(SqlCeConnection conn);
         bool CheckForInternetConnection();
-        string getRemoteConnString();
-        string getLocalConnString();
+        string GetRemoteConnString();
+        string GetLocalConnString();
     }
 }

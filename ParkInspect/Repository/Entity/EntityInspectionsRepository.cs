@@ -1,9 +1,6 @@
 ﻿using ParkInspect.Repository.Interface;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ParkInspect.ViewModel;
 using System.Collections.ObjectModel;
 using Data;
@@ -11,7 +8,7 @@ using System.Data.Entity;
 
 namespace ParkInspect.Repository.Entity
 {
-    class EntityInspectionsRepository : IInspectionsRepository
+    public class EntityInspectionsRepository : IInspectionsRepository
     {
 
         private readonly ParkInspectEntities _context;
@@ -26,7 +23,7 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(InspectionViewModel item)
         {
-            var commission = _context.Commission.FirstOrDefault(c => c.Id == item.cvm.Id);
+            var commission = _context.Commission.FirstOrDefault(c => c.Id == item.CommissionViewModel.Id);
             var i = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, Commission = commission, DateTimeEnd = null, DateCancelled=null, };
 
             _context.Inspection.Add(i);
@@ -38,23 +35,17 @@ namespace ParkInspect.Repository.Entity
         public bool Delete(InspectionViewModel item)
         {
             var inspection = _context.Question.Include("QuestionType").FirstOrDefault(i => i.Id == item.Id);
-            if (inspection != null)
-            {
-                _context.Entry(inspection).State = EntityState.Modified;
-                _context.SaveChanges();
-                _inspections.Remove(item);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            if (inspection == null) return false;
+            _context.Entry(inspection).State = EntityState.Modified;
+            _context.SaveChanges();
+            _inspections.Remove(item);
+            return true;
         }
 
         public ObservableCollection<InspectionViewModel> GetAll()
         {
             _inspections.Clear();
-            if(_context.Inspection.Count() == 0)
+            if(!_context.Inspection.Any())
             {
                 return _inspections;
             }
@@ -64,16 +55,18 @@ namespace ParkInspect.Repository.Entity
                 Include("Commission.Employee").
                 Include("Commission.Customer").ToList();
 
+            //Best veel nesting, maar ik weet niet zo hoe dit het beste opgelost kan worden
+
             foreach (var i in inspections)
             {
-                _inspections.Add(new InspectionViewModel()
+                _inspections.Add(new InspectionViewModel
                 {
                     Id = i.Id,
                     Name = "Inspectie : " + i.Commission.Description,
                     StartTime = i.DateTimeStart,
 
                     EndTime = Convert.ToDateTime(i.DateTimeEnd),
-                    cvm = new CommissionViewModel()
+                    CommissionViewModel = new CommissionViewModel
                     {
                         Id = i.Commission.Id,
                         Description = i.Commission.Description,
@@ -82,9 +75,10 @@ namespace ParkInspect.Repository.Entity
                         Region = i.Commission.Location.Region.RegionName,
                         DateCreated = i.Commission.DateCreated,
                         DateCompleted = i.Commission.DateCompleted,
+                        //Waarom in comments? Kan dit weg?
                         //Frequency = i.Commission.Frequency,
                         //Status= i.Commission.Status   
-                        Customer = new CustomerViewModel()
+                        Customer = new CustomerViewModel
                         {
                             Id = i.Commission.CustomerId,
                             Name = i.Commission.Customer.Person.Name,
@@ -94,7 +88,7 @@ namespace ParkInspect.Repository.Entity
                             ZipCode = i.Commission.Customer.Person.Location.ZipCode,
                             Region = i.Commission.Customer.Person.Location.Region.RegionName,
                         },
-                        Employee = new EmployeeViewModel()
+                        Employee = new EmployeeViewModel
                         {
                             Id = i.Commission.EmployeeId,
                             Name = i.Commission.Employee.Person.Name,
@@ -104,10 +98,10 @@ namespace ParkInspect.Repository.Entity
                             ZipCode = i.Commission.Employee.Person.Location.ZipCode,
                             Region = i.Commission.Employee.Person.Location.Region.RegionName,
                             Function = i.Commission.Employee.Function.Name
-                        },
-                    }
-                });
-            }
+                        } // end employee,
+                    } // end commisionviewmodel
+                }); // end add
+            } //end foreach
             
             return _inspections;
         }

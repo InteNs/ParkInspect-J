@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
@@ -25,7 +24,7 @@ namespace ParkInspect.ViewModel
             Customer = cvm.SelectedCustomer;
             RegionList = regionRepository.GetAll();
 
-            EditCustomerCommand = new RelayCommand(EditCustomer, CanEditCustomer);
+            EditCustomerCommand = new RelayCommand(EditCustomer);
         }
 
         private bool ValidateInput()
@@ -38,18 +37,12 @@ namespace ParkInspect.ViewModel
             }
 
             //Name can not contain a number
-            return !this.Customer.Name.Any(char.IsDigit);
-        }
-
-        private bool CanEditCustomer()
-        {
-            //TODO check content
-            return true;
+            return !Customer.Name.Any(char.IsDigit);
         }
 
         private void EditCustomer()
         {
-            if (this.ValidateInput())
+            if (ValidateInput())
             {
                 if (_customerRepository.Update(Customer))
                 {

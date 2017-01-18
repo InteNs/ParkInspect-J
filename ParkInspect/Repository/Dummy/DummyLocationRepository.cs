@@ -4,7 +4,7 @@ using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repository.Dummy
 {
-    class DummyLocationRepository : ILocationRepository
+    public class DummyLocationRepository : ILocationRepository
     {
         private readonly ObservableCollection<LocationViewModel> _locations;
 
@@ -17,10 +17,7 @@ namespace ParkInspect.Repository.Dummy
                 new LocationViewModel {Region = "Limburg", StreetNumber = "87", ZipCode = "0274PW" }
             };
         }
-        public ObservableCollection<LocationViewModel> GetAll()
-        {
-            return _locations;
-        }
+        public ObservableCollection<LocationViewModel> GetAll() => _locations;
 
         public bool Add(LocationViewModel item)
         {
@@ -28,10 +25,7 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(LocationViewModel item)
-        {
-            return _locations.Remove(item);
-        }
+        public bool Delete(LocationViewModel item) => _locations.Remove(item);
 
         public bool Update(LocationViewModel item)
         {

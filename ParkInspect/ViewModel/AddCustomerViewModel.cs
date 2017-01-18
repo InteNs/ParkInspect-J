@@ -1,14 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using System.ComponentModel;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
@@ -22,19 +16,12 @@ namespace ParkInspect.ViewModel
         public CustomerViewModel Customer { get; set; }
         public ICommand AddCustomerCommand { get; set; }
         
-
-        public AddCustomerViewModel(ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router, CustomersViewModel cvm) : base(router)
+        public AddCustomerViewModel(ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
         {
             _customerRepository = customerRepository;
             Customer = new CustomerViewModel();
             RegionList = regionRepository.GetAll();
-            AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
-        }
-
-        private bool CanAddCustomer()
-        {
-            //TODO: check if all fields are filled in
-            return true;
+            AddCustomerCommand = new RelayCommand(AddCustomer);
         }
 
         private bool ValidateInput()
@@ -70,7 +57,5 @@ namespace ParkInspect.ViewModel
             dialog.ShowMessage("Probleem opgetreden",
                             "Niet alle gegevens zijn juist ingevuld.");
         }
-
-       
     }
 }

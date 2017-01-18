@@ -1,10 +1,7 @@
 ﻿using ParkInspect.Repository.Interface;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Data;
-using System.Threading.Tasks;
 using ParkInspect.ViewModel;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
@@ -22,7 +19,6 @@ namespace ParkInspect.Repository.Entity
             _context = context;
             _commissions = new ObservableCollection<CommissionViewModel>();
         }
-
 
         public bool Add(CommissionViewModel item)
         {
@@ -56,6 +52,8 @@ namespace ParkInspect.Repository.Entity
         public ObservableCollection<CommissionViewModel> GetAll()
         {
             _commissions.Clear();
+            //Waarom in comments? Kan dit weg?
+
             /* _context.Commission.Include("Location").Include("Location.Region").Include("Employee").Include("Customer").Include("Customer.Person").Include("Customer.Person.Location").Include("Employee.Person").Include("Employee.Person.Location").ToList().
                  ForEach(c => _commissions.Add(new CommissionViewModel
                  {
@@ -121,15 +119,10 @@ namespace ParkInspect.Repository.Entity
                     }
                 });
             }
-            
-            return _commissions;
-           
+            return _commissions;           
         }
 
-        public ObservableCollection<string> GetStatuses()
-        {
-            return new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
-        }
+        public ObservableCollection<string> GetStatuses() => new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
 
         public bool Update(CommissionViewModel item)
         {

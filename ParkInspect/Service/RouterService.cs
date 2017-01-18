@@ -92,10 +92,7 @@ namespace ParkInspect.Service
             CurrentView = _previousViews.Pop();
         }
 
-        public void ClearPreviousStack()
-        {
-            _previousViews.Clear();
-        }
+        public void ClearPreviousStack() => _previousViews.Clear();
 
         private class ViewNotRegisteredException : Exception
         {

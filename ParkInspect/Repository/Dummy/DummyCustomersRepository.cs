@@ -8,13 +8,7 @@ namespace ParkInspect.Repository.Dummy
     {
         private ObservableCollection<CustomerViewModel> _customers;
 
-        public ObservableCollection<CustomerViewModel> GetAll()
-        {
-            RefreshCustomers();
-            return _customers;
-        }
-
-        public DummyCustomersRepository()
+        public DummyCustomersRepository() 
         {
             RefreshCustomers();
         }
@@ -25,20 +19,17 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(CustomerViewModel item)
+        public ObservableCollection<CustomerViewModel> GetAll()
         {
-            return _customers.Remove(item);
+            RefreshCustomers();
+            return _customers;
         }
 
-        public bool Update(CustomerViewModel customer)
-        {
-            return true;
-        }
+        public bool Delete(CustomerViewModel item) => _customers.Remove(item);
 
-        public ObservableCollection<string> GetFunctions()
-        {
-            return new ObservableCollection<string> { "klant" };
-        }
+        public bool Update(CustomerViewModel customer) => true;
+
+        public ObservableCollection<string> GetFunctions() => new ObservableCollection<string> { "klant" };
 
         private void RefreshCustomers()
         {

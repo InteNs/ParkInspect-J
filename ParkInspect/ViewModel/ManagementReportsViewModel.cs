@@ -5,10 +5,9 @@ using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using GoogleMaps.LocationServices;
-using MapControl;
+using ParkInspect.DiagramModels;
 using ParkInspect.Factory;
 using ParkInspect.Repository.Interface;
-using MapPoint = ParkInspect.Maps.MapPoint;
 
 namespace ParkInspect.ViewModel
 {
@@ -20,11 +19,6 @@ namespace ParkInspect.ViewModel
         private IGraphViewModel _currentGraph;
         private IDiagram _selectedDiagram;
         private readonly ICommissionRepository _commissionRepository;
-        private readonly IEmployeeRepository _employeeRepository;
-        private readonly ICustomerRepository _customerRepository;
-        private readonly IRegionRepository _regionRepository;
-        private readonly IQuestionListRepository _questionListRepository;
-        private readonly IInspectionsRepository _inspectionRepository;
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
         public LineChartViewModel LineChart { get; set; }
@@ -59,20 +53,16 @@ namespace ParkInspect.ViewModel
         public ManagementReportsViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
             IEmployeeRepository emp, IQuestionListRepository ques, IInspectionsRepository insp)
         {
-            _inspectionRepository = insp;
             _commissionRepository = repo;
-            _employeeRepository = emp;
-            _customerRepository = cust;
-            _questionListRepository = ques;
-            _regionRepository = region;
-            Employees = _employeeRepository.GetAll();
-            Functions  = _employeeRepository.GetFunctions();
+            var employeeRepository = emp;
+            Employees = employeeRepository.GetAll();
+            Functions  = employeeRepository.GetFunctions();
             Commissions = _commissionRepository.GetAll();
-            Customers  = _customerRepository.GetAll();
-            Locations  = _regionRepository.GetAll();
-            Questions = _questionListRepository.GetAllQuestionItems();
+            Customers  = cust.GetAll();
+            Locations  = region.GetAll();
+            Questions = ques.GetAllQuestionItems();
             Statuses = _commissionRepository.GetStatuses();
-            Inspections = _inspectionRepository.GetAll();
+            Inspections = insp.GetAll();
 
             DiagramFactory = new DiagramFactory();
             Diagrams = new ObservableCollection<IDiagram>(DiagramFactory.DiagramNames);
@@ -82,6 +72,7 @@ namespace ParkInspect.ViewModel
             
         }
 
+        // Best veel nesting
         private void GenerateDiagram()
         {
             if(SelectedOption == null || SelectedDiagram == null) return;
@@ -240,7 +231,6 @@ namespace ParkInspect.ViewModel
                         Status = true;
                         break;
                 }
-
         }
 
         // Helper Classes
@@ -248,21 +238,13 @@ namespace ParkInspect.ViewModel
         public string SelectedOption
         {
             get { return _selectedOption; }
-            set
-            {
-                _selectedOption = value;
-                SetVisibilities();
-            }
+            set { _selectedOption = value; SetVisibilities(); }
         }
 
         public bool Date
         {
             get { return _date; }
-            set
-            {
-                _date = value;
-                RaisePropertyChanged();
-            }
+            set { _date = value; RaisePropertyChanged(); }
         }
 
         public bool Customer
@@ -278,71 +260,43 @@ namespace ParkInspect.ViewModel
         public bool Commission
         {
             get { return _commission; }
-            set
-            {
-                _commission = value;
-                RaisePropertyChanged();
-            }
+            set { _commission = value; RaisePropertyChanged(); }
         }
 
         public bool Location
         {
             get { return _location; }
-            set
-            {
-                _location = value;
-                RaisePropertyChanged();
-            }
+            set { _location = value; RaisePropertyChanged(); }
         }
 
         public bool Inspector
         {
             get { return _inspector; }
-            set
-            {
-                _inspector = value;
-                RaisePropertyChanged();
-            }
+            set { _inspector = value; RaisePropertyChanged(); }
         }
 
         public bool Manager
         {
             get { return _manager; }
-            set
-            {
-                _manager = value;
-                RaisePropertyChanged();
-            }
+            set { _manager = value; RaisePropertyChanged(); }
         }
 
         public bool Function
         {
             get { return _function; }
-            set
-            {
-                _function = value;
-                RaisePropertyChanged();
-            }
+            set { _function = value; RaisePropertyChanged(); }
         }
 
         public bool Answer
         {
             get { return _answer; }
-            set
-            {
-                _answer = value;
-                RaisePropertyChanged();
-            }
+            set { _answer = value; RaisePropertyChanged(); }
         }
 
         public bool Status
         {
             get { return _status; }
-            set
-            {
-                _status = value;
-                RaisePropertyChanged();
-            }
+            set { _status = value; RaisePropertyChanged(); }
         }
 
         public IDiagram SelectedDiagram
@@ -358,37 +312,19 @@ namespace ParkInspect.ViewModel
         public List<string> Options
         {
             get { return _options; }
-            set
-            {
-                _options = value;
-                RaisePropertyChanged();
-            }
+            set {  _options = value; RaisePropertyChanged(); }
         }
 
         public DateTime? StartDate
         {
-            get
-            {
-                return DateSelected ? _startDate : null;
-            }
-            set
-            {
-                _startDate = value;
-                RaisePropertyChanged();
-            }
+            get { return DateSelected ? _startDate : null; }
+            set { _startDate = value; RaisePropertyChanged(); }
         }
 
         public DateTime? EndDate
         {
-            get
-            {
-                return DateSelected ? _endDate : null;
-            }
-            set
-            {
-                _endDate = value;
-                RaisePropertyChanged();
-            }
+            get { return DateSelected ? _endDate : null; }
+            set { _endDate = value; RaisePropertyChanged(); }
         }
         public IGraphViewModel CurrentGraph
         {

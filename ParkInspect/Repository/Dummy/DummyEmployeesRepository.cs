@@ -89,15 +89,9 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(EmployeeViewModel item)
-        {
-            return _employees.Remove(item);
-        }
+        public bool Delete(EmployeeViewModel item) => _employees.Remove(item);
 
-        public ObservableCollection<EmployeeViewModel> GetAll()
-        {
-            return _employees;
-        }
+        public ObservableCollection<EmployeeViewModel> GetAll() => _employees;
 
         public bool Update(EmployeeViewModel item)
         {
@@ -109,17 +103,8 @@ namespace ParkInspect.Repository.Dummy
 
         }
 
-        public ObservableCollection<string> GetFunctions()
-        {
-            return new ObservableCollection<string>
-            {
-                "Manager", "Inspecteur", "Directeur"
-            };
-        }
+        public ObservableCollection<string> GetFunctions() => new ObservableCollection<string> { "Manager", "Inspecteur", "Directeur" };
 
-        public IEnumerable<EmployeeViewModel> GetByFunction(string function)
-        {
-            return _employees.Where(e => e.Function.Equals(function));
-        }
+        public IEnumerable<EmployeeViewModel> GetByFunction(string function) => _employees.Where(e => e.Function.Equals(function));
     }
 }

@@ -10,6 +10,7 @@ namespace ParkInspect.Repository.Dummy
     {
 
         private readonly ObservableCollection<CommissionViewModel> _commissions;
+        //Nooit gebruikt?
         private readonly List<LocationViewModel> _locations;
 
         public DummyCommissionRepository()
@@ -42,15 +43,9 @@ namespace ParkInspect.Repository.Dummy
             };
         }
 
-        public ObservableCollection<string> GetStatuses()
-        {
-            return new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
-        }
+        public ObservableCollection<string> GetStatuses() => new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
 
-        public ObservableCollection<CommissionViewModel> GetAll()
-        {
-            return _commissions;
-        }
+        public ObservableCollection<CommissionViewModel> GetAll() => _commissions;
 
         public bool Add(CommissionViewModel item)
         {
@@ -58,10 +53,7 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(CommissionViewModel item)
-        {
-            return _commissions.Remove(item);
-        }
+        public bool Delete(CommissionViewModel item) => _commissions.Remove(item);
 
         public bool Update(CommissionViewModel item)
         {
