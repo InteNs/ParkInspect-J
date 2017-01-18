@@ -67,7 +67,7 @@ namespace ParkInspect.Repository.Entity
 
         private QuestionType TypeForString(string s)
         {
-            var qEnum = 0;
+            QuestionType qEnum;
             Enum.TryParse(s, true, out qEnum);
             return (QuestionType)qEnum;
 
