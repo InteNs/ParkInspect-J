@@ -17,9 +17,10 @@ namespace ParkInspect.Service
         string UserName { get; set; }
         void Login(PasswordBox password);
         void Logout();
-        bool IsLoggedIn();
+        bool IsLoggedIn(AuthenticationViewModel _user);
         string CurrentFunction(AuthenticationViewModel _user);
         EmployeeViewModel CurrentEmployee(AuthenticationViewModel _user);
+        AuthenticationViewModel getLoggedInUser();
 
     }
 }

@@ -51,7 +51,7 @@ namespace ParkInspect.ViewModel
             QuestionLists = questionListRepository.GetAll();
             foreach (InspectionViewModel ivm in inspectionRepository.GetAll())
             {
-                if (ivm.cvm.Employee.Id == auth.CurrentEmployee().Id)
+                if (ivm.cvm.Employee.Id == auth.CurrentEmployee(auth.getLoggedInUser()).Id)
                 {
                     CommissionList.Add(ivm.cvm);
                 }
