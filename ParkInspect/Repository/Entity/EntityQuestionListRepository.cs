@@ -27,10 +27,10 @@ namespace ParkInspect.Repository.Entity
             var questionlist = _context.QuestionList
                 .Include("Inspection")
                 .Include("Inspection.Commission")
-                .Include("QuestionItems")
-                .Include("QuestionItems.Answer")
-                .Include("QuestionItems.Question")
-                .Include("QuestionItems.Question.QuestionType")
+                .Include("QuestionItem")
+                .Include("QuestionItem.Answer")
+                .Include("QuestionItem.Question")
+                .Include("QuestionItem.Question.QuestionType")
                 .ToList();
 
             questionlist.ForEach(ql =>

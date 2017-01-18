@@ -21,6 +21,7 @@ namespace ParkInspect.Repository.Entity
         public EntityQuestionRepository(ParkInspectEntities context)
         {
             _context = context;
+            GetAll();
         }
 
         public ObservableCollection<QuestionViewModel> GetAll()
@@ -31,8 +32,8 @@ namespace ParkInspect.Repository.Entity
             var questions = _context.Question.Include("QuestionType");
             foreach (var q in questions)
             {
-                var qEnum = 0;
-                QuestionType.TryParse(q.QuestionType.Name, true, out qEnum);
+                QuestionType result;
+                Enum.TryParse(q.QuestionType.Name, true,out result );
 
                 if (!q.IsActive) continue;
                 _questions.Add(new QuestionViewModel()
@@ -40,9 +41,10 @@ namespace ParkInspect.Repository.Entity
                     Id = q.Id,
                     Version = q.Version,
                     Description = q.Description,
-                    QuestionType = (QuestionType) qEnum
+                    QuestionType = result
                 });
             }
+            RefreshCurrentQuestions();
             return _questions;
         }
 
@@ -52,8 +54,8 @@ namespace ParkInspect.Repository.Entity
             Data.QuestionType questionType = null;
             foreach (var qt in list)
             {
-                var qEnum = 0;
-                QuestionType.TryParse(qt.Name, true, out qEnum);
+                QuestionType qEnum;
+                Enum.TryParse(qt.Name, true, out qEnum);
                 if (!item.QuestionType.Equals(qEnum)) continue;
                 questionType = qt;
                 break;
@@ -86,12 +88,11 @@ namespace ParkInspect.Repository.Entity
         public bool Update(QuestionViewModel item)
         {
             var question = _context.Question.Include("QuestionType").FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
-            var questionCopy = question;
             if (question != null)
             {
+                var questionCopy = new Question { Description = question.Description, Version = question.Version + 1, Guid = Guid.NewGuid(), Id = question.Id, IsActive = question.IsActive, QuestionTypeId = question.QuestionTypeId, QuestionTypeGuid = question.QuestionTypeGuid };
+
                 question.IsActive = false;
-                _context.Entry(question).State = EntityState.Modified;
-                questionCopy.Version++;
                 _context.Question.Add(questionCopy);
                 _context.SaveChanges();
                 item.Version++;
@@ -103,7 +104,7 @@ namespace ParkInspect.Repository.Entity
             }
         }
 
-        public ObservableCollection<QuestionViewModel> GetLatest(QuestionListViewModel list)
+        public ObservableCollection<QuestionViewModel> GetLatest()
         {
             RefreshCurrentQuestions();
             return _currentQuestions;
