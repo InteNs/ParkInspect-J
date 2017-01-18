@@ -26,26 +26,7 @@ namespace ParkInspect.ViewModel
             set { _id = value; RaisePropertyChanged(); }
         }
 
-        public int Frequency
-        {
-            get { return _frequency; }
-            set
-            {
-                _frequency = value;
-                if (string.IsNullOrWhiteSpace(_frequency.ToString()))
-                {
-                    AddError("Frequency", "Frequentie is verplicht");
-                }
-                else if (_frequency.ToString().Any(char.IsLetter))
-                {
-                    AddError("Frequency", "Frequentie kan geen letters bevatten");
-                }
-                else
-                {
-                    RemoveError("Frequency");
-                }
-            }
-        }
+        
 
         public EmployeeViewModel Employee
         {

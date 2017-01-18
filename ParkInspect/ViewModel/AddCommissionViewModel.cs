@@ -54,8 +54,8 @@ namespace ParkInspect.ViewModel
                */
             //check if all fields are filled in
 
-            if (Commission.Customer == null || Commission.Region == null || string.IsNullOrWhiteSpace(Commission.StreetNumber.ToString()) || Commission.ZipCode == null ||
-                string.IsNullOrWhiteSpace(Commission.Frequency.ToString()) || Commission.Description == null || !Commission.IsValid || Commission.Employee == null)
+            if (Commission.Customer == null || Commission.Region == null || string.IsNullOrWhiteSpace(Commission.StreetNumber.ToString()) || Commission.ZipCode == null
+                || Commission.Description == null || !Commission.IsValid || Commission.Employee == null)
             {
                 return false;
 
