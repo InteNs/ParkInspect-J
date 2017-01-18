@@ -32,7 +32,7 @@ namespace ParkInspectPortal.Repositories
             List<QuestionListViewModel> list = new List<QuestionListViewModel>();
             using (var ctx = new ParkInspectEntities())
             {
-                var questionList = ctx.QuestionList.Where(q => q.Guid == guid).FirstOrDefault();
+                var questionList = ctx.QuestionList.Where(q => q.InspectionGuid == guid).FirstOrDefault();
 
                 if (questionList == null)
                     return null;
