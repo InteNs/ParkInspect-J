@@ -18,8 +18,8 @@ namespace ParkInspect.Service
         void Login(PasswordBox password);
         void Logout();
         bool IsLoggedIn();
-        string CurrentFunction();
-        EmployeeViewModel CurrentEmployee();
+        string CurrentFunction(AuthenticationViewModel _user);
+        EmployeeViewModel CurrentEmployee(AuthenticationViewModel _user);
 
     }
 }
