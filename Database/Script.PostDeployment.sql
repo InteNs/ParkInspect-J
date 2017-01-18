@@ -1,4 +1,10 @@
-﻿delete from [Inspection];
+﻿delete from [QuestionItem];
+delete from [Answer];
+delete from [QuestionList];
+delete from [Question];
+delete from [QuestionType];
+
+delete from [Inspection];
 delete from [Commission];
 delete from [Customer];
 delete from [Employee];
@@ -6,8 +12,7 @@ delete from [Person];
 delete from [Location];
 delete from [Region];
 delete from [Function];
-delete from [Question];
-delete from [QuestionType];
+
 
 
 begin /* Regions */
@@ -3910,4 +3915,12 @@ insert into [QuestionList] ([Id], [Guid], [Description], [InspectionId], [Inspec
 SET IDENTITY_INSERT [QuestionList] OFF;
 end
 
+begin
+SET IDENTITY_INSERT Answer ON;
+
+insert into [Answer](Id,Guid,Value) values (1,NEWID(),'Ja');
+insert into [QuestionItem](AnswerId,QuestionId,QuestionListId,QuestionVersion,Guid) values (1,9,3,1,NEWID());
+
+SET IDENTITY_INSERT Answer OFF;
+end
 ALTER DATABASE ParkInspect SET ALLOW_SNAPSHOT_ISOLATION ON
