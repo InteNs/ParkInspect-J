@@ -62,22 +62,22 @@ namespace ParkInspect.Repository.Entity
 
         public bool Delete(CustomerViewModel item)
         {
-            var customer = _context.Customer.Attach(new Customer {Id = item.Id});
-            if (customer == null) return false;
-            _context.Customer.Remove(customer);
-            _context.SaveChanges();
-            _customers.Remove(item);
-            return true;
+            throw new NotImplementedException();
         }
 
         public bool Update(CustomerViewModel item)
         {
-            var customer = _context.Customer.Attach(new Customer { Id = item.Id });
-            var person = _context.Person.Attach(new Person {Email = item.Email, Name = item.Name});
-            if (customer == null || person == null) return false;
+            var customer = _context.Customer.Include("Person").Include("Person.Location").FirstOrDefault(c => c.Id == item.Id);
+            customer.Person.Name = item.Name;
+            customer.Person.Location.ZipCode = item.ZipCode;
+            customer.Person.PhoneNumber = item.PhoneNumber;
+            customer.Person.Email = item.Email;
+            customer.Person.Location.StreetNumber = item.StreetNumber;
+
+            if (customer == null) return false;
             _context.Location.AddOrUpdate(new Location {StreetNumber = item.StreetNumber, ZipCode = item.ZipCode});
+            _context.Person.AddOrUpdate(new Person { Name = item.Name, PhoneNumber = item.PhoneNumber, Email =  item.Email});
             _context.Entry(customer).State = EntityState.Modified;
-            _context.Entry(person).State = EntityState.Modified;
             _context.SaveChanges();
 
             var index = _customers.IndexOf(item);

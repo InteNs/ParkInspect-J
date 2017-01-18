@@ -65,7 +65,7 @@
             
             <Grid Grid.Row="1"
           Grid.Column="3">
-                <Button Content="Aanpassen" Command="{Binding EditCustomerCommand}"/>
+                <Button Content="Bekijken" Command="{Binding EditCustomerCommand}"/>
             </Grid>
 
             <Grid Grid.Row="1"
