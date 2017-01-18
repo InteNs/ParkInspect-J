@@ -1,6 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Data;
-using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repository.Interface
 {

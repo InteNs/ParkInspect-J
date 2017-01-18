@@ -4,6 +4,6 @@ namespace ParkInspect.ViewModel
 {
     public interface IGraphViewModel
     {
-        PlotModel KPIModel { get; set; }
+        PlotModel KpiModel { get; set; }
     }
 }

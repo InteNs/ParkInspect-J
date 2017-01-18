@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Data;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
@@ -34,19 +31,20 @@ namespace ParkInspect.Repository.Entity
                 .Include("QuestionItem.Question")
                 .Include("QuestionItem.Question.QuestionType")
                 .ToList();
+            //Best veel nesting, maar ik weet niet zo hoe dit het beste opgelost kan worden
 
             questionlist.ForEach(ql =>
             {
                 var inspection = ql.InspectionId.HasValue ? new InspectionViewModel()
                 {
                     Id = ql.Inspection.Id,
-                    cvm = new CommissionViewModel {Id = ql.Inspection.Commission.Id}
+                    CommissionViewModel = new CommissionViewModel {Id = ql.Inspection.Commission.Id}
                 } : null;
                 _questionLists.Add(new QuestionListViewModel
                 {
                     Description = ql.Description,
                     Id = ql.Id,
-                    inspection = inspection,
+                    Inspection = inspection,
                     QuestionItems = new ObservableCollection<QuestionItemViewModel>(ql.QuestionItem.Select(qi => new QuestionItemViewModel
                     {
                         Answer = qi.Answer.Value,
@@ -54,31 +52,22 @@ namespace ParkInspect.Repository.Entity
                         {
                             Description = qi.Question.Description,
                             Id = qi.Question.Id,
-                            isActive = qi.Question.IsActive,
+                            IsActive = qi.Question.IsActive,
                             QuestionType = TypeForString(qi.Question.QuestionType.Name),
                             Version = qi.Question.Version
-                        }
-                    }))
-                });
-            });
+                        } // end Question
+                    })) // end QuestionItems
+                }); // end QuestionsLists
+            }); // end foreach
 
             return _questionLists;
         }
 
         private QuestionType TypeForString(string s)
         {
-            if (s.Equals("Count"))
-            {
-                return QuestionType.Count;
-            }
-            else if (s.Equals("Boolean"))
-            {
-                return QuestionType.Boolean;
-            }
-            else
-            {
-                return QuestionType.Open;
-            }
+            return s.Equals("Count")
+                ? QuestionType.Count
+                : (s.Equals("Boolean") ? QuestionType.Boolean : QuestionType.Open);
         }
 
         public bool Add(QuestionListViewModel item)
@@ -95,24 +84,19 @@ namespace ParkInspect.Repository.Entity
             QuestionList questionlist = new QuestionList();
             foreach(QuestionList q in _context.QuestionList)
             {
-                if(q.Id == item.Id)
-                {
-                    questionlist = q;
-                    break;
-                }
+                if (q.Id != item.Id) continue;
+                questionlist = q;
+                break;
             }
-            if (questionlist != null)
-            {
-                _context.QuestionList.Remove(questionlist);
-                _questionLists.Remove(item);
-                _context.SaveChanges();
-                return true;
-            }
-            return false;
+            _context.QuestionList.Remove(questionlist);
+            _questionLists.Remove(item);
+            _context.SaveChanges();
+            return true;
         }
 
         public bool Update(QuestionListViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
 
@@ -125,11 +109,13 @@ namespace ParkInspect.Repository.Entity
 
         public bool AddItem(QuestionListViewModel list, QuestionItemViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
 
         public bool RemoveItem(QuestionListViewModel list, QuestionItemViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
     }

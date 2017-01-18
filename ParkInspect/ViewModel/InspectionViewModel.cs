@@ -7,7 +7,7 @@ namespace ParkInspect.ViewModel
         public int Id { get; set; }
         public bool IsChecked { get; set; }
         public string Name { get; set; }
-        public CommissionViewModel cvm { get; set; }
+        public CommissionViewModel CommissionViewModel { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
 

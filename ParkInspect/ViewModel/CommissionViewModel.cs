@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Linq;
 
 namespace ParkInspect.ViewModel
 {
     public class CommissionViewModel : LocationViewModel
     {
         private int _id;
-        private int _frequency;
         private DateTime _dateCreated;
         private DateTime? _dateCompleted;
         private string _description;
@@ -25,8 +23,6 @@ namespace ParkInspect.ViewModel
             get { return _id; }
             set { _id = value; RaisePropertyChanged(); }
         }
-
-        
 
         public EmployeeViewModel Employee
         {
@@ -51,7 +47,7 @@ namespace ParkInspect.ViewModel
             get { return _description; }
             set {
                 _description = value;
-                if (string.IsNullOrWhiteSpace(_description.ToString()))
+                if (string.IsNullOrWhiteSpace(_description))
                 {
                     AddError("Description", "Beschrijving is verplicht");
                 }

@@ -1,38 +1,34 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using ParkInspect.Enumeration;
 using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 
 namespace ParkInspect.ViewModel
 {
     public class EditQuestionViewModel : MainViewModel
     {
-        public ObservableCollection<QuestionType> questionType { get; set; }
+        private readonly IQuestionRepository _questionsRepository;
+
+        public ObservableCollection<QuestionType> QuestionType { get; set; }
         public QuestionViewModel Question { get; set; }
         public RelayCommand EditQuestionCommand { get; set; }
-        private readonly IQuestionRepository _questionsRepository;
         public EditQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel qvm) : base(router)
         {
-            questionType = new ObservableCollection<QuestionType>();
-            questionType.Add(QuestionType.Boolean);
-            questionType.Add(QuestionType.Count);
-            questionType.Add(QuestionType.Open);
+            QuestionType = new ObservableCollection<QuestionType>
+            {
+                Enumeration.QuestionType.Boolean,
+                Enumeration.QuestionType.Count,
+                Enumeration.QuestionType.Open
+            };
             _questionsRepository = repo;
             Question = qvm.SelectedQuestion;
-            EditQuestionCommand = new RelayCommand(Editquestion, CanEditquestion);
+            EditQuestionCommand = new RelayCommand(Editquestion);
         }
         private void Editquestion()
         {
-            if (this.ValidateInput())
+            if (ValidateInput())
             {
                 if (_questionsRepository.Update(Question))
                 {
@@ -41,27 +37,11 @@ namespace ParkInspect.ViewModel
             }
             else
             {
-                new MetroDialogService().ShowMessage("Error", ShowValidationError());
+                new MetroDialogService().ShowMessage("Error", "Error, de velden zijn niet juist ingevuld.");
             }
         }
 
-        private bool ValidateInput()
-        {
-            //check if all fields are filled in
-            if (Question.Description == null)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        private bool CanEditquestion()
-        {
-            return true;
-        }
-        private string ShowValidationError()
-        {
-            return "Error, de velden zijn niet juist ingevuld.";
-        }
+        //check if all fields are filled in
+        private bool ValidateInput() =>  Question.Description != null;
     }
 }

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace ParkInspect
+namespace ParkInspect.DiagramModels
 {
     public interface IDiagram
     {
         string Name { get; set; }
         Dictionary<string, List<Filter>> Options { get; set; }
     }
-    
+
     public enum Filter
     {
         Klant,

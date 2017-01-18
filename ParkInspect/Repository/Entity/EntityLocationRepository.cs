@@ -1,9 +1,6 @@
 ﻿using ParkInspect.Repository.Interface;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using ParkInspect.ViewModel;
 using System.Collections.ObjectModel;
 using Data;
@@ -22,11 +19,13 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(LocationViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
 
         public bool Delete(LocationViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
 
@@ -38,13 +37,13 @@ namespace ParkInspect.Repository.Entity
                 Region = l.Region.RegionName,
                 StreetNumber = l.StreetNumber,
                 ZipCode = l.ZipCode
-                
             }));
             return _locations;
         }
 
         public bool Update(LocationViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
     }

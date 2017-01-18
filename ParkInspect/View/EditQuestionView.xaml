@@ -15,7 +15,7 @@
             <Setter Property="Padding" Value="0"></Setter>
         </Style>
 
-        <Style x:Key="tbError" TargetType="{x:Type TextBox}">
+        <Style x:Key="TbError" TargetType="{x:Type TextBox}">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
                     <ControlTemplate x:Name="TextErrorTemplate">
@@ -63,17 +63,13 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Vraag Aanpassen" />
             </Viewbox>
         </Grid>
 
-        <Grid Grid.Row="3"
-              Grid.Column="1"
-                Grid.ColumnSpan="4"
-              >
+        <Grid Grid.Row="3"  Grid.Column="1" Grid.ColumnSpan="4" >
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.01*" />
@@ -93,32 +89,19 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
 
-
-
-
-            <DockPanel Grid.Row="1"
-                        Grid.Column="1"
-                        >
-
+            <DockPanel Grid.Row="1" Grid.Column="1" >
                 <Label Style="{StaticResource DefaultLabelStyle}" VerticalAlignment="Center" FontSize="20" Content="Omschrijving: " />
-
             </DockPanel>
 
-            <DockPanel Grid.Row="3"
-                        Grid.Column="1"
-                        >
-
+            <DockPanel Grid.Row="3" Grid.Column="1" >
                 <Label Style="{StaticResource DefaultLabelStyle}" VerticalAlignment="Center" FontSize="20" Content="Vraag type: " />
             </DockPanel>
+
             <TextBox Grid.Column="3" Grid.Row="1" Text="{Binding Path=Question.Description, Mode=TwoWay}" VerticalAlignment="Center" TextAlignment="Center" />
-            <ComboBox Grid.Column="3" Grid.Row="3" SelectedItem="{Binding Question.QuestionType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding questionType}" Foreground="Black"/>
+            <ComboBox Grid.Column="3" Grid.Row="3" SelectedItem="{Binding Question.QuestionType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding QuestionType}" Foreground="Black"/>
 
 
-            <Grid
-                Grid.Row="5"
-                Grid.Column="1"
-                Grid.ColumnSpan="3">
-
+            <Grid Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3">
                 <Button Command="{Binding EditQuestionCommand}" Content="Vraag Aanpassen" IsDefault="True"/>
             </Grid>
 

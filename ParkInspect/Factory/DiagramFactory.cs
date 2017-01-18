@@ -5,9 +5,8 @@ namespace ParkInspect.Factory
 {
     public class DiagramFactory
     {
-        public IEnumerable<IDiagram> DiagramNames => _diagrams.Values;
-
         private readonly Dictionary<string, IDiagram> _diagrams;
+        public IEnumerable<IDiagram> DiagramNames => _diagrams.Values;
 
         public DiagramFactory()
         {

@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
 {
@@ -17,11 +16,7 @@ namespace ParkInspect.ViewModel
         public CommissionViewModel SelectedCommission
         {
             get { return _selectedCommission; }
-            set
-            {
-                _selectedCommission = value;
-                base.RaisePropertyChanged();
-            }
+            set { _selectedCommission = value; RaisePropertyChanged(); }
         }
         
 

@@ -2,12 +2,6 @@
 using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
 {
@@ -25,7 +19,7 @@ namespace ParkInspect.ViewModel
 
         private void EditquestionList()
         {
-            if (this.ValidateInput())
+            if (ValidateInput())
             {
                 if (_repository.Update(QuestionList))
                 {
@@ -41,17 +35,9 @@ namespace ParkInspect.ViewModel
         private bool ValidateInput()
         {
             //check if all fields are filled in
-            if (QuestionList.Description == null)
-            {
-                return false;
-            }
-
-            return true;
+            return QuestionList.Description != null;
         }
 
-        private string ShowValidationError()
-        {
-            return "Error, de velden zijn niet juist ingevuld.";
-        }
+        private string ShowValidationError() => "Error, de velden zijn niet juist ingevuld.";
     }
 }

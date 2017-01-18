@@ -4,7 +4,7 @@ using ParkInspect.Enumeration;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
 
-namespace ParkInspect.Repositories
+namespace ParkInspect.Repository.Dummy
 {
     public class DummyQuestionRepository : IQuestionRepository
     {
@@ -29,10 +29,7 @@ namespace ParkInspect.Repositories
             return true;
         }
 
-        public bool Delete(QuestionViewModel item)
-        {
-            return _questions.Remove(item);
-        }
+        public bool Delete(QuestionViewModel item) => _questions.Remove(item);
 
         public bool Update(QuestionViewModel item)
         {
@@ -56,28 +53,30 @@ namespace ParkInspect.Repositories
         }
         public DummyQuestionRepository()
         {
-            _questions = new ObservableCollection<QuestionViewModel>();
-            _questions.Add(new QuestionViewModel
+            _questions = new ObservableCollection<QuestionViewModel>
             {
-                Id = 1,
-                Version = 4,
-                Description = "Is de parkeerplaats vol?",
-                QuestionType = QuestionType.Open
-            });
-            _questions.Add(new QuestionViewModel
-            {
-                Id = 2,
-                Version = 1,
-                Description = "Hoeveel auto's staan op de parkeerplaats?",
-                QuestionType = QuestionType.Count
-            });
-            _questions.Add(new QuestionViewModel
-            {
-                Id = 3,
-                Version = 2,
-                Description = "Welk merk auto is het meest aanwezig?",
-                QuestionType = QuestionType.Open
-            });
+                new QuestionViewModel
+                {
+                    Id = 1,
+                    Version = 4,
+                    Description = "Is de parkeerplaats vol?",
+                    QuestionType = QuestionType.Open
+                },
+                new QuestionViewModel
+                {
+                    Id = 2,
+                    Version = 1,
+                    Description = "Hoeveel auto's staan op de parkeerplaats?",
+                    QuestionType = QuestionType.Count
+                },
+                new QuestionViewModel
+                {
+                    Id = 3,
+                    Version = 2,
+                    Description = "Welk merk auto is het meest aanwezig?",
+                    QuestionType = QuestionType.Open
+                }
+            };
         }
 
         private void RefreshQuestions()

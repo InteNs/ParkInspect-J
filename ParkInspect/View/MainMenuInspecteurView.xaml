@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-        xmlns:local="clr-namespace:ParkInspect"
-        xmlns:view="clr-namespace:ParkInspect.View"    
         mc:Ignorable="d">
     <Grid>
         <Grid.RowDefinitions>
@@ -29,21 +27,21 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="0.1*"/>
-            </Grid.RowDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.1*"/>
+                </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.1*" />
-            </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.1*" />
+                </Grid.ColumnDefinitions>
 
 
                 <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="questionnaire-start" Content="Inspectie uitvoeren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
@@ -52,23 +50,23 @@
 
                 <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="question-lists" Content="Templatescherm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-        </Grid>
+            </Grid>
 
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="1*"/>
-                <RowDefinition Height="0.1*"/>
-            </Grid.RowDefinitions>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.1*"/>
+                    <RowDefinition Height="1*"/>
+                    <RowDefinition Height="0.1*"/>
+                </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="0.1*" />
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="0.1*" />
                 </Grid.ColumnDefinitions>
 
                 <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="questions-list" Content="Vragenscherm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
@@ -76,8 +74,8 @@
                 <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="employees-list" Content="Rapport genereren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
                 <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding Synchronisation.DoSyncCommand,Source={StaticResource Locator}}" Content="Synchroniseren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
-                
+
             </Grid>
-    </Grid>
+        </Grid>
     </Grid>
 </UserControl>

@@ -12,11 +12,9 @@ namespace ParkInspect.ViewModel
 
         public MainViewModel(IRouterService router = null)
         {
-            if (router != null)
-            {
-                RouterService = router;
-                RouteCommand = RouterService.RouteCommand;
-            }
+            if (router == null) return;
+            RouterService = router;
+            RouteCommand = RouterService.RouteCommand;
         }
     }
 }

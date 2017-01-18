@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
 
@@ -14,6 +10,7 @@ namespace ParkInspect.Converter
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
             string input = value as string;
+            if (input == null) return DependencyProperty.UnsetValue;
             if (input.Contains("Inspectie"))
             {
                 int colourvalue = int.Parse(input.Split(' ')[0]) % 10;
@@ -22,17 +19,18 @@ namespace ParkInspect.Converter
             switch (input)
             {
                 case "Beschikbaar":
-                    return System.Windows.Media.Brushes.PaleGreen;
+                    return Brushes.PaleGreen;
                 case "Weekend":
-                    return System.Windows.Media.Brushes.Orange;
+                    return Brushes.Orange;
                 default:
-                    return System.Windows.Media.Brushes.Red;
+                    return Brushes.Red;
             }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
-            throw new NotSupportedException();
+            //Dit geeft aan dat dit opzettelijk niet gebruikt wordt, ipv notImplemented
+            return DependencyProperty.UnsetValue;
         }
     }
 }

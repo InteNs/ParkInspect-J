@@ -10,7 +10,7 @@ using ParkInspect.ViewModel;
 
 namespace ParkInspect.Repository.Entity
 {
-    class EntityCustomerRepository : ICustomerRepository
+    public class EntityCustomerRepository : ICustomerRepository
     {
         private readonly ParkInspectEntities _context;
         private readonly ObservableCollection<CustomerViewModel> _customers;
@@ -62,19 +62,21 @@ namespace ParkInspect.Repository.Entity
 
         public bool Delete(CustomerViewModel item)
         {
+            // TODO deze function implementeren of weggooien
             throw new NotImplementedException();
         }
 
         public bool Update(CustomerViewModel item)
         {
             var customer = _context.Customer.Include("Person").Include("Person.Location").FirstOrDefault(c => c.Id == item.Id);
+            if (customer == null) return false;
+
             customer.Person.Name = item.Name;
             customer.Person.Location.ZipCode = item.ZipCode;
             customer.Person.PhoneNumber = item.PhoneNumber;
             customer.Person.Email = item.Email;
             customer.Person.Location.StreetNumber = item.StreetNumber;
 
-            if (customer == null) return false;
             _context.Location.AddOrUpdate(new Location {StreetNumber = item.StreetNumber, ZipCode = item.ZipCode});
             _context.Person.AddOrUpdate(new Person { Name = item.Name, PhoneNumber = item.PhoneNumber, Email =  item.Email});
             _context.Entry(customer).State = EntityState.Modified;
@@ -83,12 +85,10 @@ namespace ParkInspect.Repository.Entity
             var index = _customers.IndexOf(item);
             _customers.RemoveAt(index);
             _customers.Insert(index, item);
+
             return true;
         }
 
-        public ObservableCollection<string> GetFunctions()
-        {
-            return new ObservableCollection<string>(new List<string> {"klant"});
-        }
+        public ObservableCollection<string> GetFunctions() => new ObservableCollection<string>(new List<string> {"klant"});
     }
 }
