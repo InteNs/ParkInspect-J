@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Value" Type="varchar(max)" Nullable="false" />
         </EntityType>
@@ -18,7 +18,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="EmployeeId" Type="int" Nullable="false" />
           <Property Name="EmployeeGuid" Type="uniqueidentifier" Nullable="false" />
@@ -69,7 +69,7 @@
             <PropertyRef Name="Id" />
             <PropertyRef Name="Guid" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="CommissionId" Type="int" Nullable="false" />
           <Property Name="CommissionGuid" Type="uniqueidentifier" Nullable="false" />
@@ -151,7 +151,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
           <Property Name="Description" Type="varchar(max)" Nullable="false" />
           <Property Name="InspectionId" Type="int" />

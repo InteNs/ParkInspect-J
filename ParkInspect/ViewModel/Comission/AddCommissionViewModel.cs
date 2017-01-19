@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
@@ -61,6 +62,7 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 Commission.Status = "Nieuw";
+                Commission.DateCreated = DateTime.Today;
                 if (_commissionRepository.Add(Commission))
                 {
 

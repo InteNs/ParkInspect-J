@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Data.Entity.Migrations;
 using System.Linq;
 using Data;
 using ParkInspect.Repository.Interface;
@@ -25,15 +24,15 @@ namespace ParkInspect.Repository.Entity
         {
             _customers.Clear();
             _context.Customer.Include("Person").Include("Person.Location").ToList()
-                .ForEach(c => _customers.Add(new CustomerViewModel
+                .ForEach(customer => _customers.Add(new CustomerViewModel
                 {
-                    Email = c.Person.Email,
-                    Name = c.Person.Name,
-                    Id = c.Id,
-                    PhoneNumber = c.Person.PhoneNumber,
-                    StreetNumber = c.Person.Location.StreetNumber,
-                    Region = c.Person.Location.Region.RegionName,
-                    ZipCode = c.Person.Location.ZipCode
+                    Email = customer.Person.Email,
+                    Name = customer.Person.Name,
+                    Id = customer.Id,
+                    PhoneNumber = customer.Person.PhoneNumber,
+                    StreetNumber = customer.Person.Location.StreetNumber,
+                    Region = customer.Person.Location.Region.RegionName,
+                    ZipCode = customer.Person.Location.ZipCode
                 }));
 
             return _customers;
@@ -52,19 +51,19 @@ namespace ParkInspect.Repository.Entity
             var person = new Person { Location = location, Email = item.Email, Name = item.Name, PhoneNumber = item.PhoneNumber, Guid = Guid.NewGuid() };
             _context.Person.Add(person);
 
-            var c = new Customer {Person = person, Guid = Guid.NewGuid()};
-
-            _context.Customer.Add(c);
             _context.SaveChanges();
-            var id = _context.Customer.Include("Person").Include("Person.Location").FirstOrDefault(cs => cs.Person.Name == item.Name && cs.Person.Location.StreetNumber == item.StreetNumber && cs.Person.Location.ZipCode == item.ZipCode).Id;
-            item.Id = id;
+            var customer = new Customer {Person = person, Guid = Guid.NewGuid()};
+
+            _context.Customer.Add(customer);
+            _context.SaveChanges();
+            item.Id = customer.Id;
             _customers.Add(item);
             return true;
         }
 
         public bool Delete(CustomerViewModel item)
         {
-            // TODO deze function implementeren of weggooien
+            // customers can't be deleted, this method is for the interface
             throw new NotImplementedException();
         }
 

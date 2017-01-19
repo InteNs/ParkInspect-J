@@ -60,8 +60,9 @@ namespace ParkInspect.Repository.Entity
             if (questionType == null) return false;
             var question = new Question() { QuestionTypeId = questionType.Id,Description = item.Description,Version = 1,IsActive = true};
             _context.Question.Add(question);
-            _questions.Add(item);
             _context.SaveChanges();
+            item.Id = question.Id;
+            _questions.Add(item);
             return true;
         }
 
