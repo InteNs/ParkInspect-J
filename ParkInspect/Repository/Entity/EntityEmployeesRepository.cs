@@ -28,18 +28,18 @@ namespace ParkInspect.Repository.Entity
         {
             _employees.Clear();
             _context.Employee.Include("Person").Include("Person.Location").Include("Person.Location.Region").Include("Function").ToList()
-                .ForEach(e => _employees.Add(new EmployeeViewModel()
+                .ForEach(employee => _employees.Add(new EmployeeViewModel()
                 {
-                    Id = e.Id,
-                    StreetNumber = e.Person.Location.StreetNumber,
-                    EmploymentDate = e.DateHired,
-                    DismissalDate = e.DateFired,
-                    Region = e.Person.Location.Region.RegionName,
-                    Function = e.Function.Name,
-                    Email = e.Person.Email,
-                    Name = e.Person.Name,
-                    ZipCode = e.Person.Location.ZipCode,
-                    PhoneNumber = e.Person.PhoneNumber
+                    Id = employee.Id,
+                    StreetNumber = employee.Person.Location.StreetNumber,
+                    EmploymentDate = employee.DateHired,
+                    DismissalDate = employee.DateFired,
+                    Region = employee.Person.Location.Region.RegionName,
+                    Function = employee.Function.Name,
+                    Email = employee.Person.Email,
+                    Name = employee.Person.Name,
+                    ZipCode = employee.Person.Location.ZipCode,
+                    PhoneNumber = employee.Person.PhoneNumber
                 }));
             return _employees;
         }
@@ -48,29 +48,22 @@ namespace ParkInspect.Repository.Entity
         {
             var region = _context.Region.FirstOrDefault(r => r.RegionName == item.Region) ??
                          _context.Region.Add(new Region { Guid = Guid.NewGuid(), RegionName = item.Region });
+            _context.SaveChanges();
 
             var location = _context.Location.FirstOrDefault(l => l.ZipCode == item.ZipCode && l.StreetNumber == item.StreetNumber) ??
                            _context.Location.Add(new Location { Region = region, ZipCode = item.ZipCode, StreetNumber = item.StreetNumber });
+            _context.SaveChanges();
 
             var function = _context.Function.FirstOrDefault(f => f.Name == item.Function);
 
             var person = new Person { Location = location, Email = item.Email, Name = item.Name, PhoneNumber = item.PhoneNumber, Guid = Guid.NewGuid() };
             _context.Person.Add(person);
 
-            var e = new Employee() { Person = person, Guid = Guid.NewGuid(), Function = function};
+            var employee = new Employee { Person = person, Guid = Guid.NewGuid(), Function = function};
 
-            _context.Employee.Add(e);
+            _context.Employee.Add(employee);
             _context.SaveChanges();
-
-
-            var found = _context.Employee.Include("Person") .Include("Person.Location").FirstOrDefault(em =>
-                            em.Person.Name == item.Name && em.Person.Location.StreetNumber == item.StreetNumber &&
-                            em.Person.Location.ZipCode == item.ZipCode);
-
-            if (found == null) return false;
-
-            int id = found.Id;
-            item.Id = id;
+            item.Id = employee.Id;
             _employees.Add(item);
             AddedThisSession = true;
             return true;

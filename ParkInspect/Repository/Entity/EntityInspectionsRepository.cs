@@ -24,10 +24,11 @@ namespace ParkInspect.Repository.Entity
         public bool Add(InspectionViewModel item)
         {
             var commission = _context.Commission.FirstOrDefault(c => c.Id == item.CommissionViewModel.Id);
-            var i = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, Commission = commission, DateTimeEnd = null, DateCancelled=null, };
+            var inspection = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, Commission = commission, DateTimeEnd = null, DateCancelled=null, };
 
-            _context.Inspection.Add(i);
+            _context.Inspection.Add(inspection);
             _context.SaveChanges();
+            item.Id = inspection.Id;
             _inspections.Add(item);
             return true;
         }

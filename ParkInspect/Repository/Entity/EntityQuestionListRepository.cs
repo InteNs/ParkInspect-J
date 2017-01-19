@@ -74,8 +74,9 @@ namespace ParkInspect.Repository.Entity
         {
             var questionList = new QuestionList() { Description = item.Description };
             _context.QuestionList.Add(questionList);
-            _questionLists.Add(item);
             _context.SaveChanges();
+            item.Id = questionList.Id;
+            _questionLists.Add(item);
             return true;
         }
 

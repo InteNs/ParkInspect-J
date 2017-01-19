@@ -24,18 +24,19 @@ namespace ParkInspect.Repository.Entity
         {
             var region = _context.Region.FirstOrDefault(r => r.RegionName == item.Region) ??
                          _context.Region.Add(new Region { Guid = Guid.NewGuid(), RegionName = item.Region });
-
+            _context.SaveChanges();
             var location = _context.Location.FirstOrDefault(l => l.ZipCode == item.ZipCode && l.StreetNumber == item.StreetNumber) ??
-                           _context.Location.Add(new Location { Region = region, ZipCode = item.ZipCode, StreetNumber = item.StreetNumber });
-
+                           _context.Location.Add(new Location { Region = region, ZipCode = item.ZipCode, StreetNumber = item.StreetNumber, Guid = Guid.NewGuid()});
+            _context.SaveChanges();
             var customer = _context.Customer.FirstOrDefault(c => c.Id == item.Customer.Id);
             var employee = _context.Employee.FirstOrDefault(e => e.Id == item.Employee.Id);
 
-            var commission = new Commission { Customer = customer, Employee = employee, Location = location, DateCreated = item.DateCreated, DateCompleted = item.DateCompleted, Guid = Guid.NewGuid() };
+            var commission = new Commission { Description = item.Description, Customer = customer, Employee = employee, Location = location, DateCreated = item.DateCreated, DateCompleted = item.DateCompleted, Guid = Guid.NewGuid() };
 
             _context.Commission.Add(commission);
-            _commissions.Add(item);
             _context.SaveChanges();
+            item.Id = commission.Id;
+            _commissions.Add(item);
             return true;
         }
 
