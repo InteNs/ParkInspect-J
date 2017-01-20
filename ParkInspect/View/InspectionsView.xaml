@@ -121,7 +121,7 @@
                 
                 <StackPanel Grid.Column="1" Grid.Row="2">
                     <Button Content="Voer uit" IsEnabled="{Binding EnableButtons}"></Button>
-                    <Button Content="Annuleren" IsEnabled="{Binding EnableButtons}"></Button>
+                    <Button Command="{Binding CancelInspectionCommand}"  Content="Annuleren" IsEnabled="{Binding EnableButtons}"></Button>
                 </StackPanel>
             </Grid>
 

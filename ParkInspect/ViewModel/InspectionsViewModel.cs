@@ -1,6 +1,9 @@
 ﻿using System.Collections.ObjectModel;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
+using ParkInspect.Helper;
+using System.Windows.Input;
+using GalaSoft.MvvmLight.Command;
 
 namespace ParkInspect.ViewModel
 {
@@ -8,11 +11,14 @@ namespace ParkInspect.ViewModel
     {
         private CommissionViewModel _selectedCommission;
         private InspectionViewModel _selectedInspection;
+        private IInspectionsRepository _ir;
         private bool _isManager;
         private bool _isInspecteur;
         private IAuthService authservice;
         private ObservableCollection<CommissionViewModel> _commissionList;
         private ObservableCollection<InspectionViewModel> _inspectionList;
+
+        public ICommand CancelInspectionCommand { get; set; }
 
         public ObservableCollection<InspectionViewModel> InspectionList
         {
@@ -118,9 +124,25 @@ namespace ParkInspect.ViewModel
                     IsManager = false;
                     break;
             }
-            
+            _ir = inspectionsRepository;
             InspectionList = inspectionsRepository.GetAll();
             CommissionList = commissionRepository.GetAll();
+            CancelInspectionCommand = new RelayCommand(CancelInspection);
+        }
+
+        private async void CancelInspection()
+        {
+            var dialog = new MetroDialogService();
+            await dialog.ShowConfirmative("Inspectie annuleren",
+                "Weet u zeker dat u " + SelectedInspection.Id + " - " + SelectedInspection.Name + " (" + SelectedInspection.StartTime.ToShortDateString() + ") wilt annuleren?");
+
+            if (dialog.IsAffirmative)
+            {
+                _ir.Delete(SelectedInspection);
+                RaisePropertyChanged("InspectionList");
+            }
         }
     }
+
+    
 }
