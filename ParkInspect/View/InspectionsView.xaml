@@ -120,8 +120,8 @@
                 </ScrollViewer>
                 
                 <StackPanel Grid.Column="1" Grid.Row="2">
-                    <Button Command="{Binding DoInspectionCommand}" Content="Voer uit" IsEnabled="{Binding EnableButtons}"></Button>
-                    <Button Command="{Binding CancelInspectionCommand}"  Content="Annuleren" IsEnabled="{Binding EnableButtons}"></Button>
+                    <Button Command="{Binding DoInspectionCommand}" Content="Voer uit" IsEnabled="{Binding ButtonEnabled}"></Button>
+                    <Button Command="{Binding CancelInspectionCommand}"  Content="Annuleren" IsEnabled="{Binding ButtonEnabled}"></Button>
                 </StackPanel>
             </Grid>
 

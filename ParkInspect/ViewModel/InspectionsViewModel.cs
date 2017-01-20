@@ -11,11 +11,11 @@ namespace ParkInspect.ViewModel
     {
         private CommissionViewModel _selectedCommission;
         private InspectionViewModel _selectedInspection;
-        private IInspectionsRepository _ir;
-        private IQuestionListRepository _qlr;
+        private IInspectionsRepository _inspectionRepo;
+        private IQuestionListRepository _questionListRepo;
         private bool _isManager;
         private bool _isInspecteur;
-        private IAuthService authservice;
+        private IAuthService _authservice;
         private ObservableCollection<CommissionViewModel> _commissionList;
         private ObservableCollection<InspectionViewModel> _inspectionList;
 
@@ -27,19 +27,7 @@ namespace ParkInspect.ViewModel
         {
             get
             {
-                ObservableCollection<InspectionViewModel> insp = new ObservableCollection<InspectionViewModel>();
-                if (SelectedCommission == null)
-                {
-                    return insp;
-                }
-                foreach (InspectionViewModel ivm in _inspectionList)
-                {
-                    if(ivm.CommissionViewModel.Id == SelectedCommission.Id)
-                    {
-                        insp.Add(ivm);
-                    }
-                }
-                return insp;
+                return getInspectionList(); 
             }
             private set
             {
@@ -51,25 +39,47 @@ namespace ParkInspect.ViewModel
         {
             get
             {
-                if(authservice.CurrentFunction(authservice.GetLoggedInUser()).ToLower() == "inspecteur")
-                {
-                    ObservableCollection<CommissionViewModel> coms = new ObservableCollection<CommissionViewModel>();
-                    foreach(CommissionViewModel cvm in _commissionList)
-                    {
-                        if(cvm.Employee.Id == authservice.GetLoggedInUser().EmployeeId)
-                        {
-                            coms.Add(cvm);
-                        }
-                    }
-                    return coms;
-                }
-                return _commissionList;
+                return getCommissionList();
             }
             private set
             {
                 _commissionList = value;
                 RaisePropertyChanged();
             }
+        }
+
+        public ObservableCollection<InspectionViewModel> getInspectionList()
+        {
+            ObservableCollection<InspectionViewModel> insp = new ObservableCollection<InspectionViewModel>();
+            if (SelectedCommission == null)
+            {
+                return insp;
+            }
+            foreach (InspectionViewModel ivm in _inspectionList)
+            {
+                if (ivm.CommissionViewModel.Id == SelectedCommission.Id)
+                {
+                    insp.Add(ivm);
+                }
+            }
+            return insp;
+        }
+
+        public ObservableCollection<CommissionViewModel> getCommissionList()
+        {
+            if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
+            {
+                ObservableCollection<CommissionViewModel> coms = new ObservableCollection<CommissionViewModel>();
+                foreach (CommissionViewModel cvm in _commissionList)
+                {
+                    if (cvm.Employee.Id == _authservice.GetLoggedInUser().EmployeeId)
+                    {
+                        coms.Add(cvm);
+                    }
+                }
+                return coms;
+            }
+            return _commissionList;
         }
 
         public CommissionViewModel SelectedCommission
@@ -81,20 +91,10 @@ namespace ParkInspect.ViewModel
         public InspectionViewModel SelectedInspection
         {
             get { return _selectedInspection; }
-            set { _selectedInspection = value; RaisePropertyChanged(); RaisePropertyChanged("EnableButtons"); }
+            set { _selectedInspection = value; RaisePropertyChanged(); RaisePropertyChanged("ButtonEnabled"); }
         }
-        
-        public bool EnableButtons
-        {
-            get
-            {
-                if(_selectedInspection == null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
+
+        public bool ButtonEnabled => _selectedInspection != null;
 
         public bool IsManager
         {
@@ -111,7 +111,7 @@ namespace ParkInspect.ViewModel
         public InspectionsViewModel(ICommissionRepository commissionRepository,
             IInspectionsRepository inspectionsRepository, IQuestionListRepository questionLists, IRouterService router, IAuthService auth) : base(router)
         {
-            authservice = auth;
+            _authservice = auth;
             switch (RouterService.CurrentDashboard)
             {
                 case "dashboard-inspecteur":
@@ -127,8 +127,8 @@ namespace ParkInspect.ViewModel
                     IsManager = false;
                     break;
             }
-            _ir = inspectionsRepository;
-            _qlr = questionLists;
+            _inspectionRepo = inspectionsRepository;
+            _questionListRepo = questionLists;
             InspectionList = inspectionsRepository.GetAll();
             CommissionList = commissionRepository.GetAll();
             DoInspectionCommand = new RelayCommand(DoInspection);
@@ -143,7 +143,7 @@ namespace ParkInspect.ViewModel
 
             if (dialog.IsAffirmative)
             {
-                _ir.Delete(SelectedInspection);
+                _inspectionRepo.Delete(SelectedInspection);
                 RaisePropertyChanged("InspectionList");
             }
         }
@@ -151,15 +151,15 @@ namespace ParkInspect.ViewModel
         public void DoInspection()
         {
             RouterService.SetView("questionnaire-start");
-            ObservableCollection<QuestionItemViewModel> qivms = new ObservableCollection<QuestionItemViewModel>();
-            foreach(QuestionListViewModel qlvm in _qlr.GetAll())
+            ObservableCollection<QuestionItemViewModel> questionItems = new ObservableCollection<QuestionItemViewModel>();
+            foreach(QuestionListViewModel questionList in _questionListRepo.GetAll())
             {
-                if(qlvm.Inspection != null && qlvm.Inspection.Id == SelectedInspection.Id)
+                if(questionList.Inspection != null && questionList.Inspection.Id == SelectedInspection.Id)
                 {
-                    qivms = qlvm.QuestionItems;
+                    questionItems = questionList.QuestionItems;
                 }
             }
-            MessengerInstance.Send(qivms);
+            MessengerInstance.Send(questionItems);
         }
     }
 
