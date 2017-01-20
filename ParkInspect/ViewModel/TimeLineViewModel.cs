@@ -15,8 +15,10 @@ namespace ParkInspect.ViewModel
         private IInspectionsRepository _iir;
         private IEmployeeRepository _ier;
         private TimeLineItemViewModel _selectedTimeLineItem;
-        public TimeLineViewModel(IRouterService router, IInspectionsRepository iir, IEmployeeRepository ier) : base(router)
+        private IAuthService authservice;
+        public TimeLineViewModel(IRouterService router, IInspectionsRepository iir, IEmployeeRepository ier, IAuthService auth) : base(router)
         {
+            authservice = auth;
             _iir = iir;
             _ier = ier;
             _week = new List<DateTime>();
@@ -73,7 +75,12 @@ namespace ParkInspect.ViewModel
         {
             TimeLineItems.Clear();
             ObservableCollection<InspectionViewModel> inspectionslist = _iir.GetAll();
-            foreach (EmployeeViewModel evm in _ier.GetAll().Where(e => e.Function.ToLower() == "inspecteur"))
+            IEnumerable<EmployeeViewModel> employeelist = _ier.GetAll().Where(e => e.Function.ToLower() == "inspecteur");
+            if(authservice.CurrentFunction(authservice.GetLoggedInUser()).ToLower() == "inspecteur")
+            {
+                employeelist = employeelist.Where(e => e.Id == authservice.GetLoggedInUser().EmployeeId);
+            }
+            foreach (EmployeeViewModel evm in employeelist)
             {
                 TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
                 foreach(DateTime day in _week)

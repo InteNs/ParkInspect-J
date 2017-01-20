@@ -52,6 +52,22 @@ namespace ParkInspect.ViewModel
         public QuestionListViewModel()
         {
             QuestionItems = new ObservableCollection<QuestionItemViewModel>();
+            MessengerInstance.Register<ObservableCollection<QuestionItemViewModel>>(this, SetQuestions);
+        }
+
+        public void SetQuestions(ObservableCollection<QuestionItemViewModel> items)
+        {
+            QuestionItems = items;
+            _questionNr = 0;
+            if(items.Count > 0)
+            {
+                CurrentQuestion = QuestionItems[_questionNr];
+                NextQuestionCommand = new RelayCommand(NextQuestion);
+                PreviousQuestionCommand = new RelayCommand(PreviousQuestion);
+                AnswerFalseCommand = new RelayCommand(AnswerFalse);
+                AnswerTrueCommand = new RelayCommand(AnswerTrue);
+            }
+            RaisePropertyChanged("");
         }
 
         private void NextQuestion()

@@ -52,7 +52,7 @@ namespace ParkInspect.Tests
         public void FilterCustomer()
         {
             FilterCustomerConverter converter = new FilterCustomerConverter();
-            ObservableCollection<CustomerViewModel> input = new ObservableCollection<CustomerViewModel> { new CustomerViewModel { Name = "Edward", Email="test", Function="test", Id=1, PhoneNumber="1", Region="test", StreetNumber="1", ZipCode="test"  }, new CustomerViewModel { Name = "Mathijs", Email = "test", Function = "test", Id = 1, PhoneNumber = "1", Region = "test", StreetNumber = "1", ZipCode = "test" }, new CustomerViewModel { Name = "Nurleyanti", Email = "test", Function = "test", Id = 1, PhoneNumber = "1", Region = "test", StreetNumber = "1", ZipCode = "test" } };
+            ObservableCollection<CustomerViewModel> input = new ObservableCollection<CustomerViewModel> { new CustomerViewModel { Name = "Edward", Email="test", Id=1, PhoneNumber="1", Region="test", StreetNumber="1", ZipCode="test"  }, new CustomerViewModel { Name = "Mathijs", Email = "test", Id = 1, PhoneNumber = "1", Region = "test", StreetNumber = "1", ZipCode = "test" }, new CustomerViewModel { Name = "Nurleyanti", Email = "test", Id = 1, PhoneNumber = "1", Region = "test", StreetNumber = "1", ZipCode = "test" } };
             List<CustomerViewModel> output = (List<CustomerViewModel>)converter.Convert(new object[] { input, "edw" }, null, null, null);
             Assert.IsTrue(output.Count == 1 && output[0].Name.Equals("Edward"));
         }
