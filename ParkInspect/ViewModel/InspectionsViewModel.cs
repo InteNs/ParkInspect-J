@@ -12,6 +12,7 @@ namespace ParkInspect.ViewModel
         private CommissionViewModel _selectedCommission;
         private InspectionViewModel _selectedInspection;
         private IInspectionsRepository _ir;
+        private IQuestionListRepository _qlr;
         private bool _isManager;
         private bool _isInspecteur;
         private IAuthService authservice;
@@ -19,6 +20,8 @@ namespace ParkInspect.ViewModel
         private ObservableCollection<InspectionViewModel> _inspectionList;
 
         public ICommand CancelInspectionCommand { get; set; }
+
+        public ICommand DoInspectionCommand { get; set; }
 
         public ObservableCollection<InspectionViewModel> InspectionList
         {
@@ -106,7 +109,7 @@ namespace ParkInspect.ViewModel
         }
 
         public InspectionsViewModel(ICommissionRepository commissionRepository,
-            IInspectionsRepository inspectionsRepository, IRouterService router, IAuthService auth) : base(router)
+            IInspectionsRepository inspectionsRepository, IQuestionListRepository questionLists, IRouterService router, IAuthService auth) : base(router)
         {
             authservice = auth;
             switch (RouterService.CurrentDashboard)
@@ -125,8 +128,10 @@ namespace ParkInspect.ViewModel
                     break;
             }
             _ir = inspectionsRepository;
+            _qlr = questionLists;
             InspectionList = inspectionsRepository.GetAll();
             CommissionList = commissionRepository.GetAll();
+            DoInspectionCommand = new RelayCommand(DoInspection);
             CancelInspectionCommand = new RelayCommand(CancelInspection);
         }
 
@@ -141,6 +146,20 @@ namespace ParkInspect.ViewModel
                 _ir.Delete(SelectedInspection);
                 RaisePropertyChanged("InspectionList");
             }
+        }
+
+        public void DoInspection()
+        {
+            RouterService.SetView("questionnaire-start");
+            ObservableCollection<QuestionItemViewModel> qivms = new ObservableCollection<QuestionItemViewModel>();
+            foreach(QuestionListViewModel qlvm in _qlr.GetAll())
+            {
+                if(qlvm.Inspection != null && qlvm.Inspection.Id == SelectedInspection.Id)
+                {
+                    qivms = qlvm.QuestionItems;
+                }
+            }
+            MessengerInstance.Send(qivms);
         }
     }
 
