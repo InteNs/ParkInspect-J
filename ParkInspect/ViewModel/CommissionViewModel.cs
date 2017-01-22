@@ -64,7 +64,23 @@ namespace ParkInspect.ViewModel
         public string Status
         {
             get { return _status; }
-            set { _status = value; RaisePropertyChanged(); }
+            set
+            {
+                switch (value)
+                {
+                    case "":
+                        _status = "Nieuw";
+                        break;
+                    case "Klaar":
+                        DateCompleted = DateTime.Now;
+                        _status = value;
+                        break;
+                    default:
+                        _status = value;
+                        break;
+                }
+                RaisePropertyChanged();
+            }
         }
     }
 }

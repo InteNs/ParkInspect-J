@@ -10,7 +10,8 @@
 	[LocationGuid] uniqueidentifier,
 	[DateCreated] date NOT NULL,
 	[DateCompleted] date,
-	[Description] varchar(MAX)
+	[Description] varchar(MAX),
+	[Status] varchar(MAX) DEFAULT 'Nieuw'
 
 	CONSTRAINT [PK_Commission] PRIMARY KEY CLUSTERED 
 	(
