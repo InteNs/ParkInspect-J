@@ -139,7 +139,7 @@
             <Grid
                 Grid.Row="13"
                 Grid.Column="1">
-                <Button Command="{Binding AddCustomerCommand}" Content="Klant Toevoegen" Width="275" FontSize="17"/>
+                <Button Command="{Binding AddCustomerCommand}" Content="Klant Toevoegen" Width="275" FontSize="17" IsDefault="True"/>
             </Grid>
 
         </Grid>

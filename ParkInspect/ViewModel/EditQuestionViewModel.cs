@@ -14,7 +14,7 @@ namespace ParkInspect.ViewModel
         public ObservableCollection<QuestionType> QuestionType { get; set; }
         public QuestionViewModel Question { get; set; }
         public RelayCommand EditQuestionCommand { get; set; }
-        public EditQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel qvm) : base(router)
+        public EditQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel questions) : base(router)
         {
             QuestionType = new ObservableCollection<QuestionType>
             {
@@ -23,7 +23,7 @@ namespace ParkInspect.ViewModel
                 Enumeration.QuestionType.Open
             };
             _questionsRepository = repo;
-            Question = qvm.SelectedQuestion;
+            Question = questions.SelectedQuestion;
             EditQuestionCommand = new RelayCommand(Editquestion);
         }
         private void Editquestion()

@@ -141,7 +141,7 @@
                 <ComboBox SelectedItem="{Binding Commission.Employee, Mode=TwoWay}" ItemsSource="{Binding Employees}" DisplayMemberPath="Name" HorizontalContentAlignment="Center" />
             </DockPanel>
             <Grid Grid.Row="15" Grid.Column="1">
-                <Button Command="{Binding AddCommissionCommand}" Content="Opslaan" Width="275" />
+                <Button Command="{Binding AddCommissionCommand}" Content="Opslaan" Width="275" IsDefault="True"/>
             </Grid>
 
         </Grid>

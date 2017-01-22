@@ -110,7 +110,7 @@
             </DockPanel>
 
             <Grid Grid.Row="15" Grid.Column="1">
-                <Button Command="{Binding EditCustomerCommand}" Content="Klant Bewerken" Width="275" FontSize="17"/>
+                <Button Command="{Binding EditCustomerCommand}" Content="Klant Bewerken" Width="275" FontSize="17" IsDefault="True"/>
             </Grid>
 
         </Grid>

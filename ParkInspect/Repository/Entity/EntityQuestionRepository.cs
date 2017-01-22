@@ -47,19 +47,19 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(QuestionViewModel item)
         {
-            var list = _context.QuestionType.ToList();
-            Data.QuestionType questionType = null;
-            foreach (var questionTypeDB in list)
-            {
-                QuestionType qEnum;
-                Enum.TryParse(questionTypeDB.Name, true, out qEnum);
-                if (!item.QuestionType.Equals(qEnum)) continue;
-                questionType = questionTypeDB;
-                break;
-            }
-            if (questionType == null) return false;
+            var type = _context.QuestionType.FirstOrDefault(qt => qt.Name.Equals(item.QuestionType.ToString()));
+            if (type == null) return false;
             var calculatedId = (_context.Question.Max(q => q.Id) + 1);
-            var question = new Question() { Id = calculatedId, QuestionTypeId = questionType.Id, Description = item.Description, Version = 1, IsActive = true, Guid = new Guid(), QuestionTypeGuid = questionType.Guid };
+            var question = new Question()
+            {
+                Id = calculatedId,
+                QuestionTypeId = type.Id,
+                Description = item.Description,
+                Version = 1,
+                IsActive = true,
+                Guid = new Guid(),
+                QuestionTypeGuid = type.Guid
+            };
             _context.Question.Add(question);
             _context.SaveChanges();
             item.Id = question.Id;
@@ -70,7 +70,9 @@ namespace ParkInspect.Repository.Entity
 
         public bool Delete(QuestionViewModel item)
         {
-            var question = _context.Question.Include("QuestionType").FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
+            var question =
+                _context.Question.Include("QuestionType")
+                    .FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
             if (question == null) return false;
             question.IsActive = false;
             _context.Entry(question).State = EntityState.Modified;
@@ -81,30 +83,30 @@ namespace ParkInspect.Repository.Entity
 
         public bool Update(QuestionViewModel item)
         {
-            var question = _context.Question.Include("QuestionType").FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
+            var question =
+                _context.Question.Include("QuestionType")
+                    .FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
             if (question == null) return false;
 
-            //check for question type
-            var list = _context.QuestionType.ToList();
-            Data.QuestionType questionType = null;
-            foreach (var questionTypeDB in list)
-            {
-                QuestionType qEnum;
-                Enum.TryParse(questionTypeDB.Name, true, out qEnum);
-                if (!item.QuestionType.Equals(qEnum)) continue;
-                questionType = questionTypeDB;
-                break;
-            };
-            if (questionType == null) return false;
+            var type = _context.QuestionType.FirstOrDefault(qt => qt.Name.Equals(item.QuestionType.ToString()));
+            if (type == null) return false;
 
-            var questionCopy = new Question { Description = item.Description, Version = question.Version + 1, Guid = Guid.NewGuid(), Id = question.Id, IsActive = question.IsActive, QuestionTypeId = questionType.Id, QuestionTypeGuid = questionType.Guid };
+            var questionCopy = new Question
+            {
+                Description = item.Description,
+                Version = question.Version + 1,
+                Guid = Guid.NewGuid(),
+                Id = question.Id,
+                IsActive = question.IsActive,
+                QuestionTypeId = type.Id,
+                QuestionTypeGuid = type.Guid
+            };
 
             question.IsActive = false;
             _context.Question.Add(questionCopy);
             _context.SaveChanges();
-            var questionViewModel = _currentQuestions.FirstOrDefault(q => q.Id == item.Id);
-            if (questionViewModel != null)
-                questionViewModel.Id++;
+            item.Version = item.Version + 1;
+            RefreshCurrentQuestions();
             return true;
         }
 
@@ -120,8 +122,8 @@ namespace ParkInspect.Repository.Entity
             _currentQuestions.Clear();
 
             foreach (var questionViewModel in _questions.Where(q => !(from qq in _questions
-                                                                      where qq.Id == q.Id && qq.Version > q.Version
-                                                                      select qq).Any()))
+                where qq.Id == q.Id && qq.Version > q.Version
+                select qq).Any()))
             {
                 _currentQuestions.Add(questionViewModel);
             }

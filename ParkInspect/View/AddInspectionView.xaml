@@ -64,7 +64,7 @@
                 <ListView ItemsSource="{Binding SelectedQuestionList.QuestionItems}" DisplayMemberPath="Question.Description" IsEnabled="False"></ListView>
             </ScrollViewer>
             <StackPanel Grid.Column="1" Grid.Row="4" VerticalAlignment="Center">
-                <Button Content="Inspectie Toevoegen" Width="200" Command="{Binding AddInspectionCommand}"></Button>
+                <Button Content="Inspectie Toevoegen" Width="200" Command="{Binding AddInspectionCommand}" IsDefault="True"></Button>
             </StackPanel>
 
         </Grid>
