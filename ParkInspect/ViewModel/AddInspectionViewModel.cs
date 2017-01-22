@@ -33,7 +33,7 @@ namespace ParkInspect.ViewModel
         }
         private string _errorMessage;
 
-        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router) : base(router)
+        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionrepo, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router) : base(router)
         {
             Inspection = new InspectionViewModel
             {
@@ -44,13 +44,15 @@ namespace ParkInspect.ViewModel
             _questionListRepository = questionListRepository;
             AddInspectionCommand = new RelayCommand(AddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
+            ICommissionRepository icr = commissionrepo;
+
             QuestionLists = questionListRepository.GetAll();
-            foreach (InspectionViewModel ivm in inspectionRepository.GetAll())
+            foreach (CommissionViewModel cvm in icr.GetAll())
             {
-             //   if (ivm.CommissionViewModel.Employee.Id == auth.CurrentEmployee(auth.GetLoggedInUser()).Id)
-              //  {
-                    CommissionList.Add(ivm.CommissionViewModel);
-               // }
+                if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== cvm.Employee.Id)
+                {
+                    CommissionList.Add(cvm);
+                }
             }
         }
 
