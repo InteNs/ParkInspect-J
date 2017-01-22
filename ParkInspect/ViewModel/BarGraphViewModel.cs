@@ -61,6 +61,7 @@ namespace ParkInspect.ViewModel
 
             if(person.Equals("inspecteur"))
             {
+                employees1.RemoveAll(employee => _inspections.Where(inspection => inspection.CommissionViewModel.Employee.Id == employee.Id).Count() == 0);
                 series.ItemsSource = new List<BarItem>(employees1.Select(emp =>
                    new BarItem(_inspections.Count(ins =>
                        ins.CommissionViewModel.Employee.Id == (emp.Id)
@@ -73,12 +74,12 @@ namespace ParkInspect.ViewModel
 
             if (person.Equals("klant"))
             {
+                customers1.RemoveAll(customer => _inspections.Where(inspection => inspection.CommissionViewModel.Customer.Id == customer.Id).Count() == 0);
                 series.ItemsSource = new List<BarItem>(customers1.Select(cust =>
                     new BarItem(_inspections.Count(ins =>
                         ins.CommissionViewModel.Customer.Id == (cust.Id)
                     ))
                 ));
-
                 axis.Position = AxisPosition.Left;
                 axis.ItemsSource = customers1.Select(c => c.Name);
             }
@@ -114,6 +115,7 @@ namespace ParkInspect.ViewModel
 
             series.LabelPlacement = LabelPlacement.Inside;
             series.LabelFormatString = "{0}";
+            employees1.RemoveAll(employee => _commissions.Where(commission => commission.Employee.Id == employee.Id).Count() == 0);
             series.ItemsSource = new List<BarItem>(employees1.Select(emp =>
                 new BarItem(_commissions.Count(com =>
                     emp.Name.Equals(com.Employee.Name)
@@ -156,6 +158,7 @@ namespace ParkInspect.ViewModel
             
             series.LabelPlacement = LabelPlacement.Inside;
             series.LabelFormatString = "{0}";
+            customers1.RemoveAll(customer => _commissions.Where(commission => commission.Customer.Id == customer.Id).Count() == 0);
             series.ItemsSource = new List<BarItem>(customers1.Select(cust =>
                 new BarItem(_commissions.Count(com =>
                     cust.Name.Equals(com.Customer.Name)
