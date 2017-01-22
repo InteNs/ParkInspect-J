@@ -27,17 +27,17 @@ namespace ParkInspect.Repository.Entity
             _questions.Clear();
 
             var questions = _context.Question.Include("QuestionType");
-            foreach (var q in questions)
+            foreach (var questionDB in questions)
             {
                 QuestionType result;
-                Enum.TryParse(q.QuestionType.Name, true, out result);
+                Enum.TryParse(questionDB.QuestionType.Name, true, out result);
 
-                if (!q.IsActive) continue;
+                if (!questionDB.IsActive) continue;
                 _questions.Add(new QuestionViewModel()
                 {
-                    Id = q.Id,
-                    Version = q.Version,
-                    Description = q.Description,
+                    Id = questionDB.Id,
+                    Version = questionDB.Version,
+                    Description = questionDB.Description,
                     QuestionType = result
                 });
             }
@@ -49,12 +49,12 @@ namespace ParkInspect.Repository.Entity
         {
             var list = _context.QuestionType.ToList();
             Data.QuestionType questionType = null;
-            foreach (var qt in list)
+            foreach (var questionTypeDB in list)
             {
                 QuestionType qEnum;
-                Enum.TryParse(qt.Name, true, out qEnum);
+                Enum.TryParse(questionTypeDB.Name, true, out qEnum);
                 if (!item.QuestionType.Equals(qEnum)) continue;
-                questionType = qt;
+                questionType = questionTypeDB;
                 break;
             }
             if (questionType == null) return false;
@@ -87,12 +87,12 @@ namespace ParkInspect.Repository.Entity
             //check for question type
             var list = _context.QuestionType.ToList();
             Data.QuestionType questionType = null;
-            foreach (var qt in list)
+            foreach (var questionTypeDB in list)
             {
                 QuestionType qEnum;
-                Enum.TryParse(qt.Name, true, out qEnum);
+                Enum.TryParse(questionTypeDB.Name, true, out qEnum);
                 if (!item.QuestionType.Equals(qEnum)) continue;
-                questionType = qt;
+                questionType = questionTypeDB;
                 break;
             };
             if (questionType == null) return false;
