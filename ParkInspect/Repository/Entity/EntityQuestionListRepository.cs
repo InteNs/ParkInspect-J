@@ -72,7 +72,8 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(QuestionListViewModel item)
         {
-            var questionList = new QuestionList() { Description = item.Description, InspectionId = item.Inspection.Id, InspectionGuid = Guid.NewGuid()};
+            var inspection = _context.Inspection.FirstOrDefault(c => c.Id == item.Inspection.Id);
+            var questionList = new QuestionList() { Description = item.Description,Inspection=inspection, InspectionId = inspection.Id, InspectionGuid=inspection.Guid};
             _context.QuestionList.Add(questionList);
             _context.SaveChanges();
             item.Id = questionList.Id;
