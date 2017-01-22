@@ -167,7 +167,7 @@
             </DockPanel>
 
             <Grid Grid.Row="15" Grid.Column="1">
-                <Button Command="{Binding AddEmployeeCommand}" Content="Werknemer Toevoegen" Width="275" />
+                <Button Command="{Binding AddEmployeeCommand}" Content="Werknemer Toevoegen" Width="275" IsDefault="True" />
             </Grid>
 
         </Grid>

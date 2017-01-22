@@ -27,17 +27,17 @@ namespace ParkInspect.Repository.Entity
             _questions.Clear();
 
             var questions = _context.Question.Include("QuestionType");
-            foreach (var q in questions)
+            foreach (var questionDB in questions)
             {
                 QuestionType result;
-                Enum.TryParse(q.QuestionType.Name, true,out result );
+                Enum.TryParse(questionDB.QuestionType.Name, true, out result);
 
-                if (!q.IsActive) continue;
+                if (!questionDB.IsActive) continue;
                 _questions.Add(new QuestionViewModel()
                 {
-                    Id = q.Id,
-                    Version = q.Version,
-                    Description = q.Description,
+                    Id = questionDB.Id,
+                    Version = questionDB.Version,
+                    Description = questionDB.Description,
                     QuestionType = result
                 });
             }
@@ -47,46 +47,66 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(QuestionViewModel item)
         {
-            var list = _context.QuestionType.ToList();
-            Data.QuestionType questionType = null;
-            foreach (var qt in list)
+            var type = _context.QuestionType.FirstOrDefault(qt => qt.Name.Equals(item.QuestionType.ToString()));
+            if (type == null) return false;
+            var calculatedId = (_context.Question.Max(q => q.Id) + 1);
+            var question = new Question()
             {
-                QuestionType qEnum;
-                Enum.TryParse(qt.Name, true, out qEnum);
-                if (!item.QuestionType.Equals(qEnum)) continue;
-                questionType = qt;
-                break;
-            }
-            if (questionType == null) return false;
-            var question = new Question() { QuestionTypeId = questionType.Id,Description = item.Description,Version = 1,IsActive = true};
+                Id = calculatedId,
+                QuestionTypeId = type.Id,
+                Description = item.Description,
+                Version = 1,
+                IsActive = true,
+                Guid = new Guid(),
+                QuestionTypeGuid = type.Guid
+            };
             _context.Question.Add(question);
             _context.SaveChanges();
             item.Id = question.Id;
             _questions.Add(item);
+            _currentQuestions.Add(item);
             return true;
         }
 
         public bool Delete(QuestionViewModel item)
         {
-            var question = _context.Question.Include("QuestionType").FirstOrDefault(q => q.Id == item.Id&&q.Version == item.Version);
+            var question =
+                _context.Question.Include("QuestionType")
+                    .FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
             if (question == null) return false;
             question.IsActive = false;
             _context.Entry(question).State = EntityState.Modified;
             _context.SaveChanges();
-            _questions.Remove(item);
+            _currentQuestions.Remove(item);
             return true;
         }
 
         public bool Update(QuestionViewModel item)
         {
-            var question = _context.Question.Include("QuestionType").FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
+            var question =
+                _context.Question.Include("QuestionType")
+                    .FirstOrDefault(q => q.Id == item.Id && q.Version == item.Version);
             if (question == null) return false;
-            var questionCopy = new Question { Description = question.Description, Version = question.Version + 1, Guid = Guid.NewGuid(), Id = question.Id, IsActive = question.IsActive, QuestionTypeId = question.QuestionTypeId, QuestionTypeGuid = question.QuestionTypeGuid };
+
+            var type = _context.QuestionType.FirstOrDefault(qt => qt.Name.Equals(item.QuestionType.ToString()));
+            if (type == null) return false;
+
+            var questionCopy = new Question
+            {
+                Description = item.Description,
+                Version = question.Version + 1,
+                Guid = Guid.NewGuid(),
+                Id = question.Id,
+                IsActive = question.IsActive,
+                QuestionTypeId = type.Id,
+                QuestionTypeGuid = type.Guid
+            };
 
             question.IsActive = false;
             _context.Question.Add(questionCopy);
             _context.SaveChanges();
-            item.Version++;
+            item.Version = item.Version + 1;
+            RefreshCurrentQuestions();
             return true;
         }
 
@@ -99,11 +119,11 @@ namespace ParkInspect.Repository.Entity
         private void RefreshCurrentQuestions()
         {
             if (_currentQuestions == null) _currentQuestions = new ObservableCollection<QuestionViewModel>();
-            _currentQuestions.Clear();            
+            _currentQuestions.Clear();
 
             foreach (var questionViewModel in _questions.Where(q => !(from qq in _questions
-                                                                      where qq.Id == q.Id && qq.Version > q.Version
-                                                                      select qq).Any()))
+                where qq.Id == q.Id && qq.Version > q.Version
+                select qq).Any()))
             {
                 _currentQuestions.Add(questionViewModel);
             }
