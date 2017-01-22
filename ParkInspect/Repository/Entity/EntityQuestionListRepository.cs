@@ -4,6 +4,7 @@ using System.Linq;
 using Data;
 using ParkInspect.Repository.Interface;
 using ParkInspect.ViewModel;
+using static System.Data.Entity.EntityState;
 using QuestionType = ParkInspect.Enumeration.QuestionType;
 
 namespace ParkInspect.Repository.Entity
@@ -35,28 +36,32 @@ namespace ParkInspect.Repository.Entity
 
             questionlist.ForEach(ql =>
             {
-                var inspection = ql.InspectionId.HasValue ? new InspectionViewModel()
-                {
-                    Id = ql.Inspection.Id,
-                    CommissionViewModel = new CommissionViewModel {Id = ql.Inspection.Commission.Id}
-                } : null;
+                var inspection = ql.InspectionId.HasValue
+                    ? new InspectionViewModel()
+                    {
+                        Id = ql.Inspection.Id,
+                        CommissionViewModel = new CommissionViewModel {Id = ql.Inspection.Commission.Id}
+                    }
+                    : null;
                 _questionLists.Add(new QuestionListViewModel
                 {
                     Description = ql.Description,
                     Id = ql.Id,
                     Inspection = inspection,
-                    QuestionItems = new ObservableCollection<QuestionItemViewModel>(ql.QuestionItem.Select(qi => new QuestionItemViewModel
-                    {
-                        Answer = qi.Answer.Value,
-                        Question = new QuestionViewModel
-                        {
-                            Description = qi.Question.Description,
-                            Id = qi.Question.Id,
-                            IsActive = qi.Question.IsActive,
-                            QuestionType = TypeForString(qi.Question.QuestionType.Name),
-                            Version = qi.Question.Version
-                        } // end Question
-                    })) // end QuestionItems
+                    QuestionItems =
+                        new ObservableCollection<QuestionItemViewModel>(
+                            ql.QuestionItem.Select(qi => new QuestionItemViewModel
+                            {
+                                Answer = qi.Answer?.Value,
+                                Question = new QuestionViewModel
+                                {
+                                    Description = qi.Question.Description,
+                                    Id = qi.Question.Id,
+                                    IsActive = qi.Question.IsActive,
+                                    QuestionType = TypeForString(qi.Question.QuestionType.Name),
+                                    Version = qi.Question.Version
+                                } // end Question
+                            })) // end QuestionItems
                 }); // end QuestionsLists
             }); // end foreach
 
@@ -72,7 +77,11 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(QuestionListViewModel item)
         {
-            var questionList = new QuestionList() { Description = item.Description, InspectionId = item.Inspection.Id, InspectionGuid = Guid.NewGuid()};
+            var questionList = new QuestionList() {Description = item.Description};
+            if (item.Inspection != null)
+            {
+                questionList.Inspection = _context.Inspection.FirstOrDefault(i => i.Id == item.Inspection.Id);
+            }
             _context.QuestionList.Add(questionList);
             _context.SaveChanges();
             item.Id = questionList.Id;
@@ -83,7 +92,7 @@ namespace ParkInspect.Repository.Entity
         public bool Delete(QuestionListViewModel item)
         {
             QuestionList questionlist = new QuestionList();
-            foreach(QuestionList q in _context.QuestionList)
+            foreach (QuestionList q in _context.QuestionList)
             {
                 if (q.Id != item.Id) continue;
                 questionlist = q;
@@ -97,8 +106,13 @@ namespace ParkInspect.Repository.Entity
 
         public bool Update(QuestionListViewModel item)
         {
-            // TODO deze function implementeren of weggooien
-            throw new NotImplementedException();
+            var questionList = _context.QuestionList.Include("QuestionItem").FirstOrDefault(qi => qi.Id == item.Id);
+            if (questionList == null) return false;
+            questionList.Description = item.Description;
+            questionList.InspectionId = item.Inspection?.Id;
+            _context.Entry(questionList).State = Modified;
+            _context.SaveChanges();
+            return true;
         }
 
         public ObservableCollection<QuestionItemViewModel> GetAllQuestionItems()
@@ -110,14 +124,32 @@ namespace ParkInspect.Repository.Entity
 
         public bool AddItem(QuestionListViewModel list, QuestionItemViewModel item)
         {
-            // TODO deze function implementeren of weggooien
-            throw new NotImplementedException();
+            var questionList = _context.QuestionList.Include("QuestionItem").FirstOrDefault(qi => qi.Id == list.Id);
+            if (questionList == null) return false;
+            var questionItem = new QuestionItem
+            {
+                QuestionId = item.QuestionId,
+                QuestionVersion = item.QuestionVersion,
+                Guid = Guid.NewGuid(),
+                QuestionList = questionList
+            };
+            _context.QuestionItem.Add(questionItem);
+            _context.SaveChanges();
+            list.QuestionItems.Add(item);
+            return true;
         }
 
         public bool RemoveItem(QuestionListViewModel list, QuestionItemViewModel item)
         {
-            // TODO deze function implementeren of weggooien
-            throw new NotImplementedException();
+            var questionList = _context.QuestionList.Include("QuestionItem").FirstOrDefault(qi => qi.Id == list.Id);
+            var questionItem =
+                _context.QuestionItem.FirstOrDefault(
+                    qi => qi.QuestionListId == questionList.Id && qi.QuestionId == item.QuestionId);
+            if (questionList == null || questionItem == null) return false;
+            _context.QuestionItem.Remove(questionItem);
+            _context.SaveChanges();
+            list.QuestionItems.Remove(item);
+            return true;
         }
     }
 }

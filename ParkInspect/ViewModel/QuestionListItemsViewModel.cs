@@ -7,9 +7,10 @@ namespace ParkInspect.ViewModel
 {
     public class QuestionListItemsViewModel : MainViewModel
     {
-        private QuestionListViewModel _qlvm;
+        private QuestionListViewModel _questionList;
         private QuestionViewModel _selectedQuestion;
         private QuestionItemViewModel _selectedQuestionItem;
+        private readonly IQuestionListRepository _questionListRepository;
         public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
         public QuestionItemViewModel SelectedQuestionItem
         {
@@ -35,11 +36,12 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        public QuestionListItemsViewModel(IQuestionRepository questionRepo, IRouterService router, QuestionListsviewModel qvm) : base(router)
+        public QuestionListItemsViewModel(IQuestionRepository questionRepo, IQuestionListRepository questionListRepo, IRouterService router, QuestionListsviewModel qvm) : base(router)
         {
-            _qlvm = qvm.SelectedQuestionList;
+            _questionListRepository = questionListRepo;
+            _questionList = qvm.SelectedQuestionList;
             QuestionItems = qvm.SelectedQuestionList.QuestionItems;
-            Questions = new ObservableCollection<QuestionViewModel>(questionRepo.GetAll());
+            Questions = new ObservableCollection<QuestionViewModel>(questionRepo.GetLatest());
             AddQuestionCommand = new RelayCommand(AddQuestion, CanAddQuestion);
             DeleteQuestionCommand = new RelayCommand(DeleteQuestion, CanDeleteQuestion);
             if (Questions.Count > 0)
@@ -54,15 +56,17 @@ namespace ParkInspect.ViewModel
 
         private void AddQuestion()
         {
-            QuestionItemViewModel qivm = new QuestionItemViewModel();
-            qivm.Question = QuestionToAdd;
-            qivm.QuestionList = _qlvm;
-            QuestionItems.Add(qivm);
+            var questionItem = new QuestionItemViewModel
+            {
+                Question = QuestionToAdd,
+                QuestionList = _questionList
+            };
+            _questionListRepository.AddItem(_questionList, questionItem);
         }
 
         private void DeleteQuestion()
         {
-            QuestionItems.Remove(SelectedQuestionItem);
+            _questionListRepository.RemoveItem(_questionList, SelectedQuestionItem);
             SelectedQuestionItem = null;
         }
     }
