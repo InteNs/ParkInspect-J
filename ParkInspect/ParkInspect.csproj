@@ -43,6 +43,14 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="FileDb, Version=6.1.0.0, Culture=neutral, PublicKeyToken=ba3f58a0e60cd01d, processorArchitecture=MSIL">
+      <HintPath>..\packages\XAML.MapControl.2.13.0\lib\net45\FileDb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="FileDbCache.WPF, Version=2.13.0.0, Culture=neutral, PublicKeyToken=f26fcf0059638459, processorArchitecture=MSIL">
+      <HintPath>..\packages\XAML.MapControl.2.13.0\lib\net45\FileDbCache.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="GalaSoft.MvvmLight, Version=5.3.0.19026, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
       <Private>True</Private>
@@ -55,8 +63,32 @@
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="GoogleMaps.LocationServices, Version=0.1.5926.26040, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\GoogleMaps.LocationServices.0.9.8.6\lib\net40\GoogleMaps.LocationServices.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="ImageFileCache.WPF, Version=2.13.0.0, Culture=neutral, PublicKeyToken=f26fcf0059638459, processorArchitecture=MSIL">
+      <HintPath>..\packages\XAML.MapControl.2.13.0\lib\net45\ImageFileCache.WPF.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="INIFileParser, Version=2.3.0.0, Culture=neutral, PublicKeyToken=79af7b307b65cf3c, processorArchitecture=MSIL">
+      <HintPath>..\packages\ini-parser.2.3.0\lib\net20\INIFileParser.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.10\lib\itextsharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="itextsharp.xmlworker, Version=5.5.10.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\itextsharp.xmlworker.5.5.10\lib\itextsharp.xmlworker.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MapControl.WPF, Version=2.13.0.0, Culture=neutral, PublicKeyToken=f26fcf0059638459, processorArchitecture=MSIL">
+      <HintPath>..\packages\XAML.MapControl.2.13.0\lib\net45\MapControl.WPF.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MaterialDesignColors, Version=1.1.3.0, Culture=neutral, processorArchitecture=MSIL">
@@ -74,6 +106,7 @@
       <HintPath>..\packages\MaterialDesignThemes.2.2.0.725\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.Expression.Drawing, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -81,11 +114,60 @@
     <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
     </Reference>
+    <Reference Include="Microsoft.Synchronization, Version=2.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\x86\Microsoft.Synchronization.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.Server, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.SqlServer, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Synchronization.Data.SqlServerCe, Version=3.1.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SDKs\Microsoft Sync Framework\2.1\Runtime\ADO.NET\V3.1\x86\Microsoft.Synchronization.Data.SqlServerCe.dll</HintPath>
+    </Reference>
+    <Reference Include="OxyPlot, Version=1.0.0.0, Culture=neutral, PublicKeyToken=638079a8f0bd61e9, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Core.1.0.0\lib\net45\OxyPlot.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="OxyPlot.Wpf, Version=1.0.0.0, Culture=neutral, PublicKeyToken=75e952ba404cdbb0, processorArchitecture=MSIL">
+      <HintPath>..\packages\OxyPlot.Wpf.1.0.0\lib\net45\OxyPlot.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PdfSharp.Charting, Version=1.32.3057.0, Culture=neutral, PublicKeyToken=f94615aa0424f9eb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PDFsharp.1.32.3057.0\lib\net20\PdfSharp.Charting.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="RazorEngine, Version=3.9.3.0, Culture=neutral, PublicKeyToken=9ee697374c7e744a, processorArchitecture=MSIL">
+      <HintPath>..\packages\RazorEngine.3.9.3\lib\net45\RazorEngine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Activities" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Microsoft SQL Server Compact Edition\v3.5\Desktop\System.Data.SqlServerCe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Caching" />
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.2.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -103,61 +185,144 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.DataGrid, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.DataGrid.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=2.9.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.2.9\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Converter\DatetimeToTimestringConverter.cs" />
+    <Compile Include="Converter\FilterTimeLineItemConverter.cs" />
+    <Compile Include="Converter\NameToBrushConverter.cs" />
+    <Compile Include="Enumeration\Function.cs" />
     <Compile Include="Factory\DiagramFactory.cs" />
-    <Compile Include="DiagramModels\Cirkeldiagram.cs" />
-    <Compile Include="DiagramModels\Grafiek.cs" />
-    <Compile Include="DiagramModels\Kaart.cs" />
-    <Compile Include="DiagramModels\Staafdiagram.cs" />
+    <Compile Include="DiagramModels\PieChart.cs" />
+    <Compile Include="DiagramModels\LineChart.cs" />
+    <Compile Include="DiagramModels\MapChart.cs" />
+    <Compile Include="DiagramModels\BarGraph.cs" />
     <Compile Include="DiagramModels\IDiagram.cs" />
     <Compile Include="Converter\FilterEmployeeConverter.cs" />
     <Compile Include="Helper\MetroDialogService.cs" />
+    <Compile Include="Maps\MapBase.cs" />
     <Compile Include="Lib\WatermarkAdorner.cs" />
-    <Compile Include="Repositories\DummyEmployeesRepository.cs" />
-    <Compile Include="Repositories\DummyCommissionRepository.cs" />
-    <Compile Include="Repositories\DummyQuestionRepository.cs" />
-    <Compile Include="Repositories\DummyTemplateRepository.cs" />
-    <Compile Include="Repositories\IEmployeeRepository.cs" />
-    <Compile Include="Repositories\ICommissionRepository.cs" />
-    <Compile Include="Repositories\IManagementRapportenRepository.cs" />
-    <Compile Include="Repositories\DummyAuthenticationRepository.cs" />
-    <Compile Include="Repositories\IAuthenticationRepository.cs" />
+    <Compile Include="Maps\MapText.cs" />
+    <Compile Include="Maps\MapPoint.cs" />
+    <Compile Include="Properties\Annotations.cs" />
+    <Compile Include="Repository\Dummy\DummyEmployeesRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyCommissionRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyInspectionsRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyLocationRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyQuestionListRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyQuestionRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyRegionRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyTemplateRepository.cs" />
+    <Compile Include="Repository\Entity\EntityCommissionRepository.cs" />
+    <Compile Include="Repository\Entity\EntityCustomerRepository.cs" />
+    <Compile Include="Repository\Entity\EntityLocationRepository.cs" />
+    <Compile Include="Repository\Entity\EntityRegionRepository.cs" />
+    <Compile Include="Repository\Entity\EntityEmployeesRepository.cs" />
+    <Compile Include="Repository\Entity\EntityQuestionListRepository.cs" />
+    <Compile Include="Repository\Entity\EntityQuestionRepository.cs" />
+    <Compile Include="Repository\Entity\EntityInspectionsRepository.cs" />
+    <Compile Include="Repository\Entity\EntityTemplateRepository.cs" />
+    <Compile Include="Repository\Interface\IBaseRepository.cs" />
+    <Compile Include="Repository\Interface\IEmployeeRepository.cs" />
+    <Compile Include="Repository\Interface\ICommissionRepository.cs" />
+    <Compile Include="Repository\Interface\IInspectionsRepository.cs" />
+    <Compile Include="Repository\Interface\ILocationRepository.cs" />
+    <Compile Include="Repository\Entity\EntityAuthenticationRepository.cs" />
+    <Compile Include="Repository\Interface\IAuthenticationRepository.cs" />
+    <Compile Include="Repository\Interface\IQuestionListRepository.cs" />
+    <Compile Include="Repository\Interface\IRegionRepository.cs" />
+    <Compile Include="Service\AuthService.cs" />
+    <Compile Include="Service\ISyncService.cs" />
+    <Compile Include="Service\SyncService.cs" />
+    <Compile Include="Service\IAuthService.cs" />
+    <Compile Include="Service\IRouterService.cs" />
+    <Compile Include="ViewModel\AddInspectionViewModel.cs" />
+    <Compile Include="ViewModel\AddQuestionViewModel.cs" />
     <Compile Include="ViewModel\AuthenticationViewModel.cs" />
-    <Compile Include="Repositories\ManagementRapportenRepository.cs" />
+    <Compile Include="ViewModel\BarGraphViewModel.cs" />
+    <Compile Include="ViewModel\EditCustomerViewModel.cs" />
+    <Compile Include="ViewModel\EditQuestionListViewModel.cs" />
+    <Compile Include="ViewModel\EditQuestionViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeInspectionsViewModel.cs" />
+    <Compile Include="ViewModel\IGraphViewModel.cs" />
+    <Compile Include="ViewModel\InspectionsViewModel.cs" />
+    <Compile Include="ViewModel\InspectionViewModel.cs" />
+    <Compile Include="ViewModel\LineChartViewModel.cs" />
     <Compile Include="ViewModel\LocationViewModel.cs" />
-    <Compile Include="ViewModel\ManagementRapportenViewModel.cs" />
+    <Compile Include="ViewModel\ManagementReportsViewModel.cs" />
     <Compile Include="Service\WaterMarkService.cs" />
+    <Compile Include="ViewModel\MapViewModel.cs" />
+    <Compile Include="ViewModel\QuestionControlMainViewModel.cs" />
     <Compile Include="ViewModel\PersonViewModel.cs" />
+    <Compile Include="ViewModel\QuestionItemViewModel.cs" />
+    <Compile Include="ViewModel\QuestionListsviewModel.cs" />
+    <Compile Include="ViewModel\QuestionListViewModel.cs" />
+    <Compile Include="ViewModel\PieChartViewModel.cs" />
+    <Compile Include="ViewModel\QuestionListItemsViewModel.cs" />
+    <Compile Include="ViewModel\SyncViewModel.cs" />
+    <Compile Include="ViewModel\TimeLineItemViewModel.cs" />
+    <Compile Include="ViewModel\TimeLineViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="ViewModel\AddCommissionViewModel.cs" />
     <Compile Include="ViewModel\CommissionOverviewViewModel.cs" />
     <Compile Include="ViewModel\CommissionViewModel.cs" />
     <Compile Include="Converter\FilterCustomerConverter.cs" />
-    <Compile Include="Repositories\DummyCustomersRepository.cs" />
-    <Compile Include="Repositories\ICustomerRepository.cs" />
+    <Compile Include="Repository\Dummy\DummyCustomersRepository.cs" />
+    <Compile Include="Repository\Interface\ICustomerRepository.cs" />
     <Compile Include="ViewModel\AddCustomerViewModel.cs" />
     <Compile Include="ViewModel\CustomersViewModel.cs" />
     <Compile Include="ViewModel\CustomerViewModel.cs" />
     <Compile Include="Enumeration\QuestionType.cs" />
-    <Compile Include="Repositories\IQuestionRepository.cs" />
-    <Compile Include="Repositories\ITemplateRepository.cs" />
+    <Compile Include="Repository\Interface\IQuestionRepository.cs" />
+    <Compile Include="Repository\Interface\ITemplateRepository.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\QuestionsViewModel.cs" />
     <Compile Include="ViewModel\QuestionViewModel.cs" />
     <Compile Include="ViewModel\TemplatesViewModel.cs" />
     <Compile Include="ViewModel\TemplateViewModel.cs" />
     <Compile Include="ViewModel\TestItemViewModel.cs" />
-    <Compile Include="ViewModel\RouterViewModel.cs" />
+    <Compile Include="Service\RouterService.cs" />
     <Compile Include="View\AddCommission.xaml.cs">
       <DependentUpon>AddCommission.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\AddCustomerView.xaml.cs">
       <DependentUpon>AddCustomerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddInspectionView.xaml.cs">
+      <DependentUpon>AddInspectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AddQuestionView.xaml.cs">
+      <DependentUpon>AddQuestionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AnswerQuestionView.xaml.cs">
+      <DependentUpon>AnswerQuestionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\CustomersView.xaml.cs">
       <DependentUpon>CustomersView.xaml</DependentUpon>
@@ -168,17 +333,44 @@
     <Compile Include="View\AddEmployeeView.xaml.cs">
       <DependentUpon>AddEmployeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\AuthView.xaml.cs">
+      <DependentUpon>AuthView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\DashboardManagerView.xaml.cs">
       <DependentUpon>DashboardManagerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditCustomerView.xaml.cs">
+      <DependentUpon>EditCustomerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\EditEmployeeView.xaml.cs">
       <DependentUpon>EditEmployeeView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\EditQuestionListView.xaml.cs">
+      <DependentUpon>EditQuestionListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EditQuestionView.xaml.cs">
+      <DependentUpon>EditQuestionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\EmployeesView.xaml.cs">
       <DependentUpon>EmployeesView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\InspectionsView.xaml.cs">
+      <DependentUpon>InspectionsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\EmployeeInspectionsWindow.xaml.cs">
+      <DependentUpon>EmployeeInspectionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\MainMenuInspecteurView.xaml.cs">
+      <DependentUpon>MainMenuInspecteurView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\ManagementView.xaml.cs">
       <DependentUpon>ManagementView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuestionListsView.xaml.cs">
+      <DependentUpon>QuestionListsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuestionListView.xaml.cs">
+      <DependentUpon>QuestionListView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\QuestionsView.xaml.cs">
       <DependentUpon>QuestionsView.xaml</DependentUpon>
@@ -186,19 +378,49 @@
     <Compile Include="View\TemplatesView.xaml.cs">
       <DependentUpon>TemplatesView.xaml</DependentUpon>
     </Compile>
-    <Page Include="View\AuthenticationView.xaml">
+    <Compile Include="View\TimeLineView.xaml.cs">
+      <DependentUpon>TimeLineView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\QuestionControlMainView.xaml.cs">
+      <DependentUpon>QuestionControlMainView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="View\AddEmployeeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\AddInspectionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\AddEmployeeView.xaml">
+    <Page Include="View\AddQuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AnswerQuestionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AuthView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="View\DashboardManagerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\EditCustomerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\EditEmployeeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditQuestionListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EditQuestionView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -222,6 +444,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="View\InspectionsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\EmployeeInspectionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\MainMenuInspecteurView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -242,11 +476,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="View\QuestionListsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\QuestionListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="View\QuestionsView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\TemplatesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\TemplatesView.xaml">
+    <Page Include="View\TimeLineView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\QuestionControlMainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -286,9 +536,14 @@
       <Name>Data</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\banner.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\previousIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="GoogleMaps.LocationServices.readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

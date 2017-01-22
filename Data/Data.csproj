@@ -51,6 +51,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Answer.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Commission.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Employee.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="extension.cs" />
+    <Compile Include="Function.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inspection.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Inspection_tracking.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Location.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="ParkInspectEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -66,20 +91,51 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ParkInspectEntities.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Person.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="ParkInspectEntities.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ParkInspectEntities.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <Compile Include="Question.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionItem.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionList.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="QuestionType.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Region.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="schema_info.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="scope_config.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="scope_info.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Workday.cs">
+      <DependentUpon>ParkInspectEntities.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
     <None Include="packages.config" />
+    <EntityDeploy Include="ParkInspectEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ParkInspectEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
     <None Include="ParkInspectEntities.edmx.diagram">
       <DependentUpon>ParkInspectEntities.edmx</DependentUpon>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="ParkInspectEntities.Context.tt">
@@ -92,9 +148,6 @@
       <DependentUpon>ParkInspectEntities.edmx</DependentUpon>
       <LastGenOutput>ParkInspectEntities.cs</LastGenOutput>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

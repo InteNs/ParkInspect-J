@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ParkInspect.Repositories;
-
-namespace ParkInspect.ViewModel
+﻿namespace ParkInspect.ViewModel
 {
-    public class AuthenticationViewModel
+    public class AuthenticationViewModel : MainViewModel
     {
-        private IAuthenticationRepository _repo;
-
-        public AuthenticationViewModel(IAuthenticationRepository repo)
-        {
-            _repo = repo;
-        }
+        public  string Username { get; set; }
+        public  string Function { get; set; }
+        public int EmployeeId { get; set; }
     }
 }

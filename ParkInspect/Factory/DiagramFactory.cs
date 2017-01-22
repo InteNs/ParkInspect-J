@@ -1,25 +1,20 @@
-﻿using ParkInspect.DiagramModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using ParkInspect.DiagramModels;
 
-namespace ParkInspect
+namespace ParkInspect.Factory
 {
     public class DiagramFactory
     {
-        public IEnumerable<IDiagram> DiagramNames => _diagrams.Values;
-
         private readonly Dictionary<string, IDiagram> _diagrams;
+        public IEnumerable<IDiagram> DiagramNames => _diagrams.Values;
 
         public DiagramFactory()
         {
             _diagrams = new Dictionary<string, IDiagram>
             {
-                ["Grafiek"] = new Grafiek(),
-                ["Kaart"] = new Kaart(),
-                ["Cirkeldiagram"] = new Cirkeldiagram(),
+                ["Lijndiagram"] = new LineChart(),
+                ["Kaart"] = new MapChart(),
+                ["Cirkeldiagram"] = new PieChart(),
                 ["Staafdiagram"] = new Staafdiagram()
             };
 

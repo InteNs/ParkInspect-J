@@ -1,25 +1,14 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using ParkInspect.Repositories;
-using System;
-using System.Collections.Generic;
+﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
-    public class CustomersViewModel : ViewModelBase
+    public class CustomersViewModel : MainViewModel
     {
-        public ObservableCollection<CustomerViewModel> Customers{ get; set; }
-
         private CustomerViewModel _selectedCustomer;
-        private ICustomerRepository _repo;
-        private RouterViewModel _router;
-        private string _input;
+        public ObservableCollection<CustomerViewModel> Customers { get; set; }
 
         public CustomerViewModel SelectedCustomer
         {
@@ -27,40 +16,18 @@ namespace ParkInspect.ViewModel
             set
             {
                 _selectedCustomer = value;
+                EditCustomerCommand.RaiseCanExecuteChanged();
                 RaisePropertyChanged();
             }
         }
-        public ICommand ShowEditCustomersCommand { get; set; }
+        public RelayCommand EditCustomerCommand { get; set; }
 
-        public string Input
+        public CustomersViewModel(ICustomerRepository repo, IRouterService router) : base(router)
         {
-            get { return _input; }
-            set
-            {
-                _input = value;
-                RaisePropertyChanged();
-            }
+            Customers = repo.GetAll();
+            EditCustomerCommand = new RelayCommand(() => RouterService.SetView("customers-edit"), CanEditCustomer);
         }
 
-       public CustomersViewModel(ICustomerRepository repo, RouterViewModel router)
-        {
-            _repo = repo;
-            _router = router;
-
-            Customers = new ObservableCollection<CustomerViewModel>(repo.GetAll());
-
-            ShowEditCustomersCommand = new RelayCommand(ShowEditView, CustomerIsNotNull);
-        }
-
-        private bool CustomerIsNotNull()
-        {
-            return SelectedCustomer != null;
-        }
-
-        private void ShowEditView()
-        {
-            _router.SetViewCommand.Execute("Customers-list");
-        }
-
+        private bool CanEditCustomer() => SelectedCustomer != null;
     }
 }

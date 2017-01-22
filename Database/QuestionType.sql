@@ -1,0 +1,12 @@
+﻿CREATE TABLE [dbo].[QuestionType]
+(
+	[Id] INT IDENTITY NOT NULL , 
+    [Guid] UNIQUEIDENTIFIER NOT NULL,
+	[Name] VARCHAR(MAX) NOT NULL
+    
+	CONSTRAINT [PK_QuestionType] PRIMARY KEY CLUSTERED
+	(
+		Id,
+		Guid
+	)
+)

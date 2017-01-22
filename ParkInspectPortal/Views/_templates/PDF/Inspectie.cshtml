@@ -1,0 +1,13 @@
+﻿@using System.Globalization
+@model List<ParkInspectPortal.Models.QuestionListViewModel>
+
+<h2>Inspectie raport</h2>
+<p>Gegenereerd op @DateTime.Now.ToString("dd MMMM yyyy H:mm:ss", CultureInfo.CreateSpecificCulture("nl-NL"))</p>
+
+<div>
+        @foreach (var item in Model)
+        {
+            <p><strong>@item.Question :</strong> @item.Answer </p>
+            
+        }
+</div>

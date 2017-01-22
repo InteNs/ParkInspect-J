@@ -2,12 +2,45 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParkInspect.View"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
+             Foreground="Black"
              DataContext="{Binding Questions, Source={StaticResource Locator}}">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.035*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.035*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.035*"/>
+        </Grid.RowDefinitions>
+        
+        <DataGrid CanUserDeleteRows="False" CanUserAddRows="False" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  AutoGenerateColumns="False" ItemsSource="{Binding Questions}" VerticalScrollBarVisibility="Visible"
+                  SelectedItem="{Binding SelectedQuestion, Mode=TwoWay, NotifyOnSourceUpdated=True}" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="7">
+            <DataGrid.Columns>
+                <DataGridTextColumn IsReadOnly="true" Width="0.1*" Header="#" Binding="{Binding Id}" />
+                <DataGridTextColumn IsReadOnly="True" Width="*" Header="Description" Binding="{Binding Description}" />
+                <DataGridTextColumn IsReadOnly="True" Width="0.1*" Header="Version" Binding="{Binding Version}" />
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <Button Foreground="White" FontSize="20"  Command="{Binding RouteCommand}" CommandParameter="question-add" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" > Nieuwe vraag</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding DuplicateQuestionCommand}" Grid.Row="3" Grid.Column="3" VerticalAlignment="Center" >Dupliceer vraag</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding EditQuestionCommand}" Grid.Row="3" Grid.Column="5" VerticalAlignment="Center" >Vraag aanpassen</Button>
+        <Button Foreground="White" FontSize="20"  Command="{Binding DisableQuestionCommand}" Grid.Row="3" Grid.Column="7" VerticalAlignment="Center" >Vraag verwijderen</Button>
     </Grid>
 </UserControl>

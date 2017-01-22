@@ -1,64 +1,131 @@
+using System;
 using Data;
-using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
-using ParkInspect.Repositories;
-using ParkInspect.View;
+using ParkInspect.Repository.Dummy;
+using ParkInspect.Repository.Entity;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
 
     public class ViewModelLocator
     {
-        /// <summary>
-        /// Initializes a new instance of the ViewModelLocator class.
-        /// </summary>
         public ViewModelLocator()
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
-            //router
-            SimpleIoc.Default.Register<RouterViewModel>();
+
+            //services
+            SimpleIoc.Default.Register<IRouterService, RouterService>();
+            SimpleIoc.Default.Register<IAuthService, AuthService>();
+            SimpleIoc.Default.Register<ISyncService, SyncService>();
+
             //database context
             SimpleIoc.Default.Register<ParkInspectEntities>();
+
             //repositories
-            SimpleIoc.Default.Register<IEmployeeRepository, DummyEmployeesRepository>();
-            SimpleIoc.Default.Register<ICommissionRepository, DummyCommissionRepository>();
-            SimpleIoc.Default.Register<IManagementRapportenRepository, ManagementRapportenRepository>();
-            SimpleIoc.Default.Register<IAuthenticationRepository, DummyAuthenticationRepository>();
-            SimpleIoc.Default.Register<ICustomerRepository, DummyCustomersRepository>();
+            SimpleIoc.Default.Register<ICommissionRepository, EntityCommissionRepository>();
+            SimpleIoc.Default.Register<IRegionRepository, EntityRegionRepository>();
+            SimpleIoc.Default.Register<IEmployeeRepository, EntityEmployeesRepository>();
+            SimpleIoc.Default.Register<IAuthenticationRepository, EntityAuthenticationRepository>();
+            SimpleIoc.Default.Register<ICustomerRepository, EntityCustomerRepository>();
             SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
-            SimpleIoc.Default.Register<IQuestionRepository, DummyQuestionRepository>();
+            SimpleIoc.Default.Register<IQuestionRepository, EntityQuestionRepository>();
+            SimpleIoc.Default.Register<IQuestionListRepository, EntityQuestionListRepository>();
+            SimpleIoc.Default.Register<IInspectionsRepository, EntityInspectionsRepository>();
 
             //viewmodels
+            SimpleIoc.Default.Register<MainViewModel>();
+
+            SimpleIoc.Default.Register<EmployeesViewModel>();
+            SimpleIoc.Default.Register<AddEmployeeViewModel>();
+            SimpleIoc.Default.Register<EditEmployeeViewModel>();
+
+            SimpleIoc.Default.Register<CustomersViewModel>();
+            SimpleIoc.Default.Register<AddCustomerViewModel>();
+            SimpleIoc.Default.Register<EditCustomerViewModel>();
+
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();
-            SimpleIoc.Default.Register<MainViewModel>();
-            SimpleIoc.Default.Register<EmployeesViewModel>();
-            SimpleIoc.Default.Register<ManagementRapportenViewModel>();
+        
+            SimpleIoc.Default.Register<AddCommissionViewModel>();
+            SimpleIoc.Default.Register<CommissionOverviewViewModel>();
+
+            SimpleIoc.Default.Register<ManagementReportsViewModel>();
             SimpleIoc.Default.Register<AuthenticationViewModel>();
-            SimpleIoc.Default.Register<CustomersViewModel>();
+           
             SimpleIoc.Default.Register<QuestionsViewModel>();
+            SimpleIoc.Default.Register<QuestionListsviewModel>();
+            SimpleIoc.Default.Register<QuestionListItemsViewModel>();
             SimpleIoc.Default.Register<TemplatesViewModel>();
+            SimpleIoc.Default.Register<InspectionsViewModel>();
+            SimpleIoc.Default.Register<AddInspectionViewModel>();
+            SimpleIoc.Default.Register<TimeLineViewModel>();
+            SimpleIoc.Default.Register<EmployeeInspectionsViewModel>();
+
+            SimpleIoc.Default.Register<QuestionControlMainViewModel>();
+            SimpleIoc.Default.Register<AddQuestionViewModel>();
+            SimpleIoc.Default.Register<EditQuestionViewModel>();
+            SimpleIoc.Default.Register<EditQuestionListViewModel>();
             
+            SimpleIoc.Default.Register<SyncViewModel>();
         }
-        //router
-        public RouterViewModel Router => ServiceLocator.Current.GetInstance<RouterViewModel>();
+        //Services
+        public IRouterService RouterService => ServiceLocator.Current.GetInstance<IRouterService>();
+        public IAuthService AuthService => ServiceLocator.Current.GetInstance<IAuthService>();
+        public ISyncService SyncService => ServiceLocator.Current.GetInstance<ISyncService>();
         //viewmodels
+
         public MainViewModel Main => ServiceLocator.Current.GetInstance<MainViewModel>();
-        public ManagementRapportenViewModel Management => ServiceLocator.Current.GetInstance<ManagementRapportenViewModel>();
-   	    public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>();
+
+        public EmployeesViewModel Employees => ServiceLocator.Current.GetInstance<EmployeesViewModel>();
+        public AddEmployeeViewModel AddEmployee => NewInstance<AddEmployeeViewModel>(ref _addEmployeeKey);
+        public EditEmployeeViewModel EditEmployee => NewInstance<EditEmployeeViewModel>(ref _editEmployeeKey);
+
+        public CustomersViewModel Customers => ServiceLocator.Current.GetInstance<CustomersViewModel>();
+        public AddCustomerViewModel AddCustomer => NewInstance<AddCustomerViewModel>(ref _addCustomerKey);
+        public EditCustomerViewModel EditCustomer => NewInstance<EditCustomerViewModel>(ref _editCustomerKey);
+
+        public ManagementReportsViewModel Management => ServiceLocator.Current.GetInstance<ManagementReportsViewModel>();
         public QuestionsViewModel Questions => ServiceLocator.Current.GetInstance<QuestionsViewModel>();
         public TemplatesViewModel Templates => ServiceLocator.Current.GetInstance<TemplatesViewModel>();
-        public EditEmployeeViewModel EditEmployee => new EditEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
-        public AddEmployeeViewModel AddEmployee => new AddEmployeeViewModel(ServiceLocator.Current.GetInstance<IEmployeeRepository>(), Router, Employees);
+        public QuestionListsviewModel QuestionLists => ServiceLocator.Current.GetInstance<QuestionListsviewModel>();
+        public QuestionListItemsViewModel QuestionList => NewInstance<QuestionListItemsViewModel>(ref _questionListItemsKey);
         public AuthenticationViewModel Authentication => ServiceLocator.Current.GetInstance<AuthenticationViewModel>();
-        public CustomersViewModel Customers => ServiceLocator.Current.GetInstance<CustomersViewModel>();
-        public AddCustomerViewModel AddCustomer => new AddCustomerViewModel(ServiceLocator.Current.GetInstance<ICustomerRepository>(), Router, Customers);
         public CommissionOverviewViewModel Commissions => ServiceLocator.Current.GetInstance<CommissionOverviewViewModel>();
-        public AddCommissionViewModel AddCommission => new AddCommissionViewModel(ServiceLocator.Current.GetInstance<ICommissionRepository>(), Router, Commissions);
+        public AddCommissionViewModel AddCommission => ServiceLocator.Current.GetInstance<AddCommissionViewModel>();
+        public InspectionsViewModel Inspections => ServiceLocator.Current.GetInstance<InspectionsViewModel>();
+        public AddInspectionViewModel AddInspection => NewInstance<AddInspectionViewModel>(ref _addInspectionKey);
+        public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
+        public SyncViewModel Synchronisation => ServiceLocator.Current.GetInstance<SyncViewModel>();
+        public EmployeeInspectionsViewModel EmployeeInspections => NewInstance<EmployeeInspectionsViewModel>(ref _addEmployeeInspectionsKey);
+        public QuestionControlMainViewModel QuestionMain => ServiceLocator.Current.GetInstance<QuestionControlMainViewModel>();
+        public AddQuestionViewModel AddQuestion => NewInstance<AddQuestionViewModel>(ref _addQuestionKey);
+        public EditQuestionViewModel EditQuestion => NewInstance<EditQuestionViewModel>(ref _editQuestionKey);
+        public EditQuestionListViewModel EditQuestionList => NewInstance<EditQuestionListViewModel>(ref _editQuestionListKey);
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
+        }
+
+        private string _addEmployeeKey = "1";
+        private string _editEmployeeKey = "1";
+        private string _addCustomerKey = "1";
+        private string _editCustomerKey = "1";
+        private string _addInspectionKey = "1";
+        private string _addEmployeeInspectionsKey = "1";
+        private string _addQuestionKey = "1";
+        private string _editQuestionKey = "1";
+        private string _editQuestionListKey = "1";
+        private string _questionListItemsKey = "1";
+
+        private static T NewInstance<T>(ref string key) where T : class
+        {
+            var vm = ServiceLocator.Current.GetInstance<T>(key);
+            SimpleIoc.Default.Unregister<T>(key);
+            key = Guid.NewGuid().ToString();
+            return vm;
         }
     }
 }
