@@ -45,7 +45,7 @@
         </Grid.RowDefinitions>
 
     <Grid Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}">
-        <Button Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}" Foreground="White" FontSize="25" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" Content="{DynamicResource PreviousIcon}" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding RouteBackCommand}" />
+            <Button Grid.Row="0" Visibility="{Binding Path=IsLoggedIn, Converter={StaticResource BoolToVis}}" Background="{DynamicResource PrimaryHueDarkBrush}" Foreground="White" FontSize="25" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" Content="{DynamicResource PreviousIcon}" Style="{DynamicResource MetroCircleButtonStyle}" Command="{Binding RouteBackCommand}" />
     </Grid>
     <Grid Grid.Column="1" Grid.Row="0" Background="{DynamicResource PrimaryHueDarkBrush}" />
 
