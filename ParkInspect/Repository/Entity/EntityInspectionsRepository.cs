@@ -24,7 +24,7 @@ namespace ParkInspect.Repository.Entity
         public bool Add(InspectionViewModel item)
         {
             var commission = _context.Commission.FirstOrDefault(c => c.Id == item.CommissionViewModel.Id);
-            var inspection = new Inspection { Guid = Guid.NewGuid(), DateTimeStart = item.StartTime, Commission = commission, DateTimeEnd = null, DateCancelled=null, };
+            var inspection = new Inspection { Guid = Guid.NewGuid(), CommissionId = commission.Id, CommissionGuid = commission.Guid, DateTimeStart = item.StartTime, Commission = commission, DateTimeEnd = null, DateCancelled = null };
 
             _context.Inspection.Add(inspection);
             _context.SaveChanges();
@@ -46,7 +46,7 @@ namespace ParkInspect.Repository.Entity
         public ObservableCollection<InspectionViewModel> GetAll()
         {
             _inspections.Clear();
-            if(!_context.Inspection.Any())
+            if (!_context.Inspection.Any())
             {
                 return _inspections;
             }
@@ -103,7 +103,7 @@ namespace ParkInspect.Repository.Entity
                     } // end commisionviewmodel
                 }); // end add
             } //end foreach
-            
+
             return _inspections;
         }
 
@@ -113,7 +113,7 @@ namespace ParkInspect.Repository.Entity
             if (inspections == null) return false;
             inspections.DateTimeStart = item.StartTime;
             inspections.DateTimeEnd = item.EndTime;
-            
+
             _context.Entry(inspections).State = EntityState.Modified;
             _context.SaveChanges();
 
