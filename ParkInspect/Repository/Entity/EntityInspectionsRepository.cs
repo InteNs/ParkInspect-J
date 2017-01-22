@@ -23,6 +23,10 @@ namespace ParkInspect.Repository.Entity
 
         public bool Add(InspectionViewModel item)
         {
+            if (!_context.Commission.Any())
+            {
+                return false;
+            }
             var commission = _context.Commission.FirstOrDefault(c => c.Id == item.CommissionViewModel.Id);
             var inspection = new Inspection { Guid = Guid.NewGuid(), CommissionId = commission.Id, CommissionGuid = commission.Guid, DateTimeStart = item.StartTime, Commission = commission, DateTimeEnd = null, DateCancelled = null };
 

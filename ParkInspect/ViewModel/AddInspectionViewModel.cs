@@ -44,14 +44,14 @@ namespace ParkInspect.ViewModel
             _questionListRepository = questionListRepository;
             AddInspectionCommand = new RelayCommand(AddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
-            ICommissionRepository icr = commissionrepo;
+            ICommissionRepository _commissionrepository = commissionrepo;
 
             QuestionLists = questionListRepository.GetAll();
-            foreach (CommissionViewModel cvm in icr.GetAll())
+            foreach (CommissionViewModel commission in _commissionrepository.GetAll())
             {
-                if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== cvm.Employee.Id)
+                if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== commission.Employee.Id)
                 {
-                    CommissionList.Add(cvm);
+                    CommissionList.Add(commission);
                 }
             }
         }
