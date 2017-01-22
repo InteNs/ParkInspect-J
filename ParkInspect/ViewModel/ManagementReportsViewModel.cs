@@ -108,7 +108,7 @@ namespace ParkInspect.ViewModel
                             BarGraph = new BarGraphViewModel(Inspections, Commissions, Customers, Employees, StartDate,
                                 EndDate, SelectedQuestion, SelectedCommission, SelectedCustomer, "klant");
                             break;
-                        case "Aantal opdrachten per manager":
+                        case "Aantal opdrachten per inspecteur":
                             BarGraph = new BarGraphViewModel(Commissions, Inspectors, StartDate, EndDate, SelectedStatus,
                                 SelectedCustomer);
                             break;
