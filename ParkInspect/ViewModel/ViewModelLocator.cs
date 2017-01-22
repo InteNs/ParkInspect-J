@@ -104,6 +104,7 @@ namespace ParkInspect.ViewModel
         public AddQuestionViewModel AddQuestion => NewInstance<AddQuestionViewModel>(ref _addQuestionKey);
         public EditQuestionViewModel EditQuestion => NewInstance<EditQuestionViewModel>(ref _editQuestionKey);
         public EditQuestionListViewModel EditQuestionList => NewInstance<EditQuestionListViewModel>(ref _editQuestionListKey);
+        
         public static void Cleanup()
         {
             // TODO Clear the ViewModels
