@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Data;
 using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using static System.Data.Entity.EntityState;
 using QuestionType = ParkInspect.Enumeration.QuestionType;
@@ -14,10 +16,12 @@ namespace ParkInspect.Repository.Entity
         private readonly ObservableCollection<QuestionListViewModel> _questionLists;
         private readonly ObservableCollection<QuestionItemViewModel> _questionItems;
         private readonly ParkInspectEntities _context;
+        private readonly IRouterService _router;
 
-        public EntityQuestionListRepository(ParkInspectEntities context)
+        public EntityQuestionListRepository(ParkInspectEntities context, IRouterService router)
         {
             _context = context;
+            _router = router;
             _questionLists = new ObservableCollection<QuestionListViewModel>();
             _questionItems = new ObservableCollection<QuestionItemViewModel>();
         }
@@ -36,14 +40,15 @@ namespace ParkInspect.Repository.Entity
 
             questionlist.ForEach(ql =>
             {
-                var inspection = ql.InspectionId.HasValue
-                    ? new InspectionViewModel()
+                InspectionViewModel inspection;
+                if (ql.InspectionId.HasValue)
+                    inspection = new InspectionViewModel()
                     {
                         Id = ql.Inspection.Id,
                         CommissionViewModel = new CommissionViewModel {Id = ql.Inspection.Commission.Id}
-                    }
-                    : null;
-                _questionLists.Add(new QuestionListViewModel
+                    };
+                else inspection = null;
+                _questionLists.Add(new QuestionListViewModel(this, _router)
                 {
                     Description = ql.Description,
                     Id = ql.Id,
@@ -149,6 +154,32 @@ namespace ParkInspect.Repository.Entity
             _context.QuestionItem.Remove(questionItem);
             _context.SaveChanges();
             list.QuestionItems.Remove(item);
+            return true;
+        }
+
+        public bool CopyTemplate(QuestionListViewModel template, InspectionViewModel inspection)
+        {
+            var dbTemplate = _context.QuestionList.Include("QuestionItem").Include("QuestionItem.Question").FirstOrDefault(ql => ql.Id == template.Id);
+            var dbInspection = _context.Inspection.FirstOrDefault(i => i.Id == inspection.Id);
+            if (dbTemplate == null || dbInspection == null) return false;
+            var questionItems = dbTemplate.QuestionItem.Select(qi => new QuestionItem {Question = qi.Question}).ToList();
+            var list = new QuestionList {Description = template.Description, Inspection = dbInspection, QuestionItem = questionItems};
+            _context.QuestionList.Add(list);
+            _context.SaveChanges();
+
+            return true;
+        }
+
+        public bool UpdateQuestionItem(QuestionListViewModel list, QuestionItemViewModel item)
+        {
+            var questionItem = _context.QuestionItem.FirstOrDefault(qi => qi.QuestionListId == list.Id && qi.QuestionId == item.QuestionId);
+            if (questionItem == null) return false;
+            if (!string.IsNullOrEmpty(item.Answer))
+            {
+                questionItem.Answer = new Answer { Guid = Guid.NewGuid(), Value = item.Answer };
+            }
+            _context.Entry(questionItem).State = Modified;
+            _context.SaveChanges();
             return true;
         }
     }
