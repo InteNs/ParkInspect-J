@@ -376,9 +376,6 @@
     <Compile Include="View\QuestionsView.xaml.cs">
       <DependentUpon>QuestionsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ReportOverview.xaml.cs">
-      <DependentUpon>ReportOverview.xaml</DependentUpon>
-    </Compile>
     <Compile Include="View\TemplatesView.xaml.cs">
       <DependentUpon>TemplatesView.xaml</DependentUpon>
     </Compile>
@@ -491,10 +488,6 @@
     <Page Include="View\QuestionsView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="View\ReportOverview.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TemplatesView.xaml">
       <SubType>Designer</SubType>
