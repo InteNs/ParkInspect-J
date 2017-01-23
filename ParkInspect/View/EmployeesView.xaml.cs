@@ -1,14 +1,10 @@
-﻿using System.Windows.Controls;
-using System.Windows.Input;
-using ParkInspect.ViewModel;
-
-namespace ParkInspect.View
+﻿namespace ParkInspect.View
 {
     /// <summary>
     /// Interaction logic for EmployeesWindow.xaml
     /// </summary>
 
-    public partial class EmployeesView : UserControl
+    public partial class EmployeesView
     {
         public EmployeesView()
         {

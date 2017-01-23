@@ -1,15 +1,10 @@
-﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.Command;
 using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ParkInspect.ViewModel
@@ -17,26 +12,46 @@ namespace ParkInspect.ViewModel
     public class AddInspectionViewModel : MainViewModel
     {
         private readonly IInspectionsRepository _inspectionRepository;
-        
-        
+        private readonly IQuestionListRepository _questionListRepository;
+        private QuestionListViewModel _selectedQuestionList;
+
         public InspectionViewModel Inspection { get; set; }
         public ICommand AddInspectionCommand { get; set; }
         public ObservableCollection<CommissionViewModel> CommissionList { get; private set; }
-        private string errorMessage;
-
-        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionRepository, IAuthService auth, IRouterService router) : base(router)
+        public ObservableCollection<QuestionListViewModel> QuestionLists { get; private set; }
+        public QuestionListViewModel SelectedQuestionList
         {
-            Inspection = new InspectionViewModel();
-            Inspection.StartTime = DateTime.Now;
-            Inspection.EndTime = DateTime.Now;
-            _inspectionRepository = inspectionRepository;
-            AddInspectionCommand = new RelayCommand(AddInspection, CanAddInspection);
-            CommissionList = new ObservableCollection<CommissionViewModel>();
-            foreach(CommissionViewModel cvm in commissionRepository.GetAll())
+            get
             {
-                if(cvm.Employee.Id == auth.CurrentEmployee().Id)
+                return _selectedQuestionList;
+            }
+            set
+            {
+                _selectedQuestionList = value;
+                RaisePropertyChanged();
+            }
+        }
+        private string _errorMessage;
+
+        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionrepo, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router) : base(router)
+        {
+            Inspection = new InspectionViewModel
+            {
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now
+            };
+            _inspectionRepository = inspectionRepository;
+            _questionListRepository = questionListRepository;
+            AddInspectionCommand = new RelayCommand(AddInspection);
+            CommissionList = new ObservableCollection<CommissionViewModel>();
+            ICommissionRepository _commissionrepository = commissionrepo;
+
+            QuestionLists = questionListRepository.GetAll();
+            foreach (CommissionViewModel commission in _commissionrepository.GetAll())
+            {
+                if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== commission.Employee.Id)
                 {
-                    CommissionList.Add(cvm);
+                    CommissionList.Add(commission);
                 }
             }
         }
@@ -45,17 +60,22 @@ namespace ParkInspect.ViewModel
         {
             if(Inspection.EndTime <= Inspection.StartTime)
             {
-                errorMessage = "De eindtijd moet later zijn dan de starttijd.";
+                _errorMessage = "De eindtijd moet later zijn dan de starttijd.";
                 return false;
             }
             if (Inspection.EndTime.DayOfYear != Inspection.StartTime.DayOfYear || Inspection.EndTime.Year != Inspection.StartTime.Year)
             {
-                errorMessage = "De start en eindtijd moeten op dezelfde dag plaatsvinden.";
+                _errorMessage = "De start en eindtijd moeten op dezelfde dag plaatsvinden.";
                 return false;
             }
-            if(Inspection.cvm == null)
+            if(Inspection.CommissionViewModel == null)
             {
-                errorMessage = "Selecteer eerst een opdracht.";
+                _errorMessage = "Selecteer eerst een opdracht.";
+                return false;
+            }
+            if (SelectedQuestionList == null)
+            {
+                _errorMessage = "Selecteer eerst een vragenlijst.";
                 return false;
             }
             return true;
@@ -65,10 +85,17 @@ namespace ParkInspect.ViewModel
         {
             if (ValidateInput())
             {
-                if (_inspectionRepository.Add(Inspection))
+                if (!_inspectionRepository.Add(Inspection)) return;
+                Inspection.Id = _inspectionRepository.GetAll().ToList().First(ins => ins.CommissionViewModel.Id == Inspection.CommissionViewModel.Id && ins.StartTime == Inspection.StartTime).Id;
+                QuestionListViewModel ql = new QuestionListViewModel(SelectedQuestionList.QuestionItems);
+                foreach(QuestionItemViewModel qivm in ql.QuestionItems)
                 {
-                    RouterService.SetPreviousView();
+                    qivm.Answer = null;
                 }
+                ql.Description = SelectedQuestionList.Description;
+                ql.Inspection = Inspection;
+                _questionListRepository.Add(SelectedQuestionList);
+                RouterService.SetPreviousView();
             }
             else
             {
@@ -76,16 +103,11 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private bool CanAddInspection()
-        {
-            return true;
-        }
-
         private async void ShowValidationError()
         {
             //TODO: Validation error
             var dialog = new MetroDialogService();
-            dialog.ShowMessage("Error", errorMessage);
+            dialog.ShowMessage("Error", _errorMessage);
 
 
         }

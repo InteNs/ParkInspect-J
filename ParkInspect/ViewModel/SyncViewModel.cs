@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Data.SqlClient;
-using System.Windows;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.CommandWpf;
 using ParkInspect.Service;
 using Microsoft.Synchronization.Data;
 using Microsoft.Synchronization.Data.SqlServer;
 using Microsoft.Synchronization;
+using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
 {
@@ -23,6 +23,7 @@ namespace ParkInspect.ViewModel
 
         private void Sync()
         {
+            //Best veel nesting
             if (_syncService.CheckForInternetConnection())
             {
                 try
@@ -34,10 +35,10 @@ namespace ParkInspect.ViewModel
                     ProvisionClient();
 
                     // create a connection to the SyncCompactDB database
-                    var clientConn = new SqlConnection(_syncService.getLocalConnString());
+                    var clientConn = new SqlConnection(_syncService.GetLocalConnString());
 
                     // create a connection to the SyncDB server database
-                    var serverConn = new SqlConnection(_syncService.getRemoteConnString());
+                    var serverConn = new SqlConnection(_syncService.GetRemoteConnString());
 
                     // create the sync orhcestrator
                     var syncOrchestrator = new SyncOrchestrator
@@ -58,34 +59,32 @@ namespace ParkInspect.ViewModel
                     // execute the synchronization process
                     syncOrchestrator.Synchronize();
 
-                    MessageBox.Show("Synchronisatie voltooid!");
+                    new MetroDialogService().ShowMessage("Synchronisatie voltooid!", "De synchronisatie is succesvol voltooid.");
                 }
                 catch (Exception)
                 {
-                    MessageBox.Show(
-                        "Er is een fout opgetreden in de sync configuratie! Neem contact op met uw systeembeheerder.",
-                        "Fatale fout", MessageBoxButton.OK, MessageBoxImage.Error);
+                    new MetroDialogService().ShowMessage("Fatale fout", "Er is een fout opgetreden in de sync configuratie! Neem contact op met uw systeembeheerder.");
                 }
 
             }
             else
             {
-                MessageBox.Show("U dient met internet verbonden te zijn om te synchroniseren.");
+                new MetroDialogService().ShowMessage("Geen verbinding!", "U dient met internet verbonden te zijn om te synchroniseren.");
             }
         }
 
         private static void Program_ApplyChangeFailed(object sender, DbApplyChangeFailedEventArgs e)
         {
             // display conflict type
-            MessageBox.Show(e.Conflict.Type.ToString());
-
+            new MetroDialogService().ShowMessage("Conflict", e.Conflict.Type.ToString());
+            
             // display error message 
-            MessageBox.Show(e.Error.Message);
+            new MetroDialogService().ShowMessage("Error", e.Error.Message);
         }
 
         private void ProvisionServer()
         {
-            var serverConn = new SqlConnection(_syncService.getRemoteConnString());
+            var serverConn = new SqlConnection(_syncService.GetRemoteConnString());
 
             // define a new scope named ParkInspectScope
             var scopeDesc = new DbSyncScopeDescription("ParkInspectScope");
@@ -121,10 +120,10 @@ namespace ParkInspect.ViewModel
         private void ProvisionClient()
         {
             // create a connection to the SyncCompactDB database
-            var clientConn = new SqlConnection(_syncService.getLocalConnString());
+            var clientConn = new SqlConnection(_syncService.GetLocalConnString());
 
             // create a connection to the SyncDB server database
-            var serverConn = new SqlConnection(_syncService.getRemoteConnString());
+            var serverConn = new SqlConnection(_syncService.GetRemoteConnString());
 
             // get the description of ProductsScope from the SyncDB server database
             var scopeDesc = SqlSyncDescriptionBuilder.GetDescriptionForScope("ParkInspectScope", serverConn);
@@ -134,8 +133,6 @@ namespace ParkInspect.ViewModel
             // starts the provisioning process
             if (!clientProvision.ScopeExists("ParkInspectScope"))
                 clientProvision.Apply();
-
         }
-
     }
 }

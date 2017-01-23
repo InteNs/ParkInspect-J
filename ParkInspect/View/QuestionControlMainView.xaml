@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ParkInspect.View.QuestionControlMainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="750"
+             Foreground="Black"
+             DataContext="{Binding QuestionMain, Source={StaticResource Locator}}">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0.05*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="1*" />
+            <ColumnDefinition Width="0.05*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="0.1*"/>
+            <RowDefinition Height="0.035*"/>
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="5" Background="{DynamicResource PrimaryHueMidBrush}">
+            <Viewbox>
+                <Label Foreground="White" FontSize="20" Content="Vragen beheer" />
+            </Viewbox>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="1">
+            <Viewbox>
+                <controls:Tile  Foreground="White" FontSize="20" Content="Vragen" Command="{Binding RouteCommand }" CommandParameter="questions-list" />
+            </Viewbox>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Grid.Column="4">
+            <Viewbox>
+                <controls:Tile  Foreground="White" FontSize="20" Content="Lijsten" Command="{Binding RouteCommand }" CommandParameter="question-lists"/>
+            </Viewbox>
+        </Grid>
+
+    </Grid>
+</UserControl>

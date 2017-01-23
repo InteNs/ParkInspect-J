@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Commission]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[EmployeeId] int NOT NULL,
 	[EmployeeGuid] uniqueidentifier NOT NULL,
@@ -10,7 +10,8 @@
 	[LocationGuid] uniqueidentifier,
 	[DateCreated] date NOT NULL,
 	[DateCompleted] date,
-	[Description] varchar(MAX)
+	[Description] varchar(MAX),
+	[Status] varchar(MAX) DEFAULT 'Nieuw'
 
 	CONSTRAINT [PK_Commission] PRIMARY KEY CLUSTERED 
 	(

@@ -1,5 +1,4 @@
 ﻿using GalaSoft.MvvmLight.CommandWpf;
-using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Helper;
@@ -11,18 +10,13 @@ namespace ParkInspect.ViewModel
     public class EmployeesViewModel : MainViewModel
     {
         private EmployeeViewModel _selectedEmployee;
-
         private readonly IEmployeeRepository _employeeRepository;
         private ObservableCollection<EmployeeViewModel> _employees;
 
         public EmployeeViewModel SelectedEmployee
         {
             get { return _selectedEmployee; }
-            set
-            {
-                _selectedEmployee = value;
-                RaisePropertyChanged();
-            }
+            set { _selectedEmployee = value;  RaisePropertyChanged(); }
         }
        
         public ObservableCollection<EmployeeViewModel> Employees
@@ -45,10 +39,7 @@ namespace ParkInspect.ViewModel
             SetEmployeeDismissCommand = new RelayCommand(DismissEmployee, CanEditEmployee);
         }
 
-        private bool CanEditEmployee()
-        {
-            return SelectedEmployee != null;
-        }
+        private bool CanEditEmployee() =>  SelectedEmployee != null;
 
         private async void DismissEmployee()
         {
@@ -58,8 +49,7 @@ namespace ParkInspect.ViewModel
 
             if (dialog.IsAffirmative)
             {
-                SelectedEmployee.DismissalDate = DateTime.Now;
-                _employeeRepository.Update(SelectedEmployee);
+                _employeeRepository.Delete(SelectedEmployee);
             }
         }
     }

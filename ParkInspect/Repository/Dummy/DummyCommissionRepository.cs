@@ -10,6 +10,7 @@ namespace ParkInspect.Repository.Dummy
     {
 
         private readonly ObservableCollection<CommissionViewModel> _commissions;
+        //Nooit gebruikt?
         private readonly List<LocationViewModel> _locations;
 
         public DummyCommissionRepository()
@@ -21,22 +22,20 @@ namespace ParkInspect.Repository.Dummy
                 new CommissionViewModel
                 {
                     Id = 1,
-                    Frequency = 1,
                     Customer = new CustomerViewModel() {Id = 1, Name = "Mark Havekes"},
                     Employee = new EmployeeViewModel() {Id = 1, Name = "Pim Westervoort"},
                     ZipCode = "8473LD",
-                    StreetNumber = 42,
+                    StreetNumber = "47",
                     DateCreated = new DateTime(2016, 11, 17, 19, 57, 0),
                     Description = "description 1", Region = "Limburg", Status = "Nieuw"
                 },
                 new CommissionViewModel
                 {
                     Id = 2,
-                    Frequency = 1,
                     Customer = new CustomerViewModel() {Id = 2, Name = "Pim Westervoort"},
                     Employee = new EmployeeViewModel() {Id = 2, Name = "Edward van Lieshout"},
                     ZipCode = "8473LD",
-                    StreetNumber = 42,
+                    StreetNumber = "42",
                     DateCreated = new DateTime(2016, 11, 17, 19, 57, 0),
                     DateCompleted = new DateTime(2016, 11, 30),
                     Description = "description 2", Region = "Limburg", Status = "Klaar"
@@ -44,15 +43,9 @@ namespace ParkInspect.Repository.Dummy
             };
         }
 
-        public ObservableCollection<string> GetStatuses()
-        {
-            return new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
-        }
+        public ObservableCollection<string> GetStatuses() => new ObservableCollection<string> { "Nieuw", "Ingedeeld", "Bezig", "Klaar" };
 
-        public ObservableCollection<CommissionViewModel> GetAll()
-        {
-            return _commissions;
-        }
+        public ObservableCollection<CommissionViewModel> GetAll() => _commissions;
 
         public bool Add(CommissionViewModel item)
         {
@@ -60,10 +53,7 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(CommissionViewModel item)
-        {
-            return _commissions.Remove(item);
-        }
+        public bool Delete(CommissionViewModel item) => _commissions.Remove(item);
 
         public bool Update(CommissionViewModel item)
         {

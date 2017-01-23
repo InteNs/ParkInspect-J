@@ -1,17 +1,28 @@
-﻿delete from [Customer];
+﻿delete from [QuestionItem];
+delete from [Answer];
+delete from [QuestionList];
+delete from [Question];
+delete from [QuestionType];
+
+delete from [Inspection];
+delete from [Commission];
+delete from [Customer];
 delete from [Employee];
 delete from [Person];
 delete from [Location];
 delete from [Region];
 delete from [Function];
 
-begin /*Regions*/
+
+
+begin /* Regions */
 SET IDENTITY_INSERT [Region] ON;
 insert into [Region] ([Id], [Guid], [RegionName]) values (1, NEWID(), 'Brabant');
 insert into [Region] ([Id], [Guid], [RegionName]) values (2, NEWID(), 'Limburg');
 insert into [Region] ([Id], [Guid], [RegionName]) values (3, NEWID(), 'Utrecht');
 insert into [Region] ([Id], [Guid], [RegionName]) values (4, NEWID(), 'Flevoland');
 insert into [Region] ([Id], [Guid], [RegionName]) values (5, NEWID(), 'Noord-Holland');
+insert into [Region] ([Id], [Guid], [RegionName]) values (13, NEWID(), 'Noord-Brabant');
 insert into [Region] ([Id], [Guid], [RegionName]) values (6, NEWID(), 'Zuid-Holland');
 insert into [Region] ([Id], [Guid], [RegionName]) values (7, NEWID(), 'Zeeland');
 insert into [Region] ([Id], [Guid], [RegionName]) values (8, NEWID(), 'Gelderland');
@@ -22,15 +33,22 @@ insert into [Region] ([Id], [Guid], [RegionName]) values (12, NEWID(), 'Groninge
 SET IDENTITY_INSERT [Region] OFF;
 end
 
-begin /*Functions*/
+begin /* Functions */
 SET IDENTITY_INSERT [Function] ON;
 insert into [Function] ([Id], [Guid], [Name]) values (1, NEWID(), 'Manager');
 insert into [Function] ([Id], [Guid], [Name]) values (2, NEWID(), 'Inspecteur');
 SET IDENTITY_INSERT [Function] OFF;
 end
 
-begin /* customers*/
-	
+begin /* QuestionTypes */
+SET IDENTITY_INSERT [QuestionType] ON;
+insert into [QuestionType] ([Id], [Guid], [Name]) values (1, NEWID(), 'Boolean');
+insert into [QuestionType] ([Id], [Guid], [Name]) values (2, NEWID(), 'Open');
+insert into [QuestionType] ([Id], [Guid], [Name]) values (3, NEWID(), 'Count');
+SET IDENTITY_INSERT [QuestionType] OFF;
+end
+
+begin /* customers */
 SET IDENTITY_INSERT [Location] ON
 insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select 1, NEWID(),'6541MD', '68', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
 SET IDENTITY_INSERT [Location] OFF
@@ -2734,9 +2752,9 @@ SET IDENTITY_INSERT [Customer] OFF
 
 end
 
-begin /* Employees*/
+begin /* Employees */
 SET IDENTITY_INSERT [Location] ON
-insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select 301, NEWID(), 1181HW, '143', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Holland';
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select 301, NEWID(), '1181HW', '143', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Holland';
 SET IDENTITY_INSERT [Location] OFF
 SET IDENTITY_INSERT [Person] ON
 insert into [Person] ([Id], [Guid], [Name], [LocationId], [LocationGuid], [PhoneNumber], [Email]) select 301, NEWID(), 'Zenzi Demirel', [Id], [Guid], '06-17211616', 'admin' from [Location] where [ZipCode] = '1181HW';
@@ -3335,5 +3353,574 @@ select 350, NEWID(), '10/21/1999', '9/18/2004', [p].[Id], [p].[Guid], [f].[Id], 
 SET IDENTITY_INSERT [Employee] OFF
 end
 
-ALTER DATABASE ParkInspect
-SET ALLOW_SNAPSHOT_ISOLATION ON
+begin /* Questions */
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 1, NEWID(), [Id], [Guid], 1, 'hoe veel autos stan er geparkeerd?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 2, NEWID(), [Id], [Guid], 1, 'Hoe veel autos staan er dubbl geparkeerd?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 3, NEWID(), [Id], [Guid], 1, 'Zijn er gekkigheden aan de parkeerplaats?', 1 from [QuestionType] [q] where [q].Name = 'Open';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 4, NEWID(), [Id], [Guid], 1, 'Hoveel autos staan er elke dag?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 5, NEWID(), [Id], [Guid], 1, 'Hoeveel autos staan er elke week?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 6, NEWID(), [Id], [Guid], 1, 'Hoeveel autos staan er elke maand?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 7, NEWID(), [Id], [Guid], 1, 'Hoeveel vrachtwagens staan er geparkeerd?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 8, NEWID(), [Id], [Guid], 1, 'Is er een ongeval op de parkeerplaats?', 1 from [QuestionType] [q] where [q].Name = 'Boolean';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 9, NEWID(), [Id], [Guid], 1, 'Is er vandalisme op de parkeerplaats?', 1 from [QuestionType] [q] where [q].Name = 'Boolean';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 10, NEWID(), [Id], [Guid], 1, 'Hoeveel autos staan er geparkeerd zonder nummerplaat?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 11, NEWID(), [Id], [Guid], 1, 'Hoeveel autos staan geparkeerd zonder ticket?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 12, NEWID(), [Id], [Guid], 1, 'Ligt er afval op de parkeerplaats?', 1 from [QuestionType] [q] where [q].Name = 'Boolean';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 1, NEWID(), [Id], [Guid], 2, 'Hoeveel autos staan er geparkeerd?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 3, NEWID(), [Id], [Guid], 2, 'Zijn er opmerkelijkheden aan de parkeerplaats?', 1 from [QuestionType] [q] where [q].Name = 'Open';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 2, NEWID(), [Id], [Guid], 2, 'Hoeveel autos staan er dubbel geparkeerd?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 4, NEWID(), [Id], [Guid], 2, 'Hoeveel autos staan er ele dag?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 10, NEWID(), [Id], [Guid], 2, 'Hoeveel autos staan er geparkeerd zonder kenteken?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+insert into [Question] ([Id], [Guid], [QuestionTypeId], [QuestionTypeGuid], [Version], [Description], [IsActive])
+select 4, NEWID(), [Id], [Guid], 3, 'Hoeveel autos staan er elke dag?', 1 from [QuestionType] [q] where [q].Name = 'Count';
+
+end
+
+begin /* Commissions */
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (1+400), NEWID(),'2526MX', '129', [Id], [Guid] from [Region] where [RegionName] = 'Zuid-Holland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 1, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '8/23/2016', '8/26/2016', 'dagelijks tellen voor 3 dagen i.v.m festival'
+from Customer c
+join Employee e on e.Id = 315
+join Location l on l.ZipCode = '2526MX'
+where c.Id = '3';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (2+400), NEWID(),'7223DK', '89', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 2, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '1/9/2016', '4/9/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 336
+join Location l on l.ZipCode = '7223DK'
+where c.Id = '4';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (3+400), NEWID(),'6921BA', '173', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 3, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '5/9/2016', '8/9/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 336
+join Location l on l.ZipCode = '6921BA'
+where c.Id = '5';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (4+400), NEWID(),'3781AE', '148', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 4, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '6/9/2016', '9/9/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 336
+join Location l on l.ZipCode = '3781AE'
+where c.Id = '10';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (5+400), NEWID(),'6222SK', '111', [Id], [Guid] from [Region] where [RegionName] = 'Limburg';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 5, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '9/9/2016', '12/9/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 346
+join Location l on l.ZipCode = '6222SK'
+where c.Id = '26';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (6+400), NEWID(),'4331RS', '133', [Id], [Guid] from [Region] where [RegionName] = 'Zeeland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 6, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '9/19/2016', '9/22/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 339
+join Location l on l.ZipCode = '4331RS'
+where c.Id = '76';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (7+400), NEWID(),'8381DS', '194', [Id], [Guid] from [Region] where [RegionName] = 'Drenthe';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 7, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '6/10/2016', '9/10/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 346
+join Location l on l.ZipCode = '8381DS'
+where c.Id = '46';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (8+400), NEWID(),'3774JT', '39', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 8, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '10/17/2016', '10/20/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 336
+join Location l on l.ZipCode = '3774JT'
+where c.Id = '62';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (9+400), NEWID(),'5126CK', '185', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Brabant';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 9, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '10/25/2016', '10/28/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 346
+join Location l on l.ZipCode = '5126CK'
+where c.Id = '14';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (10+400), NEWID(),'3572VG', '195', [Id], [Guid] from [Region] where [RegionName] = 'Utrecht';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 10, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '10/26/2016', '10/29/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 327
+join Location l on l.ZipCode = '3572VG'
+where c.Id = '15';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (11+400), NEWID(),'8225NG', '135', [Id], [Guid] from [Region] where [RegionName] = 'Flevoland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 11, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '1/11/2016', '4/11/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 340
+join Location l on l.ZipCode = '8225NG'
+where c.Id = '91';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (12+400), NEWID(),'9713RB', '121', [Id], [Guid] from [Region] where [RegionName] = 'Groningen';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 12, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '3/11/2016', '6/11/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 306
+join Location l on l.ZipCode = '9713RB'
+where c.Id = '203';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (13+400), NEWID(),'7312RL', '107', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 13, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '4/11/2016', '7/11/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 336
+join Location l on l.ZipCode = '7312RL'
+where c.Id = '201';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (14+400), NEWID(),'4811WH', '52', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Brabant';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 14, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '10/11/2016', '11/13/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 346
+join Location l on l.ZipCode = '4811WH'
+where c.Id = '196';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (15+400), NEWID(),'5623LT', '68', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Brabant';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 15, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '11/14/2016', '11/17/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 346
+join Location l on l.ZipCode = '5623LT'
+where c.Id = '148';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (16+400), NEWID(),'1441XG', '7', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Brabant';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 16, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '11/16/2016', '11/19/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 349
+join Location l on l.ZipCode = '1441XG'
+where c.Id = '164';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (17+400), NEWID(),'7664XG', '114', [Id], [Guid] from [Region] where [RegionName] = 'Overijssel';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 17, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '11/29/2016', '2/12/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 345
+join Location l on l.ZipCode = '7664XG'
+where c.Id = '92';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (18+400), NEWID(),'6661GJ', '66', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 18, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '1/12/2016', '4/12/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 336
+join Location l on l.ZipCode = '6661GJ'
+where c.Id = '78';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (19+400), NEWID(),'3437RC', '145', [Id], [Guid] from [Region] where [RegionName] = 'Utrecht';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 19, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '6/12/2016', '9/12/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 327
+join Location l on l.ZipCode = '3437RC'
+where c.Id = '85';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (20+400), NEWID(),'1935CB', '31', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Holland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 20, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '9/12/2016', '12/12/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 349
+join Location l on l.ZipCode = '1935CB'
+where c.Id = '82';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (21+400), NEWID(),'9743NB', '56', [Id], [Guid] from [Region] where [RegionName] = 'Groningen';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 21, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '12/15/2016', '12/18/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 306
+join Location l on l.ZipCode = '9743NB'
+where c.Id = '158';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (22+400), NEWID(),'3232TP', '81', [Id], [Guid] from [Region] where [RegionName] = 'Zuid-Holland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 22, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '12/26/2016', '12/29/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 330
+join Location l on l.ZipCode = '3232TP'
+where c.Id = '152';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (23+400), NEWID(),'7491AZ', '121', [Id], [Guid] from [Region] where [RegionName] = 'Overijssel';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 23, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '3/1/2017', '6/1/2017', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 345
+join Location l on l.ZipCode = '7491AZ'
+where c.Id = '178';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (24+400), NEWID(),'2531TM', '200', [Id], [Guid] from [Region] where [RegionName] = 'Zuid-Holland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 24, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '10/1/2017', '1/13/2017', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 330
+join Location l on l.ZipCode = '2531TM'
+where c.Id = '174';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (25+400), NEWID(),'1121JS', '116', [Id], [Guid] from [Region] where [RegionName] = 'Noord-Holland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 25, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '11/1/2017', '1/14/2017', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 320
+join Location l on l.ZipCode = '1121JS'
+where c.Id = '164';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (26+400), NEWID(),'7207JL', '163', [Id], [Guid] from [Region] where [RegionName] = 'Gelderland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 26, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '5/9/2016', '8/9/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 336
+join Location l on l.ZipCode = '7207JL'
+where c.Id = '173';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (27+400), NEWID(),'8713LM', '138', [Id], [Guid] from [Region] where [RegionName] = 'Friesland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 27, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '6/9/2016', '9/9/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 346
+join Location l on l.ZipCode = '8713LM'
+where c.Id = '223';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (28+400), NEWID(),'2492ZB', '162', [Id], [Guid] from [Region] where [RegionName] = 'Zuid-Holland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 28, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '9/9/2016', '12/9/2016', 'Ticket controle'
+from Customer c
+join Employee e on e.Id = 315
+join Location l on l.ZipCode = '2492ZB'
+where c.Id = '213';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (29+400), NEWID(),'2181BW', '117', [Id], [Guid] from [Region] where [RegionName] = 'Zuid-Holland';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 29, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '9/19/2016', '9/22/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 315
+join Location l on l.ZipCode = '2181BW'
+where c.Id = '213';
+SET IDENTITY_INSERT [Commission] OFF;
+
+SET IDENTITY_INSERT [Location] ON;
+insert into [Location] ([Id], [Guid], [ZipCode], [StreetNumber], [RegionId], [RegionGuid]) select (30+400), NEWID(),'7421LL', '43', [Id], [Guid] from [Region] where [RegionName] = 'Overijssel';
+SET IDENTITY_INSERT [Location] OFF;
+SET IDENTITY_INSERT [Commission] ON;
+insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
+select 30, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '6/10/2016', '9/10/2016', 'Reguliere Controle'
+from Customer c
+join Employee e on e.Id = 345
+join Location l on l.ZipCode = '7421LL'
+where c.Id = '232';
+SET IDENTITY_INSERT [Commission] OFF;
+
+end
+
+begin /* Inspection */
+
+SET IDENTITY_INSERT [Inspection] ON;
+
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 1, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 1;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 2, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 2;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 3, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 3;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 4, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 4;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 5, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 5;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 6, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 6;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 7, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 7;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 8, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 8;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 9, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 9;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 10, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 10;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 11, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 11;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 12, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 12;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 13, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 13;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 14, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 14;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 15, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 15;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 16, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 16;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 17, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 17;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 18, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 18;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 19, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 19;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 20, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 20;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 21, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 21;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 22, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 22;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 23, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 23;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 24, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 24;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 25, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 25;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 26, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 26;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 27, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 27;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 28, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 28;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 29, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 29;
+
+insert into [Inspection] ([Id], [Guid], [CommissionId], [CommissionGuid], [DateTimeStart], [DateTimeEnd])
+select 30, NEWID(), [Id], [Guid], CONVERT(DATETIME,[DateCreated]), DATEADD(hour, 2, CONVERT(DATETIME,[DateCreated]))
+from Commission c where c.Id = 30;
+
+
+SET IDENTITY_INSERT [Inspection] OFF;
+end
+
+begin /* QuestionLists */
+SET IDENTITY_INSERT [QuestionList] ON;
+insert into [QuestionList] ([Id], [Guid], [Description], [InspectionId], [InspectionGuid])
+ values (1, NEWID(), 'reguliere controle', NULL, NULL);
+insert into [QuestionList] ([Id], [Guid], [Description], [InspectionId], [InspectionGuid])
+ values (2, NEWID(), 'ticket controle', NULL, NULL);
+insert into [QuestionList] ([Id], [Guid], [Description], [InspectionId], [InspectionGuid]) 
+ select 3, NEWID(), 'ticket controle', [Id], [Guid] from [Inspection] where [Id] = 1;
+SET IDENTITY_INSERT [QuestionList] OFF;
+end
+
+begin
+SET IDENTITY_INSERT Answer ON;
+
+insert into [Answer](Id,Guid,Value) values (1,NEWID(),'Ja');
+insert into [QuestionItem](AnswerId,QuestionId,QuestionListId,QuestionVersion,Guid) values (1,9,3,1,NEWID());
+
+SET IDENTITY_INSERT Answer OFF;
+end
+ALTER DATABASE ParkInspect SET ALLOW_SNAPSHOT_ISOLATION ON

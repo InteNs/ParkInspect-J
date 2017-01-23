@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:ParkInspect.View"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="750"
@@ -12,7 +11,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*" />
-            <ColumnDefinition Width="10*" />
+            <ColumnDefinition Width="20*" />
             <ColumnDefinition Width="1*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -26,9 +25,10 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="1*" />
-                
+
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
                 <RowDefinition Height="1*" />
@@ -37,9 +37,8 @@
 
             <Grid Grid.RowSpan="2" Grid.Column="1" Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="0.75*" />
-                    <RowDefinition Height="0.75*" />
-                    <RowDefinition Height="0.75*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
                 <StackPanel>
@@ -47,16 +46,25 @@
                     <xctk:DateTimePicker Value="{Binding Inspection.StartTime}" Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}"/>
                 </StackPanel>
 
-                <StackPanel Grid.Row="2">
+                <StackPanel Grid.Row="1">
                     <Label Content="Eind Moment" FontSize="17.5" />
                     <xctk:DateTimePicker Value="{Binding Inspection.EndTime}" Foreground="White" Background="{DynamicResource PrimaryHueMidBrush}" />
                 </StackPanel>
 
             </Grid>
-            <ComboBox Grid.Column="1" Grid.Row="2" Height="40" SelectedItem="{Binding Path=Inspection.cvm}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info"/>
-            
-            <StackPanel Grid.Column="1" Grid.Row="3" VerticalAlignment="Center">
-                <Button Content="Inspectie Toevoegen" Width="200" Command="{Binding AddInspectionCommand}"></Button>
+            <StackPanel Grid.Column="1" Grid.Row="2">
+                <Label>Opdracht</Label>
+                <ComboBox Height="40" SelectedItem="{Binding Path=Inspection.CommissionViewModel}" ItemsSource="{Binding Path=CommissionList}" DisplayMemberPath="Info"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.Row="3">
+                <Label>Vragenlijst</Label>
+                <ComboBox Height="40" SelectedItem="{Binding Path=SelectedQuestionList}" ItemsSource="{Binding Path=QuestionLists}" DisplayMemberPath="Description"/>
+            </StackPanel>
+            <ScrollViewer Grid.Column="2" Grid.Row="2" Grid.RowSpan="2" Margin="25">
+                <ListView ItemsSource="{Binding SelectedQuestionList.QuestionItems}" DisplayMemberPath="Question.Description" IsEnabled="False"></ListView>
+            </ScrollViewer>
+            <StackPanel Grid.Column="1" Grid.Row="4" VerticalAlignment="Center">
+                <Button Content="Inspectie Toevoegen" Width="200" Command="{Binding AddInspectionCommand}" IsDefault="True"></Button>
             </StackPanel>
 
         </Grid>

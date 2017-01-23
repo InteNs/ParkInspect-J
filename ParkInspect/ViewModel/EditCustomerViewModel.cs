@@ -1,8 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
+using ParkInspect.Helper;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
 
@@ -10,7 +10,7 @@ namespace ParkInspect.ViewModel
 {
     public class EditCustomerViewModel : MainViewModel
     {
-        public ObservableCollection<string> FunctionList { get; set; }
+        public ObservableCollection<string> RegionList { get; set; }
 
         public CustomerViewModel Customer { get; set; }
 
@@ -18,37 +18,31 @@ namespace ParkInspect.ViewModel
 
         private readonly ICustomerRepository _customerRepository;
 
-        public EditCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm) : base(router)
+        public EditCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm,IRegionRepository regionRepository) : base(router)
         {
             _customerRepository = customerRepository;
             Customer = cvm.SelectedCustomer;
-            FunctionList = _customerRepository.GetFunctions();
+            RegionList = regionRepository.GetAll();
 
-            EditCustomerCommand = new RelayCommand(EditCustomer, CanEditCustomer);
+            EditCustomerCommand = new RelayCommand(EditCustomer);
         }
 
         private bool ValidateInput()
         {
             //check if all fields are filled in
-            if (Customer.Function == null || Customer.Name == null || Customer.ZipCode == null ||
+            if (Customer.Region == null || Customer.Name == null || Customer.ZipCode == null ||
                 Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null)
             {
                 return false;
             }
 
             //Name can not contain a number
-            return !this.Customer.Name.Any(char.IsDigit);
-        }
-
-        private bool CanEditCustomer()
-        {
-            //TODO check content
-            return true;
+            return !Customer.Name.Any(char.IsDigit);
         }
 
         private void EditCustomer()
         {
-            if (this.ValidateInput())
+            if (ValidateInput())
             {
                 if (_customerRepository.Update(Customer))
                 {
@@ -57,7 +51,7 @@ namespace ParkInspect.ViewModel
             }
             else
             {
-                MessageBox.Show(ShowValidationError());
+                new MetroDialogService().ShowMessage(ShowValidationError(),"Validatie fout");
             }
         }
 

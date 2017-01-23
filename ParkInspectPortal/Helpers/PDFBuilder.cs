@@ -9,7 +9,7 @@ namespace ParkInspectPortal.Helpers
 {
     public class PDFBuilder : IDisposable
     {
-        private string _templatePath = string.Empty;
+        private string _templatePath;
         private MemoryStream _memoryStream;
         private bool _initialized = false;
 
@@ -136,7 +136,7 @@ namespace ParkInspectPortal.Helpers
                         }
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // swallow
                 }
@@ -152,16 +152,12 @@ namespace ParkInspectPortal.Helpers
 
         public void Dispose()
         {
-            if (_memoryStream != null)
-                _memoryStream.Dispose();
+            _memoryStream?.Dispose();
 
             _memoryStream = null;
         }
 
-        private bool IsTemplated
-        {
-            get { return !string.IsNullOrWhiteSpace(_templatePath); }
-        }
+        private bool IsTemplated => !string.IsNullOrWhiteSpace(_templatePath);
     }
 
 }

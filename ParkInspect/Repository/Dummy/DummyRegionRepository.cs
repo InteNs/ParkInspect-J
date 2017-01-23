@@ -13,10 +13,7 @@ namespace ParkInspect.Repository.Dummy
                 "Utrecht", "Limburg", "Brabant", "Flevoland", "Groningen", "Zeeland"
             };
         }
-        public ObservableCollection<string> GetAll()
-        {
-            return _regions;
-        }
+        public ObservableCollection<string> GetAll() =>  _regions;
 
         public bool Add(string item)
         {
@@ -24,14 +21,8 @@ namespace ParkInspect.Repository.Dummy
             return true;
         }
 
-        public bool Delete(string item)
-        {
-            return _regions.Remove(item);
-        }
+        public bool Delete(string item) =>  _regions.Remove(item);
 
-        public bool Update(string item)
-        {
-            return true;
-        }
+        public bool Update(string item) =>  true;
     }
 }

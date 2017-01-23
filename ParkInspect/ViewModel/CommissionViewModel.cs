@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Linq;
 
 namespace ParkInspect.ViewModel
 {
     public class CommissionViewModel : LocationViewModel
     {
         private int _id;
-        private int _frequency;
         private DateTime _dateCreated;
         private DateTime? _dateCompleted;
         private string _description;
@@ -24,27 +22,6 @@ namespace ParkInspect.ViewModel
         {
             get { return _id; }
             set { _id = value; RaisePropertyChanged(); }
-        }
-
-        public int Frequency
-        {
-            get { return _frequency; }
-            set
-            {
-                _frequency = value;
-                if (string.IsNullOrWhiteSpace(_frequency.ToString()))
-                {
-                    AddError("Frequency", "Frequentie is verplicht");
-                }
-                else if (_frequency.ToString().Any(char.IsLetter))
-                {
-                    AddError("Frequency", "Frequentie kan geen letters bevatten");
-                }
-                else
-                {
-                    RemoveError("Frequency");
-                }
-            }
         }
 
         public EmployeeViewModel Employee
@@ -70,7 +47,7 @@ namespace ParkInspect.ViewModel
             get { return _description; }
             set {
                 _description = value;
-                if (string.IsNullOrWhiteSpace(_description.ToString()))
+                if (string.IsNullOrWhiteSpace(_description))
                 {
                     AddError("Description", "Beschrijving is verplicht");
                 }
@@ -87,7 +64,23 @@ namespace ParkInspect.ViewModel
         public string Status
         {
             get { return _status; }
-            set { _status = value; RaisePropertyChanged(); }
+            set
+            {
+                switch (value)
+                {
+                    case "":
+                        _status = "Nieuw";
+                        break;
+                    case "Klaar":
+                        DateCompleted = DateTime.Now;
+                        _status = value;
+                        break;
+                    default:
+                        _status = value;
+                        break;
+                }
+                RaisePropertyChanged();
+            }
         }
     }
 }

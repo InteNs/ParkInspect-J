@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
@@ -10,7 +11,6 @@ namespace ParkInspect.ViewModel
     public class AddCommissionViewModel : MainViewModel
     {
         private readonly ICommissionRepository _commissionRepository;
-        private string errorMessage;
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public CommissionViewModel Commission { get; set; }
@@ -32,7 +32,7 @@ namespace ParkInspect.ViewModel
             }
             Regions = regionRepository.GetAll();
 
-            AddCommissionCommand = new RelayCommand(AddCommission, CanAddCommission);
+            AddCommissionCommand = new RelayCommand(AddCommission);
         }
 
         private bool ValidateInput()
@@ -54,15 +54,7 @@ namespace ParkInspect.ViewModel
                */
             //check if all fields are filled in
 
-            if (Commission.Customer == null || Commission.Region == null || string.IsNullOrWhiteSpace(Commission.StreetNumber.ToString()) || Commission.ZipCode == null ||
-                string.IsNullOrWhiteSpace(Commission.Frequency.ToString()) || Commission.Description == null || !Commission.IsValid || Commission.Employee == null)
-            {
-                return false;
-
-            }
-            return true;
-
-
+            return Commission.Customer != null && Commission.Region != null && !string.IsNullOrWhiteSpace(Commission.StreetNumber) && Commission.ZipCode != null && Commission.Description != null && Commission.IsValid && Commission.Employee != null;
         }
 
         private void AddCommission()
@@ -70,6 +62,7 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 Commission.Status = "Nieuw";
+                Commission.DateCreated = DateTime.Today;
                 if (_commissionRepository.Add(Commission))
                 {
 
@@ -82,18 +75,11 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private bool CanAddCommission()
-        {
-            return true;
-        }
-
         private async void ShowValidationError()
         {
             //TODO: Validation error
             var dialog = new MetroDialogService();
             dialog.ShowMessage("Error", "De waarden zijn niet correct ingevuld");
-
-
         }
     }
 }

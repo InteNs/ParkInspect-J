@@ -15,7 +15,7 @@
             <Setter Property="Padding" Value="0"></Setter>
         </Style>
 
-        <Style x:Key="tbError" TargetType="{x:Type TextBox}">
+        <Style x:Key="TbError" TargetType="{x:Type TextBox}">
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
                     <ControlTemplate x:Name="TextErrorTemplate">
@@ -59,14 +59,11 @@
             <RowDefinition Height="0.05*"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1" Grid.RowSpan="2"
-          Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
+        <Grid Grid.Row="1" Grid.RowSpan="2" Grid.Column="3" Background="{DynamicResource PrimaryHueMidBrush}">
             <Viewbox>
                 <Label  Foreground="White" FontSize="20" Content="Opdracht aanmaken" />
             </Viewbox>
         </Grid>
-
-
 
         <Grid Grid.Row="3"
               Grid.Column="1"
@@ -97,81 +94,54 @@
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
-            
-            <DockPanel Grid.Row="1"
-                        Grid.Column="1"
-                        >
+
+            <DockPanel Grid.Row="1" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Klant: " />
                 </Viewbox>
                 <ComboBox SelectedItem="{Binding Commission.Customer, Mode=TwoWay}" ItemsSource="{Binding Customers}" DisplayMemberPath="Name"/>
-                
-
             </DockPanel>
-            
+
             <Grid Grid.Row="1" Grid.Column="2">
                 <Button HorizontalAlignment="Right" Content="+" Command="{Binding RouteCommand}" CommandParameter="customers-add" Width="62" ></Button>
             </Grid>
             
-            
-            
-            
-            <DockPanel Grid.Row="3"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="3" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}"  Content="Postcode: " />
                 </Viewbox>
-                <TextBox Text="{Binding Commission.ZipCode, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
+                <TextBox Text="{Binding Commission.ZipCode, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource TbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
             </DockPanel>
 
-            <DockPanel Grid.Row="5"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="5" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Straatnummer: " />
                 </Viewbox>
-                <TextBox Text="{Binding Commission.StreetNumber, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
+                <TextBox Text="{Binding Commission.StreetNumber, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource TbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
             </DockPanel>
 
-            <DockPanel Grid.Row="7"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="7" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Regio: "></Label>
                 </Viewbox>
                 <ComboBox SelectedValue="{Binding Commission.Region, Mode=TwoWay}" ItemsSource="{Binding Regions}"/>
             </DockPanel>
 
-            <DockPanel Grid.Row="9"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="9" Grid.Column="1" >
                 <Viewbox>
-                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Frequentie: " ></Label>
+                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Beschrijving: " ></Label>
                 </Viewbox>
-                <TextBox Text="{Binding Commission.Frequency, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
+                <TextBox Text="{Binding Commission.Description, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource TbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
             </DockPanel>
 
-            <DockPanel Grid.Row="11"
-                        Grid.Column="1"
-                        >
-                <Viewbox>
-                    <Label Style="{StaticResource DefaultLabelStyle}" Content="Beschrijving "></Label>
-                </Viewbox>
-                <TextBox Text="{Binding Commission.Description, Mode=TwoWay, NotifyOnValidationError=True, ValidatesOnNotifyDataErrors=True}" Style="{StaticResource tbError}" TextAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="Gray" FontSize="18" />
-            </DockPanel>
-            <DockPanel Grid.Row="13"
-                        Grid.Column="1"
-                        >
+            <DockPanel Grid.Row="11" Grid.Column="1" >
                 <Viewbox>
                     <Label Style="{StaticResource DefaultLabelStyle}" Content="Medewerker "></Label>
                 </Viewbox>
                 <ComboBox SelectedItem="{Binding Commission.Employee, Mode=TwoWay}" ItemsSource="{Binding Employees}" DisplayMemberPath="Name" HorizontalContentAlignment="Center" />
             </DockPanel>
-            <Grid
-                Grid.Row="15"
-                Grid.Column="1">
-                <Button Command="{Binding AddCommissionCommand}" Content="Opslaan" Width="275" />
+            <Grid Grid.Row="15" Grid.Column="1">
+                <Button Command="{Binding AddCommissionCommand}" Content="Opslaan" Width="275" IsDefault="True"/>
             </Grid>
 
         </Grid>

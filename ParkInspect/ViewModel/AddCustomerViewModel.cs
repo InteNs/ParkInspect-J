@@ -1,14 +1,8 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using ParkInspect.Repository.Interface;
 using ParkInspect.Service;
-using System.ComponentModel;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using ParkInspect.Helper;
 
 namespace ParkInspect.ViewModel
@@ -18,31 +12,22 @@ namespace ParkInspect.ViewModel
         private readonly ICustomerRepository _customerRepository;
         
 
-        public ObservableCollection<string> FunctionList { get; set; }
         public ObservableCollection<string> RegionList { get; set; }
         public CustomerViewModel Customer { get; set; }
         public ICommand AddCustomerCommand { get; set; }
         
-
-        public AddCustomerViewModel(ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router, CustomersViewModel cvm) : base(router)
+        public AddCustomerViewModel(ICustomerRepository customerRepository, IRegionRepository regionRepository, IRouterService router) : base(router)
         {
             _customerRepository = customerRepository;
             Customer = new CustomerViewModel();
-            FunctionList = customerRepository.GetFunctions();
             RegionList = regionRepository.GetAll();
-            AddCustomerCommand = new RelayCommand(AddCustomer, CanAddCustomer);
-        }
-
-        private bool CanAddCustomer()
-        {
-            //TODO: check if all fields are filled in
-            return true;
+            AddCustomerCommand = new RelayCommand(AddCustomer);
         }
 
         private bool ValidateInput()
         {
             //check if all fields are filled in
-            if (Customer.Function == null || Customer.Name == null || Customer.ZipCode == null ||
+            if (Customer.Name == null || Customer.ZipCode == null ||
                 Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null || !Customer.IsValid)
             {
                 return false;
@@ -72,7 +57,5 @@ namespace ParkInspect.ViewModel
             dialog.ShowMessage("Probleem opgetreden",
                             "Niet alle gegevens zijn juist ingevuld.");
         }
-
-       
     }
 }

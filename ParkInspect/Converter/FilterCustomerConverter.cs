@@ -1,13 +1,9 @@
 ﻿using ParkInspect.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Data;
-using System.Windows.Documents;
 
 namespace ParkInspect.Converter
 {
@@ -22,6 +18,7 @@ namespace ParkInspect.Converter
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
+            //Kan beter met unset value maar werkt niet met array
             throw new NotImplementedException();
         }
     }

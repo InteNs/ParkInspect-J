@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using ParkInspect.Enumeration;
 using ParkInspect.ViewModel;
 
 namespace ParkInspect.Service
@@ -17,9 +11,10 @@ namespace ParkInspect.Service
         string UserName { get; set; }
         void Login(PasswordBox password);
         void Logout();
-        bool IsLoggedIn();
-        string CurrentFunction();
-        EmployeeViewModel CurrentEmployee();
+        bool IsLoggedIn(AuthenticationViewModel user);
+        string CurrentFunction(AuthenticationViewModel user);
+        EmployeeViewModel CurrentEmployee(AuthenticationViewModel user);
+        AuthenticationViewModel GetLoggedInUser();
 
     }
 }

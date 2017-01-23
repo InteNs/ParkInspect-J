@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[Inspection]
 (
-	[Id] INT NOT NULL,
+	[Id] INT IDENTITY NOT NULL,
 	[Guid] uniqueidentifier NOT NULL,
 	[CommissionId] int NOT NULL,
 	[CommissionGuid] uniqueidentifier NOT NULL,
