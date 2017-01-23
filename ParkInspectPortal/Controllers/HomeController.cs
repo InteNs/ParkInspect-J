@@ -42,9 +42,7 @@ namespace ParkInspectPortal.Controllers
 
             if (pdfvm == null)
             {
-                ViewBag.Error = "Fout tijdens genereren van PDF!";
-                return View("Index", _inspectionRepo.GetInspections());
-
+                return View("Error");
             }
 
             using (var pdfBuilder = new PDFBuilder())
