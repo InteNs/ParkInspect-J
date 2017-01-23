@@ -259,6 +259,8 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\QuestionListViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\AccessRepo.cs" />
+    <Compile Include="Repositories\IAccessRepo.cs" />
     <Compile Include="Repositories\IInspectionRepo.cs" />
     <Compile Include="Repositories\InspectionRepo.cs" />
     <Compile Include="Startup.cs" />

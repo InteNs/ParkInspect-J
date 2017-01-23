@@ -38,6 +38,7 @@ namespace ParkInspectPortal.App_Start
 
             // TODO: Register your types here
              container.RegisterType<IInspectionRepo, InspectionRepo>();
+             container.RegisterType<IAccessRepo, AccessRepo>();
         }
     }
 }
