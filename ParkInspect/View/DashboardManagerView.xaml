@@ -69,12 +69,9 @@
 
                 <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="management-view" Content="KPI Scherm" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-
                 <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="inspections-list" Content="Inspectie Overzicht" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-
-                <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="report-overview" Content="Rapportage Overzicht" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
-
+                <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Click="OpenWebView"  Content="Rapportage Overzicht" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
             </Grid>
         </Grid>
     </Grid>
