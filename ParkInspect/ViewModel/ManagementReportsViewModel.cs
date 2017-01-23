@@ -69,7 +69,8 @@ namespace ParkInspect.ViewModel
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
             Options = new List<string>();
-            
+
+            DiagramView = true;
         }
 
         // Best veel nesting
