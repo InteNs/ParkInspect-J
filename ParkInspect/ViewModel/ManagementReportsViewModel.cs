@@ -167,7 +167,7 @@ namespace ParkInspect.ViewModel
                     break;
 
                 case "Kaart":
-                    if (DiagramView) { MapView = false; }
+                    if (DiagramView) { DiagramView = false; }
                     MapView = true;
                     Map = new MapViewModel(Commissions, Inspections, Inspectors, Customers);
                     switch (SelectedOption)
