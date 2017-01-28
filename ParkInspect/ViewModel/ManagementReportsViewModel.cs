@@ -69,7 +69,8 @@ namespace ParkInspect.ViewModel
 
             GenerateDiagramCommand = new RelayCommand(GenerateDiagram);
             Options = new List<string>();
-            
+
+            DiagramView = true;
         }
 
         // Best veel nesting
@@ -80,6 +81,8 @@ namespace ParkInspect.ViewModel
             switch (SelectedDiagram.Name)
             {
                 case "Cirkeldiagram":
+                    if (MapView) { MapView = false; }
+                    DiagramView = true;
                     switch (SelectedOption)
                     {
                         case "Verdeling van de functies van de werknemers":
@@ -98,6 +101,8 @@ namespace ParkInspect.ViewModel
                     break;
 
                 case "Staafdiagram":
+                    if (MapView) { MapView = false; }
+                    DiagramView = true;
                     switch (SelectedOption)
                     {
                         case "Aantal inspecties per inspecteur":
@@ -121,6 +126,8 @@ namespace ParkInspect.ViewModel
                     break;
 
                 case "Lijndiagram":
+                    if (MapView) { MapView = false; }
+                    DiagramView = true;
                     switch (SelectedOption)
                     {
                         case "Aantal inspecties die zijn uitgevoerd per dag":
@@ -161,6 +168,8 @@ namespace ParkInspect.ViewModel
                     break;
 
                 case "Kaart":
+                    if (DiagramView) { DiagramView = false; }
+                    MapView = true;
                     Map = new MapViewModel(Commissions, Inspections, Inspectors, Customers);
                     switch (SelectedOption)
                     {
@@ -298,6 +307,10 @@ namespace ParkInspect.ViewModel
             get { return _status; }
             set { _status = value; RaisePropertyChanged(); }
         }
+
+        public bool DiagramView { get; set; }
+
+        public bool MapView { get; set; }
 
         public IDiagram SelectedDiagram
         {
