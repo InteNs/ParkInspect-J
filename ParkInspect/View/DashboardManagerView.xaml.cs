@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ParkInspect.Service;
 
 namespace ParkInspect.View
 {
@@ -7,6 +8,7 @@ namespace ParkInspect.View
     /// </summary>
     public partial class DashboardManagerView
     {
+        
         public DashboardManagerView()
         {
             InitializeComponent();
@@ -14,7 +16,7 @@ namespace ParkInspect.View
 
         private void OpenWebView(object sender, RoutedEventArgs e)
         {
-            System.Diagnostics.Process.Start("http://parkinspect-j.azurewebsites.net/");
+            
         }
     }
 }

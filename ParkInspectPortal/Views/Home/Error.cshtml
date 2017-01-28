@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <img src="/Content/img/error.png" width="64" style="float: left;">
+        <h2 style="float: left; margin-top: 15px; margin-left: 20px;">
+            @ViewBag.ErrMessage
+        </h2>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('.navbar,footer').remove();
+    });
+</script>
