@@ -73,6 +73,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="AddCommissionTests.cs" />
     <Compile Include="ConverterTests.cs" />
     <Compile Include="InspectionTests.cs" />
     <Compile Include="LocationTests.cs" />
