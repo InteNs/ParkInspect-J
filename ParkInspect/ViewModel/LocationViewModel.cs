@@ -65,7 +65,7 @@ namespace ParkInspect.ViewModel
         }
 
         //validation
-        private Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
+        public Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
 
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;

@@ -134,6 +134,12 @@ namespace ParkInspect.ViewModel
             DoInspectionCommand = new RelayCommand(DoInspection);
             CancelInspectionCommand = new RelayCommand(CancelInspection);
         }
+        
+        //constructor for unittest
+        public InspectionsViewModel(IQuestionListRepository questionLists)
+        {
+           _questionListRepo = questionLists;
+        }
 
         private async void CancelInspection()
         {
