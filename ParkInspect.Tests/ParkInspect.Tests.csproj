@@ -77,8 +77,13 @@
     <Compile Include="InspectionTests.cs" />
     <Compile Include="LocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuestionListTest.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data\Data.csproj">
+      <Project>{DBD837F9-810F-4078-BE35-5E4B53D10879}</Project>
+      <Name>Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ParkInspect\ParkInspect.csproj">
       <Project>{74289368-6eb9-4004-b602-c8e031a37c44}</Project>
       <Name>ParkInspect</Name>
