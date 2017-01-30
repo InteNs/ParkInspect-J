@@ -12,7 +12,7 @@ namespace ParkInspect.Tests
     public class QuestionTests
     {
         [TestMethod]
-        [TestCategory("viewmodels")]
+        [TestCategory("Question")]
         public void QuestionCreate()
         {
             QuestionViewModel question = new QuestionViewModel();
@@ -26,5 +26,59 @@ namespace ParkInspect.Tests
             question.IsActive = true;
             Assert.AreEqual(question.Create().IsActive, false);
         }
+
+        [TestMethod]
+        [TestCategory("Question")]
+        public void TestId()
+        {
+            //arrange
+            QuestionViewModel ques = new QuestionViewModel();
+            //act
+            ques.Id = 1;
+            //assert
+            Assert.AreEqual(1, ques.Id);
+
+        }
+
+        [TestMethod]
+        [TestCategory("Question")]
+        public void TestDescription()
+        {
+            //arrange
+            QuestionViewModel ques = new QuestionViewModel();
+            //act
+            ques.Description = "value";
+            //assert
+            Assert.AreEqual("value", ques.Description);
+
+        }
+
+        [TestMethod]
+        [TestCategory("Question")]
+        public void TestVersion()
+        {
+            //arrange
+            QuestionViewModel ques = new QuestionViewModel();
+            //act
+            ques.Version = 1;
+            //assert
+            Assert.AreEqual(1, ques.Version);
+
+        }
+
+        [TestMethod]
+        [TestCategory("Question")]
+        public void TestIsActive()
+        {
+            //arrange
+            QuestionViewModel ques = new QuestionViewModel();
+            //act
+            ques.IsActive = true;
+            //assert
+            Assert.AreEqual(true, ques.IsActive);
+
+        }
+
+
     }
 }

@@ -103,5 +103,44 @@ namespace ParkInspect.Tests
             Assert.AreEqual("value", QuestionList.Description);
         }
 
+        [TestMethod]
+        [TestCategory("QuestionList")]
+        public void TestCurrentQuestion()
+        {
+            //arrange
+            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionItemViewModel CurrentQuestion = new QuestionItemViewModel();
+            //act
+            QuestionList.CurrentQuestion = CurrentQuestion;
+            //assert
+            Assert.AreEqual(CurrentQuestion, QuestionList.CurrentQuestion);
+        }
+
+        [TestMethod]
+        [TestCategory("QuestionList")]
+        public void TestQuestionItems()
+        {
+            //arrange
+            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            ObservableCollection<QuestionItemViewModel> QuestionItems = new ObservableCollection<QuestionItemViewModel>();
+            //act
+            QuestionList.QuestionItems = QuestionItems;
+            //assert
+            Assert.AreEqual(QuestionItems, QuestionList.QuestionItems);
+        }
+
+        [TestMethod]
+        [TestCategory("QuestionList")]
+        public void TestInspection()
+        {
+            //arrange
+            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            InspectionViewModel Inspection = new InspectionViewModel();
+            //act
+            QuestionList.Inspection = Inspection;
+            //assert
+            Assert.AreEqual(Inspection, QuestionList.Inspection);
+        }
+
     }
 }
