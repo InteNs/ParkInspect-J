@@ -56,6 +56,12 @@ namespace ParkInspect.ViewModel
             }
         }
 
+        //constructor for unittest
+        public AddInspectionViewModel()
+        {
+
+        }
+
         private bool ValidateInput()
         {
             if(Inspection.EndTime <= Inspection.StartTime)
