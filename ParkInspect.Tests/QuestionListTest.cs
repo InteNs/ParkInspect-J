@@ -78,5 +78,30 @@ namespace ParkInspect.Tests
             //assert
             Assert.AreEqual("Nee", QuestionList.CurrentQuestion.Answer);
         }
+
+        [TestMethod]
+        [TestCategory("QuestionList")]
+        public void TestId()
+        {
+            //arrange
+            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            //act
+            QuestionList.Id = 1;
+            //assert
+            Assert.AreEqual(1, QuestionList.Id);
+
+        }
+        [TestMethod]
+        [TestCategory("QuestionList")]
+        public void TestDescription()
+        {
+            //arrange
+            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            //act
+            QuestionList.Description = "value";
+            //assert
+            Assert.AreEqual("value", QuestionList.Description);
+        }
+
     }
 }

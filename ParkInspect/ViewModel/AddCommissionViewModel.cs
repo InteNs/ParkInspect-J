@@ -35,7 +35,11 @@ namespace ParkInspect.ViewModel
             AddCommissionCommand = new RelayCommand(AddCommission);
         }
 
-        //constructor for tests
+        //constructor for unittest
+        public AddCommissionViewModel()
+        {
+
+        }
         
 
         private bool ValidateInput()
