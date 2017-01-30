@@ -63,26 +63,11 @@ namespace ParkInspect.ViewModel
                     source.RemoveAll(o => o.DateCreated <= endDate.Value);
                 }
             }
-
             if (selectedInspector != null)
             {
                 source.RemoveAll(o => o.Employee.Id != selectedInspector.Id);
             }
-
-            foreach (var item in source)
-            {
-                var loc = Location.GetLatLongFromAddress(item.ZipCode);
-                if (loc != null)
-                {
-                    var setPoint = new MapPoint
-                    {
-                        Description = item.Customer.Name,
-                        Location = new Location(loc.Latitude, loc.Longitude)
-                    };
-                    Points.Add(setPoint);
-                }
-            }
-            source.Clear();
+            Plot(source);
         }
 
         // Inspections per locations
@@ -108,17 +93,7 @@ namespace ParkInspect.ViewModel
                 source.RemoveAll(o => o.Id != selectedQuestion.QuestionList.Inspection.CommissionViewModel.Id && selectedQuestion.Answer == selectedAnswer);
             }
 
-            foreach (var item in source)
-            {
-                var loc = Location.GetLatLongFromAddress(item.ZipCode);
-                if (loc == null) continue;
-                var setPoint = new MapPoint
-                {
-                    Description = item.Customer.Name,
-                    Location = new Location(loc.Latitude, loc.Longitude)
-                };
-                Points.Add(setPoint);
-            }
+            Plot(source);
         }
 
         // Inspectors per location
@@ -138,68 +113,7 @@ namespace ParkInspect.ViewModel
                 }
             }
 
-            foreach (var regios in counter)
-            {
-                switch (regios.Key)
-                {
-                    case "Limburg":
-                        var maastricht = Location.GetLatLongFromAddress("6211 KM");
-                        var setMaastricht = new MapPoint
-                        {
-                            Description = "Limburg, werknemers : " + regios.Value,
-                            Location = new Location(maastricht.Latitude, maastricht.Longitude)
-                        };
-                        Points.Add(setMaastricht);
-                        break;
-                    case "Utrecht":
-                        var utrecht = Location.GetLatLongFromAddress("3511 CE");
-                        var setUtrecht = new MapPoint
-                        {
-                            Description = "Utrecht, werknemers : " + regios.Value,
-                            Location = new Location(utrecht.Latitude, utrecht.Longitude)
-                        };
-                        Points.Add(setUtrecht);
-                        MapCenter.Latitude = utrecht.Latitude;
-                        MapCenter.Longitude = utrecht.Longitude;
-                        break;
-                    case "Brabant":
-                        var brabant = Location.GetLatLongFromAddress("5211 AZ");
-                        var setBrabant = new MapPoint
-                        {
-                            Description = "Brabant, werknemers : " + regios.Value,
-                            Location = new Location(brabant.Latitude, brabant.Longitude)
-                        };
-                        Points.Add(setBrabant);
-                        break;
-                    case "Flevoland":
-                        var lelystad = Location.GetLatLongFromAddress("8232 DL");
-                        var setFlevoland = new MapPoint
-                        {
-                            Description = "Flevoland, werknemers : " + regios.Value,
-                            Location = new Location(lelystad.Latitude, lelystad.Longitude)
-                        };
-                        Points.Add(setFlevoland);
-                        break;
-                    case "Groningen":
-                        var groningen = Location.GetLatLongFromAddress("9726 AE");
-                        var setGroningen = new MapPoint
-                        {
-                            Description = "Groningen, werknemers : " + regios.Value,
-                            Location = new Location(groningen.Latitude, groningen.Longitude)
-                        };
-                        Points.Add(setGroningen);
-                        break;
-                    case "Zeeland":
-                        var zeeland = Location.GetLatLongFromAddress("4337 LH");
-                        var setZeeland = new MapPoint
-                        {
-                            Description = "Zeeland, werknemers : " + regios.Value,
-                            Location = new Location(zeeland.Latitude, zeeland.Longitude)
-                        };
-                        Points.Add(setZeeland);
-                        break;
-                }
-            }
+            SetPerRegion(counter, "inspecteurs :");
         }
 
         // Customers per location
@@ -218,8 +132,14 @@ namespace ParkInspect.ViewModel
                     counter.Add(customer.Region, 1);
                 }
             }
+            SetPerRegion(counter, "klanten :");
+        }
+        #endregion
 
-            foreach (var regios in counter)
+        #region helpers
+        public void SetPerRegion(Dictionary<string, int> dictionary, string description)
+        {
+            foreach (var regios in dictionary)
             {
                 switch (regios.Key)
                 {
@@ -227,7 +147,7 @@ namespace ParkInspect.ViewModel
                         var maastricht = Location.GetLatLongFromAddress("6211 KM");
                         var setMaastricht = new MapPoint
                         {
-                            Description = "Limburg, klanten : " + regios.Value,
+                            Description = "Limburg, " + description + " " + regios.Value,
                             Location = new Location(maastricht.Latitude, maastricht.Longitude)
                         };
                         Points.Add(setMaastricht);
@@ -236,7 +156,7 @@ namespace ParkInspect.ViewModel
                         var utrecht = Location.GetLatLongFromAddress("3511 CE");
                         var setUtrecht = new MapPoint
                         {
-                            Description = "Utrecht, klanten : " + regios.Value,
+                            Description = "Utrecht, " + description + " " + regios.Value,
                             Location = new Location(utrecht.Latitude, utrecht.Longitude)
                         };
                         Points.Add(setUtrecht);
@@ -247,7 +167,7 @@ namespace ParkInspect.ViewModel
                         var brabant = Location.GetLatLongFromAddress("5211 AZ");
                         var setBrabant = new MapPoint
                         {
-                            Description = "Brabant, klanten : " + regios.Value,
+                            Description = "Brabant, " + description + " " + regios.Value,
                             Location = new Location(brabant.Latitude, brabant.Longitude)
                         };
                         Points.Add(setBrabant);
@@ -256,7 +176,7 @@ namespace ParkInspect.ViewModel
                         var lelystad = Location.GetLatLongFromAddress("8232 DL");
                         var setFlevoland = new MapPoint
                         {
-                            Description = "Flevoland, klanten : " + regios.Value,
+                            Description = "Flevoland, " + description + " " + regios.Value,
                             Location = new Location(lelystad.Latitude, lelystad.Longitude)
                         };
                         Points.Add(setFlevoland);
@@ -265,7 +185,7 @@ namespace ParkInspect.ViewModel
                         var groningen = Location.GetLatLongFromAddress("9726 AE");
                         var setGroningen = new MapPoint
                         {
-                            Description = "Groningen, klanten : " + regios.Value,
+                            Description = "Groningen, " + description + " " + regios.Value,
                             Location = new Location(groningen.Latitude, groningen.Longitude)
                         };
                         Points.Add(setGroningen);
@@ -274,11 +194,28 @@ namespace ParkInspect.ViewModel
                         var zeeland = Location.GetLatLongFromAddress("4337 LH");
                         var setZeeland = new MapPoint
                         {
-                            Description = "Zeeland, klanten : " + regios.Value,
+                            Description = "Zeeland, " + description + " " + regios.Value,
                             Location = new Location(zeeland.Latitude, zeeland.Longitude)
                         };
                         Points.Add(setZeeland);
                         break;
+                }
+            }
+        }
+
+        public void Plot(List<CommissionViewModel> source)
+        {
+            foreach (var item in source)
+            {
+                var loc = Location.GetLatLongFromAddress(item.ZipCode);
+                if (loc != null)
+                {
+                    var setPoint = new MapPoint
+                    {
+                        Description = item.Customer.Name,
+                        Location = new Location(loc.Latitude, loc.Longitude)
+                    };
+                    Points.Add(setPoint);
                 }
             }
         }
