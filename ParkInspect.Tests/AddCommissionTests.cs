@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,8 @@ namespace ParkInspect.Tests
         [TestCategory("viewmodels")]
         public void AddCommissionTest()
         {
-         
+            //arrange
+            //AddCommissionViewModel addComm = new AddCommissionViewModel();
         }
     }
 }
