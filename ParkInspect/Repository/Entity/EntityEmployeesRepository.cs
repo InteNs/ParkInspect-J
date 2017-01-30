@@ -58,6 +58,7 @@ namespace ParkInspect.Repository.Entity
 
             var person = new Person { Location = location, Email = item.Email, Name = item.Name, PhoneNumber = item.PhoneNumber, Guid = Guid.NewGuid() };
             _context.Person.Add(person);
+            _context.SaveChanges();
 
             var employee = new Employee { Person = person, Guid = Guid.NewGuid(), Function = function};
 
