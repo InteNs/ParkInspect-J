@@ -83,6 +83,7 @@
     <Compile Include="ConverterTests.cs" />
     <Compile Include="CustomersTests.cs" />
     <Compile Include="EditCustomerTests.cs" />
+    <Compile Include="EditEmployeeTests.cs" />
     <Compile Include="InspectionTests.cs" />
     <Compile Include="LocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
