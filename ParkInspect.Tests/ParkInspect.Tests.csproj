@@ -84,6 +84,8 @@
     <Compile Include="CustomersTests.cs" />
     <Compile Include="EditCustomerTests.cs" />
     <Compile Include="EditEmployeeTests.cs" />
+    <Compile Include="EditQuestionListTests.cs" />
+    <Compile Include="EmployeeInspectionsTests.cs" />
     <Compile Include="InspectionTests.cs" />
     <Compile Include="LocationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

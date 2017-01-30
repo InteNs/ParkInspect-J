@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using GalaSoft.MvvmLight.Command;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -50,5 +51,7 @@ namespace ParkInspect.Tests
             //assert
             Assert.AreEqual(emp, edit.SelectedEmployee);
         }
+
+        
     }
 }

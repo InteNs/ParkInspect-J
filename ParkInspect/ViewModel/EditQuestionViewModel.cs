@@ -26,6 +26,12 @@ namespace ParkInspect.ViewModel
             Question = questions.SelectedQuestion;
             EditQuestionCommand = new RelayCommand(Editquestion);
         }
+
+        //constructor for unittests
+        public EditQuestionViewModel()
+        {
+
+        }
         private void Editquestion()
         {
             if (ValidateInput())
