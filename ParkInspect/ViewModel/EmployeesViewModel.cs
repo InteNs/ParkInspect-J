@@ -44,7 +44,7 @@ namespace ParkInspect.ViewModel
         {
 
         }
-        private bool CanEditEmployee() =>  SelectedEmployee != null;
+        public bool CanEditEmployee() =>  SelectedEmployee != null;
 
         private async void DismissEmployee()
         {
