@@ -8,6 +8,7 @@ namespace ParkInspect.ViewModel
     public class CustomersViewModel : MainViewModel
     {
         private CustomerViewModel _selectedCustomer;
+
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
 
         public CustomerViewModel SelectedCustomer

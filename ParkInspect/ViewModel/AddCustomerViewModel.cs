@@ -10,7 +10,6 @@ namespace ParkInspect.ViewModel
     public class AddCustomerViewModel : MainViewModel
     {
         private readonly ICustomerRepository _customerRepository;
-        
 
         public ObservableCollection<string> RegionList { get; set; }
         public CustomerViewModel Customer { get; set; }
@@ -24,16 +23,7 @@ namespace ParkInspect.ViewModel
             AddCustomerCommand = new RelayCommand(AddCustomer);
         }
 
-        private bool ValidateInput()
-        {
-            //check if all fields are filled in
-            if (Customer.Name == null || Customer.ZipCode == null ||
-                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null || !Customer.IsValid)
-            {
-                return false;
-            }
-            return true;
-        }
+        private bool ValidateInput() => Customer.Name != null && Customer.ZipCode != null && Customer.StreetNumber != null && Customer.PhoneNumber != null && Customer.Email != null && Customer.IsValid;
 
         private void AddCustomer()
         {
@@ -50,12 +40,6 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private void ShowValidationError()
-        {
-            //TODO: Validation error
-            var dialog = new MetroDialogService();
-            dialog.ShowMessage("Probleem opgetreden",
-                            "Niet alle gegevens zijn juist ingevuld.");
-        }
+        private void ShowValidationError() => new MetroDialogService().ShowMessage("Probleem opgetreden", "Niet alle gegevens zijn juist ingevuld.");
     }
 }

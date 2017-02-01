@@ -14,6 +14,7 @@ namespace ParkInspect.ViewModel
         public ObservableCollection<QuestionType> QuestionType { get; set; }
         public QuestionViewModel Question { get; set; }
         public RelayCommand EditQuestionCommand { get; set; }
+
         public EditQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel questions) : base(router)
         {
             QuestionType = new ObservableCollection<QuestionType>
@@ -28,12 +29,9 @@ namespace ParkInspect.ViewModel
         }
         private void Editquestion()
         {
-            if (ValidateInput())
+            if (ValidateInput() && _questionsRepository.Update(Question))
             {
-                if (_questionsRepository.Update(Question))
-                {
-                    RouterService.SetPreviousView();
-                }
+                RouterService.SetPreviousView();
             }
             else
             {
@@ -42,6 +40,6 @@ namespace ParkInspect.ViewModel
         }
 
         //check if all fields are filled in
-        private bool ValidateInput() =>  Question.Description != null;
+        private bool ValidateInput() => Question.Description != null;
     }
 }
