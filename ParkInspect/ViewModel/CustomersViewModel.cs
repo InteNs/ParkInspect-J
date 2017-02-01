@@ -31,9 +31,8 @@ namespace ParkInspect.ViewModel
         //constructor for tests
         public CustomersViewModel()
         {
-
         }
 
-        private bool CanEditCustomer() => SelectedCustomer != null;
+        public bool CanEditCustomer() => SelectedCustomer != null;
     }
 }

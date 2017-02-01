@@ -13,6 +13,35 @@ namespace ParkInspect.Tests
     {
         [TestMethod]
         [TestCategory("EditQuestionList")]
+        public void ValidateInputTest()
+        {
+            //arrange
+            EditQuestionListViewModel edit = new EditQuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            edit.QuestionList = QuestionList;
+            edit.QuestionList.Description = "test";
+            //act
+            edit.ValidateInput();
+            //assert
+            Assert.AreEqual(true, edit.ValidateInput());
+        }
+
+        [TestMethod]
+        [TestCategory("EditQuestionList")]
+        public void ValidateNoInputTest()
+        {
+            //arrange
+            EditQuestionListViewModel edit = new EditQuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            edit.QuestionList = QuestionList;
+            //act
+            edit.ValidateInput();
+            //assert
+            Assert.AreEqual(false, edit.ValidateInput());
+        }
+
+        [TestMethod]
+        [TestCategory("EditQuestionList")]
         public void TestQuestionList()
         {
             //arrange
