@@ -53,17 +53,8 @@ namespace ParkInspect.Tests
             Assert.AreEqual(QuestionList, edit.QuestionList);
         }
 
-        [TestMethod]
-        [TestCategory("EditQuestionList")]
-        public void TestQuestion()
-        {
-            //arrange
-            EditQuestionViewModel edit = new EditQuestionViewModel();
-            QuestionViewModel Question = new QuestionViewModel();
-            //act
-            edit.Question = Question;
-            //assert
-            Assert.AreEqual(Question, edit.Question);
-        }
+   
+
+       
     }
 }
