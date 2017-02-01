@@ -19,12 +19,26 @@ namespace ParkInspect.Tests
             question.Id = 123;
             question.Version = 234;
             question.Description = "testcase";
-            question.IsActive = true;
+            question.IsActive = false;
             question.QuestionType = Enumeration.QuestionType.Boolean;
 
-            Assert.AreEqual(question.Create(), question);
-            question.IsActive = true;
-            Assert.AreEqual(question.Create().IsActive, false);
+            question = question.Create();
+            Assert.AreEqual(question.IsActive, true);
+        }
+
+        [TestMethod]
+        [TestCategory("viewmodels")]
+        public void QuestionUpdate()
+        {
+            QuestionViewModel question = new QuestionViewModel();
+            question.Id = 123;
+            question.Version = 234;
+            question.Description = "testcase";
+            question.IsActive = false;
+            question.QuestionType = Enumeration.QuestionType.Boolean;
+
+            question = question.Update();
+            Assert.AreEqual(question.Id, 0);
         }
     }
 }
