@@ -37,5 +37,17 @@ namespace ParkInspect.Tests
             //assert
             Assert.AreEqual(ques, addQues.Questions);
         }
+
+        [TestMethod]
+        [TestCategory("AddQuestion")]
+        public void AddQuestions()
+        {
+            //arrange
+            AddQuestionViewModel addQues = new AddQuestionViewModel();
+            //act
+            addQues.AddQuestion();
+            //assert
+            Assert.AreEqual(addQues.Question.Id, 1);
+        }
     }
 }

@@ -40,7 +40,7 @@ namespace ParkInspect.ViewModel
             return true;
         }
 
-        private void AddQuestion()
+        public void AddQuestion()
         {
             if (ValidateInput())
             {

@@ -62,5 +62,13 @@ namespace ParkInspect.Tests
             Assert.AreEqual(regions, addcomm.Regions);
         }
 
+        [TestMethod]
+        [TestCategory("AddCommission")]
+        public void AddComissionTest()
+        {
+            AddCommissionViewModel addcomm = new AddCommissionViewModel();
+            addcomm.AddCommission();
+            Assert.AreEqual(addcomm.Commission.Status, "Nieuw");
+        }
         }
 }

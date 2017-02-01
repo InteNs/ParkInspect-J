@@ -50,5 +50,21 @@ namespace ParkInspect.Tests
             //assert
             Assert.AreEqual(emp, addemp.Employee);
         }
+
+        [TestMethod]
+        [TestCategory("AddEmployee")]
+        public void AddEmployee()
+        {
+            AddEmployeeViewModel addemp = new AddEmployeeViewModel();
+            addemp.Employee.Function = "a";
+            addemp.Employee.Name = "a";
+            addemp.Employee.ZipCode = "a";
+            addemp.Employee.StreetNumber = "a";
+            addemp.Employee.PhoneNumber = "a";
+            addemp.Employee.Email = "a";
+            addemp.Employee.Region = "a";
+
+            Assert.AreEqual(addemp.ValidateInput(), true);
+        }
     }
 }

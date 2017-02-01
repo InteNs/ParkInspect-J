@@ -38,7 +38,8 @@ namespace ParkInspect.ViewModel
         //constructor for unittest
         public AddCommissionViewModel()
         {
-
+            Commission = new CommissionViewModel();
+            Employees = new ObservableCollection<EmployeeViewModel>();
         }
         
 
