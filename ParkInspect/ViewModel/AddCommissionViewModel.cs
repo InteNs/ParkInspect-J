@@ -71,10 +71,13 @@ namespace ParkInspect.ViewModel
             {
                 Commission.Status = "Nieuw";
                 Commission.DateCreated = DateTime.Today;
-                if (_commissionRepository.Add(Commission))
+                if (_commissionRepository != null)
                 {
+                    if (_commissionRepository.Add(Commission))
+                    {
 
-                    RouterService.SetPreviousView();
+                        RouterService.SetPreviousView();
+                    }
                 }
             }
             else

@@ -67,6 +67,13 @@ namespace ParkInspect.Tests
         public void AddComissionTest()
         {
             AddCommissionViewModel addcomm = new AddCommissionViewModel();
+            addcomm.Commission.Customer = new CustomerViewModel();
+            addcomm.Commission.Region = "a";
+            addcomm.Commission.StreetNumber = "8";
+            addcomm.Commission.ZipCode = "1111aa";
+            addcomm.Commission.Description = "a";
+            addcomm.Commission.Employee = new EmployeeViewModel();
+
             addcomm.AddCommission();
             Assert.AreEqual(addcomm.Commission.Status, "Nieuw");
         }
