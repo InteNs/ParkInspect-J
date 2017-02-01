@@ -136,9 +136,9 @@ namespace ParkInspect.ViewModel
         }
         
         //constructor for unittest
-        public InspectionsViewModel(IQuestionListRepository questionLists)
+        public InspectionsViewModel()
         {
-           _questionListRepo = questionLists;
+           
         }
 
         private async void CancelInspection()

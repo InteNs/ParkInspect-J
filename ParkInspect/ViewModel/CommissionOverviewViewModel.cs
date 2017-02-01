@@ -23,5 +23,10 @@ namespace ParkInspect.ViewModel
             Commissions = commissionRepository.GetAll();
             Employees = employeeRepository.GetAll();
         }
+
+        public CommissionOverviewViewModel()
+        {
+
+        }
     }
 }

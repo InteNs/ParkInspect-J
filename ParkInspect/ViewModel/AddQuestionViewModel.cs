@@ -28,6 +28,12 @@ namespace ParkInspect.ViewModel
             AddQuestionCommand = new RelayCommand(AddQuestion);
         }
 
+        //constructor for unittests
+        public AddQuestionViewModel()
+        {
+
+        }
+
         private bool ValidateInput()
         {
             //TODO: Check if all fields have the right content

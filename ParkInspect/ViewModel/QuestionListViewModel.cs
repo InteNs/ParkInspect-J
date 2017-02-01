@@ -70,27 +70,27 @@ namespace ParkInspect.ViewModel
             RaisePropertyChanged("");
         }
 
-        private void NextQuestion()
+        public void NextQuestion()
         {
             if (_questionNr + 1 >= QuestionItems.Count()) return;
             CurrentQuestion = QuestionItems[_questionNr + 1];
             _questionNr++;
         }
 
-        private void PreviousQuestion()
+        public void PreviousQuestion()
         {
             if (_questionNr <= 0) return;
             CurrentQuestion = QuestionItems[_questionNr - 1];
             _questionNr--;
         }
 
-        private void AnswerTrue()
+        public void AnswerTrue()
         {
             _currentQuestion.Answer = "Ja";
             NextQuestion();
         }
 
-        private void AnswerFalse()
+        public void AnswerFalse()
         {
             _currentQuestion.Answer = "Nee";
             NextQuestion();

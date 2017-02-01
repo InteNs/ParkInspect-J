@@ -23,6 +23,12 @@ namespace ParkInspect.ViewModel
             RegionList = regionRepository.GetAll();
             AddCustomerCommand = new RelayCommand(AddCustomer);
         }
+        
+        //constructor for unittest
+        public AddCustomerViewModel()
+        {
+
+        }
 
         private bool ValidateInput()
         {

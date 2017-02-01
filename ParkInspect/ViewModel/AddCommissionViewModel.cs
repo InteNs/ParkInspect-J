@@ -35,6 +35,13 @@ namespace ParkInspect.ViewModel
             AddCommissionCommand = new RelayCommand(AddCommission);
         }
 
+        //constructor for unittest
+        public AddCommissionViewModel()
+        {
+
+        }
+        
+
         private bool ValidateInput()
         {
             //TODO: Check if all fields have the right content
@@ -57,7 +64,7 @@ namespace ParkInspect.ViewModel
             return Commission.Customer != null && Commission.Region != null && !string.IsNullOrWhiteSpace(Commission.StreetNumber) && Commission.ZipCode != null && Commission.Description != null && Commission.IsValid && Commission.Employee != null;
         }
 
-        private void AddCommission()
+        public void AddCommission()
         {
             if (ValidateInput())
             {

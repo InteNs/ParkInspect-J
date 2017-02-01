@@ -23,6 +23,12 @@ namespace ParkInspect.ViewModel
                 RaisePropertyChanged();
             }
         }
+
+        //constructor for unittest
+        public QuestionListsviewModel()
+        {
+
+        }
         public RelayCommand EditQuestionCommand { get; set; }
         public RelayCommand DisableQuestionCommand { get; set; }
         public RelayCommand EditQuestionListCommand { get; set; }

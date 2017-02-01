@@ -14,5 +14,11 @@ namespace ParkInspect.ViewModel
         {
             QuestionItems = new ObservableCollection<QuestionItemViewModel>(questions);
         }
+
+        //constructor for unittest
+        public TemplateViewModel()
+        {
+
+        }
     }
 }

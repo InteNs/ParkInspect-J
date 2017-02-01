@@ -13,7 +13,7 @@ namespace ParkInspect.Tests
     {
 
         [TestMethod]
-        [TestCategory("viewmodels")]
+        [TestCategory("Location")]
         public void AddErrorTest()
         {
             //arrange
@@ -29,7 +29,7 @@ namespace ParkInspect.Tests
         }
 
         [TestMethod]
-        [TestCategory("viewmodels")]
+        [TestCategory("Location")]
         public void RemoveErrorTest()
         {
             //arrange
@@ -39,6 +39,42 @@ namespace ParkInspect.Tests
             locations.RemoveError(propertyName);
             //assert
             Assert.AreEqual(false, locations.HasErrors);
+        }
+
+        [TestMethod]
+        [TestCategory("Location")]
+        public void TestZipCode()
+        {
+            //arrange
+            LocationViewModel locations = new LocationViewModel();
+            //act
+            locations.ZipCode = "5224xw";
+            //assert
+            Assert.AreEqual("5224xw", locations.ZipCode);
+        }
+
+        [TestMethod]
+        [TestCategory("Location")]
+        public void TestStreetNumber()
+        {
+            //arrange
+            LocationViewModel locations = new LocationViewModel();
+            //act
+            locations.StreetNumber = "8";
+            //assert
+            Assert.AreEqual("8", locations.StreetNumber);
+        }
+
+        [TestMethod]
+        [TestCategory("Location")]
+        public void TestRegion()
+        {
+            //arrange
+            LocationViewModel locations = new LocationViewModel();
+            //act
+            locations.Region = "value";
+            //assert
+            Assert.AreEqual("value", locations.Region);
         }
     }
 }
