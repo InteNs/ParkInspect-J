@@ -37,7 +37,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private bool ValidateInput()
+        public bool ValidateInput()
         {
             //check if all fields are filled in
             return QuestionList.Description != null;

@@ -37,6 +37,32 @@ namespace ParkInspect.Tests
             Assert.AreEqual(1, cus.Id);
         }
 
+        [TestMethod]
+        [TestCategory("Customers")]
+        public void CanNotEditCustomerTest()
+        {
+            //arrange
+            CustomersViewModel cuss = new CustomersViewModel();
+            //act
+            cuss.CanEditCustomer();
+            //assert
+            Assert.AreEqual(false, cuss.CanEditCustomer());
+        }
+
+        //[TestMethod]
+        //[TestCategory("Customers")]
+        //public void CanEditCustomerTest()
+        //{
+        //    //arrange
+        //    CustomersViewModel cuss = new CustomersViewModel();
+        //    CustomerViewModel cus = new CustomerViewModel();
+        //    cuss.SelectedCustomer = cus;
+        //    //act
+        //    cuss.CanEditCustomer();
+        //    //assert
+        //    Assert.AreEqual(true, cuss.CanEditCustomer());
+        //}
+
         //[TestMethod]
         //[TestCategory("Customers")]
         //public void TestSelectedCustomer()

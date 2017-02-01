@@ -12,6 +12,35 @@ namespace ParkInspect.Tests
     [TestClass]
     public class EmployeesTests
     {
+
+        [TestMethod]
+        [TestCategory("Employees")]
+        public void CanEditTest()
+        {
+            //arrange
+            EmployeesViewModel emps = new EmployeesViewModel();
+            EmployeeViewModel emp = new EmployeeViewModel();
+            emps.SelectedEmployee = emp;
+            //act
+            emps.CanEditEmployee();
+            //assert
+            Assert.AreEqual(true, emps.CanEditEmployee());
+
+        }
+
+        [TestMethod]
+        [TestCategory("Employees")]
+        public void CannotEditTest()
+        {
+            //arrange
+            EmployeesViewModel emps = new EmployeesViewModel();
+            //act
+            emps.CanEditEmployee();
+            //assert
+            Assert.AreEqual(false, emps.CanEditEmployee());
+
+        }
+
         [TestMethod]
         [TestCategory("Employees")]
         public void TestSelectedEmployee()

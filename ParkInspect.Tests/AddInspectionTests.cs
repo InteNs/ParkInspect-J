@@ -14,6 +14,65 @@ namespace ParkInspect.Tests
     {
         [TestMethod]
         [TestCategory("AddInspection")]
+        public void ValidateEndLaterThanStartTest()
+        {
+            //arrange
+            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            CommissionViewModel comm = new CommissionViewModel();
+            QuestionListViewModel ques = new QuestionListViewModel();
+            DateTime end = new DateTime(2016, 09, 08);
+            DateTime st = new DateTime(2016, 09, 09);
+            addInsp.Inspection.StartTime = st;
+            addInsp.Inspection.EndTime = end;
+            addInsp.Inspection.CommissionViewModel = comm;
+            addInsp.SelectedQuestionList = ques;
+            //act
+            addInsp.ValidateInput();
+            //assert
+            Assert.AreEqual(false, addInsp.ValidateInput());
+        }
+
+        [TestMethod]
+        [TestCategory("AddInspection")]
+        public void ValidateNotSelectedCommissionTest()
+        {
+            //arrange
+            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            CommissionViewModel comm = new CommissionViewModel();
+            QuestionListViewModel ques = new QuestionListViewModel();
+            DateTime end = new DateTime(2016, 09, 10);
+            DateTime st = new DateTime(2016, 09, 09);
+            addInsp.Inspection.StartTime = st;
+            addInsp.Inspection.EndTime = end;
+            addInsp.SelectedQuestionList = ques;
+            //act
+            addInsp.ValidateInput();
+            //assert
+            Assert.AreEqual(false, addInsp.ValidateInput());
+        }
+
+        [TestMethod]
+        [TestCategory("AddInspection")]
+        public void ValidateNotSelectedQuestionListTest()
+        {
+            //arrange
+            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            CommissionViewModel comm = new CommissionViewModel();
+            QuestionListViewModel ques = new QuestionListViewModel();
+            DateTime end = new DateTime(2016, 09, 10);
+            DateTime st = new DateTime(2016, 09, 09);
+            addInsp.Inspection.StartTime = st;
+            addInsp.Inspection.EndTime = end;
+            addInsp.Inspection.CommissionViewModel = comm;
+            //act
+            addInsp.ValidateInput();
+            //assert
+            Assert.AreEqual(false, addInsp.ValidateInput());
+        }
+
+
+        [TestMethod]
+        [TestCategory("AddInspection")]
         public void TestInspection()
         {
             //arrange

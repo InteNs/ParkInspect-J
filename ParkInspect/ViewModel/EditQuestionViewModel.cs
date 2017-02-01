@@ -48,6 +48,6 @@ namespace ParkInspect.ViewModel
         }
 
         //check if all fields are filled in
-        private bool ValidateInput() =>  Question.Description != null;
+        public bool ValidateInput() =>  Question.Description != null;
     }
 }

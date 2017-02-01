@@ -12,6 +12,7 @@ namespace ParkInspect.Tests
     [TestClass]
     public class EditCustomerTests
     {
+
         [TestMethod]
         [TestCategory("EditCustomer")]
         public void TestRegionList()
