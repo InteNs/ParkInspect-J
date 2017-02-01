@@ -31,7 +31,14 @@ namespace ParkInspect.ViewModel
         //constructor for unittests
         public AddQuestionViewModel()
         {
-
+            Question = new QuestionViewModel();
+            QuestionType = new ObservableCollection<QuestionType>
+            {
+                Enumeration.QuestionType.Boolean,
+                Enumeration.QuestionType.Count,
+                Enumeration.QuestionType.Open
+            };
+            Questions = new QuestionsViewModel();
         }
 
         private bool ValidateInput()
@@ -55,9 +62,12 @@ namespace ParkInspect.ViewModel
                 }
                 i++;
                 Question.Id = i;
-                if (_questionRepository.Add(Question))
+                if (_questionRepository != null)
                 {
-                    RouterService.SetPreviousView();
+                    if (_questionRepository.Add(Question))
+                    {
+                        RouterService.SetPreviousView();
+                    }
                 }
             }
             else
