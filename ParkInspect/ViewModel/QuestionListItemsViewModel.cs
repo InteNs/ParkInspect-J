@@ -56,9 +56,9 @@ namespace ParkInspect.ViewModel
 
         }
 
-        private bool CanAddQuestion() => QuestionToAdd != null;
+        public bool CanAddQuestion() => QuestionToAdd != null;
 
-        private bool CanDeleteQuestion() => SelectedQuestionItem != null;
+        public bool CanDeleteQuestion() => SelectedQuestionItem != null;
 
         private void AddQuestion()
         {

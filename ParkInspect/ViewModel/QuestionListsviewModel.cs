@@ -44,7 +44,7 @@ namespace ParkInspect.ViewModel
             SelectedQuestionList = QuestionLists[0];
         }
 
-        private bool CanEditquestionList() => SelectedQuestionList != null; 
+        public bool CanEditquestionList() => SelectedQuestionList != null; 
 
         private void DisableQuestionList()
         {

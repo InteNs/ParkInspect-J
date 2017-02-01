@@ -12,6 +12,23 @@ namespace ParkInspect.Tests
     [TestClass]
     public class QuestionListsTests
     {
+
+        [TestMethod]
+        [TestCategory("QuestionLists")]
+        public void CannotEditQuestionListTest()
+        {
+            //arrange
+            QuestionListsviewModel ques = new QuestionListsviewModel();
+            //QuestionListViewModel SelectedQuestionList = new QuestionListViewModel();
+            //ques.SelectedQuestionList = SelectedQuestionList;
+            //act
+            ques.CanEditquestionList();
+            //assert
+            Assert.AreEqual(false, ques.CanEditquestionList());
+
+        }
+        
+
         [TestMethod]
         [TestCategory("QuestionLists")]
         public void TestQuestionLists()

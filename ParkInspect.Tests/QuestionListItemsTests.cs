@@ -14,6 +14,31 @@ namespace ParkInspect.Tests
     {
         [TestMethod]
         [TestCategory("QuestionListItems")]
+        public void CannotAddQuestionTest()
+        {
+            //arrange
+            QuestionListItemsViewModel ques = new QuestionListItemsViewModel();
+            //act
+            ques.CanAddQuestion();
+            //assert
+            Assert.AreEqual(false, ques.CanAddQuestion());
+        }
+
+        [TestMethod]
+        [TestCategory("QuestionListItems")]
+        public void CannotDeleteQuestionTest()
+        {
+            //arrange
+            QuestionListItemsViewModel ques = new QuestionListItemsViewModel();
+            //act
+            ques.CanDeleteQuestion();
+            //assert
+            Assert.AreEqual(false, ques.CanDeleteQuestion());
+        }
+
+
+        [TestMethod]
+        [TestCategory("QuestionListItems")]
         public void TestQuestionItems()
         {
             //arrange
