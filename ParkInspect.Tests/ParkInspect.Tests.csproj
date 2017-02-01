@@ -97,6 +97,7 @@
     <Compile Include="QuestionListItemsTests.cs" />
     <Compile Include="QuestionListsTests.cs" />
     <Compile Include="QuestionListTest.cs" />
+    <Compile Include="QuestionsTest.cs" />
     <Compile Include="QuestionTests.cs" />
     <Compile Include="TemplatesTests.cs" />
     <Compile Include="TemplateTests.cs" />

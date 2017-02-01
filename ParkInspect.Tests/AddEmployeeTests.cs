@@ -58,10 +58,10 @@ namespace ParkInspect.Tests
             AddEmployeeViewModel addemp = new AddEmployeeViewModel();
             addemp.Employee.Function = "a";
             addemp.Employee.Name = "a";
-            addemp.Employee.ZipCode = "a";
-            addemp.Employee.StreetNumber = "a";
-            addemp.Employee.PhoneNumber = "a";
-            addemp.Employee.Email = "a";
+            addemp.Employee.ZipCode = "5231we";
+            addemp.Employee.StreetNumber = "8";
+            addemp.Employee.PhoneNumber = "0612345678";
+            addemp.Employee.Email = "test@test.nl";
             addemp.Employee.Region = "a";
 
             Assert.AreEqual(addemp.ValidateInput(), true);

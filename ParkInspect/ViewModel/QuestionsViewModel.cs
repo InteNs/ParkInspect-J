@@ -48,6 +48,6 @@ namespace ParkInspect.ViewModel
             Questions.Remove(SelectedQuestion);
         }
 
-        private bool IsSelected() => SelectedQuestion != null;
+        public bool IsSelected() => SelectedQuestion != null;
     }
 }
