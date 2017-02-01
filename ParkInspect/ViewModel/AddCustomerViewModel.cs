@@ -27,10 +27,10 @@ namespace ParkInspect.ViewModel
         //constructor for unittest
         public AddCustomerViewModel()
         {
-
+            Customer = new CustomerViewModel();
         }
 
-        private bool ValidateInput()
+        public bool ValidateInput()
         {
             //check if all fields are filled in
             if (Customer.Name == null || Customer.ZipCode == null ||

@@ -12,6 +12,54 @@ namespace ParkInspect.Tests
     [TestClass]
    public class AddCustomerTests
     {
+
+        [TestMethod]
+        [TestCategory("AddCustomer")]
+        public void ValidateEmptyFieldTest()
+        {
+            //arrange
+            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            addcus.Customer.Name = null;
+            //act
+            addcus.ValidateInput();
+            //assert
+            Assert.AreEqual(false, addcus.ValidateInput());
+        }
+
+        [TestMethod]
+        [TestCategory("AddCustomer")]
+        public void ValidateInputTest()
+        {
+            //arrange
+            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            addcus.Customer.Name = "test";
+            addcus.Customer.ZipCode = "5231xe";
+            addcus.Customer.StreetNumber = "8";
+            addcus.Customer.PhoneNumber = "0612121212";
+            addcus.Customer.Email = "test@test.nl";
+            //act
+            addcus.ValidateInput();
+            //assert
+            Assert.AreEqual(true, addcus.ValidateInput());
+        }
+
+        [TestMethod]
+        [TestCategory("AddCustomer")]
+        public void ValidateInputWrongZipTest()
+        {
+            //arrange
+            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            addcus.Customer.Name = "test";
+            addcus.Customer.ZipCode = "5231x";
+            addcus.Customer.StreetNumber = "8";
+            addcus.Customer.PhoneNumber = "0612121212";
+            addcus.Customer.Email = "test@test.nl";
+            //act
+            addcus.ValidateInput();
+            //assert
+            Assert.AreEqual(false, addcus.ValidateInput());
+        }
+
         [TestMethod]
         [TestCategory("AddCustomer")]
         public void TestRegionList()
