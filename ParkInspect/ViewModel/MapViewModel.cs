@@ -154,10 +154,6 @@ namespace ParkInspect.ViewModel
                         MapCenter = new Location {Latitude = loc.Latitude, Longitude = loc.Longitude};
                         region = "Utrecht";
                         break;
-                    case "Brabant":
-                        loc = Location.GetLatLongFromAddress("5211 AZ");
-                        region = "Brabant";
-                        break;
                     case "Noord-Brabant":
                         loc = Location.GetLatLongFromAddress("5211 AZ");
                         region = "Brabant";
