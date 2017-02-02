@@ -26,6 +26,7 @@ namespace ParkInspect.ViewModel
         private List<InspectionViewModel> Inspections { get; set; }
         private List<EmployeeViewModel> Employees { get; }
         private List<CustomerViewModel> Customers { get; }
+        private int Limit { get; set; }
 
         public int ZoomLevel { get; set; }
 
@@ -45,6 +46,7 @@ namespace ParkInspect.ViewModel
             Inspections = inspections.ToList();
             Employees = inspectors.ToList();
             Customers = customers.ToList();
+            Limit = 50;
         }
 
         #region filters
@@ -67,7 +69,8 @@ namespace ParkInspect.ViewModel
             {
                 source.RemoveAll(o => o.Employee.Id != selectedInspector.Id);
             }
-            Plot(source);
+
+            Plot(source.Count > Limit ? source.GetRange(source.Count - Limit, Limit) : source);
         }
 
         // Inspections per locations
@@ -93,7 +96,7 @@ namespace ParkInspect.ViewModel
                 source.RemoveAll(o => o.Id != selectedQuestion.QuestionList.Inspection.CommissionViewModel.Id && selectedQuestion.Answer == selectedAnswer);
             }
 
-            Plot(source);
+            Plot(source.Count > Limit ? source.GetRange(source.Count - Limit, Limit) : source);
         }
 
         // Inspectors per location
