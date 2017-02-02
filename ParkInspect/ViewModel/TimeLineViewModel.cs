@@ -12,15 +12,32 @@ namespace ParkInspect.ViewModel
     public class TimeLineViewModel : MainViewModel
     {
         private List<DateTime> _week;
-        private IInspectionsRepository _iir;
-        private IEmployeeRepository _ier;
+        private IInspectionsRepository _inspectionsRepository;
+        private IEmployeeRepository _employeeRepository;
         private TimeLineItemViewModel _selectedTimeLineItem;
-        private IAuthService authservice;
-        public TimeLineViewModel(IRouterService router, IInspectionsRepository iir, IEmployeeRepository ier, IAuthService auth) : base(router)
+        private IAuthService _authservice;
+
+        public TimeLineItemViewModel SelectedTimeLineItem
         {
-            authservice = auth;
-            _iir = iir;
-            _ier = ier;
+            get { return _selectedTimeLineItem; }
+            set { _selectedTimeLineItem = value; RaisePropertyChanged("SelectedTimeLineItem"); }
+        }
+        public ICommand NextWeekCommand { get; set; }
+        public ICommand PreviousWeekCommand { get; set; }
+        public ObservableCollection<TimeLineItemViewModel> TimeLineItems { get; set; }
+        public string Monday { get; set; }
+        public string Tuesday { get; set; }
+        public string Wednesday { get; set; }
+        public string Thursday { get; set; }
+        public string Friday { get; set; }
+        public string Saturday { get; set; }
+        public string Sunday { get; set; }
+
+        public TimeLineViewModel(IRouterService router, IInspectionsRepository inspectionsRepository, IEmployeeRepository employeeRepository, IAuthService auth) : base(router)
+        {
+            _authservice = auth;
+            _inspectionsRepository = inspectionsRepository;
+            _employeeRepository = employeeRepository;
             _week = new List<DateTime>();
             DateTime dateCounter = DateTime.Now;
             while (dateCounter.DayOfWeek != DayOfWeek.Monday)
@@ -29,7 +46,7 @@ namespace ParkInspect.ViewModel
                 dateCounter = dateCounter.AddDays(-1);
             }
             _week.Add(dateCounter);
-            if(DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
+            if (DateTime.Now.DayOfWeek != DayOfWeek.Sunday)
             {
                 dateCounter = DateTime.Now.AddDays(1);
                 while (dateCounter.DayOfWeek != DayOfWeek.Sunday)
@@ -55,39 +72,24 @@ namespace ParkInspect.ViewModel
             PreviousWeekCommand = new RelayCommand(PreviousWeek);
         }
 
-        public TimeLineItemViewModel SelectedTimeLineItem
-        {
-            get { return _selectedTimeLineItem;}
-            set { _selectedTimeLineItem = value; RaisePropertyChanged("SelectedTimeLineItem"); }
-        }
-        public ICommand NextWeekCommand { get; set; }
-        public ICommand PreviousWeekCommand { get; set; }
-        public ObservableCollection<TimeLineItemViewModel> TimeLineItems { get; set; }
-        public string Monday { get; set; }
-        public string Tuesday { get; set; }
-        public string Wednesday { get; set; }
-        public string Thursday { get; set; }
-        public string Friday { get; set; }
-        public string Saturday { get; set; }
-        public string Sunday { get; set; }
 
         public void UpdateTimeLineItems()
         {
             TimeLineItems.Clear();
-            ObservableCollection<InspectionViewModel> inspectionslist = _iir.GetAll();
-            IEnumerable<EmployeeViewModel> employeelist = _ier.GetAll().Where(e => e.Function.ToLower() == "inspecteur");
-            if(authservice.CurrentFunction(authservice.GetLoggedInUser()).ToLower() == "inspecteur")
+            ObservableCollection<InspectionViewModel> inspectionslist = _inspectionsRepository.GetAll();
+            IEnumerable<EmployeeViewModel> employeelist = _employeeRepository.GetAll().Where(e => e.Function.ToLower() == "inspecteur");
+            if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
             {
-                employeelist = employeelist.Where(e => e.Id == authservice.GetLoggedInUser().EmployeeId);
+                employeelist = employeelist.Where(e => e.Id == _authservice.GetLoggedInUser().EmployeeId);
             }
             foreach (EmployeeViewModel evm in employeelist)
             {
                 TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
-                foreach(DateTime day in _week)
+                foreach (DateTime day in _week)
                 {
                     string status = "Beschikbaar";
                     int inspectionsAmount = 0;
-                    
+
                     foreach (InspectionViewModel ivm in inspectionslist)
                     {
                         if (ivm.CommissionViewModel.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
@@ -104,7 +106,7 @@ namespace ParkInspect.ViewModel
                     {
                         status = "1 Inspectie";
                     }
-                    if(inspectionsAmount > 1)
+                    if (inspectionsAmount > 1)
                     {
                         status = inspectionsAmount + " Inspecties";
                     }
@@ -139,7 +141,7 @@ namespace ParkInspect.ViewModel
 
         public void NextWeek()
         {
-            for(int i = 0; i<7; i++)
+            for (int i = 0; i < 7; i++)
             {
                 _week[i] = _week[i].AddDays(7);
             }

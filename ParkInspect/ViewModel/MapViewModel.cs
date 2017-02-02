@@ -10,14 +10,6 @@ namespace ParkInspect.ViewModel
 {
     public class MapViewModel : MainViewModel
     {
-        //Best veel switch/case en nesting hiero
-
-        // Collection of points within the map.
-        public ObservableCollection<MapPoint> Points { get; set; }
-
-        // Map Center
-        public Location MapCenter { get; set; }
-
         // Location Services based on Google. Online use only.
         private GoogleLocationService Location { get; }
 
@@ -26,8 +18,15 @@ namespace ParkInspect.ViewModel
         private List<InspectionViewModel> Inspections { get; set; }
         private List<EmployeeViewModel> Employees { get; }
         private List<CustomerViewModel> Customers { get; }
+<<<<<<< HEAD
         private int Limit { get; set; }
 
+=======
+        // Collection of points within the map.
+        public ObservableCollection<MapPoint> Points { get; set; }
+        // Map Center
+        public Location MapCenter { get; set; }
+>>>>>>> development
         public int ZoomLevel { get; set; }
 
         // Constructor

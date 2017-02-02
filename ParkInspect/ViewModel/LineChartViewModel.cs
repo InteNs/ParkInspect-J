@@ -9,51 +9,40 @@ namespace ParkInspect.ViewModel
 {
     public class LineChartViewModel : MainViewModel, IGraphViewModel
     {
-        //Redelijk wat ongebruikte dingen in deze klasse
-        // ++ best wat nesting ook
-
-        private readonly List<CommissionViewModel> _commissions;
-        private readonly List<EmployeeViewModel> _employees;
-        private readonly List<InspectionViewModel> _inspections;
-        private List<DateTime> _timeRange;
-        private DateTime _startTime;
-        private DateTime _endTime;
-
         public PlotModel KpiModel { get; set; }
 
         public LineChartViewModel(IEnumerable<CommissionViewModel> commissions, IEnumerable<InspectionViewModel> inspections, DateTime? startTime, DateTime? endTime, CommissionViewModel comvm,
             CustomerViewModel cuvm, QuestionItemViewModel quest, string interval)
         {
-            _commissions = commissions.ToList();
-            _inspections = inspections.ToList();
+            var commissions1 = commissions.ToList();
+            var inspections1 = inspections.ToList();
 
             PlotModel model = new PlotModel();
             dynamic series1 = new LineSeries();
-            dynamic series2 = new LineSeries();
 
-
-            _timeRange = new List<DateTime>();
+            var timeRange = new List<DateTime>();
 
             if (comvm != null)
             {
-                foreach (CommissionViewModel covm in _commissions.Where(co => co.Id != comvm.Id))
+                //... wat is deze
+                foreach (CommissionViewModel covm in commissions1.Where(co => co.Id != comvm.Id))
                 {
-                    _inspections.RemoveAll(i => i.CommissionViewModel.Id == comvm.Id);
+                    inspections1.RemoveAll(i => i.CommissionViewModel.Id == comvm.Id);
                 }
             }
 
             if (cuvm != null)
             {
 
-                foreach (CommissionViewModel cvm in _commissions.Where(co => co.Customer.Id != cuvm.Id))
+                foreach (CommissionViewModel cvm in commissions1.Where(co => co.Customer.Id != cuvm.Id))
                 {
-                    _inspections.RemoveAll(i => i.CommissionViewModel.Id == cvm.Id);
+                    inspections1.RemoveAll(i => i.CommissionViewModel.Id == cvm.Id);
                 }
             }
 
             if (quest != null)
             {
-                _inspections.RemoveAll(i => quest.QuestionList.Inspection.Id != i.Id);
+                inspections1.RemoveAll(i => quest.QuestionList.Inspection.Id != i.Id);
             }
 
             if (startTime != null && endTime != null)
@@ -72,14 +61,14 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddDays(1); dt = dt.AddDays(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime == dt)));
+                                inspections1.Count(ins => ins.StartTime == dt)));
                         }
                     }
                 }
@@ -94,14 +83,14 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddDays(6); dt = dt.AddDays(7))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddDays(7))));
+                                inspections1.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddDays(7))));
                         }
                     }
                 }
@@ -116,14 +105,14 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddMonths(1))));
+                                inspections1.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddMonths(1))));
                         }
                     }
                 }
@@ -138,14 +127,14 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddYears(1))));
+                                inspections1.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddYears(1))));
                         }
                     }
                 }
@@ -156,7 +145,7 @@ namespace ParkInspect.ViewModel
                 DateTime start = DateTime.Now;
                 DateTime end = DateTime.Now;
 
-                foreach (InspectionViewModel ivm in _inspections)
+                foreach (InspectionViewModel ivm in inspections1)
                 {
                     if (ivm.StartTime < start)
                     {
@@ -179,14 +168,14 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddDays(1); dt = dt.AddDays(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime == dt)));
+                                inspections1.Count(ins => ins.StartTime == dt)));
                         }
                     }
                 }
@@ -195,7 +184,7 @@ namespace ParkInspect.ViewModel
                     int delta = DayOfWeek.Monday - start.DayOfWeek;
                     start = start.AddDays(delta);
                     delta = DayOfWeek.Monday - end.DayOfWeek;
-                    end = end.AddDays(delta+7);
+                    end = end.AddDays(delta + 7);
                     model.Axes.Add(new DateTimeAxis
                     {
                         Position = AxisPosition.Bottom,
@@ -205,14 +194,14 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddDays(6); dt = dt.AddDays(7))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddDays(7))));
+                                inspections1.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddDays(7))));
                         }
                     }
                 }
@@ -220,7 +209,7 @@ namespace ParkInspect.ViewModel
                 {
                     start = new DateTime(start.Year, start.Month, 1);
                     end = new DateTime(end.Year, end.AddMonths(1).Month, 1);
-                    if(end.Month == new DateTime(2000, 1, 1).Month)
+                    if (end.Month == new DateTime(2000, 1, 1).Month)
                     {
                         end = end.AddYears(1);
                     }
@@ -233,14 +222,14 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddMonths(1))));
+                                inspections1.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddMonths(1))));
                         }
                     }
                 }
@@ -258,19 +247,18 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_inspections.Count > 0)
+                        if (inspections1.Count > 0)
                         {
                             series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _inspections.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddYears(1))));
+                                inspections1.Count(ins => ins.StartTime >= dt && ins.StartTime < dt.AddYears(1))));
                         }
                     }
                 }
             }
-
 
             model.Series.Add(series1);
             KpiModel = model;
@@ -279,24 +267,23 @@ namespace ParkInspect.ViewModel
         public LineChartViewModel(IEnumerable<CommissionViewModel> commissions, DateTime? startTime, DateTime? endTime,
             CustomerViewModel cuvm, string interval)
         {
-            _commissions = commissions.ToList();
+            var commissions1 = commissions.ToList();
             PlotModel model = new PlotModel();
             dynamic series1 = new LineSeries();
             dynamic series2 = new LineSeries();
 
-
-            _timeRange = new List<DateTime>();
+            var timeRange = new List<DateTime>();
 
             if (cuvm != null)
             {
 
-                _commissions.RemoveAll(co => co.Customer.Id != cuvm.Id);
+                commissions1.RemoveAll(co => co.Customer.Id != cuvm.Id);
             }
 
             if (startTime != null && endTime != null)
             {
-                DateTime start = (DateTime) startTime;
-                DateTime end = (DateTime) endTime;
+                DateTime start = (DateTime)startTime;
+                DateTime end = (DateTime)endTime;
 
                 if (interval.Equals("week"))
                 {
@@ -306,23 +293,19 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Weeks,
                         StringFormat = "ww"
                     });
-                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddDays(6); dt = dt.AddDays(7))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_commissions.Count > 0)
-                        {
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddDays(7))));
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddDays(7))));
-                        }
+                        if (commissions1.Count <= 0) continue;
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddDays(7))));
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddDays(7))));
                     }
-
-
                 }
                 if (interval.Equals("maand"))
                 {
@@ -332,20 +315,18 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Months,
                         StringFormat = "MMM"
                     });
-                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_commissions.Count > 0)
-                        {
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddMonths(1))));
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddMonths(1))));
-                        }
+                        if (commissions1.Count <= 0) continue;
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddMonths(1))));
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddMonths(1))));
                     }
                 }
 
@@ -357,32 +338,27 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Years,
                         StringFormat = "yyyy"
                     });
-                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_commissions.Count > 0)
-                        {
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddYears(1))));
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddYears(1))));
-                        }
+                        if (commissions1.Count <= 0) continue;
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddYears(1))));
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddYears(1))));
                     }
                 }
             }
-
-
-
 
             if (startTime == null && endTime == null)
             {
                 DateTime start = DateTime.Now;
                 DateTime end = DateTime.Now;
-                foreach (CommissionViewModel cvm in _commissions)
+                foreach (CommissionViewModel cvm in commissions1)
                 {
                     if (cvm.DateCreated < start)
                     {
@@ -403,20 +379,18 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Weeks,
                         StringFormat = "ww"
                     });
-                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddDays(6); dt = dt.AddDays(7))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_commissions.Count > 0)
-                        {
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddDays(7))));
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddDays(7))));
-                        }
+                        if (commissions1.Count <= 0) continue;
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddDays(7))));
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddDays(7))));
                     }
                 }
                 if (interval.Equals("maand"))
@@ -427,20 +401,18 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Months,
                         StringFormat = "MMM"
                     });
-                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_commissions.Count > 0)
-                        {
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddMonths(1))));
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddMonths(1))));
-                        }
+                        if (commissions1.Count <= 0) continue;
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddMonths(1))));
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddMonths(1))));
                     }
                 }
                 if (interval.Equals("jaar"))
@@ -451,24 +423,21 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Years,
                         StringFormat = "yyyy"
                     });
-                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        if (_commissions.Count > 0)
-                        {
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddYears(1))));
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _commissions.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddYears(1))));
-                        }
+                        if (commissions1.Count <= 0) continue;
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCreated >= dt && c.DateCreated < dt.AddYears(1))));
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            commissions1.Count(c => c.DateCompleted >= dt && c.DateCompleted < dt.AddYears(1))));
                     }
                 }
             }
-
 
             series1.Title = "Aangemaakt";
             series2.Title = "Afgerond";
@@ -482,29 +451,29 @@ namespace ParkInspect.ViewModel
             string functionFilter,
             string regionFilter, string interval)
         {
-            _employees = employees.ToList();
+            var employees1 = employees.ToList();
 
             PlotModel model = new PlotModel();
             dynamic series1 = new LineSeries();
             dynamic series2 = new LineSeries();
 
 
-            _timeRange = new List<DateTime>();
+            var timeRange = new List<DateTime>();
 
             if (!string.IsNullOrEmpty(regionFilter))
             {
-                _employees.RemoveAll(evm => !evm.Region.Equals(regionFilter));
+                employees1.RemoveAll(evm => !evm.Region.Equals(regionFilter));
             }
 
             if (!string.IsNullOrEmpty(functionFilter))
             {
-                _employees.RemoveAll(evm => !evm.Function.Equals(functionFilter));
+                employees1.RemoveAll(evm => !evm.Function.Equals(functionFilter));
             }
 
             if (startTime != null && endTime != null)
             {
-                DateTime start = (DateTime) startTime;
-                DateTime end = (DateTime) endTime;
+                DateTime start = (DateTime)startTime;
+                DateTime end = (DateTime)endTime;
 
 
                 //line for maand
@@ -516,20 +485,20 @@ namespace ParkInspect.ViewModel
                         IntervalType = DateTimeIntervalType.Months,
                         StringFormat = "MMM"
                     });
-                    model.Axes.Add(new LinearAxis {Position = AxisPosition.Left});
+                    model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                       
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddMonths(1))));
 
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddMonths(1))));
-                        
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddMonths(1))));
+
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddMonths(1))));
+
                     }
                 }
                 //line voor jaar
@@ -544,21 +513,19 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddYears(1))));
-                       
-                                series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                    _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddYears(1))));
-                            
-                        }
-}
-                    
-                
+
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddYears(1))));
+
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddYears(1))));
+
+                    }
+                }
             }
 
 
@@ -566,7 +533,7 @@ namespace ParkInspect.ViewModel
             {
                 DateTime start = DateTime.Now;
                 DateTime end = DateTime.Now;
-                foreach (EmployeeViewModel evm in _employees)
+                foreach (EmployeeViewModel evm in employees1)
                 {
                     if (evm.EmploymentDate < start)
                     {
@@ -574,7 +541,7 @@ namespace ParkInspect.ViewModel
                     }
                     if (evm.DismissalDate > end && evm.DismissalDate != null)
                     {
-                        end = (DateTime) evm.DismissalDate;
+                        end = (DateTime)evm.DismissalDate;
                     }
                 }
 
@@ -590,17 +557,17 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddMonths(1); dt = dt.AddMonths(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                       
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddMonths(1))));
-                       
-                                series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                    _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddMonths(1))));
-                        
+
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddMonths(1))));
+
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddMonths(1))));
+
                     }
                 }
                 if (interval.Equals("jaar"))
@@ -614,17 +581,16 @@ namespace ParkInspect.ViewModel
                     model.Axes.Add(new LinearAxis { Position = AxisPosition.Left });
                     for (DateTime dt = start; dt <= end.AddYears(1); dt = dt.AddYears(1))
                     {
-                        _timeRange.Add(dt);
+                        timeRange.Add(dt);
                     }
-                    foreach (DateTime dt in _timeRange)
+                    foreach (DateTime dt in timeRange)
                     {
-                        
-                            series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _employees.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddYears(1))));
-                       
-                            series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
-                                _employees.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddYears(1))));
-                        
+
+                        series1.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.EmploymentDate >= dt && e.EmploymentDate < dt.AddYears(1))));
+
+                        series2.Points.Add(new DataPoint(DateTimeAxis.ToDouble(dt),
+                            employees1.Count(e => e.DismissalDate >= dt && e.DismissalDate < dt.AddYears(1))));
                     }
                 }
             }
@@ -635,8 +601,6 @@ namespace ParkInspect.ViewModel
             model.Series.Add(series2);
             KpiModel = model;
         }
-
-
     }
 }
 

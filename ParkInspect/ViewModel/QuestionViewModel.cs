@@ -20,11 +20,13 @@ namespace ParkInspect.ViewModel
 
         public QuestionViewModel Create()
         {
-            var newQuestion = new QuestionViewModel();
-            newQuestion.Description = Description;
-            newQuestion.Version = Version;
-            newQuestion.QuestionType = QuestionType;
-            newQuestion.IsActive = true;
+            var newQuestion = new QuestionViewModel
+            {
+                Description = Description,
+                Version = Version,
+                QuestionType = QuestionType,
+                IsActive = true
+            };
             return newQuestion;
         }
 

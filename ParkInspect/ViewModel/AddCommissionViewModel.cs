@@ -11,6 +11,7 @@ namespace ParkInspect.ViewModel
     public class AddCommissionViewModel : MainViewModel
     {
         private readonly ICommissionRepository _commissionRepository;
+
         public ObservableCollection<CustomerViewModel> Customers { get; set; }
         public ObservableCollection<EmployeeViewModel> Employees { get; set; }
         public CommissionViewModel Commission { get; set; }

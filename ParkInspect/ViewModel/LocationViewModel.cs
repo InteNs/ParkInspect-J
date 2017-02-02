@@ -11,6 +11,7 @@ namespace ParkInspect.ViewModel
         private string _zipCode;
         private string _streetNumber;
         private string _region;
+        private Dictionary<string, List<string>> _errors;
 
         public string ZipCode
         {
@@ -64,9 +65,10 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        //validation
-        private Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-
+        public LocationViewModel()
+        {
+            _errors = new Dictionary<string, List<string>>();
+        }
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
