@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using OxyPlot;
 using OxyPlot.Series;
@@ -451,7 +452,7 @@ namespace ParkInspect.ViewModel
             string functionFilter,
             string regionFilter, string interval)
         {
-            var employees1 = employees.ToList();
+            var employees1 = employees.Where(o => o.EmploymentDate >= DateTime.ParseExact("010119701200", "ddMMyyyyHHmm", CultureInfo.InvariantCulture)).ToList();
 
             PlotModel model = new PlotModel();
             dynamic series1 = new LineSeries();
