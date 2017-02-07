@@ -70,6 +70,7 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<EditQuestionListViewModel>();
             
             SimpleIoc.Default.Register<SyncViewModel>();
+            SimpleIoc.Default.Register<ReportOverviewViewModel>();
         }
         //Services
         public IRouterService RouterService => ServiceLocator.Current.GetInstance<IRouterService>();
@@ -99,6 +100,7 @@ namespace ParkInspect.ViewModel
         public AddInspectionViewModel AddInspection => NewInstance<AddInspectionViewModel>(ref _addInspectionKey);
         public TimeLineViewModel TimeLine => ServiceLocator.Current.GetInstance<TimeLineViewModel>();
         public SyncViewModel Synchronisation => ServiceLocator.Current.GetInstance<SyncViewModel>();
+        public ReportOverviewViewModel Portal => ServiceLocator.Current.GetInstance<ReportOverviewViewModel>();
         public EmployeeInspectionsViewModel EmployeeInspections => NewInstance<EmployeeInspectionsViewModel>(ref _addEmployeeInspectionsKey);
         public QuestionControlMainViewModel QuestionMain => ServiceLocator.Current.GetInstance<QuestionControlMainViewModel>();
         public AddQuestionViewModel AddQuestion => NewInstance<AddQuestionViewModel>(ref _addQuestionKey);

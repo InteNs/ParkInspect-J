@@ -286,6 +286,7 @@
     <Compile Include="ViewModel\QuestionListViewModel.cs" />
     <Compile Include="ViewModel\PieChartViewModel.cs" />
     <Compile Include="ViewModel\QuestionListItemsViewModel.cs" />
+    <Compile Include="ViewModel\ReportOverviewViewModel.cs" />
     <Compile Include="ViewModel\SyncViewModel.cs" />
     <Compile Include="ViewModel\TimeLineItemViewModel.cs" />
     <Compile Include="ViewModel\TimeLineViewModel.cs" />

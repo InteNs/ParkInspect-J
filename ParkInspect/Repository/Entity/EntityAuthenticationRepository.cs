@@ -22,7 +22,8 @@ namespace ParkInspect.Repository.Entity
                 {
                     Username = user.Person.Email,
                     EmployeeId = user.Id,
-                    Function = user.Function.Name
+                    Function = user.Function.Name,
+                    EmployeeGuid = user.Guid
                 };
             }
             return loggedInUser;

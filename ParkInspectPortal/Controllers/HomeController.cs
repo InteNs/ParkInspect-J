@@ -15,15 +15,29 @@ namespace ParkInspectPortal.Controllers
     public class HomeController : Controller
     {
         private IInspectionRepo _inspectionRepo;
+        private IAccessRepo _accessRepo;
 
-        public HomeController(IInspectionRepo inspectionRepo)
+        public HomeController(IInspectionRepo inspectionRepo, IAccessRepo accessRepo)
         {
             _inspectionRepo = inspectionRepo;
+            _accessRepo = accessRepo;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string token)
         {
-            return View(_inspectionRepo.GetInspections());
+            try
+            {
+                Guid accessToken = new Guid(token);
+                if(_accessRepo.IsAuthorized(accessToken))
+                    return View(_inspectionRepo.GetInspections());
+            }
+            catch (Exception)
+            {
+
+            }
+            ViewBag.ErrMessage = "Toegang niet geautoriseerd!";
+            return View("Error");
+
         }
         [HttpGet]
         public ActionResult Download(string Guid)
@@ -42,9 +56,8 @@ namespace ParkInspectPortal.Controllers
 
             if (pdfvm == null)
             {
-                ViewBag.Error = "Fout tijdens genereren van PDF!";
-                return View("Index", _inspectionRepo.GetInspections());
-
+                ViewBag.ErrMessage = "Fout tijdens genereren van PDF!";
+                return View("Error");
             }
 
             using (var pdfBuilder = new PDFBuilder())
