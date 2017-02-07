@@ -25,61 +25,13 @@ namespace ParkInspect.ViewModel
 
         public ObservableCollection<InspectionViewModel> InspectionList
         {
-            get
-            {
-                return getInspectionList(); 
-            }
-            private set
-            {
-                _inspectionList = value;
-                RaisePropertyChanged();
-            }
+            get { return GetInspectionList(); }
+            private set { _inspectionList = value; RaisePropertyChanged(); }
         }
         public ObservableCollection<CommissionViewModel> CommissionList
         {
-            get
-            {
-                return getCommissionList();
-            }
-            private set
-            {
-                _commissionList = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public ObservableCollection<InspectionViewModel> getInspectionList()
-        {
-            ObservableCollection<InspectionViewModel> insp = new ObservableCollection<InspectionViewModel>();
-            if (SelectedCommission == null)
-            {
-                return insp;
-            }
-            foreach (InspectionViewModel ivm in _inspectionList)
-            {
-                if (ivm.CommissionViewModel.Id == SelectedCommission.Id)
-                {
-                    insp.Add(ivm);
-                }
-            }
-            return insp;
-        }
-
-        public ObservableCollection<CommissionViewModel> getCommissionList()
-        {
-            if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
-            {
-                ObservableCollection<CommissionViewModel> coms = new ObservableCollection<CommissionViewModel>();
-                foreach (CommissionViewModel cvm in _commissionList)
-                {
-                    if (cvm.Employee.Id == _authservice.GetLoggedInUser().EmployeeId)
-                    {
-                        coms.Add(cvm);
-                    }
-                }
-                return coms;
-            }
-            return _commissionList;
+            get { return GetCommissionList(); }
+            private set { _commissionList = value; RaisePropertyChanged(); }
         }
 
         public CommissionViewModel SelectedCommission
@@ -107,6 +59,41 @@ namespace ParkInspect.ViewModel
             get { return _isInspecteur; }
             set { _isInspecteur = value; RaisePropertyChanged(); }
         }
+
+        public ObservableCollection<InspectionViewModel> GetInspectionList()
+        {
+            ObservableCollection<InspectionViewModel> insp = new ObservableCollection<InspectionViewModel>();
+            if (SelectedCommission == null)
+            {
+                return insp;
+            }
+            foreach (InspectionViewModel ivm in _inspectionList)
+            {
+                if (ivm.CommissionViewModel.Id == SelectedCommission.Id)
+                {
+                    insp.Add(ivm);
+                }
+            }
+            return insp;
+        }
+
+        public ObservableCollection<CommissionViewModel> GetCommissionList()
+        {
+            if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
+            {
+                ObservableCollection<CommissionViewModel> coms = new ObservableCollection<CommissionViewModel>();
+                foreach (CommissionViewModel cvm in _commissionList)
+                {
+                    if (cvm.Employee.Id == _authservice.GetLoggedInUser().EmployeeId)
+                    {
+                        coms.Add(cvm);
+                    }
+                }
+                return coms;
+            }
+            return _commissionList;
+        }
+
 
         public InspectionsViewModel(ICommissionRepository commissionRepository,
             IInspectionsRepository inspectionsRepository, IQuestionListRepository questionLists, IRouterService router, IAuthService auth) : base(router)
@@ -168,6 +155,4 @@ namespace ParkInspect.ViewModel
             MessengerInstance.Send(questionItems);
         }
     }
-
-    
 }

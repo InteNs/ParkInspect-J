@@ -23,7 +23,6 @@ namespace ParkInspect.ViewModel
             }
         }
 
-
         public RelayCommand EditQuestionCommand { get; set; }
         public ICommand DisableQuestionCommand { get; set; }
 

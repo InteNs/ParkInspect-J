@@ -8,9 +8,13 @@ namespace ParkInspect.ViewModel
 {
     public class QuestionListsviewModel : MainViewModel
     {
-        public ObservableCollection<QuestionListViewModel> QuestionLists { get; set; }
         private QuestionListViewModel _selectedQuestionList;
         private IQuestionListRepository _repository;
+        public ObservableCollection<QuestionListViewModel> QuestionLists { get; set; }
+        public RelayCommand EditQuestionCommand { get; set; }
+        public RelayCommand DisableQuestionCommand { get; set; }
+        public RelayCommand EditQuestionListCommand { get; set; }
+        public ICommand NewQuestionCommand { get; set; }
         public QuestionListViewModel SelectedQuestionList
         {
             get { return _selectedQuestionList; }

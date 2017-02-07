@@ -17,6 +17,7 @@ namespace ParkInspect.ViewModel
         private string _phoneNumber;
         private string _region;
         private string _email;
+        private Dictionary<string, List<string>> _errors;
 
         public string Name
         {
@@ -126,19 +127,15 @@ namespace ParkInspect.ViewModel
                 RaisePropertyChanged();
             }
         }
-        //validation
-        private Dictionary<string, List<string>> _errors = new Dictionary<string, List<string>>();
-
-
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        // get errors by property
-        public IEnumerable GetErrors(string propertyName)
+        public PersonViewModel()
         {
-            if (_errors.ContainsKey(propertyName))
-                return _errors[propertyName];
-            return null;
+            _errors = new Dictionary<string, List<string>>();
         }
+
+        // get errors by property
+        public IEnumerable GetErrors(string propertyName) => _errors.ContainsKey(propertyName) ? _errors[propertyName] : null;
 
         public bool HasErrors => _errors.Count > 0;
 
@@ -160,10 +157,6 @@ namespace ParkInspect.ViewModel
             NotifyErrorsChanged(propertyName);
         }
 
-        public void NotifyErrorsChanged(string propertyName)
-        {
-            // Notify
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        }
+        public void NotifyErrorsChanged(string propertyName) => ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
     }
 }

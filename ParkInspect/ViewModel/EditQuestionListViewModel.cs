@@ -8,6 +8,7 @@ namespace ParkInspect.ViewModel
     public class EditQuestionListViewModel : MainViewModel
     {
         private IQuestionListRepository _repository;
+
         public QuestionListViewModel QuestionList { get; set; }
         public RelayCommand EditQuestionCommand { get; set; }
         public EditQuestionListViewModel(IQuestionListRepository repo, IRouterService router, QuestionListsviewModel qlvm) : base(router)
@@ -24,12 +25,10 @@ namespace ParkInspect.ViewModel
 
         private void EditquestionList()
         {
-            if (ValidateInput())
+            if (ValidateInput() && _repository.Update(QuestionList))
             {
-                if (_repository.Update(QuestionList))
-                {
-                    RouterService.SetPreviousView();
-                }
+                RouterService.SetPreviousView();
+
             }
             else
             {

@@ -56,11 +56,6 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private void ShowValidationError()
-        {
-            //TODO: Validation error
-            var dialog = new MetroDialogService();
-            dialog.ShowMessage("Probleem opgetreden", "Niet alle gegevens zijn juist ingevuld.");
-        }
+        private void ShowValidationError() => new MetroDialogService().ShowMessage("Probleem opgetreden", "Niet alle gegevens zijn juist ingevuld.");
     }
 }

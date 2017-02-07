@@ -10,13 +10,12 @@ namespace ParkInspect.ViewModel
 {
     public class EditCustomerViewModel : MainViewModel
     {
-        public ObservableCollection<string> RegionList { get; set; }
-
-        public CustomerViewModel Customer { get; set; }
-
-        public ICommand EditCustomerCommand { get; set; }
 
         private readonly ICustomerRepository _customerRepository;
+
+        public ObservableCollection<string> RegionList { get; set; }
+        public CustomerViewModel Customer { get; set; }
+        public ICommand EditCustomerCommand { get; set; }
 
         public EditCustomerViewModel(ICustomerRepository customerRepository, IRouterService router, CustomersViewModel cvm,IRegionRepository regionRepository) : base(router)
         {
@@ -61,10 +60,6 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private string ShowValidationError()
-        {
-            //TODO: Validation error
-            return "Error, de velden zijn niet juist ingevuld.";
-        }
+        private string ShowValidationError() => "Error, de velden zijn niet juist ingevuld.";
     }
 }

@@ -29,15 +29,14 @@ namespace ParkInspect.ViewModel
         public ICommand PreviousQuestionCommand { get; set; }
         public ICommand AnswerTrueCommand { get; set; }
         public ICommand AnswerFalseCommand { get; set; }
+        public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
+        public InspectionViewModel Inspection { get; set; }
 
         public QuestionItemViewModel CurrentQuestion
         {
             get { return _currentQuestion; }
             set { _currentQuestion = value; RaisePropertyChanged(); }
         }
-
-        public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
-        public InspectionViewModel Inspection { get; set; }
 
         public QuestionListViewModel(IEnumerable<QuestionItemViewModel> questions)
         {

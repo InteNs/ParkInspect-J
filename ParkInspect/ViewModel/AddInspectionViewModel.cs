@@ -14,24 +14,17 @@ namespace ParkInspect.ViewModel
         private readonly IInspectionsRepository _inspectionRepository;
         private readonly IQuestionListRepository _questionListRepository;
         private QuestionListViewModel _selectedQuestionList;
+        private string _errorMessage;
 
         public InspectionViewModel Inspection { get; set; }
         public ICommand AddInspectionCommand { get; set; }
-        public ObservableCollection<CommissionViewModel> CommissionList { get; private set; }
+        public ObservableCollection<CommissionViewModel> CommissionList { get;}
         public ObservableCollection<QuestionListViewModel> QuestionLists { get; private set; }
         public QuestionListViewModel SelectedQuestionList
         {
-            get
-            {
-                return _selectedQuestionList;
-            }
-            set
-            {
-                _selectedQuestionList = value;
-                RaisePropertyChanged();
-            }
+            get { return _selectedQuestionList; }
+            set { _selectedQuestionList = value; RaisePropertyChanged(); }
         }
-        private string _errorMessage;
 
         public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionrepo, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router) : base(router)
         {
@@ -44,10 +37,10 @@ namespace ParkInspect.ViewModel
             _questionListRepository = questionListRepository;
             AddInspectionCommand = new RelayCommand(AddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
-            ICommissionRepository _commissionrepository = commissionrepo;
+            ICommissionRepository commissionrepository = commissionrepo;
 
             QuestionLists = questionListRepository.GetAll();
-            foreach (CommissionViewModel commission in _commissionrepository.GetAll())
+            foreach (CommissionViewModel commission in commissionrepository.GetAll())
             {
                 if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== commission.Employee.Id)
                 {
@@ -120,8 +113,6 @@ namespace ParkInspect.ViewModel
             //TODO: Validation error
             var dialog = new MetroDialogService();
             dialog.ShowMessage("Error", _errorMessage);
-
-
         }
     }
 }

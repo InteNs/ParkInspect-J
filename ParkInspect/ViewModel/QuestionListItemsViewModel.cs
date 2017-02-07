@@ -12,19 +12,10 @@ namespace ParkInspect.ViewModel
         private QuestionItemViewModel _selectedQuestionItem;
         private readonly IQuestionListRepository _questionListRepository;
         public ObservableCollection<QuestionItemViewModel> QuestionItems { get; set; }
-        public QuestionItemViewModel SelectedQuestionItem
-        {
-            get { return _selectedQuestionItem; }
-            set
-            {
-                _selectedQuestionItem = value;
-                DeleteQuestionCommand.RaiseCanExecuteChanged();
-                RaisePropertyChanged();
-            }
-        }
         public ObservableCollection<QuestionViewModel> Questions { get; set; }
         public RelayCommand AddQuestionCommand { get; set; }
         public RelayCommand DeleteQuestionCommand { get; set; }
+
         public QuestionViewModel QuestionToAdd
         {
             get { return _selectedQuestion; }
@@ -35,7 +26,16 @@ namespace ParkInspect.ViewModel
                 RaisePropertyChanged();
             }
         }
-
+        public QuestionItemViewModel SelectedQuestionItem
+        {
+            get { return _selectedQuestionItem; }
+            set
+            {
+                _selectedQuestionItem = value;
+                DeleteQuestionCommand.RaiseCanExecuteChanged();
+                RaisePropertyChanged();
+            }
+        }
         public QuestionListItemsViewModel(IQuestionRepository questionRepo, IQuestionListRepository questionListRepo, IRouterService router, QuestionListsviewModel questionLists) : base(router)
         {
             _questionListRepository = questionListRepo;

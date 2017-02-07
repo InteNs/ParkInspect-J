@@ -18,6 +18,10 @@ namespace ParkInspect.ViewModel
         private DateTime? _endDate;
         private IGraphViewModel _currentGraph;
         private IDiagram _selectedDiagram;
+        private List<string> _options;
+        private DateTime? _startDate;
+
+
         private readonly ICommissionRepository _commissionRepository;
         public PieChartViewModel PieChart { get; set; }
         public BarGraphViewModel BarGraph { get; set; }
@@ -35,8 +39,6 @@ namespace ParkInspect.ViewModel
         public CommissionViewModel SelectedCommission { get; set; }
         public string SelectedAnswer { get; set; }
         public ICommand GenerateDiagramCommand { get; set; }
-        private List<string> _options;
-        private DateTime? _startDate;
         public bool DateSelected { get; set; }
         public DiagramFactory DiagramFactory { get; set; }
         public ObservableCollection<IDiagram> Diagrams { get; set; }
@@ -50,16 +52,114 @@ namespace ParkInspect.ViewModel
         public IEnumerable<EmployeeViewModel> Managers => Employees.Where(e => e.Function.Equals("Manager"));
         public IEnumerable<EmployeeViewModel> Inspectors => Employees.Where(e => e.Function.Equals("Inspecteur"));
 
+
+        public string SelectedOption
+        {
+            get { return _selectedOption; }
+            set { _selectedOption = value; SetVisibilities(); }
+        }
+
+        public bool Date
+        {
+            get { return _date; }
+            set { _date = value; RaisePropertyChanged(); }
+        }
+
+        public bool Customer
+        {
+            get { return _customer; }
+            set { _customer = value; RaisePropertyChanged(); }
+        }
+
+        public bool Commission
+        {
+            get { return _commission; }
+            set { _commission = value; RaisePropertyChanged(); }
+        }
+
+        public bool Location
+        {
+            get { return _location; }
+            set { _location = value; RaisePropertyChanged(); }
+        }
+
+        public bool Inspector
+        {
+            get { return _inspector; }
+            set { _inspector = value; RaisePropertyChanged(); }
+        }
+
+        public bool Manager
+        {
+            get { return _manager; }
+            set { _manager = value; RaisePropertyChanged(); }
+        }
+
+        public bool Function
+        {
+            get { return _function; }
+            set { _function = value; RaisePropertyChanged(); }
+        }
+
+        public bool Answer
+        {
+            get { return _answer; }
+            set { _answer = value; RaisePropertyChanged(); }
+        }
+
+        public bool Status
+        {
+            get { return _status; }
+            set { _status = value; RaisePropertyChanged(); }
+        }
+
+        public bool DiagramView { get; set; }
+
+        public bool MapView { get; set; }
+
+        public IDiagram SelectedDiagram
+        {
+            get { return _selectedDiagram; }
+            set
+            {
+                _selectedDiagram = DiagramFactory.GetDiagram(value.Name);
+                Options = _selectedDiagram.Options.Keys.ToList();
+            }
+        }
+
+        public List<string> Options
+        {
+            get { return _options; }
+            set { _options = value; RaisePropertyChanged(); }
+        }
+
+        public DateTime? StartDate
+        {
+            get { return DateSelected ? _startDate : null; }
+            set { _startDate = value; RaisePropertyChanged(); }
+        }
+
+        public DateTime? EndDate
+        {
+            get { return DateSelected ? _endDate : null; }
+            set { _endDate = value; RaisePropertyChanged(); }
+        }
+        public IGraphViewModel CurrentGraph
+        {
+            get { return _currentGraph; }
+            set { _currentGraph = value; RaisePropertyChanged(); }
+        }
+
         public ManagementReportsViewModel(ICommissionRepository repo, ICustomerRepository cust, IRegionRepository region,
-            IEmployeeRepository emp, IQuestionListRepository ques, IInspectionsRepository insp)
+           IEmployeeRepository emp, IQuestionListRepository ques, IInspectionsRepository insp)
         {
             _commissionRepository = repo;
             var employeeRepository = emp;
             Employees = employeeRepository.GetAll();
-            Functions  = employeeRepository.GetFunctions();
+            Functions = employeeRepository.GetFunctions();
             Commissions = _commissionRepository.GetAll();
-            Customers  = cust.GetAll();
-            Locations  = region.GetAll();
+            Customers = cust.GetAll();
+            Locations = region.GetAll();
             Questions = ques.GetAllQuestionItems();
             Statuses = _commissionRepository.GetStatuses();
             Inspections = insp.GetAll();
@@ -73,10 +173,58 @@ namespace ParkInspect.ViewModel
             DiagramView = true;
         }
 
-        // Best veel nesting
+
+        private void SetVisibilities()
+        {
+            Date = false;
+            Customer = false;
+            Commission = false;
+            Location = false;
+            Inspector = false;
+            Manager = false;
+            Function = false;
+            Answer = false;
+            Status = false;
+            if (SelectedOption == null) return;
+            foreach (var s in SelectedDiagram.Options[SelectedOption])
+            {
+                switch (s)
+                {
+                    case Filter.Tijdsperiode:
+                        Date = true;
+                        break;
+                    case Filter.Klant:
+                        Customer = true;
+                        break;
+                    case Filter.Opdracht:
+                        Commission = true;
+                        break;
+                    case Filter.Locatie:
+                        Location = true;
+                        break;
+                    case Filter.Vraag:
+                        Answer = true;
+                        break;
+                    case Filter.Inspecteur:
+                        Inspector = true;
+                        break;
+                    case Filter.Manager:
+                        Manager = true;
+                        break;
+                    case Filter.Functie:
+                        Function = true;
+                        break;
+                    case Filter.Status:
+                        Status = true;
+                        break;
+                }
+            }
+        }
+
+        // Helper Classes
         private void GenerateDiagram()
         {
-            if(SelectedOption == null || SelectedDiagram == null) return;
+            if (SelectedOption == null || SelectedDiagram == null) return;
 
             switch (SelectedDiagram.Name)
             {
@@ -195,154 +343,6 @@ namespace ParkInspect.ViewModel
                     break;
             }
             RaisePropertyChanged("");
-        }
-
-        private void SetVisibilities()
-        {
-            Date = false;
-            Customer = false;
-            Commission = false;
-            Location = false;
-            Inspector = false;
-            Manager = false;
-            Function = false;
-            Answer = false;
-            Status = false;
-            if (SelectedOption == null) return;
-            foreach (var s in SelectedDiagram.Options[SelectedOption])
-                switch (s)
-                {
-                    case Filter.Tijdsperiode:
-                        Date = true;
-                        break;
-                    case Filter.Klant:
-                        Customer = true;
-                        break;
-                    case Filter.Opdracht:
-                        Commission = true;
-                        break;
-                    case Filter.Locatie:
-                        Location = true;
-                        break;
-                    case Filter.Vraag:
-                        Answer = true;
-                        break;
-                    case Filter.Inspecteur:
-                        Inspector = true;
-                        break;
-                    case Filter.Manager:
-                        Manager = true;
-                        break;
-                    case Filter.Functie:
-                        Function = true;
-                        break;
-                    case Filter.Status:
-                        Status = true;
-                        break;
-                }
-        }
-
-        // Helper Classes
-        
-        public string SelectedOption
-        {
-            get { return _selectedOption; }
-            set { _selectedOption = value; SetVisibilities(); }
-        }
-
-        public bool Date
-        {
-            get { return _date; }
-            set { _date = value; RaisePropertyChanged(); }
-        }
-
-        public bool Customer
-        {
-            get { return _customer; }
-            set
-            {
-                _customer = value;
-                RaisePropertyChanged();
-            }
-        }
-
-        public bool Commission
-        {
-            get { return _commission; }
-            set { _commission = value; RaisePropertyChanged(); }
-        }
-
-        public bool Location
-        {
-            get { return _location; }
-            set { _location = value; RaisePropertyChanged(); }
-        }
-
-        public bool Inspector
-        {
-            get { return _inspector; }
-            set { _inspector = value; RaisePropertyChanged(); }
-        }
-
-        public bool Manager
-        {
-            get { return _manager; }
-            set { _manager = value; RaisePropertyChanged(); }
-        }
-
-        public bool Function
-        {
-            get { return _function; }
-            set { _function = value; RaisePropertyChanged(); }
-        }
-
-        public bool Answer
-        {
-            get { return _answer; }
-            set { _answer = value; RaisePropertyChanged(); }
-        }
-
-        public bool Status
-        {
-            get { return _status; }
-            set { _status = value; RaisePropertyChanged(); }
-        }
-
-        public bool DiagramView { get; set; }
-
-        public bool MapView { get; set; }
-
-        public IDiagram SelectedDiagram
-        {
-            get { return _selectedDiagram; }
-            set
-            {
-                _selectedDiagram = DiagramFactory.GetDiagram(value.Name);
-                Options = _selectedDiagram.Options.Keys.ToList();
-            }
-        }
-
-        public List<string> Options
-        {
-            get { return _options; }
-            set {  _options = value; RaisePropertyChanged(); }
-        }
-
-        public DateTime? StartDate
-        {
-            get { return DateSelected ? _startDate : null; }
-            set { _startDate = value; RaisePropertyChanged(); }
-        }
-
-        public DateTime? EndDate
-        {
-            get { return DateSelected ? _endDate : null; }
-            set { _endDate = value; RaisePropertyChanged(); }
-        }
-        public IGraphViewModel CurrentGraph
-        {
-            get { return _currentGraph; }
-            set { _currentGraph = value; RaisePropertyChanged(); }
         }
     }
 }

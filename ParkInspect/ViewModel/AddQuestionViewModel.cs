@@ -14,6 +14,8 @@ namespace ParkInspect.ViewModel
         public QuestionViewModel Question { get; set; }
         public QuestionsViewModel Questions { get; set; }
         public ICommand AddQuestionCommand { get; set; }
+
+
         public AddQuestionViewModel(IQuestionRepository repo, IRouterService router, QuestionsViewModel qvm) : base(router)
         {
             Question = new QuestionViewModel();
