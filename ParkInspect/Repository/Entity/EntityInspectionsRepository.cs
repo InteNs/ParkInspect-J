@@ -68,7 +68,7 @@ namespace ParkInspect.Repository.Entity
                 _inspections.Add(new InspectionViewModel
                 {
                     Id = i.Id,
-                    Name = "Inspectie : " + i.Commission.Description,
+                    Name = i.DateTimeStart.ToShortDateString() + " Inspectie : " + i.Commission.Description,
                     StartTime = i.DateTimeStart,
 
                     EndTime = Convert.ToDateTime(i.DateTimeEnd),
