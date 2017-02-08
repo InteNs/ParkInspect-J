@@ -24,11 +24,14 @@ namespace ParkInspect.ViewModel
             Commission = new CommissionViewModel();
             Customers = customerRepository.GetAll();
             Employees = new ObservableCollection<EmployeeViewModel>();
-            foreach(EmployeeViewModel evm in employeeRepository.GetAll())
+            if (employeeRepository.GetAll() != null)
             {
-                if(evm.DismissalDate == null)
+                foreach (EmployeeViewModel evm in employeeRepository.GetAll())
                 {
-                    Employees.Add(evm);
+                    if (evm.DismissalDate == null)
+                    {
+                        Employees.Add(evm);
+                    }
                 }
             }
             Regions = regionRepository.GetAll();

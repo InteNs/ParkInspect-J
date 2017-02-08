@@ -18,14 +18,14 @@ namespace ParkInspect.Tests
     {
         private Mock<IQuestionRepository> quesRe = new Mock<IQuestionRepository>();
         private Mock<IRouterService> rou = new Mock<IRouterService>();
-        private Mock<QuestionsViewModel> quessRe = new Mock<QuestionsViewModel>();
 
         [TestMethod]
         [TestCategory("AddQuestion")]
         public void TestQuestion()
         {
             //arrange
-            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe.Object);
+            QuestionsViewModel quessRe = new QuestionsViewModel(quesRe.Object, rou.Object);
+            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe);
             QuestionViewModel ques = new QuestionViewModel();
             //act
             addQues.Question = ques;
@@ -38,7 +38,8 @@ namespace ParkInspect.Tests
         public void TestQuestions()
         {
             //arrange
-            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe.Object);
+            QuestionsViewModel quessRe = new QuestionsViewModel(quesRe.Object, rou.Object);
+            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe);
             QuestionsViewModel ques = new QuestionsViewModel(quesRe.Object, rou.Object);
             //act
             addQues.Questions = ques;
@@ -51,7 +52,8 @@ namespace ParkInspect.Tests
         public void AddQuestions()
         {
             //arrange
-            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe.Object);
+            QuestionsViewModel quessRe = new QuestionsViewModel(quesRe.Object, rou.Object);
+            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe);
             //act
             addQues.Question.Id = 1;
             addQues.Question.Description = "test";

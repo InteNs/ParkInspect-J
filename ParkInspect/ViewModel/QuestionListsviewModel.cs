@@ -36,7 +36,10 @@ namespace ParkInspect.ViewModel
             EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-list"), CanEditquestionList);
             EditQuestionListCommand = new RelayCommand(() => RouterService.SetView("questionList-edit"), CanEditquestionList);
             NewQuestionCommand = new RelayCommand(CreateQuestionList);
-            SelectedQuestionList = QuestionLists[0];
+            if (QuestionLists != null)
+            {
+                SelectedQuestionList = QuestionLists[0];
+            }
         }
 
         public bool CanEditquestionList() => SelectedQuestionList != null; 

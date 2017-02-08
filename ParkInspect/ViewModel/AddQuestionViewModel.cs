@@ -43,11 +43,14 @@ namespace ParkInspect.ViewModel
             {
                 int i = 0;
                 Question.Version = 1;
-                foreach (QuestionViewModel q in Questions.Questions)
+                if (Questions.Questions != null)
                 {
-                    if (i < q.Id)
+                    foreach (QuestionViewModel q in Questions.Questions)
                     {
-                        i = q.Id;
+                        if (i < q.Id)
+                        {
+                            i = q.Id;
+                        }
                     }
                 }
                 i++;

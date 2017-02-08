@@ -25,6 +25,7 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            qvm.SelectedQuestionList = new QuestionListViewModel();
             QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             //act
             ques.CanAddQuestion();
@@ -38,6 +39,7 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            qvm.SelectedQuestionList = new QuestionListViewModel();
             QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             //act
             ques.CanDeleteQuestion();
@@ -52,6 +54,7 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            qvm.SelectedQuestionList = new QuestionListViewModel();
             QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             ObservableCollection<QuestionItemViewModel> QuestionItems = new ObservableCollection<QuestionItemViewModel>();
             //act
@@ -67,6 +70,7 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            qvm.SelectedQuestionList = new QuestionListViewModel();
             QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             ObservableCollection<QuestionViewModel> Questions = new ObservableCollection<QuestionViewModel>();
             //act
