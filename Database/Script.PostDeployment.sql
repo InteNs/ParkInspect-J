@@ -3420,7 +3420,7 @@ SET IDENTITY_INSERT [Commission] ON;
 insert into [Commission] ([Id], [Guid], [EmployeeId], [EmployeeGuid], [CustomerId], [CustomerGuid], [LocationId], [LocationGuid], [DateCreated], [DateCompleted], [Description])
 select 1, NEWID(), [e].[Id], [e].[Guid], [c].[Id], [c].[Guid], [l].[Id], [l].[Guid], '8/23/2016', '8/26/2016', 'dagelijks tellen voor 3 dagen i.v.m festival'
 from Customer c
-join Employee e on e.Id = 315
+join Employee e on e.Id = 302
 join Location l on l.ZipCode = '2526MX'
 where c.Id = '3';
 SET IDENTITY_INSERT [Commission] OFF;

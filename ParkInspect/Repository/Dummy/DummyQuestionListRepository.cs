@@ -16,65 +16,7 @@ namespace ParkInspect.Repository.Dummy
         public DummyQuestionListRepository()
         {
             _questionItems = new ObservableCollection<QuestionItemViewModel>();
-            _questionLists = new ObservableCollection<QuestionListViewModel>
-            {
-                new QuestionListViewModel(
-                    new List<QuestionItemViewModel>
-                    {
-                        new QuestionItemViewModel
-                        {
-                            Answer = "45",
-                             QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 11, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
-                            Question = new QuestionViewModel
-                            {
-                                Description = "Hoeveel autos staan er op de parkeerplaats?",
-                                Id = 1,
-                                Version = 1,
-                                QuestionType = QuestionType.Count
-                                
-                            }
-                        },
-                        new QuestionItemViewModel
-                        {
-                            Answer = "5",
-                             QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 5, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
-                            Question = new QuestionViewModel
-                            {
-                                Description = "Hoeveel overtredingen zijn er?",
-                                Id = 2,
-                                Version = 1,
-                                QuestionType = QuestionType.Count
-                            }
-                        },
-                        new QuestionItemViewModel
-                        {
-                            Answer = "Ja",
-                             QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 7, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
-                            Question = new QuestionViewModel
-                            {
-                                Description = "Is de parkeerplaats leeg?",
-                                Id = 3,
-                                Version = 1,
-                                QuestionType = QuestionType.Boolean
-                            }
-                        },
-                        new QuestionItemViewModel
-                        {
-                            Answer = "Alles is kapot.",
-                            QuestionList = new QuestionListViewModel(new List<QuestionItemViewModel> { new QuestionItemViewModel()}) { Id = 1, Inspection = new InspectionViewModel {Id = 1, StartTime = new DateTime(2016, 3, 5), CommissionViewModel = new CommissionViewModel {Id = 1, Customer = new CustomerViewModel {Id = 1, Name = "Mark Havekes"}, Employee = new EmployeeViewModel {Id = 1, Name = "Pim Westervoort"}} } },
-                            Question = new QuestionViewModel
-                            
-                            {
-                                Description = "Zijn er bijzonderheden zo ja, welke?",
-                                Id = 4,
-                                Version = 1,
-                                QuestionType = QuestionType.Open
-                            }
-                        }
-                    }
-                )
-            };
-            _questionLists[0].Description = "Een paar vraagjes enzo.";
+            _questionLists = new ObservableCollection<QuestionListViewModel>();
         }
 
         public ObservableCollection<QuestionListViewModel> GetAll() => _questionLists;
@@ -113,6 +55,16 @@ namespace ParkInspect.Repository.Dummy
         {
             list.QuestionItems.Remove(item);
             return Update(list);
+        }
+
+        public bool CopyTemplate(QuestionListViewModel template, InspectionViewModel inspection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateQuestionItem(QuestionListViewModel list, QuestionItemViewModel item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

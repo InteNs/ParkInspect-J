@@ -9,7 +9,7 @@ namespace ParkInspect.ViewModel
     public class QuestionListsviewModel : MainViewModel
     {
         private QuestionListViewModel _selectedQuestionList;
-        private IQuestionListRepository _repository;
+        private readonly IQuestionListRepository _repository;
         public ObservableCollection<QuestionListViewModel> QuestionLists { get; set; }
         public RelayCommand EditQuestionCommand { get; set; }
         public RelayCommand DisableQuestionCommand { get; set; }
@@ -36,7 +36,6 @@ namespace ParkInspect.ViewModel
             EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-list"), CanEditquestionList);
             EditQuestionListCommand = new RelayCommand(() => RouterService.SetView("questionList-edit"), CanEditquestionList);
             NewQuestionCommand = new RelayCommand(CreateQuestionList);
-            SelectedQuestionList = QuestionLists[0];
         }
 
         private bool CanEditquestionList() => SelectedQuestionList != null; 
@@ -48,7 +47,7 @@ namespace ParkInspect.ViewModel
         }
         private void CreateQuestionList()
         {
-            QuestionListViewModel newList = new QuestionListViewModel();
+            var newList = new QuestionListViewModel(_repository, RouterService);
             newList.Description = "nieuwe vragenlijst nr: " + newList.Id;
             _repository.Add(newList);
         }

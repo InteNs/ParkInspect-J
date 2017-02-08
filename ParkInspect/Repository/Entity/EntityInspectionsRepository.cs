@@ -39,7 +39,7 @@ namespace ParkInspect.Repository.Entity
 
         public bool Delete(InspectionViewModel item)
         {
-            var inspection = _context.Question.Include("QuestionType").FirstOrDefault(i => i.Id == item.Id);
+            var inspection = _context.Inspection.FirstOrDefault(i => i.Id == item.Id);
             if (inspection == null) return false;
             _context.Entry(inspection).State = EntityState.Modified;
             _context.SaveChanges();
@@ -56,9 +56,10 @@ namespace ParkInspect.Repository.Entity
             }
 
 
-            var inspections = _context.Inspection.Include("Commission").
-                Include("Commission.Employee").
-                Include("Commission.Customer").ToList();
+            var inspections = _context.Inspection.Include("Commission")
+                .Include("Commission.Employee").Include("Commission.Employee.Person").Include("Commission.Employee.Person.Location").Include("Commission.Employee.Person.Location.Region")
+                .Include("Commission.Customer").Include("Commission.Customer.Person").Include("Commission.Customer.Person.Location").Include("Commission.Customer.Person.Location.Region")
+                .ToList();
 
             //Best veel nesting, maar ik weet niet zo hoe dit het beste opgelost kan worden
 
@@ -80,8 +81,6 @@ namespace ParkInspect.Repository.Entity
                         Region = i.Commission.Location.Region.RegionName,
                         DateCreated = i.Commission.DateCreated,
                         DateCompleted = i.Commission.DateCompleted,
-                        //Waarom in comments? Kan dit weg?
-                        //Frequency = i.Commission.Frequency,
                         //Status= i.Commission.Status   
                         Customer = new CustomerViewModel
                         {

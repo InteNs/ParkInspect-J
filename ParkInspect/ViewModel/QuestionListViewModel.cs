@@ -3,6 +3,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using ParkInspect.Helper;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.ViewModel
 {
@@ -12,6 +15,7 @@ namespace ParkInspect.ViewModel
         private string _description;
         private int _questionNr;
         private QuestionItemViewModel _currentQuestion;
+        private readonly IQuestionListRepository _questionListRepository;
 
         public int Id
         {
@@ -38,18 +42,21 @@ namespace ParkInspect.ViewModel
             set { _currentQuestion = value; RaisePropertyChanged(); }
         }
 
-        public QuestionListViewModel(IEnumerable<QuestionItemViewModel> questions)
+        public QuestionListViewModel(IEnumerable<QuestionItemViewModel> questions, IQuestionListRepository questionListRepository, IRouterService router) : base(router)
         {
-            QuestionItems = new ObservableCollection<QuestionItemViewModel>(questions);
+            _questionListRepository = questionListRepository;
             _questionNr = 0;
-            CurrentQuestion = QuestionItems[_questionNr];
+            QuestionItems = new ObservableCollection<QuestionItemViewModel>(questions);
+            CurrentQuestion = QuestionItems.First();
+
             NextQuestionCommand = new RelayCommand(NextQuestion);
             PreviousQuestionCommand = new RelayCommand(PreviousQuestion);
             AnswerFalseCommand = new RelayCommand(AnswerFalse);
             AnswerTrueCommand = new RelayCommand(AnswerTrue);
         }
-        public QuestionListViewModel()
+        public QuestionListViewModel(IQuestionListRepository questionListRepository, IRouterService router) : base(router)
         {
+            _questionListRepository = questionListRepository;
             QuestionItems = new ObservableCollection<QuestionItemViewModel>();
             MessengerInstance.Register<ObservableCollection<QuestionItemViewModel>>(this, SetQuestions);
         }
@@ -71,9 +78,17 @@ namespace ParkInspect.ViewModel
 
         private void NextQuestion()
         {
-            if (_questionNr + 1 >= QuestionItems.Count()) return;
-            CurrentQuestion = QuestionItems[_questionNr + 1];
-            _questionNr++;
+            _questionListRepository.UpdateQuestionItem(this, CurrentQuestion);
+            if (_questionNr + 1 < QuestionItems.Count())
+            {
+                CurrentQuestion = QuestionItems[_questionNr + 1];
+                _questionNr++;
+            }
+            else
+            {
+                new MetroDialogService().ShowMessage("De vragenlijst is afgerond", "U keert nu terug naar het overzicht.");
+                RouterService.SetPreviousView();
+            }
         }
 
         private void PreviousQuestion()
