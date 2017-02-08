@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -11,13 +14,16 @@ namespace ParkInspect.Tests
     [TestClass]
     public class EditQuestionTests
     {
+        private Mock<IQuestionRepository> que = new Mock<IQuestionRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
 
         [TestMethod]
         [TestCategory("EditQuestion")]
         public void ValidateInputTest()
         {
             //arrange
-            EditQuestionViewModel edit = new EditQuestionViewModel();
+            QuestionsViewModel questions = new QuestionsViewModel(que.Object, rou.Object);
+            EditQuestionViewModel edit = new EditQuestionViewModel(que.Object, rou.Object, questions);
             QuestionViewModel Question = new QuestionViewModel();
             edit.Question = Question;
             edit.Question.Description = "test";
@@ -32,7 +38,8 @@ namespace ParkInspect.Tests
         public void ValidateNoInputTest()
         {
             //arrange
-            EditQuestionViewModel edit = new EditQuestionViewModel();
+            QuestionsViewModel questions = new QuestionsViewModel(que.Object, rou.Object);
+            EditQuestionViewModel edit = new EditQuestionViewModel(que.Object, rou.Object, questions);
             QuestionViewModel Question = new QuestionViewModel();
             edit.Question = Question;
             //act
@@ -46,7 +53,8 @@ namespace ParkInspect.Tests
         public void TestQuestion()
         {
             //arrange
-            EditQuestionViewModel edit = new EditQuestionViewModel();
+            QuestionsViewModel questions = new QuestionsViewModel(que.Object, rou.Object);
+            EditQuestionViewModel edit = new EditQuestionViewModel(que.Object, rou.Object, questions);
             QuestionViewModel Question = new QuestionViewModel();
             //act
             edit.Question = Question;

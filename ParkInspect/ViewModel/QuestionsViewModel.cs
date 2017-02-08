@@ -35,7 +35,6 @@ namespace ParkInspect.ViewModel
             EditQuestionCommand = new RelayCommand(() => RouterService.SetView("question-edit"), IsSelected);
         }
 
-
         private void DisableQuestion()
         {
             _repository.Delete(SelectedQuestion);

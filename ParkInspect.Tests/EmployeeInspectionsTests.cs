@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,12 +15,18 @@ namespace ParkInspect.Tests
     [TestClass]
    public class EmployeeInspectionsTests
     {
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+        private Mock<IInspectionsRepository> iin = new Mock<IInspectionsRepository>();
+        private Mock<IEmployeeRepository> emp = new Mock<IEmployeeRepository>();
+        private Mock<IAuthService> aut = new Mock<IAuthService>();
+
         [TestMethod]
         [TestCategory("EmployeeInspections")]
         public void TestInspections()
         {
             //arrange
-            EmployeeInspectionsViewModel empIns = new EmployeeInspectionsViewModel();
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, iin.Object, emp.Object, aut.Object);
+            EmployeeInspectionsViewModel empIns = new EmployeeInspectionsViewModel(time);
             ObservableCollection<InspectionViewModel> Inspections = new ObservableCollection<InspectionViewModel>();
             //act
             empIns.Inspections = Inspections;
@@ -31,7 +40,8 @@ namespace ParkInspect.Tests
         public void TestSelectedDay()
         {
             //arrange
-            EmployeeInspectionsViewModel empIns = new EmployeeInspectionsViewModel();
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, iin.Object, emp.Object, aut.Object);
+            EmployeeInspectionsViewModel empIns = new EmployeeInspectionsViewModel(time);
 
             //act
             empIns.SelectedDay = "value";

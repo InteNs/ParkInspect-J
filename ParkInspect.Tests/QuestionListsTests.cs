@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,13 +15,15 @@ namespace ParkInspect.Tests
     [TestClass]
     public class QuestionListsTests
     {
+        private Mock<IQuestionListRepository> que = new Mock<IQuestionListRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
 
         [TestMethod]
         [TestCategory("QuestionLists")]
         public void CannotEditQuestionListTest()
         {
             //arrange
-            QuestionListsviewModel ques = new QuestionListsviewModel();
+            QuestionListsviewModel ques = new QuestionListsviewModel(que.Object, rou.Object);
             //QuestionListViewModel SelectedQuestionList = new QuestionListViewModel();
             //ques.SelectedQuestionList = SelectedQuestionList;
             //act
@@ -34,7 +39,7 @@ namespace ParkInspect.Tests
         public void TestQuestionLists()
         {
             //arrange
-            QuestionListsviewModel ques = new QuestionListsviewModel();
+            QuestionListsviewModel ques = new QuestionListsviewModel(que.Object, rou.Object);
             ObservableCollection<QuestionListViewModel> QuestionLists = new ObservableCollection<QuestionListViewModel>();
             //act
             ques.QuestionLists = QuestionLists;

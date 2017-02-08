@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,12 +15,17 @@ namespace ParkInspect.Tests
     [TestClass]
     public class QuestionListItemsTests
     {
+        private Mock<IQuestionRepository> que = new Mock<IQuestionRepository>();
+        private Mock<IQuestionListRepository> qul = new Mock<IQuestionListRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("QuestionListItems")]
         public void CannotAddQuestionTest()
         {
             //arrange
-            QuestionListItemsViewModel ques = new QuestionListItemsViewModel();
+            QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             //act
             ques.CanAddQuestion();
             //assert
@@ -29,7 +37,8 @@ namespace ParkInspect.Tests
         public void CannotDeleteQuestionTest()
         {
             //arrange
-            QuestionListItemsViewModel ques = new QuestionListItemsViewModel();
+            QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             //act
             ques.CanDeleteQuestion();
             //assert
@@ -42,7 +51,8 @@ namespace ParkInspect.Tests
         public void TestQuestionItems()
         {
             //arrange
-            QuestionListItemsViewModel ques = new QuestionListItemsViewModel();
+            QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             ObservableCollection<QuestionItemViewModel> QuestionItems = new ObservableCollection<QuestionItemViewModel>();
             //act
             ques.QuestionItems = QuestionItems;
@@ -56,7 +66,8 @@ namespace ParkInspect.Tests
         public void TestQuestions()
         {
             //arrange
-            QuestionListItemsViewModel ques = new QuestionListItemsViewModel();
+            QuestionListsviewModel qvm = new QuestionListsviewModel(qul.Object, rou.Object);
+            QuestionListItemsViewModel ques = new QuestionListItemsViewModel(que.Object, qul.Object, rou.Object, qvm);
             ObservableCollection<QuestionViewModel> Questions = new ObservableCollection<QuestionViewModel>();
             //act
             ques.Questions = Questions;
