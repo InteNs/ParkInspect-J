@@ -11,10 +11,12 @@ namespace ParkInspect.ViewModel
 {
     public class AddInspectionViewModel : MainViewModel
     {
+
+        private string _errorMessage;
+        private readonly ICommissionRepository _commissionrepository;
         private readonly IInspectionsRepository _inspectionRepository;
         private readonly IQuestionListRepository _questionListRepository;
         private QuestionListViewModel _selectedQuestionList;
-        private string _errorMessage;
 
         public InspectionViewModel Inspection { get; set; }
         public ICommand AddInspectionCommand { get; set; }
@@ -35,10 +37,10 @@ namespace ParkInspect.ViewModel
             };
             _inspectionRepository = inspectionRepository;
             _questionListRepository = questionListRepository;
+            _commissionrepository = commissionrepo;
+
             AddInspectionCommand = new RelayCommand(AddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
-            ICommissionRepository commissionrepository = commissionrepo;
-
             QuestionLists = questionListRepository.GetAll();
             if(commissionrepository.GetAll() != null)
             foreach (CommissionViewModel commission in commissionrepository.GetAll())
@@ -81,15 +83,7 @@ namespace ParkInspect.ViewModel
             if (ValidateInput())
             {
                 if (!_inspectionRepository.Add(Inspection)) return;
-                Inspection.Id = _inspectionRepository.GetAll().ToList().First(ins => ins.CommissionViewModel.Id == Inspection.CommissionViewModel.Id && ins.StartTime == Inspection.StartTime).Id;
-                QuestionListViewModel ql = new QuestionListViewModel(SelectedQuestionList.QuestionItems);
-                foreach(QuestionItemViewModel qivm in ql.QuestionItems)
-                {
-                    qivm.Answer = null;
-                }
-                ql.Description = SelectedQuestionList.Description;
-                ql.Inspection = Inspection;
-                _questionListRepository.Add(SelectedQuestionList);
+                _questionListRepository.CopyTemplate(SelectedQuestionList, Inspection);
                 RouterService.SetPreviousView();
             }
             else
@@ -98,7 +92,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private async void ShowValidationError()
+        private void ShowValidationError()
         {
             //TODO: Validation error
             var dialog = new MetroDialogService();

@@ -8,5 +8,7 @@ namespace ParkInspect.Repository.Interface
         ObservableCollection<QuestionItemViewModel> GetAllQuestionItems();
         bool AddItem(QuestionListViewModel list, QuestionItemViewModel item);
         bool RemoveItem(QuestionListViewModel list, QuestionItemViewModel item);
+        bool CopyTemplate(QuestionListViewModel template, InspectionViewModel inspection);
+        bool UpdateQuestionItem(QuestionListViewModel list, QuestionItemViewModel item);
     }
 }
