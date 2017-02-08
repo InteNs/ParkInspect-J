@@ -19,14 +19,33 @@ namespace ParkInspect.Tests
         private IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
         private Mock<IQuestionListRepository> que = new Mock<IQuestionListRepository>();
         private Mock<IRouterService> rou = new Mock<IRouterService>();
-
+        private List<QuestionItemViewModel> temp = new List<QuestionItemViewModel>();
 
         [TestMethod]
         [TestCategory("QuestionList")]
         public void SetQuestionsTest()
         {
             //arrange
-            ObservableCollection<QuestionItemViewModel> template = new ObservableCollection<QuestionItemViewModel>();
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel();
+            question2.Question = new QuestionViewModel();
+            question3.Question = new QuestionViewModel();
+            question4.Question = new QuestionViewModel();
+            question5.Question = new QuestionViewModel();
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
+            
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             ObservableCollection<QuestionItemViewModel> list = new ObservableCollection<QuestionItemViewModel> { new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count} } };
             //act
@@ -41,12 +60,30 @@ namespace ParkInspect.Tests
         public void NextQuestionTest()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             //act
-            QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             QuestionList.NextQuestion();
             //assert
-            Assert.AreEqual(1, QuestionList.CurrentQuestion.Question.Id);
+            Assert.AreEqual(2, QuestionList.CurrentQuestion.Question.Id);
         }
 
         [TestMethod]
@@ -54,6 +91,25 @@ namespace ParkInspect.Tests
         public void PreviousQuestionTest()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             //act
@@ -67,10 +123,29 @@ namespace ParkInspect.Tests
         public void AnswerTrueTest()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
-            QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             //act
             QuestionList.AnswerTrue();
+            QuestionList.PreviousQuestion();
             //assert
             Assert.AreEqual("Ja", QuestionList.CurrentQuestion.Answer);
         }
@@ -80,10 +155,29 @@ namespace ParkInspect.Tests
         public void AnswerFalseTest()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
-            QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             //act
             QuestionList.AnswerFalse();
+            QuestionList.PreviousQuestion();
             //assert
             Assert.AreEqual("Nee", QuestionList.CurrentQuestion.Answer);
         }
@@ -93,6 +187,25 @@ namespace ParkInspect.Tests
         public void TestId()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             //act
             QuestionList.Id = 1;
@@ -105,6 +218,25 @@ namespace ParkInspect.Tests
         public void TestDescription()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             //act
             QuestionList.Description = "value";
@@ -117,6 +249,25 @@ namespace ParkInspect.Tests
         public void TestCurrentQuestion()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             QuestionItemViewModel CurrentQuestion = new QuestionItemViewModel();
             //act
@@ -130,6 +281,25 @@ namespace ParkInspect.Tests
         public void TestQuestionItems()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             ObservableCollection<QuestionItemViewModel> QuestionItems = new ObservableCollection<QuestionItemViewModel>();
             //act
@@ -143,6 +313,25 @@ namespace ParkInspect.Tests
         public void TestInspection()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
             QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             InspectionViewModel Inspection = new InspectionViewModel();
             //act
