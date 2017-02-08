@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -11,12 +14,15 @@ namespace ParkInspect.Tests
     [TestClass]
    public class QuestionsTest
     {
+        private Mock<IQuestionRepository> que = new Mock<IQuestionRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("Questions")]
         public void IsNotSelectedTest()
         {
             //arrange
-            QuestionsViewModel quess = new QuestionsViewModel();
+            QuestionsViewModel quess = new QuestionsViewModel(que.Object, rou.Object);
             //act
             quess.IsSelected();
             //assert
