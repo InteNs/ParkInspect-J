@@ -7,18 +7,27 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.Tests
 {
     [TestClass]
    public class EditEmployeeTests
     {
+
+        private Mock<IEmployeeRepository> empMock = new Mock<IEmployeeRepository>();
+        private Mock<IRegionRepository> regMock = new Mock<IRegionRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("EditEmployee")]
         public void TestRegionlist()
         {
             //arrange
-            EditEmployeeViewModel edit = new EditEmployeeViewModel();
+            EmployeesViewModel employees = new EmployeesViewModel(empMock.Object, rou.Object);
+            EditEmployeeViewModel edit = new EditEmployeeViewModel(empMock.Object, regMock.Object, rou.Object, employees);
             ObservableCollection<string> RegionList = new ObservableCollection<string>();
             //act
             edit.RegionList = RegionList;
@@ -31,7 +40,8 @@ namespace ParkInspect.Tests
         public void TestFunctionlist()
         {
             //arrange
-            EditEmployeeViewModel edit = new EditEmployeeViewModel();
+            EmployeesViewModel employees = new EmployeesViewModel(empMock.Object, rou.Object);
+            EditEmployeeViewModel edit = new EditEmployeeViewModel(empMock.Object, regMock.Object, rou.Object, employees);
             ObservableCollection<string> FunctionList = new ObservableCollection<string>();
             //act
             edit.FunctionList = FunctionList;
@@ -44,7 +54,8 @@ namespace ParkInspect.Tests
         public void TestSelectedEmployee()
         {
             //arrange
-            EditEmployeeViewModel edit = new EditEmployeeViewModel();
+            EmployeesViewModel employees = new EmployeesViewModel(empMock.Object, rou.Object);
+            EditEmployeeViewModel edit = new EditEmployeeViewModel(empMock.Object, regMock.Object, rou.Object, employees);
             EmployeeViewModel emp = new EmployeeViewModel();
             //act
             edit.SelectedEmployee = emp;

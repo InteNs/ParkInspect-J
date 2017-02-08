@@ -6,18 +6,24 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.Tests
 {
     [TestClass]
     public class CustomersTests
     {
+        private Mock<ICustomerRepository> cusMock = new Mock<ICustomerRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("Customers")]
         public void TestCustomers()
          {
             //arrange
-            CustomersViewModel cus = new CustomersViewModel();
+            CustomersViewModel cus = new CustomersViewModel(cusMock.Object, rou.Object);
             ObservableCollection<CustomerViewModel> Customers = new ObservableCollection<CustomerViewModel>();
             //act
             cus.Customers = Customers;
@@ -42,7 +48,7 @@ namespace ParkInspect.Tests
         public void CanNotEditCustomerTest()
         {
             //arrange
-            CustomersViewModel cuss = new CustomersViewModel();
+            CustomersViewModel cuss = new CustomersViewModel(cusMock.Object, rou.Object);
             //act
             cuss.CanEditCustomer();
             //assert

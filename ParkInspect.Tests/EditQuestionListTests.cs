@@ -5,18 +5,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.Tests
 {
     [TestClass]
    public class EditQuestionListTests
     {
+
+        private Mock<IQuestionListRepository> quesListMock = new Mock<IQuestionListRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("EditQuestionList")]
         public void ValidateInputTest()
         {
             //arrange
-            EditQuestionListViewModel edit = new EditQuestionListViewModel();
+            QuestionListsviewModel qlvm = new QuestionListsviewModel(quesListMock.Object, rou.Object);
+            EditQuestionListViewModel edit = new EditQuestionListViewModel(quesListMock.Object, rou.Object, qlvm);
             QuestionListViewModel QuestionList = new QuestionListViewModel();
             edit.QuestionList = QuestionList;
             edit.QuestionList.Description = "test";
@@ -31,7 +39,8 @@ namespace ParkInspect.Tests
         public void ValidateNoInputTest()
         {
             //arrange
-            EditQuestionListViewModel edit = new EditQuestionListViewModel();
+            QuestionListsviewModel qlvm = new QuestionListsviewModel(quesListMock.Object, rou.Object);
+            EditQuestionListViewModel edit = new EditQuestionListViewModel(quesListMock.Object, rou.Object, qlvm);
             QuestionListViewModel QuestionList = new QuestionListViewModel();
             edit.QuestionList = QuestionList;
             //act
@@ -45,7 +54,8 @@ namespace ParkInspect.Tests
         public void TestQuestionList()
         {
             //arrange
-            EditQuestionListViewModel edit = new EditQuestionListViewModel();
+            QuestionListsviewModel qlvm = new QuestionListsviewModel(quesListMock.Object, rou.Object);
+            EditQuestionListViewModel edit = new EditQuestionListViewModel(quesListMock.Object, rou.Object, qlvm);
             QuestionListViewModel QuestionList = new QuestionListViewModel();
             //act
             edit.QuestionList = QuestionList;

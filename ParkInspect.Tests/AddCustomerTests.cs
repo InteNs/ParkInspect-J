@@ -6,19 +6,25 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.Tests
 {
     [TestClass]
    public class AddCustomerTests
     {
+        private Mock<ICustomerRepository> cus = new Mock<ICustomerRepository>();
+        private Mock<IRegionRepository> reg = new Mock<IRegionRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
 
         [TestMethod]
         [TestCategory("AddCustomer")]
         public void ValidateEmptyFieldTest()
         {
             //arrange
-            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            AddCustomerViewModel addcus = new AddCustomerViewModel(cus.Object, reg.Object, rou.Object);
             addcus.Customer.Name = null;
             //act
             addcus.ValidateInput();
@@ -31,7 +37,7 @@ namespace ParkInspect.Tests
         public void ValidateInputTest()
         {
             //arrange
-            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            AddCustomerViewModel addcus = new AddCustomerViewModel(cus.Object, reg.Object, rou.Object);
             addcus.Customer.Name = "test";
             addcus.Customer.ZipCode = "5231xe";
             addcus.Customer.StreetNumber = "8";
@@ -48,7 +54,7 @@ namespace ParkInspect.Tests
         public void ValidateInputWrongZipTest()
         {
             //arrange
-            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            AddCustomerViewModel addcus = new AddCustomerViewModel(cus.Object, reg.Object, rou.Object);
             addcus.Customer.Name = "test";
             addcus.Customer.ZipCode = "5231x";
             addcus.Customer.StreetNumber = "8";
@@ -65,7 +71,7 @@ namespace ParkInspect.Tests
         public void TestRegionList()
         {
             //arrange
-            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            AddCustomerViewModel addcus = new AddCustomerViewModel(cus.Object, reg.Object, rou.Object);
             ObservableCollection<string> regions = new ObservableCollection<string>();
             //act
             addcus.RegionList = regions;
@@ -78,7 +84,7 @@ namespace ParkInspect.Tests
         public void TestCommission()
         {
             //arrange
-            AddCustomerViewModel addcus = new AddCustomerViewModel();
+            AddCustomerViewModel addcus = new AddCustomerViewModel(cus.Object, reg.Object, rou.Object);
             CustomerViewModel cust = new CustomerViewModel();
             //act
             addcus.Customer = cust;

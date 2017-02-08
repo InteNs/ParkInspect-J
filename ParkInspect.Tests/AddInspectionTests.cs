@@ -6,18 +6,27 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.Tests
 {
     [TestClass]
    public class AddInspectionTests
     {
+        private Mock<IInspectionsRepository> insRe = new Mock<IInspectionsRepository>();
+        private Mock<ICommissionRepository> comRe = new Mock<ICommissionRepository>();
+        private Mock<IQuestionListRepository> quesRe = new Mock<IQuestionListRepository>();
+        private Mock<IAuthService> auth = new Mock<IAuthService>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("AddInspection")]
         public void ValidateEndLaterThanStartTest()
         {
             //arrange
-            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
             QuestionListViewModel ques = new QuestionListViewModel();
             DateTime end = new DateTime(2016, 09, 08);
@@ -37,7 +46,7 @@ namespace ParkInspect.Tests
         public void ValidateNotSelectedCommissionTest()
         {
             //arrange
-            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
             QuestionListViewModel ques = new QuestionListViewModel();
             DateTime end = new DateTime(2016, 09, 10);
@@ -56,7 +65,7 @@ namespace ParkInspect.Tests
         public void ValidateNotSelectedQuestionListTest()
         {
             //arrange
-            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
             QuestionListViewModel ques = new QuestionListViewModel();
             DateTime end = new DateTime(2016, 09, 10);
@@ -76,7 +85,7 @@ namespace ParkInspect.Tests
         public void TestInspection()
         {
             //arrange
-            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             InspectionViewModel ins = new InspectionViewModel();
             //act
             addInsp.Inspection = ins;
@@ -89,7 +98,7 @@ namespace ParkInspect.Tests
         public void TestCommissionList()
         {
             //arrange
-            AddInspectionViewModel addInsp = new AddInspectionViewModel();
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             QuestionListViewModel quesList = new QuestionListViewModel();
             //act
             addInsp.SelectedQuestionList = quesList;

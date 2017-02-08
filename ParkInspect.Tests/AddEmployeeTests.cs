@@ -6,18 +6,25 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 
 namespace ParkInspect.Tests
 {
     [TestClass]
     public class AddEmployeeTests
     {
+        private Mock<IEmployeeRepository> emp = new Mock<IEmployeeRepository>();
+        private Mock<IRegionRepository> reg = new Mock<IRegionRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("AddEmployee")]
         public void TestRegionList()
         {
             //arrange
-            AddEmployeeViewModel addemp = new AddEmployeeViewModel();
+            AddEmployeeViewModel addemp = new AddEmployeeViewModel(emp.Object, reg.Object, rou.Object);
             ObservableCollection<string> regions = new ObservableCollection<string>();
             //act
             addemp.RegionList = regions;
@@ -30,7 +37,7 @@ namespace ParkInspect.Tests
         public void TestFunctionList()
         {
             //arrange
-            AddEmployeeViewModel addemp = new AddEmployeeViewModel();
+            AddEmployeeViewModel addemp = new AddEmployeeViewModel(emp.Object, reg.Object, rou.Object);
             ObservableCollection<string> functions = new ObservableCollection<string>();
             //act
             addemp.FunctionList = functions;
@@ -43,19 +50,19 @@ namespace ParkInspect.Tests
         public void TestEmployee()
         {
             //arrange
-            AddEmployeeViewModel addemp = new AddEmployeeViewModel();
-            EmployeeViewModel emp = new EmployeeViewModel();
+            AddEmployeeViewModel addemp = new AddEmployeeViewModel(emp.Object, reg.Object, rou.Object);
+            EmployeeViewModel empl = new EmployeeViewModel();
             //act
-            addemp.Employee = emp;
+            addemp.Employee = empl;
             //assert
-            Assert.AreEqual(emp, addemp.Employee);
+            Assert.AreEqual(empl, addemp.Employee);
         }
 
         [TestMethod]
         [TestCategory("AddEmployee")]
         public void AddEmployee()
         {
-            AddEmployeeViewModel addemp = new AddEmployeeViewModel();
+            AddEmployeeViewModel addemp = new AddEmployeeViewModel(emp.Object, reg.Object, rou.Object);
             addemp.Employee.Function = "a";
             addemp.Employee.Name = "a";
             addemp.Employee.ZipCode = "5231we";
