@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -11,6 +14,9 @@ namespace ParkInspect.Tests
     [TestClass]
    public class QuestionItemTests
     {
+        private Mock<IQuestionListRepository> que = new Mock<IQuestionListRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
         [TestMethod]
         [TestCategory("QuestionItem")]
         public void TestQuestion()
@@ -30,7 +36,7 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionItemViewModel ques = new QuestionItemViewModel();
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(que.Object, rou.Object);
             //act
             ques.QuestionList = QuestionList;
             //assert

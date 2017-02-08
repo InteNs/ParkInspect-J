@@ -25,7 +25,7 @@ namespace ParkInspect.Tests
             //arrange
             QuestionListsviewModel qlvm = new QuestionListsviewModel(quesListMock.Object, rou.Object);
             EditQuestionListViewModel edit = new EditQuestionListViewModel(quesListMock.Object, rou.Object, qlvm);
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(quesListMock.Object, rou.Object);
             edit.QuestionList = QuestionList;
             edit.QuestionList.Description = "test";
             //act
@@ -41,7 +41,7 @@ namespace ParkInspect.Tests
             //arrange
             QuestionListsviewModel qlvm = new QuestionListsviewModel(quesListMock.Object, rou.Object);
             EditQuestionListViewModel edit = new EditQuestionListViewModel(quesListMock.Object, rou.Object, qlvm);
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(quesListMock.Object, rou.Object);
             edit.QuestionList = QuestionList;
             //act
             edit.ValidateInput();
@@ -56,7 +56,7 @@ namespace ParkInspect.Tests
             //arrange
             QuestionListsviewModel qlvm = new QuestionListsviewModel(quesListMock.Object, rou.Object);
             EditQuestionListViewModel edit = new EditQuestionListViewModel(quesListMock.Object, rou.Object, qlvm);
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(quesListMock.Object, rou.Object);
             //act
             edit.QuestionList = QuestionList;
             //assert

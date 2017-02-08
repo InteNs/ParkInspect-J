@@ -28,7 +28,8 @@ namespace ParkInspect.Tests
             //arrange
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
-            QuestionListViewModel ques = new QuestionListViewModel();
+            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
+            QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 08);
             DateTime st = new DateTime(2016, 09, 09);
             addInsp.Inspection.StartTime = st;
@@ -48,7 +49,8 @@ namespace ParkInspect.Tests
             //arrange
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
-            QuestionListViewModel ques = new QuestionListViewModel();
+            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
+            QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 10);
             DateTime st = new DateTime(2016, 09, 09);
             addInsp.Inspection.StartTime = st;
@@ -67,7 +69,8 @@ namespace ParkInspect.Tests
             //arrange
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
-            QuestionListViewModel ques = new QuestionListViewModel();
+            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
+            QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 10);
             DateTime st = new DateTime(2016, 09, 09);
             addInsp.Inspection.StartTime = st;
@@ -99,11 +102,12 @@ namespace ParkInspect.Tests
         {
             //arrange
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
-            QuestionListViewModel quesList = new QuestionListViewModel();
+            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
+            QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             //act
-            addInsp.SelectedQuestionList = quesList;
+            addInsp.SelectedQuestionList = ques;
             //assert
-            Assert.AreEqual(quesList, addInsp.SelectedQuestionList);
+            Assert.AreEqual(ques, addInsp.SelectedQuestionList);
         }
     }
 }

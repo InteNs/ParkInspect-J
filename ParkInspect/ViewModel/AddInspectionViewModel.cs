@@ -42,8 +42,8 @@ namespace ParkInspect.ViewModel
             AddInspectionCommand = new RelayCommand(AddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
             QuestionLists = questionListRepository.GetAll();
-            if(commissionrepository.GetAll() != null)
-            foreach (CommissionViewModel commission in commissionrepository.GetAll())
+            if(commissionrepo.GetAll() != null)
+            foreach (CommissionViewModel commission in commissionrepo.GetAll())
             {
                 if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== commission.Employee.Id)
                 {

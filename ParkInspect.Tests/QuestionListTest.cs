@@ -1,5 +1,8 @@
 ﻿using Data;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -13,12 +16,18 @@ namespace ParkInspect.Tests
     [TestClass]
     public class QuestionListTest
     {
+        private IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
+        private Mock<IQuestionListRepository> que = new Mock<IQuestionListRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
+
+
         [TestMethod]
         [TestCategory("QuestionList")]
         public void SetQuestionsTest()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            ObservableCollection<QuestionItemViewModel> template = new ObservableCollection<QuestionItemViewModel>();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             ObservableCollection<QuestionItemViewModel> list = new ObservableCollection<QuestionItemViewModel> { new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count} } };
             //act
             QuestionList.SetQuestions(list);
@@ -32,7 +41,7 @@ namespace ParkInspect.Tests
         public void NextQuestionTest()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             //act
             QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             QuestionList.NextQuestion();
@@ -45,7 +54,7 @@ namespace ParkInspect.Tests
         public void PreviousQuestionTest()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             //act
             QuestionList.PreviousQuestion();
@@ -58,7 +67,7 @@ namespace ParkInspect.Tests
         public void AnswerTrueTest()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             //act
             QuestionList.AnswerTrue();
@@ -71,7 +80,7 @@ namespace ParkInspect.Tests
         public void AnswerFalseTest()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             QuestionList.CurrentQuestion = new QuestionItemViewModel() { Question = new QuestionViewModel() { Id = 1, Description = "test", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count } };
             //act
             QuestionList.AnswerFalse();
@@ -84,7 +93,7 @@ namespace ParkInspect.Tests
         public void TestId()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             //act
             QuestionList.Id = 1;
             //assert
@@ -96,7 +105,7 @@ namespace ParkInspect.Tests
         public void TestDescription()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             //act
             QuestionList.Description = "value";
             //assert
@@ -108,7 +117,7 @@ namespace ParkInspect.Tests
         public void TestCurrentQuestion()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             QuestionItemViewModel CurrentQuestion = new QuestionItemViewModel();
             //act
             QuestionList.CurrentQuestion = CurrentQuestion;
@@ -121,7 +130,7 @@ namespace ParkInspect.Tests
         public void TestQuestionItems()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             ObservableCollection<QuestionItemViewModel> QuestionItems = new ObservableCollection<QuestionItemViewModel>();
             //act
             QuestionList.QuestionItems = QuestionItems;
@@ -134,7 +143,7 @@ namespace ParkInspect.Tests
         public void TestInspection()
         {
             //arrange
-            QuestionListViewModel QuestionList = new QuestionListViewModel();
+            QuestionListViewModel QuestionList = new QuestionListViewModel(questions, que.Object, rou.Object);
             InspectionViewModel Inspection = new InspectionViewModel();
             //act
             QuestionList.Inspection = Inspection;

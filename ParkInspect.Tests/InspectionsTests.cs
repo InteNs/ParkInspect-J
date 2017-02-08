@@ -27,7 +27,8 @@ namespace ParkInspect.Tests
         public void TestSelectedCommission()
         {
             //arrange
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object);
+            QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
             CommissionViewModel SelectedCommission = new CommissionViewModel();
             //act
             inspections.SelectedCommission = SelectedCommission;
@@ -40,7 +41,8 @@ namespace ParkInspect.Tests
         public void TestSelectedInspection()
         {
             //arrange
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object);
+            QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
             InspectionViewModel SelectedInspection = new InspectionViewModel();
             //act
             inspections.SelectedInspection = SelectedInspection;
@@ -53,7 +55,8 @@ namespace ParkInspect.Tests
         public void TestIsManager()
         {
             //arrange
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object);
+            QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
             //act
             inspections.IsManager = true;
             //assert
@@ -65,7 +68,8 @@ namespace ParkInspect.Tests
         public void TestIsInspector()
         {
             //arrange
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object);
+            QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
             //act
             inspections.IsInspecteur = true;
             //assert
