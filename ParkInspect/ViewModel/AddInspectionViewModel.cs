@@ -40,7 +40,8 @@ namespace ParkInspect.ViewModel
             ICommissionRepository commissionrepository = commissionrepo;
 
             QuestionLists = questionListRepository.GetAll();
-            foreach (CommissionViewModel commission in commissionrepository.GetAll())
+            if (commissionrepository.GetAll() != null) 
+                foreach (CommissionViewModel commission in commissionrepository.GetAll())
             {
                 if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== commission.Employee.Id)
                 {

@@ -77,66 +77,71 @@ namespace ParkInspect.ViewModel
         {
             TimeLineItems.Clear();
             ObservableCollection<InspectionViewModel> inspectionslist = _inspectionsRepository.GetAll();
-            IEnumerable<EmployeeViewModel> employeelist = _employeeRepository.GetAll().Where(e => e.Function.ToLower() == "inspecteur");
-            if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
-            {
-                employeelist = employeelist.Where(e => e.Id == _authservice.GetLoggedInUser().EmployeeId);
-            }
-            foreach (EmployeeViewModel evm in employeelist)
-            {
-                TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
-                foreach (DateTime day in _week)
-                {
-                    string status = "Beschikbaar";
-                    int inspectionsAmount = 0;
+                IEnumerable<EmployeeViewModel> employeelist =
+                    _employeeRepository.GetAll().Where(e => e.Function.ToLower() == "inspecteur");
 
-                    foreach (InspectionViewModel ivm in inspectionslist)
+                if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
+                {
+                    employeelist = employeelist.Where(e => e.Id == _authservice.GetLoggedInUser().EmployeeId);
+                }
+                foreach (EmployeeViewModel evm in employeelist)
+                {
+                    TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
+                    foreach (DateTime day in _week)
                     {
-                        if (ivm.CommissionViewModel.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
+                        string status = "Beschikbaar";
+                        int inspectionsAmount = 0;
+
+                        foreach (InspectionViewModel ivm in inspectionslist)
                         {
-                            tlivm.Inspections.Add(ivm);
-                            inspectionsAmount++;
+                            if (ivm.CommissionViewModel.Employee.Id == evm.Id &&
+                                ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
+                            {
+                                tlivm.Inspections.Add(ivm);
+                                inspectionsAmount++;
+                            }
+                        }
+                        if (day.DayOfWeek.Equals(DayOfWeek.Saturday) || day.DayOfWeek.Equals(DayOfWeek.Sunday))
+                        {
+                            status = "Weekend";
+                        }
+                        if (inspectionsAmount == 1)
+                        {
+                            status = "1 Inspectie";
+                        }
+                        if (inspectionsAmount > 1)
+                        {
+                            status = inspectionsAmount + " Inspecties";
+                        }
+                        switch (day.DayOfWeek)
+                        {
+                            case DayOfWeek.Monday:
+                                tlivm.Monday = status;
+                                break;
+                            case DayOfWeek.Tuesday:
+                                tlivm.Tuesday = status;
+                                break;
+                            case DayOfWeek.Wednesday:
+                                tlivm.Wednesday = status;
+                                break;
+                            case DayOfWeek.Thursday:
+                                tlivm.Thursday = status;
+                                break;
+                            case DayOfWeek.Friday:
+                                tlivm.Friday = status;
+                                break;
+                            case DayOfWeek.Saturday:
+                                tlivm.Saturday = status;
+                                break;
+                            case DayOfWeek.Sunday:
+                                tlivm.Sunday = status;
+                                break;
                         }
                     }
-                    if (day.DayOfWeek.Equals(DayOfWeek.Saturday) || day.DayOfWeek.Equals(DayOfWeek.Sunday))
-                    {
-                        status = "Weekend";
-                    }
-                    if (inspectionsAmount == 1)
-                    {
-                        status = "1 Inspectie";
-                    }
-                    if (inspectionsAmount > 1)
-                    {
-                        status = inspectionsAmount + " Inspecties";
-                    }
-                    switch (day.DayOfWeek)
-                    {
-                        case DayOfWeek.Monday:
-                            tlivm.Monday = status;
-                            break;
-                        case DayOfWeek.Tuesday:
-                            tlivm.Tuesday = status;
-                            break;
-                        case DayOfWeek.Wednesday:
-                            tlivm.Wednesday = status;
-                            break;
-                        case DayOfWeek.Thursday:
-                            tlivm.Thursday = status;
-                            break;
-                        case DayOfWeek.Friday:
-                            tlivm.Friday = status;
-                            break;
-                        case DayOfWeek.Saturday:
-                            tlivm.Saturday = status;
-                            break;
-                        case DayOfWeek.Sunday:
-                            tlivm.Sunday = status;
-                            break;
-                    }
+
+                    TimeLineItems.Add(tlivm);
                 }
-                TimeLineItems.Add(tlivm);
-            }
+            
         }
 
         public void NextWeek()
