@@ -43,11 +43,11 @@ namespace ParkInspect.Tests
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
             InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
-            InspectionViewModel SelectedInspection = new InspectionViewModel();
+            InspectionViewModel selectedInspection = new InspectionViewModel();
             //act
-            inspections.SelectedInspection = SelectedInspection;
+            inspections.SelectedInspection = selectedInspection;
             //assert
-            Assert.AreEqual(SelectedInspection, inspections.SelectedInspection);
+            Assert.AreEqual(selectedInspection, inspections.SelectedInspection);
         }
 
         [TestMethod]
