@@ -47,10 +47,7 @@ namespace ParkInspect.ViewModel
             _questionListRepository = questionListRepository;
             _questionNr = 0;
             QuestionItems = new ObservableCollection<QuestionItemViewModel>(questions);
-            if (CurrentQuestion != null)
-            {
-                CurrentQuestion = QuestionItems.First();
-            }
+            CurrentQuestion = QuestionItems.First();
             NextQuestionCommand = new RelayCommand(NextQuestion);
             PreviousQuestionCommand = new RelayCommand(PreviousQuestion);
             AnswerFalseCommand = new RelayCommand(AnswerFalse);

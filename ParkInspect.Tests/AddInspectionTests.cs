@@ -20,15 +20,36 @@ namespace ParkInspect.Tests
         private Mock<IQuestionListRepository> quesRe = new Mock<IQuestionListRepository>();
         private Mock<IAuthService> auth = new Mock<IAuthService>();
         private Mock<IRouterService> rou = new Mock<IRouterService>();
+        private IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
+        private List<QuestionItemViewModel> temp = new List<QuestionItemViewModel>();
 
         [TestMethod]
         [TestCategory("AddInspection")]
         public void ValidateEndLaterThanStartTest()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
+
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
-            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 08);
             DateTime st = new DateTime(2016, 09, 09);
@@ -47,9 +68,28 @@ namespace ParkInspect.Tests
         public void ValidateNotSelectedCommissionTest()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
+
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
-            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 10);
             DateTime st = new DateTime(2016, 09, 09);
@@ -67,9 +107,28 @@ namespace ParkInspect.Tests
         public void ValidateNotSelectedQuestionListTest()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
+
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
             CommissionViewModel comm = new CommissionViewModel();
-            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 10);
             DateTime st = new DateTime(2016, 09, 09);
@@ -101,8 +160,27 @@ namespace ParkInspect.Tests
         public void TestCommissionList()
         {
             //arrange
+            QuestionItemViewModel question1 = new QuestionItemViewModel();
+            QuestionItemViewModel question2 = new QuestionItemViewModel();
+            QuestionItemViewModel question3 = new QuestionItemViewModel();
+            QuestionItemViewModel question4 = new QuestionItemViewModel();
+            QuestionItemViewModel question5 = new QuestionItemViewModel();
+
+            question1.Question = new QuestionViewModel() { Id = 1, Description = "test1", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question2.Question = new QuestionViewModel() { Id = 2, Description = "test2", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question3.Question = new QuestionViewModel() { Id = 3, Description = "test3", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question4.Question = new QuestionViewModel() { Id = 4, Description = "test4", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+            question5.Question = new QuestionViewModel() { Id = 5, Description = "test5", IsActive = true, Version = 1, QuestionType = Enumeration.QuestionType.Count };
+
+            temp.Add(question1);
+            temp.Add(question2);
+            temp.Add(question3);
+            temp.Add(question4);
+            temp.Add(question5);
+
+            questions = temp.AsEnumerable();
+
             AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
-            IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             //act
             addInsp.SelectedQuestionList = ques;
