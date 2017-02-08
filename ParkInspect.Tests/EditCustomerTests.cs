@@ -17,7 +17,6 @@ namespace ParkInspect.Tests
     {
         private Mock<ICustomerRepository> cusMock = new Mock<ICustomerRepository>();
         private Mock<IRouterService> rou = new Mock<IRouterService>();
-        private Mock<CustomersViewModel> cussMock = new Mock<CustomersViewModel>();
         private Mock<IRegionRepository> regMock = new Mock<IRegionRepository>();
 
         [TestMethod]
@@ -25,7 +24,8 @@ namespace ParkInspect.Tests
         public void TestRegionList()
         {
             //arrange
-            EditCustomerViewModel edit = new EditCustomerViewModel(cusMock.Object, rou.Object, cussMock.Object, regMock.Object);
+            CustomersViewModel custs = new CustomersViewModel(cusMock.Object, rou.Object);
+            EditCustomerViewModel edit = new EditCustomerViewModel(cusMock.Object, rou.Object, custs, regMock.Object);
             ObservableCollection<string> RegionList = new ObservableCollection<string>();
             //act
             edit.RegionList = RegionList;
@@ -38,7 +38,8 @@ namespace ParkInspect.Tests
         public void TestCustomer()
         {
             //arrange
-            EditCustomerViewModel edit = new EditCustomerViewModel(cusMock.Object, rou.Object, cussMock.Object, regMock.Object);
+            CustomersViewModel custs = new CustomersViewModel(cusMock.Object, rou.Object);
+            EditCustomerViewModel edit = new EditCustomerViewModel(cusMock.Object, rou.Object, custs, regMock.Object);
             CustomerViewModel cus = new CustomerViewModel();
              //act
             edit.Customer = cus;

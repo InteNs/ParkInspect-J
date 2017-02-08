@@ -24,8 +24,8 @@ namespace ParkInspect.Tests
         public void TestQuestion()
         {
             //arrange
-            QuestionsViewModel quessRe = new QuestionsViewModel(quesRe.Object, rou.Object);
-            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe);
+            QuestionsViewModel quess = new QuestionsViewModel(quesRe.Object, rou.Object);
+            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quess);
             QuestionViewModel ques = new QuestionViewModel();
             //act
             addQues.Question = ques;
@@ -38,8 +38,8 @@ namespace ParkInspect.Tests
         public void TestQuestions()
         {
             //arrange
-            QuestionsViewModel quessRe = new QuestionsViewModel(quesRe.Object, rou.Object);
-            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe);
+            QuestionsViewModel quess = new QuestionsViewModel(quesRe.Object, rou.Object);
+            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quess);
             QuestionsViewModel ques = new QuestionsViewModel(quesRe.Object, rou.Object);
             //act
             addQues.Questions = ques;
@@ -52,8 +52,8 @@ namespace ParkInspect.Tests
         public void AddQuestions()
         {
             //arrange
-            QuestionsViewModel quessRe = new QuestionsViewModel(quesRe.Object, rou.Object);
-            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quessRe);
+            QuestionsViewModel quess = new QuestionsViewModel(quesRe.Object, rou.Object);
+            AddQuestionViewModel addQues = new AddQuestionViewModel(quesRe.Object, rou.Object, quess);
             //act
             addQues.Question.Id = 1;
             addQues.Question.Description = "test";
