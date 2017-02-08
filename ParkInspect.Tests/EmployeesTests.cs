@@ -1,4 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using ParkInspect.Repository.Interface;
+using ParkInspect.Service;
 using ParkInspect.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -12,13 +15,15 @@ namespace ParkInspect.Tests
     [TestClass]
     public class EmployeesTests
     {
+        private Mock<IEmployeeRepository> empl = new Mock<IEmployeeRepository>();
+        private Mock<IRouterService> rou = new Mock<IRouterService>();
 
         [TestMethod]
         [TestCategory("Employees")]
         public void CanEditTest()
         {
             //arrange
-            EmployeesViewModel emps = new EmployeesViewModel();
+            EmployeesViewModel emps = new EmployeesViewModel(empl.Object, rou.Object);
             EmployeeViewModel emp = new EmployeeViewModel();
             emps.SelectedEmployee = emp;
             //act
@@ -33,7 +38,7 @@ namespace ParkInspect.Tests
         public void CannotEditTest()
         {
             //arrange
-            EmployeesViewModel emps = new EmployeesViewModel();
+            EmployeesViewModel emps = new EmployeesViewModel(empl.Object, rou.Object);
             //act
             emps.CanEditEmployee();
             //assert
@@ -46,7 +51,7 @@ namespace ParkInspect.Tests
         public void TestSelectedEmployee()
         {
             //arrange
-            EmployeesViewModel emps = new EmployeesViewModel();
+            EmployeesViewModel emps = new EmployeesViewModel(empl.Object, rou.Object);
             EmployeeViewModel emp = new EmployeeViewModel();
             //act
             emps.SelectedEmployee = emp;
@@ -60,7 +65,7 @@ namespace ParkInspect.Tests
         public void TestEmployees()
         {
             //arrange
-            EmployeesViewModel emps = new EmployeesViewModel();
+            EmployeesViewModel emps = new EmployeesViewModel(empl.Object, rou.Object);
             ObservableCollection<EmployeeViewModel> Employees = new ObservableCollection<EmployeeViewModel>();
             //act
             emps.Employees = Employees;

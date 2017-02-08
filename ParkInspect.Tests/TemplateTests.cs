@@ -12,12 +12,14 @@ namespace ParkInspect.Tests
     [TestClass]
    public class TemplateTests
     {
+        private IEnumerable<QuestionItemViewModel> questions = new List<QuestionItemViewModel>();
+
         [TestMethod]
         [TestCategory("Template")]
         public void TestDescription()
         {
             //arrange
-            TemplateViewModel template = new TemplateViewModel();
+            TemplateViewModel template = new TemplateViewModel(questions);
             //act
             template.Description = "value";
             //assert
@@ -30,7 +32,7 @@ namespace ParkInspect.Tests
         public void TestId()
         {
             //arrange
-            TemplateViewModel template = new TemplateViewModel();
+            TemplateViewModel template = new TemplateViewModel(questions);
             //act
             template.Id = 1;
             //assert
@@ -43,7 +45,7 @@ namespace ParkInspect.Tests
         public void TestQuestionItems()
         {
             //arrange
-            TemplateViewModel template = new TemplateViewModel();
+            TemplateViewModel template = new TemplateViewModel(questions);
             ObservableCollection<QuestionItemViewModel> QuestionItems = new ObservableCollection<QuestionItemViewModel>();
             //act
             template.QuestionItems = QuestionItems;
