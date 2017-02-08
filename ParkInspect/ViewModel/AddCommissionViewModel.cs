@@ -36,13 +36,7 @@ namespace ParkInspect.ViewModel
             AddCommissionCommand = new RelayCommand(AddCommission);
         }
 
-        //constructor for unittest
-        public AddCommissionViewModel()
-        {
-            Commission = new CommissionViewModel();
-            Employees = new ObservableCollection<EmployeeViewModel>();
-        }
-        
+               
 
         private bool ValidateInput()
         {

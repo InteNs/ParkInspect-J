@@ -50,12 +50,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        //constructor for unittests
-        public QuestionListItemsViewModel()
-        {
-
-        }
-
+       
         public bool CanAddQuestion() => QuestionToAdd != null;
 
         public bool CanDeleteQuestion() => SelectedQuestionItem != null;

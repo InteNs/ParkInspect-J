@@ -122,12 +122,7 @@ namespace ParkInspect.ViewModel
             CancelInspectionCommand = new RelayCommand(CancelInspection);
         }
         
-        //constructor for unittest
-        public InspectionsViewModel()
-        {
-           
-        }
-
+     
         private async void CancelInspection()
         {
             var dialog = new MetroDialogService();

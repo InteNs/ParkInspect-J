@@ -30,19 +30,7 @@ namespace ParkInspect.ViewModel
             AddQuestionCommand = new RelayCommand(AddQuestion);
         }
 
-        //constructor for unittests
-        public AddQuestionViewModel()
-        {
-            Question = new QuestionViewModel();
-            QuestionType = new ObservableCollection<QuestionType>
-            {
-                Enumeration.QuestionType.Boolean,
-                Enumeration.QuestionType.Count,
-                Enumeration.QuestionType.Open
-            };
-            Questions = new QuestionsViewModel();
-        }
-
+       
         private bool ValidateInput()
         {
             //TODO: Check if all fields have the right content

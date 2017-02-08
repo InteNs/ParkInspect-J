@@ -23,12 +23,7 @@ namespace ParkInspect.ViewModel
             AddCustomerCommand = new RelayCommand(AddCustomer);
         }
         
-        //constructor for unittest
-        public AddCustomerViewModel()
-        {
-            Customer = new CustomerViewModel();
-        }
-
+        
         public bool ValidateInput()
         {
             //check if all fields are filled in

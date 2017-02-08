@@ -29,12 +29,6 @@ namespace ParkInspect.ViewModel
             EditEmployeeCommand = new RelayCommand(EditEmployee);
         }
 
-        //constructor for tests
-        public EditEmployeeViewModel()
-        {
-
-        }
-
         private void EditEmployee()
         {
             if (_employeeRepository.Update(SelectedEmployee))

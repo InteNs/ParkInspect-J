@@ -26,11 +26,6 @@ namespace ParkInspect.ViewModel
             AddEmployeeCommand = new RelayCommand(AddEmployee);
         }
 
-        //constructor for unittests
-        public AddEmployeeViewModel()
-        {
-            Employee = new EmployeeViewModel();
-        }
         public bool ValidateInput()
         {
             //TODO: Check if all fields have the right content

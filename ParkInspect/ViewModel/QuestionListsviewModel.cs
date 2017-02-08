@@ -28,15 +28,6 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        //constructor for unittest
-        public QuestionListsviewModel()
-        {
-
-        }
-        public RelayCommand EditQuestionCommand { get; set; }
-        public RelayCommand DisableQuestionCommand { get; set; }
-        public RelayCommand EditQuestionListCommand { get; set; }
-        public ICommand NewQuestionCommand { get; set; }
         public QuestionListsviewModel(IQuestionListRepository repo, IRouterService router) : base(router)
         {
             _repository = repo;

@@ -45,12 +45,7 @@ namespace ParkInspect.ViewModel
             PreviousDayCommand = new RelayCommand(PreviousDay);
         }
 
-        //constructor for unittest
-        public EmployeeInspectionsViewModel()
-        {
-
-        }
-
+       
         private void NextDay()
         {
             _dayCounter++;

@@ -49,18 +49,7 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        //constructor for unittest
-        public AddInspectionViewModel()
-        {
-            Inspection = new InspectionViewModel
-            {
-                StartTime = DateTime.Now,
-                EndTime = DateTime.Now
-            };
-
-            CommissionList = new ObservableCollection<CommissionViewModel>();
-        }
-
+      
         public bool ValidateInput()
         {
             if(Inspection.EndTime <= Inspection.StartTime)

@@ -19,12 +19,7 @@ namespace ParkInspect.ViewModel
             _inspections = new ObservableCollection<InspectionViewModel>();
         }
 
-        //constructor for unittests
-        public TimeLineItemViewModel()
-        {
-
-        }
-
+       
         public EmployeeViewModel Employee { get; set; }
         public string Monday
         {

@@ -18,11 +18,7 @@ namespace ParkInspect.ViewModel
             EditQuestionCommand = new RelayCommand(EditquestionList);
         }
 
-        public EditQuestionListViewModel()
-        {
-
-        }
-
+       
         private void EditquestionList()
         {
             if (ValidateInput() && _repository.Update(QuestionList))

@@ -28,11 +28,6 @@ namespace ParkInspect.ViewModel
             EditQuestionCommand = new RelayCommand(Editquestion);
         }
 
-        //constructor for unittests
-        public EditQuestionViewModel()
-        {
-
-        }
         private void Editquestion()
         {
             if (ValidateInput() && _questionsRepository.Update(Question))

@@ -11,7 +11,6 @@ namespace ParkInspect.ViewModel
         private string _zipCode;
         private string _streetNumber;
         private string _region;
-        private Dictionary<string, List<string>> _errors;
 
         public string ZipCode
         {
