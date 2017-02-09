@@ -117,7 +117,62 @@ namespace ParkInspect.ViewModel
         
         public static void Cleanup()
         {
-            // TODO Clear the ViewModels
+            SimpleIoc.Default.Reset();
+            //services
+            SimpleIoc.Default.Register<IRouterService, RouterService>();
+            SimpleIoc.Default.Register<IAuthService, AuthService>();
+            SimpleIoc.Default.Register<ISyncService, SyncService>();
+
+            //database context
+            SimpleIoc.Default.Register<ParkInspectEntities>();
+
+            //repositories
+            SimpleIoc.Default.Register<ICommissionRepository, EntityCommissionRepository>();
+            SimpleIoc.Default.Register<IRegionRepository, EntityRegionRepository>();
+            SimpleIoc.Default.Register<IEmployeeRepository, EntityEmployeesRepository>();
+            SimpleIoc.Default.Register<IAuthenticationRepository, EntityAuthenticationRepository>();
+            SimpleIoc.Default.Register<ICustomerRepository, EntityCustomerRepository>();
+            SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
+            SimpleIoc.Default.Register<IQuestionRepository, EntityQuestionRepository>();
+            SimpleIoc.Default.Register<IQuestionListRepository, EntityQuestionListRepository>();
+            SimpleIoc.Default.Register<IInspectionsRepository, EntityInspectionsRepository>();
+
+            //viewmodels
+            SimpleIoc.Default.Register<MainViewModel>();
+
+            SimpleIoc.Default.Register<EmployeesViewModel>();
+            SimpleIoc.Default.Register<AddEmployeeViewModel>();
+            SimpleIoc.Default.Register<EditEmployeeViewModel>();
+
+            SimpleIoc.Default.Register<CustomersViewModel>();
+            SimpleIoc.Default.Register<AddCustomerViewModel>();
+            SimpleIoc.Default.Register<EditCustomerViewModel>();
+
+            SimpleIoc.Default.Register<AddCommissionViewModel>();
+            SimpleIoc.Default.Register<CommissionOverviewViewModel>();
+
+            SimpleIoc.Default.Register<AddCommissionViewModel>();
+            SimpleIoc.Default.Register<CommissionOverviewViewModel>();
+
+            SimpleIoc.Default.Register<ManagementReportsViewModel>();
+            SimpleIoc.Default.Register<AuthenticationViewModel>();
+
+            SimpleIoc.Default.Register<QuestionsViewModel>();
+            SimpleIoc.Default.Register<QuestionListsviewModel>();
+            SimpleIoc.Default.Register<QuestionListItemsViewModel>();
+            SimpleIoc.Default.Register<TemplatesViewModel>();
+            SimpleIoc.Default.Register<InspectionsViewModel>();
+            SimpleIoc.Default.Register<AddInspectionViewModel>();
+            SimpleIoc.Default.Register<TimeLineViewModel>();
+            SimpleIoc.Default.Register<EmployeeInspectionsViewModel>();
+
+            SimpleIoc.Default.Register<QuestionControlMainViewModel>();
+            SimpleIoc.Default.Register<AddQuestionViewModel>();
+            SimpleIoc.Default.Register<EditQuestionViewModel>();
+            SimpleIoc.Default.Register<EditQuestionListViewModel>();
+
+            SimpleIoc.Default.Register<SyncViewModel>();
+            SimpleIoc.Default.Register<ReportOverviewViewModel>();
         }
 
         private static T NewInstance<T>(ref string key) where T : class
