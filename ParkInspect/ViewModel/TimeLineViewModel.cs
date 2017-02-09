@@ -95,53 +95,52 @@ namespace ParkInspect.ViewModel
                         string status = "Beschikbaar";
                         int inspectionsAmount = 0;
 
-                        foreach (InspectionViewModel ivm in inspectionslist)
+                    foreach (InspectionViewModel ivm in inspectionslist)
+                    {
+                        if (ivm.CommissionViewModel.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year&&ivm.DateCancelled != null)
                         {
-                            if (ivm.CommissionViewModel.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
-                            {
-                                tlivm.Inspections.Add(ivm);
-                                inspectionsAmount++;
-                            }
-                        }
-                        if (day.DayOfWeek.Equals(DayOfWeek.Saturday) || day.DayOfWeek.Equals(DayOfWeek.Sunday))
-                        {
-                            status = "Weekend";
-                        }
-                        if (inspectionsAmount == 1)
-                        {
-                            status = "1 Inspectie";
-                        }
-                        if (inspectionsAmount > 1)
-                        {
-                            status = inspectionsAmount + " Inspecties";
-                        }
-                        switch (day.DayOfWeek)
-                        {
-                            case DayOfWeek.Monday:
-                                tlivm.Monday = status;
-                                break;
-                            case DayOfWeek.Tuesday:
-                                tlivm.Tuesday = status;
-                                break;
-                            case DayOfWeek.Wednesday:
-                                tlivm.Wednesday = status;
-                                break;
-                            case DayOfWeek.Thursday:
-                                tlivm.Thursday = status;
-                                break;
-                            case DayOfWeek.Friday:
-                                tlivm.Friday = status;
-                                break;
-                            case DayOfWeek.Saturday:
-                                tlivm.Saturday = status;
-                                break;
-                            case DayOfWeek.Sunday:
-                                tlivm.Sunday = status;
-                                break;
+                            tlivm.Inspections.Add(ivm);
+                            inspectionsAmount++;
                         }
                     }
-                    TimeLineItems.Add(tlivm);
+                    if (day.DayOfWeek.Equals(DayOfWeek.Saturday) || day.DayOfWeek.Equals(DayOfWeek.Sunday))
+                    {
+                        status = "Weekend";
+                    }
+                    if (inspectionsAmount == 1)
+                    {
+                        status = "1 Inspectie";
+                    }
+                    if (inspectionsAmount > 1)
+                    {
+                        status = inspectionsAmount + " Inspecties";
+                    }
+                    switch (day.DayOfWeek)
+                    {
+                        case DayOfWeek.Monday:
+                            tlivm.Monday = status;
+                            break;
+                        case DayOfWeek.Tuesday:
+                            tlivm.Tuesday = status;
+                            break;
+                        case DayOfWeek.Wednesday:
+                            tlivm.Wednesday = status;
+                            break;
+                        case DayOfWeek.Thursday:
+                            tlivm.Thursday = status;
+                            break;
+                        case DayOfWeek.Friday:
+                            tlivm.Friday = status;
+                            break;
+                        case DayOfWeek.Saturday:
+                            tlivm.Saturday = status;
+                            break;
+                        case DayOfWeek.Sunday:
+                            tlivm.Sunday = status;
+                            break;
+                    }
                 }
+                TimeLineItems.Add(tlivm);
             }
         }
 

@@ -17,6 +17,7 @@ namespace ParkInspect.ViewModel
         private readonly IInspectionsRepository _inspectionRepository;
         private readonly IQuestionListRepository _questionListRepository;
         private QuestionListViewModel _selectedQuestionList;
+        private TimeLineViewModel _timeLine;
 
         public InspectionViewModel Inspection { get; set; }
         public ICommand AddInspectionCommand { get; set; }
@@ -28,8 +29,9 @@ namespace ParkInspect.ViewModel
             set { _selectedQuestionList = value; RaisePropertyChanged(); }
         }
 
-        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionrepo, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router) : base(router)
+        public AddInspectionViewModel(IInspectionsRepository inspectionRepository, ICommissionRepository commissionrepo, IQuestionListRepository questionListRepository, IAuthService auth, IRouterService router, TimeLineViewModel timeLine) : base(router)
         {
+            _timeLine = timeLine;
             Inspection = new InspectionViewModel
             {
                 StartTime = DateTime.Now,
@@ -85,7 +87,8 @@ namespace ParkInspect.ViewModel
                 Inspection.Name = Inspection.StartTime.ToShortDateString() + " Inspectie : " + Inspection.CommissionViewModel.Description;
                 if (!_inspectionRepository.Add(Inspection)) return;
                 _questionListRepository.CopyTemplate(SelectedQuestionList, Inspection);
-                RouterService.SetView("inspections-list");
+                RouterService.SetPreviousView();
+                _timeLine.UpdateTimeLineItems();
             }
             else
             {

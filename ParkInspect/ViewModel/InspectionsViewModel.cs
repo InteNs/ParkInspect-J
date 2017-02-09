@@ -20,6 +20,7 @@ namespace ParkInspect.ViewModel
         private readonly IAuthService _authservice;
         private ObservableCollection<CommissionViewModel> _commissionList;
         private ObservableCollection<InspectionViewModel> _inspectionList;
+        private TimeLineViewModel _timeLine;
 
         public ICommand CancelInspectionCommand { get; set; }
 
@@ -106,8 +107,9 @@ namespace ParkInspect.ViewModel
 
 
         public InspectionsViewModel(ICommissionRepository commissionRepository,
-            IInspectionsRepository inspectionsRepository, IQuestionListRepository questionListRepo, IRouterService router, IAuthService auth, QuestionListsviewModel questionLists) : base(router)
+            IInspectionsRepository inspectionsRepository, IQuestionListRepository questionListRepo, IRouterService router, IAuthService auth, QuestionListsviewModel questionLists, TimeLineViewModel timeLine) : base(router)
         {
+            _timeLine = timeLine;
             _authservice = auth;
             switch (RouterService.CurrentDashboard)
             {
@@ -161,6 +163,7 @@ namespace ParkInspect.ViewModel
             if (dialog.IsAffirmative)
             {
                 _inspectionRepo.Delete(SelectedInspection);
+                _timeLine.UpdateTimeLineItems();
                 RaisePropertyChanged("InspectionList");
             }
         }
