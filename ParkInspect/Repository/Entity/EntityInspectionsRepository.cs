@@ -61,8 +61,6 @@ namespace ParkInspect.Repository.Entity
                 .Include("Commission.Customer").Include("Commission.Customer.Person").Include("Commission.Customer.Person.Location").Include("Commission.Customer.Person.Location.Region")
                 .ToList();
 
-            //Best veel nesting, maar ik weet niet zo hoe dit het beste opgelost kan worden
-
             foreach (var i in inspections)
             {
                 _inspections.Add(new InspectionViewModel
@@ -70,7 +68,7 @@ namespace ParkInspect.Repository.Entity
                     Id = i.Id,
                     Name = "Inspectie : " + i.Commission.Description,
                     StartTime = i.DateTimeStart,
-
+                    DateCancelled = Convert.ToDateTime(i.DateCancelled),
                     EndTime = Convert.ToDateTime(i.DateTimeEnd),
                     CommissionViewModel = new CommissionViewModel
                     {

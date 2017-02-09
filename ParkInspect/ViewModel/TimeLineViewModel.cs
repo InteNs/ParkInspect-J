@@ -92,7 +92,7 @@ namespace ParkInspect.ViewModel
 
                     foreach (InspectionViewModel ivm in inspectionslist)
                     {
-                        if (ivm.CommissionViewModel.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year)
+                        if (ivm.CommissionViewModel.Employee.Id == evm.Id && ivm.StartTime.DayOfYear == day.DayOfYear && ivm.StartTime.Year == day.Year&&ivm.DateCancelled != null)
                         {
                             tlivm.Inspections.Add(ivm);
                             inspectionsAmount++;
