@@ -71,7 +71,7 @@
 
                 <controls:Tile Grid.Row="1" Grid.Column="1" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="questions-list" Content="Vragen beheren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
-                <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding RouteCommand }" CommandParameter="employees-list" Content="Rapport genereren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
+                <controls:Tile Grid.Row="1" Grid.Column="3" MinHeight="350" MinWidth="350" Command="{Binding Portal.DoOpenPortal,Source={StaticResource Locator}}" CommandParameter="employees-list" Content="Rapport genereren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
                 <controls:Tile Grid.Row="1" Grid.Column="5" MinHeight="350" MinWidth="350" Command="{Binding Synchronisation.DoSyncCommand,Source={StaticResource Locator}}" Content="Synchroniseren" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="17.5" />
 
