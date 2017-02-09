@@ -117,46 +117,48 @@ namespace ParkInspect.ViewModel
         
         public static void Cleanup()
         {
-            SimpleIoc.Default.Reset();
-            //services
-            SimpleIoc.Default.Register<IRouterService, RouterService>();
-            SimpleIoc.Default.Register<IAuthService, AuthService>();
-            SimpleIoc.Default.Register<ISyncService, SyncService>();
-
-            //database context
-            SimpleIoc.Default.Register<ParkInspectEntities>();
-
-            //repositories
-            SimpleIoc.Default.Register<ICommissionRepository, EntityCommissionRepository>();
-            SimpleIoc.Default.Register<IRegionRepository, EntityRegionRepository>();
-            SimpleIoc.Default.Register<IEmployeeRepository, EntityEmployeesRepository>();
-            SimpleIoc.Default.Register<IAuthenticationRepository, EntityAuthenticationRepository>();
-            SimpleIoc.Default.Register<ICustomerRepository, EntityCustomerRepository>();
-            SimpleIoc.Default.Register<ITemplateRepository, DummyTemplateRepository>();
-            SimpleIoc.Default.Register<IQuestionRepository, EntityQuestionRepository>();
-            SimpleIoc.Default.Register<IQuestionListRepository, EntityQuestionListRepository>();
-            SimpleIoc.Default.Register<IInspectionsRepository, EntityInspectionsRepository>();
-
             //viewmodels
-            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Unregister<MainViewModel>();
+            SimpleIoc.Default.Unregister<EmployeesViewModel>();
+            SimpleIoc.Default.Unregister<AddEmployeeViewModel>();
+            SimpleIoc.Default.Unregister<EditEmployeeViewModel>();
+            SimpleIoc.Default.Unregister<CustomersViewModel>();
+            SimpleIoc.Default.Unregister<AddCustomerViewModel>();
+            SimpleIoc.Default.Unregister<EditCustomerViewModel>();
+            SimpleIoc.Default.Unregister<AddCommissionViewModel>();
+            SimpleIoc.Default.Unregister<CommissionOverviewViewModel>();
+            SimpleIoc.Default.Unregister<AddCommissionViewModel>();
+            SimpleIoc.Default.Unregister<CommissionOverviewViewModel>();
+            SimpleIoc.Default.Unregister<ManagementReportsViewModel>();
+            SimpleIoc.Default.Unregister<AuthenticationViewModel>();
+            SimpleIoc.Default.Unregister<QuestionsViewModel>();
+            SimpleIoc.Default.Unregister<QuestionListsviewModel>();
+            SimpleIoc.Default.Unregister<QuestionListItemsViewModel>();
+            SimpleIoc.Default.Unregister<TemplatesViewModel>();
+            SimpleIoc.Default.Unregister<InspectionsViewModel>();
+            SimpleIoc.Default.Unregister<AddInspectionViewModel>();
+            SimpleIoc.Default.Unregister<TimeLineViewModel>();
+            SimpleIoc.Default.Unregister<EmployeeInspectionsViewModel>();
+            SimpleIoc.Default.Unregister<QuestionControlMainViewModel>();
+            SimpleIoc.Default.Unregister<AddQuestionViewModel>();
+            SimpleIoc.Default.Unregister<EditQuestionViewModel>();
+            SimpleIoc.Default.Unregister<EditQuestionListViewModel>();
+            SimpleIoc.Default.Unregister<SyncViewModel>();
+            SimpleIoc.Default.Unregister<ReportOverviewViewModel>();
 
+            SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<AddEmployeeViewModel>();
             SimpleIoc.Default.Register<EditEmployeeViewModel>();
-
             SimpleIoc.Default.Register<CustomersViewModel>();
             SimpleIoc.Default.Register<AddCustomerViewModel>();
             SimpleIoc.Default.Register<EditCustomerViewModel>();
-
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();
-
             SimpleIoc.Default.Register<AddCommissionViewModel>();
             SimpleIoc.Default.Register<CommissionOverviewViewModel>();
-
             SimpleIoc.Default.Register<ManagementReportsViewModel>();
             SimpleIoc.Default.Register<AuthenticationViewModel>();
-
             SimpleIoc.Default.Register<QuestionsViewModel>();
             SimpleIoc.Default.Register<QuestionListsviewModel>();
             SimpleIoc.Default.Register<QuestionListItemsViewModel>();
@@ -165,12 +167,10 @@ namespace ParkInspect.ViewModel
             SimpleIoc.Default.Register<AddInspectionViewModel>();
             SimpleIoc.Default.Register<TimeLineViewModel>();
             SimpleIoc.Default.Register<EmployeeInspectionsViewModel>();
-
             SimpleIoc.Default.Register<QuestionControlMainViewModel>();
             SimpleIoc.Default.Register<AddQuestionViewModel>();
             SimpleIoc.Default.Register<EditQuestionViewModel>();
             SimpleIoc.Default.Register<EditQuestionListViewModel>();
-
             SimpleIoc.Default.Register<SyncViewModel>();
             SimpleIoc.Default.Register<ReportOverviewViewModel>();
         }
