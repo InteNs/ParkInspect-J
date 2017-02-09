@@ -41,18 +41,22 @@ namespace ParkInspect.ViewModel
             _questionListRepository = questionListRepo;
             _questionList = questionLists.SelectedQuestionList;
             QuestionItems = questionLists.SelectedQuestionList.QuestionItems;
-            Questions = new ObservableCollection<QuestionViewModel>(questionRepo.GetLatest());
+            if (questionRepo.GetLatest() != null)
+            {
+                Questions = new ObservableCollection<QuestionViewModel>(questionRepo.GetLatest());
+            }
             AddQuestionCommand = new RelayCommand(AddQuestion, CanAddQuestion);
             DeleteQuestionCommand = new RelayCommand(DeleteQuestion, CanDeleteQuestion);
-            if (Questions.Count > 0)
+            if (Questions != null)
             {
                 QuestionToAdd = Questions[0];
             }
         }
 
-        private bool CanAddQuestion() => QuestionToAdd != null;
+       
+        public bool CanAddQuestion() => QuestionToAdd != null;
 
-        private bool CanDeleteQuestion() => SelectedQuestionItem != null;
+        public bool CanDeleteQuestion() => SelectedQuestionItem != null;
 
         private void AddQuestion()
         {

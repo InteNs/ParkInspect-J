@@ -29,6 +29,7 @@ namespace ParkInspect.ViewModel
             EditCustomerCommand = new RelayCommand(() => RouterService.SetView("customers-edit"), CanEditCustomer);
         }
 
-        private bool CanEditCustomer() => SelectedCustomer != null;
+        
+        public bool CanEditCustomer() => SelectedCustomer != null;
     }
 }

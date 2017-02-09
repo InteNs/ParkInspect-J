@@ -26,7 +26,7 @@ namespace ParkInspect.ViewModel
             AddEmployeeCommand = new RelayCommand(AddEmployee);
         }
 
-        private bool ValidateInput()
+        public bool ValidateInput()
         {
             //TODO: Check if all fields have the right content
 

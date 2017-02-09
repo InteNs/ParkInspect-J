@@ -22,8 +22,18 @@ namespace ParkInspect.ViewModel
             RegionList = regionRepository.GetAll();
             AddCustomerCommand = new RelayCommand(AddCustomer);
         }
-
-        private bool ValidateInput() => Customer.Name != null && Customer.ZipCode != null && Customer.StreetNumber != null && Customer.PhoneNumber != null && Customer.Email != null && Customer.IsValid;
+        
+        
+        public bool ValidateInput()
+        {
+            //check if all fields are filled in
+            if (Customer.Name == null || Customer.ZipCode == null ||
+                Customer.StreetNumber == null || Customer.PhoneNumber == null || Customer.Email == null || !Customer.IsValid)
+            {
+                return false;
+            }
+            return true;
+        }
 
         private void AddCustomer()
         {

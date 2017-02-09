@@ -39,7 +39,7 @@ namespace ParkInspect.ViewModel
             SetEmployeeDismissCommand = new RelayCommand(DismissEmployee, CanEditEmployee);
         }
 
-        private bool CanEditEmployee() =>  SelectedEmployee != null;
+        public bool CanEditEmployee() =>  SelectedEmployee != null;
 
         private async void DismissEmployee()
         {

@@ -27,6 +27,7 @@ namespace ParkInspect.ViewModel
             Question = questions.SelectedQuestion;
             EditQuestionCommand = new RelayCommand(Editquestion);
         }
+
         private void Editquestion()
         {
             if (ValidateInput() && _questionsRepository.Update(Question))
@@ -40,6 +41,6 @@ namespace ParkInspect.ViewModel
         }
 
         //check if all fields are filled in
-        private bool ValidateInput() => Question.Description != null;
+        public bool ValidateInput() =>  Question.Description != null;
     }
 }

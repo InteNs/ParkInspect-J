@@ -77,18 +77,23 @@ namespace ParkInspect.ViewModel
         {
             TimeLineItems.Clear();
             ObservableCollection<InspectionViewModel> inspectionslist = _inspectionsRepository.GetAll();
-            IEnumerable<EmployeeViewModel> employeelist = _employeeRepository.GetAll().Where(e => e.Function.ToLower() == "inspecteur");
-            if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
+            if (_employeeRepository.GetAll() != null)
             {
-                employeelist = employeelist.Where(e => e.Id == _authservice.GetLoggedInUser().EmployeeId);
-            }
-            foreach (EmployeeViewModel evm in employeelist)
-            {
-                TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
-                foreach (DateTime day in _week)
+                IEnumerable<EmployeeViewModel> employeelist = _employeeRepository.GetAll().Where(e => e.Function.ToLower() == "inspecteur");
+
+
+                if (_authservice.CurrentFunction(_authservice.GetLoggedInUser()).ToLower() == "inspecteur")
                 {
-                    string status = "Beschikbaar";
-                    int inspectionsAmount = 0;
+                    employeelist = employeelist.Where(e => e.Id == _authservice.GetLoggedInUser().EmployeeId);
+                }
+
+                foreach (EmployeeViewModel evm in employeelist)
+                {
+                    TimeLineItemViewModel tlivm = new TimeLineItemViewModel(evm);
+                    foreach (DateTime day in _week)
+                    {
+                        string status = "Beschikbaar";
+                        int inspectionsAmount = 0;
 
                     foreach (InspectionViewModel ivm in inspectionslist)
                     {

@@ -44,7 +44,8 @@ namespace ParkInspect.ViewModel
             AddInspectionCommand = new RelayCommand(AddInspection);
             CommissionList = new ObservableCollection<CommissionViewModel>();
             QuestionLists = questionListRepository.GetAll();
-            foreach (var commission in _commissionrepository.GetAll())
+            if(commissionrepo.GetAll() != null)
+            foreach (CommissionViewModel commission in commissionrepo.GetAll())
             {
                 if (auth.CurrentEmployee(auth.GetLoggedInUser()).Id== commission.Employee.Id)
                 {
@@ -53,7 +54,8 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private bool ValidateInput()
+      
+        public bool ValidateInput()
         {
             if(Inspection.EndTime <= Inspection.StartTime)
             {
@@ -82,6 +84,7 @@ namespace ParkInspect.ViewModel
         {
             if (ValidateInput())
             {
+                Inspection.Name = Inspection.StartTime.ToShortDateString() + " Inspectie : " + Inspection.CommissionViewModel.Description;
                 if (!_inspectionRepository.Add(Inspection)) return;
                 _questionListRepository.CopyTemplate(SelectedQuestionList, Inspection);
                 RouterService.SetPreviousView();

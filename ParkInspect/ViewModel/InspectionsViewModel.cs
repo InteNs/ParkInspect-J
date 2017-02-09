@@ -48,6 +48,7 @@ namespace ParkInspect.ViewModel
             get { return _selectedInspection; }
             set {
                 _selectedInspection = value;
+                if(_questionListRepoRepo.GetAll() != null)
                 if(value != null) _questionLists.SelectedQuestionList =
                    _questionListRepoRepo.GetAll().FirstOrDefault(ql => ql?.Inspection?.Id == value.Id);
 
@@ -135,7 +136,6 @@ namespace ParkInspect.ViewModel
         }
         public void DoInspection()
         {
-            RouterService.SetView("questionnaire-start");
             var questionItems = new ObservableCollection<QuestionItemViewModel>();
             foreach (var questionList in _questionListRepoRepo.GetAll())
             {
@@ -144,6 +144,13 @@ namespace ParkInspect.ViewModel
                     questionItems = questionList.QuestionItems;
                 }
             }
+            if(questionItems.Count == 0)
+            {
+                var dialog = new MetroDialogService();
+                dialog.ShowMessage("Error", "De inspectie heeft geen vragen");
+                return;
+            }
+            RouterService.SetView("questionnaire-start");
             MessengerInstance.Send(questionItems);
         }
 
