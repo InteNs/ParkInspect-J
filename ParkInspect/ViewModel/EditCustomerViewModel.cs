@@ -26,7 +26,8 @@ namespace ParkInspect.ViewModel
             EditCustomerCommand = new RelayCommand(EditCustomer);
         }
 
-        private bool ValidateInput()
+      
+        public bool ValidateInput()
         {
             //check if all fields are filled in
             if (Customer.Region == null || Customer.Name == null || Customer.ZipCode == null ||

@@ -30,30 +30,37 @@ namespace ParkInspect.ViewModel
             AddQuestionCommand = new RelayCommand(AddQuestion);
         }
 
-        private bool ValidateInput()
+       
+        public bool ValidateInput()
         {
             //TODO: Check if all fields have the right content
             return true;
         }
 
-        private void AddQuestion()
+        public void AddQuestion()
         {
             if (ValidateInput())
             {
                 int i = 0;
                 Question.Version = 1;
-                foreach (QuestionViewModel q in Questions.Questions)
+                if (Questions.Questions != null)
                 {
-                    if (i < q.Id)
+                    foreach (QuestionViewModel q in Questions.Questions)
                     {
-                        i = q.Id;
+                        if (i < q.Id)
+                        {
+                            i = q.Id;
+                        }
                     }
                 }
                 i++;
                 Question.Id = i;
-                if (_questionRepository.Add(Question))
+                if (_questionRepository != null)
                 {
-                    RouterService.SetPreviousView();
+                    if (_questionRepository.Add(Question))
+                    {
+                        RouterService.SetPreviousView();
+                    }
                 }
             }
             else

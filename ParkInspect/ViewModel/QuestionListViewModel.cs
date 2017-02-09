@@ -48,7 +48,6 @@ namespace ParkInspect.ViewModel
             _questionNr = 0;
             QuestionItems = new ObservableCollection<QuestionItemViewModel>(questions);
             CurrentQuestion = QuestionItems.First();
-
             NextQuestionCommand = new RelayCommand(NextQuestion);
             PreviousQuestionCommand = new RelayCommand(PreviousQuestion);
             AnswerFalseCommand = new RelayCommand(AnswerFalse);
@@ -76,7 +75,7 @@ namespace ParkInspect.ViewModel
             RaisePropertyChanged("");
         }
 
-        private void NextQuestion()
+        public void NextQuestion()
         {
             _questionListRepository.UpdateQuestionItem(this, CurrentQuestion);
             if (_questionNr + 1 < QuestionItems.Count())
@@ -91,20 +90,20 @@ namespace ParkInspect.ViewModel
             }
         }
 
-        private void PreviousQuestion()
+        public void PreviousQuestion()
         {
             if (_questionNr <= 0) return;
             CurrentQuestion = QuestionItems[_questionNr - 1];
             _questionNr--;
         }
 
-        private void AnswerTrue()
+        public void AnswerTrue()
         {
             _currentQuestion.Answer = "Ja";
             NextQuestion();
         }
 
-        private void AnswerFalse()
+        public void AnswerFalse()
         {
             _currentQuestion.Answer = "Nee";
             NextQuestion();

@@ -38,7 +38,7 @@ namespace ParkInspect.ViewModel
             NewQuestionCommand = new RelayCommand(CreateQuestionList);
         }
 
-        private bool CanEditquestionList() => SelectedQuestionList != null; 
+        public bool CanEditquestionList() => SelectedQuestionList != null; 
 
         private void DisableQuestionList()
         {

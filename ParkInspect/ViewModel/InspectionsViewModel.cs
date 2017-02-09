@@ -47,6 +47,7 @@ namespace ParkInspect.ViewModel
             get { return _selectedInspection; }
             set {
                 _selectedInspection = value;
+                if(_questionListRepoRepo.GetAll() != null)
                 if(value != null) _questionLists.SelectedQuestionList =
                    _questionListRepoRepo.GetAll().FirstOrDefault(ql => ql?.Inspection?.Id == value.Id);
 

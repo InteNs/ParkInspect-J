@@ -24,17 +24,22 @@ namespace ParkInspect.ViewModel
             Commission = new CommissionViewModel();
             Customers = customerRepository.GetAll();
             Employees = new ObservableCollection<EmployeeViewModel>();
-            foreach(EmployeeViewModel evm in employeeRepository.GetAll())
+            if (employeeRepository.GetAll() != null)
             {
-                if(evm.DismissalDate == null)
+                foreach (EmployeeViewModel evm in employeeRepository.GetAll())
                 {
-                    Employees.Add(evm);
+                    if (evm.DismissalDate == null)
+                    {
+                        Employees.Add(evm);
+                    }
                 }
             }
             Regions = regionRepository.GetAll();
 
             AddCommissionCommand = new RelayCommand(AddCommission);
         }
+
+               
 
         private bool ValidateInput()
         {
@@ -58,16 +63,19 @@ namespace ParkInspect.ViewModel
             return Commission.Customer != null && Commission.Region != null && !string.IsNullOrWhiteSpace(Commission.StreetNumber) && Commission.ZipCode != null && Commission.Description != null && Commission.IsValid && Commission.Employee != null;
         }
 
-        private void AddCommission()
+        public void AddCommission()
         {
             if (ValidateInput())
             {
                 Commission.Status = "Nieuw";
                 Commission.DateCreated = DateTime.Today;
-                if (_commissionRepository.Add(Commission))
+                if (_commissionRepository != null)
                 {
+                    if (_commissionRepository.Add(Commission))
+                    {
 
-                    RouterService.SetPreviousView();
+                        RouterService.SetPreviousView();
+                    }
                 }
             }
             else

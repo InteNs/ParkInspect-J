@@ -45,6 +45,7 @@ namespace ParkInspect.ViewModel
             PreviousDayCommand = new RelayCommand(PreviousDay);
         }
 
+       
         private void NextDay()
         {
             _dayCounter++;
@@ -54,7 +55,10 @@ namespace ParkInspect.ViewModel
                 {
                     SetDayString(_daysOfTheWeek.Keys.ElementAt(_dayCounter), _daysOfTheWeek.Values.ElementAt(_dayCounter));
                     DateTime today = new DateTime(int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[2]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[1]), int.Parse(_daysOfTheWeek.Values.ElementAt(_dayCounter).Split('-')[0]));
-                    Inspections = new ObservableCollection<InspectionViewModel>(TimeLineItem.Inspections.Where(i => i.StartTime.DayOfWeek.Equals(today.DayOfWeek)));
+                    if (TimeLineItem != null)
+                    {
+                        Inspections = new ObservableCollection<InspectionViewModel>(TimeLineItem.Inspections.Where(i => i.StartTime.DayOfWeek.Equals(today.DayOfWeek)));
+                    }
                     break;
                 }
                 _dayCounter = 0;

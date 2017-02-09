@@ -19,6 +19,7 @@ namespace ParkInspect.ViewModel
             _inspections = new ObservableCollection<InspectionViewModel>();
         }
 
+       
         public EmployeeViewModel Employee { get; set; }
         public string Monday
         {
