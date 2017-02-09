@@ -68,6 +68,7 @@ namespace ParkInspect.Service
             _router.SetView("authentication");
             _router.ClearPreviousStack();
             _repo.Logout(User);
+            ViewModelLocator.Cleanup();
         }
 
         public bool IsLoggedIn(AuthenticationViewModel user) =>  user != null && _repo.IsLoggedIn(user);

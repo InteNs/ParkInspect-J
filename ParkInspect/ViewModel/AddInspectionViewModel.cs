@@ -82,9 +82,10 @@ namespace ParkInspect.ViewModel
         {
             if (ValidateInput())
             {
+                Inspection.Name = Inspection.StartTime.ToShortDateString() + " Inspectie : " + Inspection.CommissionViewModel.Description;
                 if (!_inspectionRepository.Add(Inspection)) return;
                 _questionListRepository.CopyTemplate(SelectedQuestionList, Inspection);
-                RouterService.SetPreviousView();
+                RouterService.SetView("inspections-list");
             }
             else
             {
