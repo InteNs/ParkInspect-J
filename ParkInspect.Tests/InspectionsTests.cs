@@ -19,6 +19,7 @@ namespace ParkInspect.Tests
         private Mock<ICommissionRepository> com = new Mock<ICommissionRepository>();
         private Mock<IInspectionsRepository> ins = new Mock<IInspectionsRepository>();
         private Mock<IQuestionListRepository> iql = new Mock<IQuestionListRepository>();
+        private Mock<IEmployeeRepository> emp = new Mock<IEmployeeRepository>();
         private Mock<IRouterService> rou = new Mock<IRouterService>();
         private Mock<IAuthService> aut = new Mock<IAuthService>();
 
@@ -28,7 +29,8 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, ins.Object, emp.Object, aut.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm, time);
             CommissionViewModel SelectedCommission = new CommissionViewModel();
             //act
             inspections.SelectedCommission = SelectedCommission;
@@ -42,7 +44,8 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, ins.Object, emp.Object, aut.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm, time);
             InspectionViewModel selectedInspection = new InspectionViewModel();
             //act
             inspections.SelectedInspection = selectedInspection;
@@ -56,7 +59,8 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, ins.Object, emp.Object, aut.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm, time);
             //act
             inspections.IsManager = true;
             //assert
@@ -69,7 +73,8 @@ namespace ParkInspect.Tests
         {
             //arrange
             QuestionListsviewModel qvm = new QuestionListsviewModel(iql.Object, rou.Object);
-            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, ins.Object, emp.Object, aut.Object);
+            InspectionsViewModel inspections = new InspectionsViewModel(com.Object, ins.Object, iql.Object, rou.Object, aut.Object, qvm, time);
             //act
             inspections.IsInspecteur = true;
             //assert

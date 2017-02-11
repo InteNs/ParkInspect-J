@@ -13,13 +13,14 @@ using ParkInspect.Service;
 namespace ParkInspect.Tests
 {
     [TestClass]
-   public class AddInspectionTests
+    public class AddInspectionTests
     {
         private Mock<IInspectionsRepository> insRe = new Mock<IInspectionsRepository>();
         private Mock<ICommissionRepository> comRe = new Mock<ICommissionRepository>();
         private Mock<IQuestionListRepository> quesRe = new Mock<IQuestionListRepository>();
         private Mock<IAuthService> auth = new Mock<IAuthService>();
         private Mock<IRouterService> rou = new Mock<IRouterService>();
+        private Mock<IEmployeeRepository> emp = new Mock<IEmployeeRepository>();
         private IEnumerable<QuestionItemViewModel> questions = new ObservableCollection<QuestionItemViewModel>();
         private List<QuestionItemViewModel> temp = new List<QuestionItemViewModel>();
 
@@ -47,8 +48,8 @@ namespace ParkInspect.Tests
             temp.Add(question5);
 
             questions = temp.AsEnumerable();
-
-            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, insRe.Object, emp.Object, auth.Object);
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object, time);
             CommissionViewModel comm = new CommissionViewModel();
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 08);
@@ -87,8 +88,8 @@ namespace ParkInspect.Tests
             temp.Add(question5);
 
             questions = temp.AsEnumerable();
-
-            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, insRe.Object, emp.Object, auth.Object);
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object, time);
             CommissionViewModel comm = new CommissionViewModel();
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 10);
@@ -126,8 +127,8 @@ namespace ParkInspect.Tests
             temp.Add(question5);
 
             questions = temp.AsEnumerable();
-
-            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, insRe.Object, emp.Object, auth.Object);
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object, time);
             CommissionViewModel comm = new CommissionViewModel();
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             DateTime end = new DateTime(2016, 09, 10);
@@ -147,7 +148,8 @@ namespace ParkInspect.Tests
         public void TestInspection()
         {
             //arrange
-            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, insRe.Object, emp.Object, auth.Object);
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object, time);
             InspectionViewModel ins = new InspectionViewModel();
             //act
             addInsp.Inspection = ins;
@@ -179,8 +181,8 @@ namespace ParkInspect.Tests
             temp.Add(question5);
 
             questions = temp.AsEnumerable();
-
-            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object);
+            TimeLineViewModel time = new TimeLineViewModel(rou.Object, insRe.Object, emp.Object, auth.Object);
+            AddInspectionViewModel addInsp = new AddInspectionViewModel(insRe.Object, comRe.Object, quesRe.Object, auth.Object, rou.Object, time);
             QuestionListViewModel ques = new QuestionListViewModel(questions, quesRe.Object, rou.Object);
             //act
             addInsp.SelectedQuestionList = ques;
